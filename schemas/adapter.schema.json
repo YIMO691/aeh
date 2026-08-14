@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Adapter Declaration Contract",
+  "type": "object",
+  "required": [
+    "contract",
+    "version",
+    "agent",
+    "template",
+    "capability_map"
+  ],
+  "properties": {
+    "contract": {
+      "type": "string",
+      "pattern": "^adapter\\.(codex|claude)$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "agent": {
+      "type": "string",
+      "enum": [
+        "codex",
+        "claude"
+      ]
+    },
+    "template": {
+      "type": "string"
+    },
+    "managed_markers": {
+      "type": "object",
+      "required": [
+        "begin",
+        "end"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "begin": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      }
+    },
+    "capability_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "channel",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ENFORCEABLE",
+              "GUIDANCE_ONLY",
+              "UNENFORCEABLE"
+            ]
+          }
+        }
+      }
+    },
+    "tcb_notice": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

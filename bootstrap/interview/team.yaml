@@ -1,0 +1,16 @@
+# bootstrap/interview/team.yaml — 团队规则
+contract: bootstrap.interview
+version: 1
+scope: team
+
+questions:
+  - question_id: q-team-review-policy
+    type: POLICY
+    field: team.code_review_policy
+    question: "团队代码审查策略是什么？"
+    required: true
+    options:
+      - {value: all, label: "全部改动"}
+      - {value: major, label: "仅重要改动"}
+      - {value: "none", label: "无强制"}
+    default: major

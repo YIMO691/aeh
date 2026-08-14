@@ -1,0 +1,10 @@
+contract: bootstrap.discovery.rule
+version: 1
+domain: git
+
+unknown_fields: [git_root, gitignore, hooks]
+
+detectors:
+  - {id: git-root, field: git_root, value: detected, confidence: DETECTED, markers: [{type: dir, path: .git}]}
+  - {id: git-ignore, field: gitignore, value: present, confidence: DETECTED, markers: [{type: file, path: .gitignore}]}
+  - {id: git-hooks, field: hooks, value: present, confidence: DETECTED, markers: [{type: dir, path: .githooks}]}

@@ -1,0 +1,18 @@
+# bootstrap/conflict-rules.yaml — 冲突解析契约（P-08 机器化）
+# 职责：能确定 → 确定；高低优先级 → 按 Contract 解析；同级冲突 → BLOCK；禁止猜。
+contract: bootstrap.conflict
+version: 1
+
+same_level_conflict:
+  verdict: BLOCKED_POLICY_CONFLICT
+  resolution:
+    - authorized_policy_authority
+    - user_decision_required
+  forbidden:
+    - agent_silent_choice
+    - runtime_agent_resolution
+
+overridden_rule:
+  policy: preserve_provenance
+
+precedence_source: core/precedence.yaml

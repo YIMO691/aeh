@@ -1,0 +1,198 @@
+"""AEH Phase 8 — Change Workflow Shell 测试
+
+覆盖 spec 17 项：preflight 前置、ID 不覆盖、五级分类、hard escalation、reasons/evidence、
+每 Change 独立、合法/非法迁移、gate 阻断、digest 篡改阻断、warnings 继承、
+无 global current-change、schema PASS、CLI 只读、关键词检测。
+"""
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import unittest
+
+import jsonschema
+import yaml
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(ROOT, "src"))
+
+from aeh.bootstrap import pipeline as bp
+from aeh.doctor import doctor as doc
+from aeh.runtime import change as ch
+from aeh.runtime import classify as cls
+
+
+def answers_path():
+    tmp = tempfile.mkdtemp(prefix="aeh-ch-answers-")
+    answers = {"contract": "bootstrap.interview.answers", "version": 1,
+               "answers": {
+                   "q-plan-before-code": {"question_id": "q-plan-before-code", "answer": "risk_based", "type": "PREFERENCE", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-testing-policy": {"question_id": "q-testing-policy", "answer": "risk_based", "type": "POLICY", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-human-review": {"question_id": "q-human-review", "answer": "critical", "type": "POLICY", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-modify-source": {"question_id": "q-modify-source", "answer": "allow", "type": "PERMISSION", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-git-commit": {"question_id": "q-git-commit", "answer": "ask", "type": "PERMISSION", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-git-push": {"question_id": "q-git-push", "answer": "deny", "type": "PERMISSION", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-shell-access": {"question_id": "q-shell-access", "answer": "ask", "type": "PERMISSION", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-web-access": {"question_id": "q-web-access", "answer": "deny", "type": "PERMISSION", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+                   "q-team-review-policy": {"question_id": "q-team-review-policy", "answer": "major", "type": "POLICY", "source": "user_answer", "answered_at": "2026-08-14T00:00:00+00:00"},
+               }, "reset": []}
+    p = os.path.join(tmp, "answers.yaml")
+    with open(p, "w", encoding="utf-8") as f:
+        yaml.safe_dump(answers, f, sort_keys=True, allow_unicode=True)
+    return p
+
+
+def make_healthy():
+    target = tempfile.mkdtemp(prefix="aeh-ch-target-")
+    with open(os.path.join(target, ".gitignore"), "w", encoding="utf-8") as f:
+        f.write("__pycache__/\n")
+    report = bp.bootstrap(target, answers_path(), dry_run=False)
+    assert report["status"] == "BOOTSTRAP_COMPLETE", report
+    return target
+
+
+class TestChangeCreate(unittest.TestCase):
+    def test_create_healthy(self):
+        target = make_healthy()
+        report = ch.change_new(target, "添加一个普通注释", suggested_level="DIRECT")
+        self.assertEqual(report["status"], "CHANGE_CREATED")
+        self.assertTrue(os.path.isfile(os.path.join(target, ".aeh", "changes", report["change_id"], "change.yaml")))
+
+    def test_blocked_preflight_no_change(self):
+        target = make_healthy()
+        os.remove(os.path.join(target, ".aeh", "manifest.yaml"))
+        before = set(os.listdir(os.path.join(target, ".aeh", "changes")))
+        report = ch.change_new(target, "任务")
+        self.assertEqual(report["status"], "BLOCKED_PREFLIGHT")
+        self.assertEqual(set(os.listdir(os.path.join(target, ".aeh", "changes"))), before)
+
+    def test_id_allocation_no_overwrite(self):
+        target = make_healthy()
+        r1 = ch.change_new(target, "任务A", suggested_level="DIRECT")
+        r2 = ch.change_new(target, "任务B", suggested_level="DIRECT")
+        self.assertEqual(r1["change_id"], "CHG-2026-0001")
+        self.assertEqual(r2["change_id"], "CHG-2026-0002")
+        os.makedirs(os.path.join(target, ".aeh", "changes", "CHG-2026-0009"), exist_ok=True)
+        r3 = ch.change_new(target, "任务C", suggested_level="DIRECT")
+        self.assertEqual(r3["change_id"], "CHG-2026-0010")
+
+    def test_warnings_inherited(self):
+        target = make_healthy()
+        report = ch.change_new(target, "任务", suggested_level="DIRECT")
+        change = ch.load_change(target, report["change_id"])
+        self.assertGreater(len(change.get("preflight_warnings", [])), 0)
+
+    def test_no_global_current_change(self):
+        target = make_healthy()
+        ch.change_new(target, "任务", suggested_level="DIRECT")
+        self.assertFalse(os.path.exists(os.path.join(target, ".aeh", "current-change.yaml")))
+        self.assertFalse(os.path.exists(os.path.join(target, ".aeh", "changes", "current")))
+
+    def test_change_schema_pass(self):
+        target = make_healthy()
+        report = ch.change_new(target, "任务", suggested_level="DIRECT")
+        change = ch.load_change(target, report["change_id"])
+        schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "change.schema.json"), encoding="utf-8"))
+        jsonschema.validate(change, schema)
+
+
+class TestClassification(unittest.TestCase):
+    def test_five_levels(self):
+        for level in ("DIRECT", "LIGHTWEIGHT", "STANDARD", "CRITICAL", "EXPLORE"):
+            c = cls.classify("t", suggested_level=level, hits=[])
+            self.assertEqual(c["level"], level)
+
+    def test_hard_escalation_overrides_suggestion(self):
+        c = cls.classify("t", suggested_level="LIGHTWEIGHT", hits=["money_economy"])
+        self.assertEqual(c["level"], "CRITICAL")
+        self.assertTrue(c["escalated"])
+
+    def test_all_eight_domains(self):
+        contract = cls.load_classification_contract()
+        for domain in contract["hard_escalation"]["domains"]:
+            c = cls.classify("t", suggested_level="DIRECT", hits=[domain])
+            self.assertEqual(c["level"], "CRITICAL", domain)
+
+    def test_reasons_evidence_saved(self):
+        target = make_healthy()
+        report = ch.change_new(target, "修复重复领取奖励", suggested_level="LIGHTWEIGHT")
+        self.assertEqual(report["classification"]["level"], "CRITICAL")
+        self.assertTrue(report["classification"]["reasons"])
+        self.assertTrue(report["classification"]["evidence"])
+
+    def test_keyword_detection(self):
+        hits = cls.detect_hits("修复重复领取奖励")
+        self.assertIn("money_economy", hits)
+        self.assertEqual(cls.classify("修复重复领取奖励", suggested_level="STANDARD", hits=hits)["level"], "CRITICAL")
+
+
+class TestStateMachine(unittest.TestCase):
+    def test_legal_transitions_direct(self):
+        target = make_healthy()
+        r = ch.change_new(target, "普通文案修改", suggested_level="DIRECT")
+        cid = r["change_id"]
+        for to in ("CLASSIFY", "IMPLEMENT", "BASIC_VERIFY", "DONE"):
+            rep = ch.change_transition(target, cid, to)
+            self.assertEqual(rep["status"], "TRANSITION_OK", rep)
+
+    def test_per_change_state_independent(self):
+        target = make_healthy()
+        r1 = ch.change_new(target, "任务A", suggested_level="DIRECT")
+        r2 = ch.change_new(target, "任务B", suggested_level="DIRECT")
+        self.assertEqual(ch.change_transition(target, r1["change_id"], "CLASSIFY")["status"], "TRANSITION_OK")
+        c2 = ch.load_change(target, r2["change_id"])
+        self.assertEqual(c2["state"]["current"], "INTAKE")
+
+    def test_illegal_transition_blocked(self):
+        target = make_healthy()
+        r = ch.change_new(target, "功能开发", suggested_level="STANDARD")
+        ch.change_transition(target, r["change_id"], "CLASSIFY")
+        ch.change_transition(target, r["change_id"], "GROUND")
+        rep = ch.change_transition(target, r["change_id"], "GREEN")
+        self.assertEqual(rep["status"], "BLOCKED_ILLEGAL_STATE_TRANSITION")
+
+    def test_gate_unsatisfied_blocked(self):
+        target = make_healthy()
+        r = ch.change_new(target, "功能开发", suggested_level="STANDARD")
+        ch.change_transition(target, r["change_id"], "CLASSIFY")
+        ch.change_transition(target, r["change_id"], "GROUND")
+        rep = ch.change_transition(target, r["change_id"], "SPEC")
+        self.assertEqual(rep["status"], "BLOCKED_GATE_UNSATISFIED")
+        self.assertEqual(rep["gate"], "GROUNDING")
+
+    def test_tampered_runtime_blocks_transition(self):
+        target = make_healthy()
+        r = ch.change_new(target, "任务", suggested_level="DIRECT")
+        with open(os.path.join(target, ".aeh", "runtime", "core", "workflow.yaml"), "a", encoding="utf-8") as f:
+            f.write("# tampered\n")
+        rep = ch.change_transition(target, r["change_id"], "CLASSIFY")
+        self.assertEqual(rep["status"], "BLOCKED_DOCTOR")
+
+
+class TestCLI(unittest.TestCase):
+    def test_cli_new_status_transition(self):
+        target = make_healthy()
+        env = dict(os.environ)
+        env["PYTHONPATH"] = os.path.join(ROOT, "src")
+        r1 = subprocess.run([sys.executable, "-m", "aeh.cli", "change", "new", "普通注释任务", "--level", "DIRECT", "--workdir", target],
+                            capture_output=True, text=True, env=env, timeout=120)
+        self.assertEqual(r1.returncode, 0, r1.stderr)
+        self.assertIn("CHANGE_CREATED", r1.stdout)
+        cid = json.loads(r1.stdout)["change_id"]
+        before = hashlib.sha256(open(os.path.join(target, ".aeh", "changes", cid, "change.yaml"), "rb").read()).hexdigest()
+        r2 = subprocess.run([sys.executable, "-m", "aeh.cli", "change", "status", cid, "--workdir", target],
+                            capture_output=True, text=True, env=env, timeout=120)
+        self.assertEqual(r2.returncode, 0, r2.stderr)
+        self.assertIn("INTAKE", r2.stdout)
+        after = hashlib.sha256(open(os.path.join(target, ".aeh", "changes", cid, "change.yaml"), "rb").read()).hexdigest()
+        self.assertEqual(before, after)
+        r3 = subprocess.run([sys.executable, "-m", "aeh.cli", "change", "transition", cid, "--to", "CLASSIFY", "--workdir", target],
+                            capture_output=True, text=True, env=env, timeout=120)
+        self.assertEqual(r3.returncode, 0, r3.stderr)
+        self.assertIn("TRANSITION_OK", r3.stdout)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

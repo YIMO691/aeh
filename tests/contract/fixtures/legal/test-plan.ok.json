@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "id": "TEST-001",
+      "command": "pytest tests/test_settlement.py -k duplicate",
+      "kind": "unit",
+      "targets": [
+        "REQ-001"
+      ]
+    }
+  ]
+}

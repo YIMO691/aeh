@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-engineering-harness"
+version = "0.1.0"
+description = "Adaptive Engineering Harness (AEH): machine-enforced SDD+TDD harness for Codex/Claude coding agents"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML>=6.0",
+    "jsonschema>=4.18",
+]
+
+[project.scripts]
+aeh = "aeh.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aeh*"]

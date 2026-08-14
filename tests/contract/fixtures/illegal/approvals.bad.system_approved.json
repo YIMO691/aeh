@@ -1,0 +1,13 @@
+{
+  "approvals": [
+    {
+      "gate": "SPEC_REVIEW",
+      "status": "APPROVED",
+      "actor": {
+        "type": "system",
+        "id": "agent-1"
+      },
+      "decided_at": "2026-08-14T12:00:00+08:00"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "bootstrap": "BOOTSTRAP_COMPLETE",
+  "codex_status": "RENDERED",
+  "claude_status": "RENDERED",
+  "semantics_equal": true,
+  "semantics": {
+    "permissions": {
+      "modify_source": "allow",
+      "git_commit": "ask",
+      "git_push": "deny",
+      "shell": "ask",
+      "web_access": "deny"
+    },
+    "testing": {
+      "tdd": "risk_based"
+    },
+    "review": {
+      "human_required_for": "critical"
+    },
+    "workflow": {
+      "default_level": "STANDARD"
+    },
+    "developer": {
+      "plan_before_code": "risk_based"
+    },
+    "team": {
+      "code_review_policy": "major"
+    }
+  },
+  "codex_deny_fields": [
+    "permissions.git_push",
+    "permissions.web_access"
+  ],
+  "claude_deny_fields": [
+    "permissions.git_push",
+    "permissions.web_access"
+  ],
+  "codex_unsupported": [
+    "permissions.git_push",
+    "review.human_required_for"
+  ],
+  "claude_unsupported": [
+    "permissions.web_access",
+    "review.human_required_for"
+  ],
+  "codex_managed_section": true,
+  "claude_managed_section": true,
+  "codex_original_kept": true,
+  "claude_original_kept": true
+}

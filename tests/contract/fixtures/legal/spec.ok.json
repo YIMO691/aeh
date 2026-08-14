@@ -1,0 +1,25 @@
+{
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "behavior": "duplicate settlement must not debit twice",
+      "preconditions": [
+        "account exists"
+      ],
+      "invariants": [
+        "balance unchanged after idempotent retry"
+      ],
+      "supported_by": [
+        "EV-001",
+        "EV-003"
+      ],
+      "acceptance": [
+        {
+          "id": "AC-001-01",
+          "type": "automated",
+          "statement": "retry with same id debits once"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "change_id": "CHG-2026-0001",
+  "classification": "MEDIUM",
+  "state": {
+    "current": "RED"
+  },
+  "gates": {}
+}

@@ -1,0 +1,26 @@
+# bootstrap/grounding.yaml — Change-scoped Grounding 规则（数据驱动，通用）
+contract: bootstrap.grounding
+version: 1
+
+test_dirs: [tests, test, __tests__]
+test_file_patterns:
+  - "*_test.py"
+  - "test_*.py"
+  - "*.test.js"
+  - "*.test.ts"
+  - "*.spec.ts"
+  - "*Tests.cs"
+  - "*Test.java"
+  - "*_test.go"
+
+config_extensions: [.yaml, .yml, .json, .toml, .ini, .conf, .config, .csproj]
+
+max_hits_per_file: 8
+max_evidence: 40
+
+# Grounding Gate 最小充分条件（风险决定深度）
+gate_requirements:
+  DIRECT: {}
+  LIGHTWEIGHT: {source: 1, test_search: true}
+  STANDARD: {source: 1, test_search: true, constraint_or_unknown: true}
+  CRITICAL: {source: 1, test_search: true, constraint_or_unknown: true, call_path: 1, risk_domain_evidence: true, limitations: true}

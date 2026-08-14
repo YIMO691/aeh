@@ -1,0 +1,15 @@
+{
+  "requirements": [
+    {
+      "id": "req-1",
+      "behavior": "x",
+      "acceptance": [
+        {
+          "id": "AC-001-01",
+          "type": "automated",
+          "statement": "s"
+        }
+      ]
+    }
+  ]
+}

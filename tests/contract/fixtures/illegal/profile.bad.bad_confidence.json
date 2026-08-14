@@ -1,0 +1,19 @@
+{
+  "profile_version": "1.0",
+  "project": {
+    "name": "ExampleProject"
+  },
+  "workflow": {
+    "default_level": "STANDARD"
+  },
+  "permissions": {
+    "git_push": {
+      "value": "deny",
+      "source": {
+        "type": "organization_policy",
+        "ref": "ORG-GIT-001"
+      },
+      "confidence": "maybe"
+    }
+  }
+}

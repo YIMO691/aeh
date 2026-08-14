@@ -1,0 +1,12 @@
+{
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "name": "add idempotency guard",
+      "requires_req": [
+        "REQ-001"
+      ],
+      "status": "DONE"
+    }
+  ]
+}

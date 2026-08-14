@@ -1,0 +1,29 @@
+contract: bootstrap.discovery.rule
+version: 1
+domain: repository
+
+unknown_fields: [language, package_manager, build_system, documentation]
+multi_fields: [language, documentation]
+
+detectors:
+  - {id: lang-python, field: language, value: python, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.py"}]}
+  - {id: lang-javascript, field: language, value: javascript, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.js"}]}
+  - {id: lang-typescript, field: language, value: typescript, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.ts"}]}
+  - {id: lang-csharp, field: language, value: csharp, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.cs"}]}
+  - {id: lang-go, field: language, value: go, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.go"}]}
+  - {id: lang-rust, field: language, value: rust, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.rs"}]}
+  - {id: lang-java, field: language, value: java, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.java"}]}
+  - {id: pm-pip, field: package_manager, value: pip, confidence: DETECTED, markers: [{type: file, path: requirements.txt}]}
+  - {id: pm-poetry, field: package_manager, value: poetry, confidence: DETECTED, markers: [{type: content, path: pyproject.toml, contains: "[tool.poetry]"}]}
+  - {id: pm-npm, field: package_manager, value: npm, confidence: DETECTED, markers: [{type: file, path: package-lock.json}]}
+  - {id: pm-pnpm, field: package_manager, value: pnpm, confidence: DETECTED, markers: [{type: file, path: pnpm-lock.yaml}]}
+  - {id: pm-yarn, field: package_manager, value: yarn, confidence: DETECTED, markers: [{type: file, path: yarn.lock}]}
+  - {id: pm-cargo, field: package_manager, value: cargo, confidence: DETECTED, markers: [{type: file, path: Cargo.toml}]}
+  - {id: pm-nuget, field: package_manager, value: nuget, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.csproj"}]}
+  - {id: pm-maven, field: package_manager, value: maven, confidence: DETECTED, markers: [{type: file, path: pom.xml}]}
+  - {id: bs-make, field: build_system, value: make, confidence: DETECTED, markers: [{type: file, path: Makefile}]}
+  - {id: bs-cmake, field: build_system, value: cmake, confidence: DETECTED, markers: [{type: file, path: CMakeLists.txt}]}
+  - {id: bs-gradle, field: build_system, value: gradle, confidence: DETECTED, markers: [{type: file, path: build.gradle}]}
+  - {id: bs-msbuild, field: build_system, value: msbuild, confidence: DETECTED, markers: [{type: glob, pattern: "**/*.sln"}]}
+  - {id: doc-readme, field: documentation, value: readme, confidence: DETECTED, markers: [{type: glob, pattern: "README*"}]}
+  - {id: doc-docs-dir, field: documentation, value: docs_dir, confidence: DETECTED, markers: [{type: dir, path: docs}]}

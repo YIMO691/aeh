@@ -1,0 +1,39 @@
+{
+  "results": [
+    {
+      "id": "VER-001",
+      "method": "automated_test",
+      "status": "pass",
+      "test_ref": "TEST-001",
+      "evidence": [
+        {
+          "id": "EV-001",
+          "kind": "direct",
+          "path": "evidence/ver-001.log"
+        }
+      ]
+    }
+  ],
+  "red": {
+    "test_id": "TEST-001",
+    "command": "pytest tests/test_settlement.py -k duplicate",
+    "exit_code": 1,
+    "output_ref": "evidence/red-TEST-001.log",
+    "output_hash": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "expected_failure": {
+      "category": "behavior",
+      "signature": "duplicate debit"
+    },
+    "actual_failure": {
+      "category": "behavior",
+      "signature": "duplicate debit"
+    },
+    "repository_state": {
+      "base_commit": "deadbeef",
+      "changed_files_hash": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "test_files_hash": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    },
+    "commit": null,
+    "verdict": "VALID_RED"
+  }
+}

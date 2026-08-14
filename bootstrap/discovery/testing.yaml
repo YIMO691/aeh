@@ -1,0 +1,18 @@
+contract: bootstrap.discovery.rule
+version: 1
+domain: testing
+
+unknown_fields: [testing, framework, coverage]
+
+detectors:
+  - {id: t-dir-tests, field: testing, value: detected, confidence: DETECTED, markers: [{type: dir, path: tests}]}
+  - {id: t-dir-test, field: testing, value: detected, confidence: DETECTED, markers: [{type: dir, path: test}]}
+  - {id: t-dir-dunder, field: testing, value: detected, confidence: DETECTED, markers: [{type: dir, path: __tests__}]}
+  - {id: t-glob-pytest-file, field: testing, value: detected, confidence: INFERRED, markers: [{type: glob, pattern: "**/*_test.py"}]}
+  - {id: tf-pytest-config, field: framework, value: pytest, confidence: DETECTED, markers: [{type: content, path: pyproject.toml, contains: "[tool.pytest"}]}
+  - {id: tf-pytest-conftest, field: framework, value: pytest, confidence: INFERRED, markers: [{type: glob, pattern: "**/conftest.py"}]}
+  - {id: tf-jest, field: framework, value: jest, confidence: DETECTED, markers: [{type: content, path: package.json, contains: '"jest"'}]}
+  - {id: tf-xunit, field: framework, value: xunit, confidence: DETECTED, markers: [{type: content, path: "**/*.csproj", contains: xunit}]}
+  - {id: tf-nunit, field: framework, value: nunit, confidence: DETECTED, markers: [{type: content, path: "**/*.csproj", contains: nunit}]}
+  - {id: cov-coveragerc, field: coverage, value: configured, confidence: DETECTED, markers: [{type: file, path: .coveragerc}]}
+  - {id: cov-pyproject, field: coverage, value: configured, confidence: DETECTED, markers: [{type: content, path: pyproject.toml, contains: "[tool.coverage"}]}

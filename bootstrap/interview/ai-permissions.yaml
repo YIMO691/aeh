@@ -1,0 +1,60 @@
+# bootstrap/interview/ai-permissions.yaml — AI 权限问题
+contract: bootstrap.interview
+version: 1
+scope: ai_permissions
+
+questions:
+  - question_id: q-modify-source
+    type: PERMISSION
+    field: permissions.modify_source
+    question: "AI 是否允许直接修改源码？"
+    required: true
+    options:
+      - {value: allow, label: "允许"}
+      - {value: ask, label: "每次询问"}
+      - {value: deny, label: "禁止"}
+    default: ask
+
+  - question_id: q-git-commit
+    type: PERMISSION
+    field: permissions.git_commit
+    question: "AI 是否允许 commit？"
+    required: true
+    options:
+      - {value: allow, label: "允许"}
+      - {value: ask, label: "每次询问"}
+      - {value: deny, label: "禁止"}
+    default: ask
+
+  - question_id: q-git-push
+    type: PERMISSION
+    field: permissions.git_push
+    question: "AI 是否允许 push？"
+    required: true
+    options:
+      - {value: allow, label: "允许"}
+      - {value: ask, label: "每次询问"}
+      - {value: deny, label: "禁止"}
+    default: deny
+
+  - question_id: q-shell-access
+    type: PERMISSION
+    field: permissions.shell
+    question: "AI 是否允许执行 Shell 命令？"
+    required: true
+    options:
+      - {value: allow, label: "允许"}
+      - {value: ask, label: "每次询问"}
+      - {value: deny, label: "禁止"}
+    default: ask
+
+  - question_id: q-web-access
+    type: PERMISSION
+    field: permissions.web_access
+    question: "AI 是否允许联网访问？"
+    required: true
+    options:
+      - {value: allow, label: "允许"}
+      - {value: ask, label: "每次询问"}
+      - {value: deny, label: "禁止"}
+    default: ask

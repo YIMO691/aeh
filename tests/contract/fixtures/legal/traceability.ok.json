@@ -1,0 +1,24 @@
+{
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "acceptance": [
+        "AC-001-01"
+      ],
+      "tests": [
+        "TEST-001"
+      ],
+      "tasks": [
+        "TASK-001"
+      ],
+      "code": [
+        {
+          "path": "src/reward/settlement.py"
+        }
+      ],
+      "verification": [
+        "VER-001"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "tests": [
+    {
+      "id": "TEST-001",
+      "command": "run",
+      "kind": "playmode"
+    }
+  ]
+}

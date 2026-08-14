@@ -1,0 +1,15 @@
+# bootstrap/interview/organization.yaml — 组织规程（正文不入 Agent 上下文，只问约束）
+contract: bootstrap.interview
+version: 1
+scope: organization
+
+questions:
+  - question_id: q-org-security-review
+    type: POLICY
+    field: organization.security_review_required
+    question: "安全相关改动是否要求额外安全审查？"
+    required: false
+    options:
+      - {value: "yes", label: "要求"}
+      - {value: "no", label: "不要求"}
+    default: "yes"

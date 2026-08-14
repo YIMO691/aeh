@@ -1,0 +1,18 @@
+contract: bootstrap.discovery.rule
+version: 1
+domain: architecture
+
+unknown_fields: [structure]
+multi_fields: [structure]
+
+detectors:
+  - id: arch-src-tests
+    field: structure
+    value: src_tests_separated
+    confidence: INFERRED
+    match: all
+    markers:
+      - {type: dir, path: src}
+      - {type: dir, path: tests}
+
+  - {id: arch-docs, field: structure, value: arch_docs, confidence: DETECTED, markers: [{type: glob, pattern: "docs/architecture*"}]}

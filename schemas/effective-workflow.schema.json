@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Effective Workflow Contract",
+  "type": "object",
+  "definitions": {
+    "level": {
+      "type": "object",
+      "required": [
+        "phases"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "required_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "narrative_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "terminal_options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "workflow_version",
+    "source",
+    "levels"
+  ],
+  "properties": {
+    "workflow_version": {
+      "type": "string"
+    },
+    "default_level": {
+      "type": "string",
+      "enum": [
+        "DIRECT",
+        "LIGHTWEIGHT",
+        "STANDARD",
+        "CRITICAL",
+        "EXPLORE"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "core_revision",
+        "profile_ref"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "core_revision": {
+          "type": "string"
+        },
+        "profile_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "levels": {
+      "type": "object",
+      "required": [
+        "DIRECT",
+        "LIGHTWEIGHT",
+        "STANDARD",
+        "CRITICAL",
+        "EXPLORE"
+      ],
+      "properties": {
+        "DIRECT": {
+          "$ref": "#/definitions/level"
+        },
+        "LIGHTWEIGHT": {
+          "$ref": "#/definitions/level"
+        },
+        "STANDARD": {
+          "$ref": "#/definitions/level"
+        },
+        "CRITICAL": {
+          "$ref": "#/definitions/level"
+        },
+        "EXPLORE": {
+          "$ref": "#/definitions/level"
+        }
+      },
+      "additionalProperties": false
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "ACTIVE",
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "NOT_APPLICABLE"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

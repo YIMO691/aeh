@@ -1,0 +1,43 @@
+# core/evidence.yaml — 证据契约（P-05/P-14/P-16 机器化）
+# RED 证据不依赖必须 commit：base_commit + 哈希 + command + exit_code + output_ref/output_hash 即可复核（ADR-005）。
+
+contract: core.evidence
+version: 1
+
+evidence_kinds: [direct, indirect, inferred]
+
+confidence_levels: [DETECTED, INFERRED, USER_CONFIRMED, UNKNOWN]
+
+failure_categories: [behavior, assertion, crash, timeout, other]
+
+red_required_fields:
+  - test_id
+  - command
+  - exit_code
+  - output_ref
+  - output_hash
+  - expected_failure
+  - actual_failure
+  - repository_state
+  - verdict
+
+red_optional_fields:
+  - commit
+
+red_verdicts:
+  - VALID_RED
+  - INVALID_RED_TEST_DEFECT
+  - INVALID_RED_SPEC_MISMATCH
+  - INVALID_RED_ENVIRONMENT
+  - INVALID_RED_FIXTURE
+  - INVALID_RED_UNEXPECTED_FAILURE
+
+invalid_red_routing:
+  INVALID_RED_TEST_DEFECT: TEST_DESIGN
+  INVALID_RED_SPEC_MISMATCH: SPEC_REPAIR
+  INVALID_RED_ENVIRONMENT: BLOCKED_ENVIRONMENT
+  INVALID_RED_FIXTURE: TEST_SETUP
+  INVALID_RED_UNEXPECTED_FAILURE: INVESTIGATE
+  VALID_RED: LOCK_TEST
+
+test_lock_order: [VALID_RED, LOCK_TEST, GREEN]

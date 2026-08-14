@@ -1,0 +1,61 @@
+# Example answers.yaml — copy and edit for your project.
+# Schema: schemas/answers.schema.json. All nine V0.1 interview questions answered.
+# answered_at is provenance-only and does not affect compiled semantics.
+answers:
+  q-git-commit:
+    answer: ask
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-git-commit
+    source: user_answer
+    type: PERMISSION
+  q-git-push:
+    answer: deny
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-git-push
+    source: user_answer
+    type: PERMISSION
+  q-human-review:
+    answer: critical
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-human-review
+    source: user_answer
+    type: POLICY
+  q-modify-source:
+    answer: allow
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-modify-source
+    source: user_answer
+    type: PERMISSION
+  q-plan-before-code:
+    answer: risk_based
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-plan-before-code
+    source: user_answer
+    type: PREFERENCE
+  q-shell-access:
+    answer: ask
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-shell-access
+    source: user_answer
+    type: PERMISSION
+  q-team-review-policy:
+    answer: major
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-team-review-policy
+    source: user_answer
+    type: POLICY
+  q-testing-policy:
+    answer: risk_based
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-testing-policy
+    source: user_answer
+    type: POLICY
+  q-web-access:
+    answer: deny
+    answered_at: '2026-08-14T00:00:00+00:00'
+    question_id: q-web-access
+    source: user_answer
+    type: PERMISSION
+contract: bootstrap.interview.answers
+reset: []
+version: 1

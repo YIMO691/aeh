@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Install Plan Contract",
+  "type": "object",
+  "required": [
+    "contract",
+    "version",
+    "target",
+    "dry_run",
+    "operations"
+  ],
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "bootstrap.install-plan"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "target": {
+      "type": "string"
+    },
+    "dry_run": {
+      "type": "boolean"
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "action",
+          "path",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "CREATE",
+              "REPLACE_MANAGED_SECTION",
+              "UPDATE_GITIGNORE",
+              "INSTALL_RUNTIME",
+              "NOOP"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^(?![A-Za-z]:[\\\\/])(?!.*(^|/)\\.\\.(/|$)).+$"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "content_hash": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "file",
+              "directory"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

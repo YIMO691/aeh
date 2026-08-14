@@ -1,0 +1,15 @@
+{
+  "change_id": "CHG-2026-0001",
+  "classification": "STANDARD",
+  "state": {
+    "current": "RED",
+    "previous": "TEST_DESIGN"
+  },
+  "gates": {
+    "classification": "PASS",
+    "grounding": "PASS",
+    "spec": "PASS",
+    "red": "ACTIVE"
+  },
+  "created_at": "2026-08-14T12:00:00+08:00"
+}

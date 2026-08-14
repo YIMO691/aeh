@@ -1,0 +1,23 @@
+{
+  "approvals": [
+    {
+      "gate": "SPEC_REVIEW",
+      "status": "APPROVED",
+      "actor": {
+        "type": "human",
+        "id": "owner"
+      },
+      "decided_at": "2026-08-14T12:00:00+08:00",
+      "evidence_ref": "DEC-001"
+    },
+    {
+      "gate": "MERGE_GATE",
+      "status": "PENDING",
+      "actor": {
+        "type": "human",
+        "id": "owner"
+      },
+      "decided_at": "2026-08-14T12:00:00+08:00"
+    }
+  ]
+}

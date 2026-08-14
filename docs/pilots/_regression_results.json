@@ -1,0 +1,62 @@
+{
+  "total": 232,
+  "failed": [],
+  "suites": {
+    "tests\\adapters\\test_adapters.py": {
+      "tests": 16,
+      "ok": true
+    },
+    "tests\\bootstrap\\test_bootstrap.py": {
+      "tests": 15,
+      "ok": true
+    },
+    "tests\\compiler\\test_compiler.py": {
+      "tests": 22,
+      "ok": true
+    },
+    "tests\\contract\\test_contracts.py": {
+      "tests": 21,
+      "ok": true
+    },
+    "tests\\discovery\\test_discovery.py": {
+      "tests": 8,
+      "ok": true
+    },
+    "tests\\discovery\\test_hardening.py": {
+      "tests": 13,
+      "ok": true
+    },
+    "tests\\doctor\\test_doctor.py": {
+      "tests": 21,
+      "ok": true
+    },
+    "tests\\interview\\test_interview.py": {
+      "tests": 10,
+      "ok": true
+    },
+    "tests\\runtime\\test_change.py": {
+      "tests": 17,
+      "ok": true
+    },
+    "tests\\runtime\\test_green.py": {
+      "tests": 14,
+      "ok": true
+    },
+    "tests\\runtime\\test_grounding.py": {
+      "tests": 18,
+      "ok": true
+    },
+    "tests\\runtime\\test_red.py": {
+      "tests": 19,
+      "ok": true
+    },
+    "tests\\runtime\\test_specification.py": {
+      "tests": 16,
+      "ok": true
+    },
+    "tests\\runtime\\test_verify.py": {
+      "tests": 22,
+      "ok": true
+    }
+  }
+}

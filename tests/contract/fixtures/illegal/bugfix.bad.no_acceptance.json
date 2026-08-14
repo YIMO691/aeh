@@ -1,0 +1,10 @@
+{
+  "problem": {
+    "observed_behavior": "x",
+    "expected_behavior": "y"
+  },
+  "scope": {
+    "in": [],
+    "out": []
+  }
+}

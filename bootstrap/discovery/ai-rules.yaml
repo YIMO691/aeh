@@ -1,0 +1,13 @@
+contract: bootstrap.discovery.rule
+version: 1
+domain: ai_rules
+
+unknown_fields: [agents_md, claude_md, rules_dir, aeh_installed]
+
+detectors:
+  - {id: ai-agents-md, field: agents_md, value: present, confidence: DETECTED, markers: [{type: file, path: AGENTS.md}]}
+  - {id: ai-claude-md, field: claude_md, value: present, confidence: DETECTED, markers: [{type: file, path: CLAUDE.md}]}
+  - {id: ai-claude-dir, field: rules_dir, value: claude_dir, confidence: DETECTED, markers: [{type: dir, path: .claude}]}
+  - {id: ai-cursor-dir, field: rules_dir, value: cursor_rules, confidence: DETECTED, markers: [{type: dir, path: .cursor/rules}]}
+  - {id: ai-copilot, field: rules_dir, value: copilot_instructions, confidence: DETECTED, markers: [{type: file, path: .github/copilot-instructions.md}]}
+  - {id: ai-aeh, field: aeh_installed, value: present, confidence: DETECTED, markers: [{type: dir, path: .aeh}]}

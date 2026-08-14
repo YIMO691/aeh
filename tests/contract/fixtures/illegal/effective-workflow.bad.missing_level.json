@@ -1,0 +1,15 @@
+{
+  "workflow_version": "0.1.0",
+  "source": {
+    "core_revision": "deadbeef",
+    "profile_ref": ".aeh/profile.yaml"
+  },
+  "levels": {
+    "DIRECT": {
+      "phases": [
+        "INTAKE",
+        "DONE"
+      ]
+    }
+  }
+}

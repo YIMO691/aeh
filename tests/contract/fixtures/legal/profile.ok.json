@@ -1,0 +1,32 @@
+{
+  "profile_version": "1.0",
+  "project": {
+    "name": "ExampleProject",
+    "type": "generic_app",
+    "languages": [
+      "python"
+    ],
+    "frameworks": []
+  },
+  "workflow": {
+    "default_level": "STANDARD"
+  },
+  "permissions": {
+    "git_push": {
+      "value": "deny",
+      "source": {
+        "type": "organization_policy",
+        "ref": "ORG-GIT-001"
+      },
+      "confidence": "USER_CONFIRMED"
+    },
+    "git_commit": {
+      "value": "ask",
+      "source": {
+        "type": "team_policy",
+        "ref": "TEAM-GIT-002"
+      },
+      "confidence": "USER_CONFIRMED"
+    }
+  }
+}

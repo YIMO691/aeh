@@ -1,0 +1,66 @@
+# bootstrap/interview/core.yaml — 核心问题（最小默认集）
+# 数据驱动：新增问题只需按本格式追加，无需改代码。
+contract: bootstrap.interview
+version: 1
+scope: core
+
+questions:
+  - question_id: q-plan-before-code
+    type: PREFERENCE
+    field: developer.plan_before_code
+    question: "修改代码前是否要求先输出方案？"
+    required: true
+    options:
+      - {value: always, label: "总是先方案"}
+      - {value: risk_based, label: "按风险决定"}
+      - {value: "no", label: "不要求"}
+    default: risk_based
+
+  - question_id: q-repo-language
+    type: FACT
+    field: repository.language
+    question: "仓库主要使用什么语言？"
+    required: true
+    options:
+      - {value: python, label: Python}
+      - {value: javascript, label: JavaScript}
+      - {value: typescript, label: TypeScript}
+      - {value: csharp, label: C#}
+      - {value: go, label: Go}
+      - {value: rust, label: Rust}
+      - {value: java, label: Java}
+    ask_when:
+      discovery_detected:
+        - {domain: repository, field: language}
+
+  - question_id: q-testing-policy
+    type: POLICY
+    field: testing.tdd
+    question: "日常功能修改是否要求补测试？"
+    required: true
+    options:
+      - {value: always, label: "必须测试"}
+      - {value: risk_based, label: "按风险决定"}
+      - {value: "no", label: "不强制"}
+    default: risk_based
+
+  - question_id: q-human-review
+    type: POLICY
+    field: review.human_required_for
+    question: "哪些等级的任务必须人工 Review？"
+    required: true
+    options:
+      - {value: critical, label: "仅 Critical"}
+      - {value: standard_and_critical, label: "Standard 及以上"}
+      - {value: "none", label: "不要求"}
+    default: critical
+
+  - question_id: q-org-policies-exist
+    type: FACT
+    field: organization.policies_exist
+    question: "是否存在团队/组织研发规程？"
+    required: false
+    options:
+      - {value: "yes", label: "存在"}
+      - {value: "no", label: "不存在"}
+    default: "no"

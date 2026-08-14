@@ -1,0 +1,12 @@
+contract: bootstrap.discovery.rule
+version: 1
+domain: ci
+
+unknown_fields: [platform]
+
+detectors:
+  - {id: ci-github, field: platform, value: github_actions, confidence: DETECTED, markers: [{type: dir, path: .github/workflows}]}
+  - {id: ci-gitlab, field: platform, value: gitlab_ci, confidence: DETECTED, markers: [{type: file, path: .gitlab-ci.yml}]}
+  - {id: ci-jenkins, field: platform, value: jenkins, confidence: DETECTED, markers: [{type: file, path: Jenkinsfile}]}
+  - {id: ci-azure, field: platform, value: azure_pipelines, confidence: DETECTED, markers: [{type: file, path: azure-pipelines.yml}]}
+  - {id: ci-circle, field: platform, value: circleci, confidence: DETECTED, markers: [{type: dir, path: .circleci}]}

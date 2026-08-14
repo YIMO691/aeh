@@ -1,0 +1,43 @@
+# core/classifications.yaml — 变更分类契约（P-01 机器化）
+# 评分维度与硬升级域来自冻结架构；不得以文件数/行数作为唯一判据。
+
+contract: core.classifications
+version: 1
+
+levels: [DIRECT, LIGHTWEIGHT, STANDARD, CRITICAL, EXPLORE]
+
+risk_dimensions:
+  - business_impact
+  - blast_radius
+  - irreversibility
+  - uncertainty
+  - compatibility
+  - data_sensitivity
+
+hard_escalation:
+  to: CRITICAL
+  domains:
+    - money_economy
+    - persistence
+    - save_migration
+    - protocol_compatibility
+    - authentication_authorization
+    - security_boundary
+    - irreversible_migration
+    - destructive_data_operation
+  override: profile_higher_precedence_rule_only
+
+prohibited_sole_criteria:
+  - file_count
+  - line_count
+# 关键词提示（Phase 8）：仅作检测启发式；显式 hits 永远可覆盖。
+# 过度触发是 fail-safe（升级为 CRITICAL），漏触发可由调用方显式 hits 修正。
+keyword_hints:
+  money_economy: [money, economy, payment, currency, reward, prize, 货币, 经济, 奖励, 发放, 领取]
+  persistence: [persist, save, storage, database, db, checkpoint, 存盘, 存档, 持久化, 存储]
+  save_migration: [migration, migrate, schema_change, 迁移]
+  protocol_compatibility: [protocol, api, interface, rpc, proto, 协议, 接口]
+  authentication_authorization: [auth, login, permission, token, credential, 认证, 鉴权, 登录, 权限]
+  security_boundary: [security, secret, vulnerability, 安全]
+  irreversible_migration: [irreversible, one_way, 不可逆]
+  destructive_data_operation: [delete, drop, truncate, purge, destroy, 删除, 清空, 销毁]

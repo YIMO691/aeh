@@ -1,0 +1,13 @@
+{
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "acceptance": [
+        "AC-001-01"
+      ],
+      "tests": [
+        "test-1"
+      ]
+    }
+  ]
+}

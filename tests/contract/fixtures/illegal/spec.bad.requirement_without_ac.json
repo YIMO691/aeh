@@ -1,0 +1,9 @@
+{
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "behavior": "x",
+      "acceptance": []
+    }
+  ]
+}

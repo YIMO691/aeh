@@ -1,0 +1,79 @@
+{
+  "workflow_version": "0.1.0",
+  "source": {
+    "core_revision": "deadbeef",
+    "profile_ref": ".aeh/profile.yaml"
+  },
+  "levels": {
+    "DIRECT": {
+      "phases": [
+        "INTAKE",
+        "CLASSIFY",
+        "IMPLEMENT",
+        "BASIC_VERIFY",
+        "DONE"
+      ]
+    },
+    "LIGHTWEIGHT": {
+      "phases": [
+        "INTAKE",
+        "CLASSIFY",
+        "TARGETED_GROUND",
+        "BUG_CONTRACT",
+        "REGRESSION_TEST",
+        "RED",
+        "GREEN",
+        "VERIFY",
+        "DONE"
+      ]
+    },
+    "STANDARD": {
+      "phases": [
+        "INTAKE",
+        "CLASSIFY",
+        "GROUND",
+        "SPEC",
+        "TEST_DESIGN",
+        "RED",
+        "LOCK_TEST",
+        "GREEN",
+        "REFACTOR",
+        "VERIFY",
+        "REVIEW",
+        "ARCHIVE"
+      ]
+    },
+    "CRITICAL": {
+      "phases": [
+        "INTAKE",
+        "CLASSIFY",
+        "GROUND",
+        "SPEC",
+        "HUMAN_SPEC_APPROVAL",
+        "DESIGN",
+        "TEST_DESIGN",
+        "RED",
+        "VALIDATE_RED",
+        "LOCK_TEST",
+        "HUMAN_CI_RED_GATE",
+        "GREEN",
+        "REFACTOR",
+        "INTEGRATION",
+        "RUNTIME_PLATFORM_VERIFY",
+        "REGRESSION",
+        "REVIEW",
+        "DRIFT_CHECK",
+        "HUMAN_MERGE_APPROVAL",
+        "ARCHIVE"
+      ]
+    },
+    "EXPLORE": {
+      "phases": [
+        "HYPOTHESIS",
+        "EXPERIMENT",
+        "EVIDENCE",
+        "DECISION"
+      ]
+    }
+  }
+}

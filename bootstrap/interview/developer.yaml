@@ -1,0 +1,15 @@
+# bootstrap/interview/developer.yaml — 开发者偏好（优先级最低，非必要默认跳过）
+contract: bootstrap.interview
+version: 1
+scope: developer
+
+questions:
+  - question_id: q-report-preference
+    type: PREFERENCE
+    field: developer.preferred_report
+    question: "希望 Agent 的报告多详细？"
+    required: false
+    options:
+      - {value: concise, label: "简洁"}
+      - {value: detailed, label: "详细"}
+    default: concise

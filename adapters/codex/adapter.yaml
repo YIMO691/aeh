@@ -1,0 +1,27 @@
+# adapters/codex/adapter.yaml — Codex Adapter 声明（Renderer 数据驱动）
+# Adapter 是 Renderer/Translator，不是 Policy Engine；不重算 precedence、不解决 conflict。
+contract: adapter.codex
+version: 1
+agent: codex
+template: AGENTS.template.md
+managed_markers:
+  begin: "<!-- AEH:BEGIN MANAGED -->"
+  end: "<!-- AEH:END MANAGED -->"
+
+capability_map:
+  permissions.modify_source: {channel: sandbox, status: ENFORCEABLE}
+  permissions.git_commit: {channel: approval, status: ENFORCEABLE}
+  permissions.git_push: {channel: instruction, status: GUIDANCE_ONLY}
+  permissions.shell: {channel: sandbox, status: ENFORCEABLE}
+  permissions.web_access: {channel: sandbox, status: ENFORCEABLE}
+  review.human_required_for: {channel: instruction, status: GUIDANCE_ONLY}
+  testing.tdd: {channel: instruction, status: GUIDANCE_ONLY}
+  developer.plan_before_code: {channel: instruction, status: GUIDANCE_ONLY}
+
+tcb_notice:
+  - ".aeh/runtime/core/**"
+  - ".aeh/runtime/schemas/**"
+  - ".aeh/manifest.yaml"
+  - ".aeh/profile.yaml"
+  - ".aeh/effective-workflow.yaml"
+  - "Critical approvals.yaml APPROVED records"

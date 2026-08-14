@@ -1,0 +1,20 @@
+{
+  "problem": {
+    "observed_behavior": "duplicate reward granted",
+    "expected_behavior": "reward granted once"
+  },
+  "acceptance": [
+    {
+      "id": "AC-001-01",
+      "statement": "claiming twice yields one reward"
+    }
+  ],
+  "scope": {
+    "in": [
+      "src/reward"
+    ],
+    "out": [
+      "src/billing"
+    ]
+  }
+}

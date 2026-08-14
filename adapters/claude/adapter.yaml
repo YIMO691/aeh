@@ -1,0 +1,27 @@
+# adapters/claude/adapter.yaml — Claude Adapter 声明（Renderer 数据驱动）
+# 平台表达方式可与 Codex 不同，但不得改变 AEH 有效语义。
+contract: adapter.claude
+version: 1
+agent: claude
+template: CLAUDE.template.md
+managed_markers:
+  begin: "<!-- AEH:BEGIN MANAGED -->"
+  end: "<!-- AEH:END MANAGED -->"
+
+capability_map:
+  permissions.modify_source: {channel: permission_rules, status: ENFORCEABLE}
+  permissions.git_commit: {channel: permission_rules, status: ENFORCEABLE}
+  permissions.git_push: {channel: permission_rules, status: ENFORCEABLE}
+  permissions.shell: {channel: permission_rules, status: ENFORCEABLE}
+  permissions.web_access: {channel: instruction, status: GUIDANCE_ONLY}
+  review.human_required_for: {channel: instruction, status: GUIDANCE_ONLY}
+  testing.tdd: {channel: instruction, status: GUIDANCE_ONLY}
+  developer.plan_before_code: {channel: instruction, status: GUIDANCE_ONLY}
+
+tcb_notice:
+  - ".aeh/runtime/core/**"
+  - ".aeh/runtime/schemas/**"
+  - ".aeh/manifest.yaml"
+  - ".aeh/profile.yaml"
+  - ".aeh/effective-workflow.yaml"
+  - "Critical approvals.yaml APPROVED records"
