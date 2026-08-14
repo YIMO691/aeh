@@ -493,4 +493,7 @@
 - **OWNER-RELEASE-EXEC (2026-08-14)**: Owner 裁决：版权主体=YIMO691、公开发布=是、
   P2 限制=接受、push=授权。已执行：git init（main 分支，作者 YIMO691 <noreply>）、
   首个 commit 9c2a1e2131754b7f0f0591c52c9c800073591780、公开仓库 https://github.com/YIMO691/aeh、tag v0.1.0、
-  push main + tag 成功。未创建 GitHub Release、未发布 PyPI（未授权）。
+  push main + tag 成功；Owner 随后授权补发 GitHub Release 页面：
+  https://github.com/YIMO691/aeh/releases/tag/v0.1.0（tag v0.1.0 重定到 main 头
+  87061a3，Release Notes 从 CHANGELOG 生成，release id 370637806）。
+  未发布 PyPI（未授权）。
