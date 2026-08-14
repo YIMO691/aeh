@@ -490,4 +490,7 @@
 - **RELEASE-FIX-005**: unittest discover 需包标记 → tests/*/__init__.py；回归 232/232。
 - **RELEASE-FIX-006**: 公开安全改写（私有项目名泛化）；语义不变；全量回归 PASS。
 - **RELEASE-FIX-007**: 冷启动可发现性（answers 示例/panorama banner/upgrade 表述）。
-- 未执行任何 push/merge/tag/release/PyPI；停在 READY_FOR_OWNER_RELEASE。
+- **OWNER-RELEASE-EXEC (2026-08-14)**: Owner 裁决：版权主体=YIMO691、公开发布=是、
+  P2 限制=接受、push=授权。已执行：git init（main 分支，作者 YIMO691 <noreply>）、
+  首个 commit 9c2a1e2131754b7f0f0591c52c9c800073591780、公开仓库 https://github.com/YIMO691/aeh、tag v0.1.0、
+  push main + tag 成功。未创建 GitHub Release、未发布 PyPI（未授权）。

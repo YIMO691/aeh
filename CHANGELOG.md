@@ -2,7 +2,7 @@
 
 All notable changes to AEH are recorded here per phase.
 
-## [0.1.0] — 2026-08-14 (release candidate)
+## [0.1.0] — 2026-08-14 (RELEASED to https://github.com/YIMO691/aeh)
 
 ### Added
 

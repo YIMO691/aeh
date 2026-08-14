@@ -8,10 +8,11 @@ release:
   status: RELEASE_CANDIDATE
 
 source:
-  branch: n/a (AEH dir is not a standalone git repository yet; deferred to Owner)
-  head_commit: n/a
-  parent_repo: main @ 6f00a3cf7f04d69658a3712f68e3508e0983d317 (AEH dir untracked)
-  dirty: n/a (parent repo has unrelated pre-existing changes outside AEH; untouched by this task)
+  branch: main
+  head_commit: 9c2a1e2131754b7f0f0591c52c9c800073591780
+  remote: https://github.com/YIMO691/aeh
+  pushed: true
+  tag: v0.1.0
 
 feature_freeze:
   status: PASS
@@ -95,7 +96,7 @@ release_fixes:
     fix: examples/answers.yaml + README ref; panorama banner; KNOWN_LIMITATIONS note
     regression: cold-start subagent re-verified (docs-only)
 
-release_verdict: READY_FOR_OWNER_RELEASE
+release_verdict: RELEASED (v0.1.0 published to https://github.com/YIMO691/aeh)
 
 owner_decisions:
   copyright_holder: YIMO691 (confirmed)

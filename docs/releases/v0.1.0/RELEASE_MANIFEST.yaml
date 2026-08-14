@@ -6,10 +6,12 @@ release:
   feature_freeze: true
 
 source:
-  branch: n/a (AEH dir is not a standalone git repository yet)
-  head_commit: n/a
-  parent_repo: main @ 6f00a3cf7f04d69658a3712f68e3508e0983d317 (AEH dir untracked)
-  dirty: n/a (parent repo has unrelated pre-existing changes outside AEH; not ours, untouched)
+  branch: main
+  head_commit: 9c2a1e2131754b7f0f0591c52c9c800073591780
+  remote: https://github.com/YIMO691/aeh.git
+  pushed: true
+  tag: v0.1.0
+  standalone_repo: initialized (git init, owner-authorized)
   r0_baseline_digest: a820587efededcec6946819d29da72296c2a9e24dd6a95933fa0bc5aae1218fb
   final_baseline_digest: b27242a83068d211d5f126a313799d4424518b737392c24e98b5c02fb4405e78
   baseline_file: RELEASE_BASELINE.sha256
