@@ -27,6 +27,7 @@ is recorded in docs/decisions.md as RELEASE-FIX-### with problem / root cause /
 fix / regression test / semantic-change flag. New features belong to the V0.2
 roadmap (repair, upgrade, CI integration, RAG, Web UI, mutation testing, impact
 analysis, multi-agent orchestration, new approval systems, new workflow levels).
+V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 
 ## Project anatomy
 

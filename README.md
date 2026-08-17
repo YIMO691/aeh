@@ -182,6 +182,7 @@ traceability, risk-based verification, Codex/Claude adapters.
 Out of scope (V0.2+): repair/recover, upgrade system, CI deep integration, RAG,
 Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
 approval identity.
+V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 
 ## Development
 
