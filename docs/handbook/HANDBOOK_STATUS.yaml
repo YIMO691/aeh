@@ -1,0 +1,23 @@
+handbook_version: v0.2
+status: DESIGN_AND_EVIDENCE_BASELINE_V0_2
+generated_at: '2026-08-19'
+research_cutoff: '2026-08-19'
+aeh_reference_revision: '6513102'
+aeh_software_version: v0.1.0
+phase1_1_protocol: v1.6
+phase2_72_run:
+  authorized: false
+source_registry_version: '0.6'
+sections:
+  chapters_00_26: COMPLETE
+  appendices_A_G: COMPLETE
+  single_file_master: GENERATED
+  consistency_review: PASS_WITH_OPEN_EVIDENCE_GAPS
+strategic_verdict: CONTINUE_BUT_NARROW_CONDITIONAL
+product_efficacy: NOT_YET_PROVEN
+next_evidence_updates:
+- 72-run Python Pilot
+- A01-A08 Adversarial Result
+- C#/.NET validation
+- Unity/brownfield validation
+- Competitor capability re-review

@@ -1,0 +1,980 @@
+registry:
+  id: AEH-HANDBOOK-SOURCES
+  version: '0.6'
+  research_cutoff: '2026-08-19'
+  policy:
+    preferred_order:
+    - official_specification
+    - official_documentation
+    - official_engineering_blog
+    - official_repository
+    - primary_research
+    - secondary_source
+    mutable_github_refs_must_eventually_be_pinned: true
+  publication_freeze: '2026-08-19'
+sources:
+- id: AEH-README-6513102
+  family: AEH
+  type: repository_file
+  title: Adaptive Engineering Harness README
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: README.md
+  url: https://github.com/YIMO691/aeh/blob/6513102/README.md
+  status: VERIFIED
+  supports:
+  - aeh_does_not_write_code
+  - contract_validator_evidence_roles
+  - workflow_levels
+  - test_lock
+  - traceability
+  - current_v01_limitations
+- id: AEH-ARCH-6513102
+  family: AEH
+  type: normative_architecture
+  title: AEH 架构契约（Architecture Freeze）
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: docs/architecture.md
+  url: https://github.com/YIMO691/aeh/blob/6513102/docs/architecture.md
+  status: VERIFIED
+  supports:
+  - guidance_contract_enforcement_separation
+  - llm_contract_validator_evidence_roles
+  - machine_truth_boundary
+  - test_lock_timing
+  - trusted_mutation_boundary
+  - independent_validator
+- id: AEH-ROADMAP-V02-6513102
+  family: AEH
+  type: roadmap
+  title: AEH V0.2 Roadmap
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: docs/roadmap-v0.2.md
+  url: https://github.com/YIMO691/aeh/blob/6513102/docs/roadmap-v0.2.md
+  status: VERIFIED_DRAFT
+  supports:
+  - v02_candidate_scope
+  - wheel_ci_m1
+  - rag_webui_multiagent_candidates
+  - sandbox_candidate
+  note: Roadmap is planning input, not frozen architecture.
+- id: INT-DEEP-RESEARCH-20260818
+  family: INTERNAL_RESEARCH
+  type: deep_research_report
+  title: Agentic Coding 时代的软件变更可信性：从 Coding Agent、Harness Engineering 到独立 Verification & Governance
+  retrieved_at: '2026-08-18'
+  status: VERIFIED_AS_RESEARCH_BASE
+  supports:
+  - six_plane_architecture
+  - change_assurance_positioning
+  - build_vs_integrate
+  - ecosystem_gap_analysis
+  - continue_but_narrow_conditional
+  - task_outcome_vs_assurance_outcome
+- id: INT-HANDBOOK-CONSTITUTION-V01
+  family: HANDBOOK
+  type: handbook_constitution
+  title: AEH 工程与架构手册：编写规范与完整目录 v0.1
+  retrieved_at: '2026-08-18'
+  status: VERIFIED_AS_AUTHORING_BASE
+  supports:
+  - handbook_structure
+  - evidence_labels
+  - fact_normative_hypothesis
+  - registry_design
+- id: EVAL-P1-D004
+  family: POV
+  type: evaluation_observation
+  title: Phase 1 Dry Run — RUN-D004
+  repository: aeh-evals
+  protocol_version: v1.5 at Phase 1 report
+  task_id: TASK-004
+  group: G3
+  run_id: RUN-D004
+  status: OBSERVED_IN_RESEARCH_PACKAGE
+  supports:
+  - task_success_not_assurance_success
+  - agent_claim_not_environment_outcome
+  - artifact_presence_not_evidence_validity
+  - external_replay_blocked_change_state
+  limitations:
+  - Single task, single trial.
+  - G3 treatment was not yet cleanly defined as G2 + External AEH Assurance.
+  - Not evidence of AEH product efficacy.
+- id: EXT-OPENAI-HARNESS-ENGINEERING-2026
+  family: AGENT_HARNESS
+  type: official_engineering_blog
+  title: 'Harness engineering: leveraging Codex in an agent-first world'
+  publisher: OpenAI
+  published: '2026-02-11'
+  url: https://openai.com/index/harness-engineering/
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - repository_legibility
+  - repository_knowledge_as_system_of_record
+  - agent_legibility
+  - architecture_enforcement
+  - agent_first_engineering
+- id: EXT-OPENAI-CODEX-HARNESS-2026
+  family: AGENT_HARNESS
+  type: official_engineering_blog
+  title: 'Unlocking the Codex harness: how we built the App Server'
+  publisher: OpenAI
+  published: '2026-02-04'
+  url: https://openai.com/index/unlocking-the-codex-harness/
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - codex_harness_boundary
+  - agent_loop_and_thread_lifecycle
+  - tool_execution
+  - integration_surface
+- id: EXT-OPENAI-CODEX-CONFIG
+  family: RUNTIME_GOVERNANCE
+  type: official_repository
+  title: Codex config schema
+  repository: openai/codex
+  path: codex-rs/core/config.schema.json
+  url: https://github.com/openai/codex/blob/main/codex-rs/core/config.schema.json
+  retrieved_at: '2026-08-18'
+  pinning_status: REPO_SNAPSHOT_PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - approval_policy
+  - sandbox_configuration
+  - destructive_and_open_world_tool_hints
+  snapshot_revision: 711a5f8b3a6eb40134146ae9ec22fdcdda5e3170
+  snapshot_url: https://github.com/openai/codex/blob/711a5f8b3a6eb40134146ae9ec22fdcdda5e3170/codex-rs/core/config.schema.json
+- id: EXT-ANTHROPIC-CONTEXT-ENGINEERING-2025
+  family: CONTEXT
+  type: official_engineering_blog
+  title: Effective context engineering for AI agents
+  publisher: Anthropic
+  published: '2025-09-29'
+  url: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - context_is_finite_resource
+  - context_curation
+  - context_engineering_boundary
+- id: EXT-ANTHROPIC-LONG-RUNNING-HARNESS-2025
+  family: AGENT_HARNESS
+  type: official_engineering_blog
+  title: Effective harnesses for long-running agents
+  publisher: Anthropic
+  published: '2025-11-26'
+  url: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - cross_session_artifacts
+  - initializer_and_coding_agent
+  - long_horizon_harness
+- id: EXT-ANTHROPIC-HARNESS-DESIGN-2026
+  family: AGENT_HARNESS
+  type: official_engineering_blog
+  title: Harness design for long-running application development
+  publisher: Anthropic
+  published: '2026-03-24'
+  url: https://www.anthropic.com/engineering/harness-design-long-running-apps
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - generator_evaluator_separation
+  - structured_artifact_handoffs
+  - orchestration_tradeoffs
+- id: EXT-ANTHROPIC-MANAGED-AGENTS-2026
+  family: AGENT_HARNESS
+  type: official_engineering_blog
+  title: 'Scaling Managed Agents: Decoupling the brain from the hands'
+  publisher: Anthropic
+  published: '2026-04-08'
+  url: https://www.anthropic.com/engineering/managed-agents
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - harness_assumptions_go_stale
+  - stable_interfaces
+  - brain_hands_session_decoupling
+- id: EXT-ANTHROPIC-AGENT-EVALS-2026
+  family: EVALUATION
+  type: official_engineering_blog
+  title: Demystifying evals for AI agents
+  publisher: Anthropic
+  published: '2026-01-09'
+  url: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
+  retrieved_at: '2026-08-18'
+  status: VERIFIED
+  supports:
+  - task_trial_grader_trajectory_outcome
+  - agent_claim_not_outcome
+  - multiple_trials
+  - stable_eval_environment
+  - evaluation_harness_vs_agent_harness
+- id: EXT-GITHUB-SPEC-KIT
+  family: SPEC
+  type: official_repository
+  title: GitHub Spec Kit
+  repository: github/spec-kit
+  url: https://github.com/github/spec-kit
+  retrieved_at: '2026-08-18'
+  pinning_status: PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - spec_driven_development
+  - intent_driven_harness
+  - spec_plan_tasks_implement
+  - multi_agent_integrations
+  snapshot_revision: 13344409786a29f631c24ee49e9f307e7b588465
+  revision: 13344409786a29f631c24ee49e9f307e7b588465
+  snapshot_url: https://github.com/github/spec-kit/tree/13344409786a29f631c24ee49e9f307e7b588465
+- id: EXT-GITHUB-SPEC-KIT-SDD
+  family: SPEC
+  type: official_repository_document
+  title: Specification-Driven Development
+  repository: github/spec-kit
+  path: spec-driven.md
+  url: https://github.com/github/spec-kit/blob/main/spec-driven.md
+  retrieved_at: '2026-08-18'
+  pinning_status: REPO_SNAPSHOT_PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - specification_as_primary_artifact
+  - implementation_serves_specification
+  snapshot_revision: 13344409786a29f631c24ee49e9f307e7b588465
+  snapshot_url: https://github.com/github/spec-kit/blob/13344409786a29f631c24ee49e9f307e7b588465/spec-driven.md
+- id: EXT-OPENSPEC
+  family: SPEC
+  type: official_repository
+  title: OpenSpec
+  repository: Fission-AI/OpenSpec
+  url: https://github.com/Fission-AI/OpenSpec
+  retrieved_at: '2026-08-18'
+  pinning_status: PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - lightweight_spec_driven_workflow
+  - proposal_specs_design_tasks
+  - multi_agent_integration
+  snapshot_revision: 2826b8889e5223a9a8095d4428b60b56597e1020
+  revision: 2826b8889e5223a9a8095d4428b60b56597e1020
+  snapshot_url: https://github.com/Fission-AI/OpenSpec/tree/2826b8889e5223a9a8095d4428b60b56597e1020
+- id: EXT-AGENTS-MD
+  family: CONTEXT
+  type: official_repository
+  title: AGENTS.md — a simple, open format for guiding coding agents
+  repository: agentsmd/agents.md
+  url: https://github.com/agentsmd/agents.md
+  retrieved_at: '2026-08-18'
+  pinning_status: PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - repository_instructions
+  - predictable_agent_context_surface
+  note: Guidance/context format; not treated as enforcement.
+  snapshot_revision: d1ac7f063d20e70015ed6732664049ae4ba9d74e
+  revision: d1ac7f063d20e70015ed6732664049ae4ba9d74e
+  snapshot_url: https://github.com/agentsmd/agents.md/tree/d1ac7f063d20e70015ed6732664049ae4ba9d74e
+- id: EXT-MCP-SPEC-20260728
+  family: TOOL_CONNECTIVITY
+  type: official_specification
+  title: Model Context Protocol Specification 2026-07-28
+  publisher: Model Context Protocol
+  version: '2026-07-28'
+  url: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/index.mdx
+  retrieved_at: '2026-08-18'
+  pinning_status: VERSIONED_PATH
+  status: VERIFIED
+  supports:
+  - host_client_server
+  - resources_prompts_tools
+  - capability_negotiation
+  - connectivity_not_change_assurance
+- id: EXT-GEMINI-POLICY-ENGINE
+  family: RUNTIME_GOVERNANCE
+  type: official_repository_document
+  title: Gemini CLI Policy Engine
+  repository: google-gemini/gemini-cli
+  path: docs/reference/policy-engine.md
+  url: https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/policy-engine.md
+  retrieved_at: '2026-08-18'
+  pinning_status: REPO_SNAPSHOT_PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - allow_deny_ask_user
+  - tool_call_policy
+  - policy_priority
+  snapshot_revision: 24cc26ccb15522b55c4f8a63b2f894fb99b8e82a
+  snapshot_url: https://github.com/google-gemini/gemini-cli/blob/24cc26ccb15522b55c4f8a63b2f894fb99b8e82a/docs/reference/policy-engine.md
+- id: EXT-GEMINI-HOOKS
+  family: RUNTIME_GOVERNANCE
+  type: official_repository_document
+  title: Gemini CLI Hooks
+  repository: google-gemini/gemini-cli
+  path: docs/hooks/index.md
+  url: https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/index.md
+  retrieved_at: '2026-08-18'
+  pinning_status: REPO_SNAPSHOT_PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - synchronous_interception
+  - validate_actions
+  - enforce_policies
+  - audit_logging
+  snapshot_revision: 24cc26ccb15522b55c4f8a63b2f894fb99b8e82a
+  snapshot_url: https://github.com/google-gemini/gemini-cli/blob/24cc26ccb15522b55c4f8a63b2f894fb99b8e82a/docs/hooks/index.md
+- id: EXT-GEMINI-SANDBOX
+  family: RUNTIME_GOVERNANCE
+  type: official_repository_document
+  title: Sandboxing in Gemini CLI
+  repository: google-gemini/gemini-cli
+  path: docs/cli/sandbox.md
+  url: https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/sandbox.md
+  retrieved_at: '2026-08-18'
+  pinning_status: REPO_SNAPSHOT_PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - execution_isolation
+  - filesystem_boundary
+  - sandbox_expansion
+  snapshot_revision: 24cc26ccb15522b55c4f8a63b2f894fb99b8e82a
+  snapshot_url: https://github.com/google-gemini/gemini-cli/blob/24cc26ccb15522b55c4f8a63b2f894fb99b8e82a/docs/cli/sandbox.md
+- id: EXT-MINI-SWE-AGENT
+  family: AGENT_HARNESS
+  type: official_repository
+  title: mini-SWE-agent
+  repository: SWE-agent/mini-swe-agent
+  url: https://github.com/SWE-agent/mini-swe-agent
+  retrieved_at: '2026-08-18'
+  pinning_status: PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - minimal_agent_scaffold
+  - models_agents_environments_run
+  - warning_against_overfitting_harness_to_model_limitations
+  snapshot_revision: 25941c89cfbc91eb40b3f8756348c91d9977d57e
+  revision: 25941c89cfbc91eb40b3f8756348c91d9977d57e
+  snapshot_url: https://github.com/SWE-agent/mini-swe-agent/tree/25941c89cfbc91eb40b3f8756348c91d9977d57e
+- id: EXT-PROOFAGENT
+  family: EVALUATION_GOVERNANCE
+  type: official_repository
+  title: ProofAgent Harness
+  repository: ProofAgent-ai/proofagent-harness
+  url: https://github.com/ProofAgent-ai/proofagent-harness
+  retrieved_at: '2026-08-18'
+  pinning_status: PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - auditable_agent_evaluation
+  - governance
+  - adversarial_multi_turn
+  - ci_gate
+  - coding_agent_observability
+  snapshot_revision: ce6f821cebefa6330c9f1f3f1817713740b5f40d
+  revision: ce6f821cebefa6330c9f1f3f1817713740b5f40d
+  snapshot_url: https://github.com/ProofAgent-ai/proofagent-harness/tree/ce6f821cebefa6330c9f1f3f1817713740b5f40d
+- id: EXT-BETTER-HARNESS
+  family: HARNESS_EVALUATION
+  type: official_repository
+  title: Better Harness
+  repository: QoderAI/better-harness
+  url: https://github.com/QoderAI/better-harness
+  retrieved_at: '2026-08-18'
+  pinning_status: PINNED
+  status: VERIFIED_MUTABLE
+  supports:
+  - coding_workflow_review
+  - project_and_session_evidence
+  - missing_evidence_explicit
+  - harness_improvement
+  snapshot_revision: a550746e7cda41c572a9d6b6b793fe68de799b19
+  revision: a550746e7cda41c572a9d6b6b793fe68de799b19
+  snapshot_url: https://github.com/QoderAI/better-harness/tree/a550746e7cda41c572a9d6b6b793fe68de799b19
+- id: AEH-SCHEMA-EVIDENCE-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Evidence Index Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/evidence-index.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/evidence-index.schema.json
+  status: VERIFIED
+  supports:
+  - repository_base_commit_and_dirty_state
+  - evidence_types
+  - evidence_confidence
+  - source_state_file_hash_and_rel_path
+  - unknowns_and_limitations
+- id: AEH-SCHEMA-RED-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH RED Evidence Record Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/red.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/red.schema.json
+  status: VERIFIED
+  supports:
+  - red_output_hash
+  - expected_vs_actual_failure
+  - repository_state_hashes
+  - valid_and_invalid_red_taxonomy
+- id: AEH-SCHEMA-TESTLOCK-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Test Lock Record Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/test-lock.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/test-lock.schema.json
+  status: VERIFIED
+  supports:
+  - test_file_path_hash_lock
+  - protected_artifact_hashes
+  - repository_state_at_lock
+- id: AEH-SCHEMA-GREEN-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH GREEN / Refactor Evidence Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/green.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/green.schema.json
+  status: VERIFIED
+  supports:
+  - test_lock_hash
+  - production_before_after_hashes
+  - test_output_hashes
+  - changed_file_before_after_hashes
+- id: AEH-SCHEMA-TRACE-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Traceability Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/traceability.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/traceability.schema.json
+  status: VERIFIED
+  supports:
+  - req_to_ac_test_task_code_ver_mapping
+- id: AEH-SCHEMA-VERIFY-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Verification Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/verification.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/verification.schema.json
+  status: VERIFIED
+  supports:
+  - verification_result_types
+  - verification_methods
+  - verification_output_hash
+  - merge_ready_ready_with_warnings_blocked
+- id: AEH-SCHEMA-APPROVAL-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Human Approval Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/approvals.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/approvals.schema.json
+  status: VERIFIED
+  supports:
+  - spec_red_merge_gate
+  - approved_requires_human_actor_type
+  - approval_evidence_ref
+  limitations:
+  - Schema actor type is not cryptographic identity proof.
+- id: AEH-CORE-CLASSIFICATIONS-6513102
+  family: AEH
+  type: normative_contract
+  title: AEH Change Classification Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: core/classifications.yaml
+  url: https://github.com/YIMO691/aeh/blob/6513102/core/classifications.yaml
+  status: VERIFIED
+  supports:
+  - five_workflow_levels
+  - risk_dimensions
+  - critical_hard_escalation_domains
+  - file_and_line_count_not_sole_criteria
+- id: AEH-RUNTIME-RED-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH RED Runtime
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/runtime/red.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/runtime/red.py
+  status: VERIFIED
+  supports:
+  - doctor_precondition
+  - stale_evidence_block
+  - real_test_execution
+  - invalid_red_classification
+  - production_snapshot_during_red
+  - test_lock_creation_after_valid_red
+- id: AEH-RUNTIME-GREEN-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH GREEN Runtime
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/runtime/green.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/runtime/green.py
+  status: VERIFIED
+  supports:
+  - test_lock_recompute
+  - protected_artifact_hash_check
+  - scope_allowlist_and_after_hash_check
+  - stale_evidence_recheck
+  - required_test_and_regression_execution
+  - test_lock_recheck_after_tests
+- id: AEH-RUNTIME-TRACE-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH Traceability Runtime
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/runtime/traceability.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/runtime/traceability.py
+  status: VERIFIED
+  supports:
+  - forward_trace
+  - uncovered_ac_detection
+  - orphan_test_detection
+  - orphan_code_detection
+  - orphan_verification_detection
+  - blocked_traceability_incomplete
+- id: AEH-RUNTIME-VERIFY-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH VERIFY Runtime
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/runtime/verify.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/runtime/verify.py
+  status: VERIFIED
+  supports:
+  - verify_preconditions
+  - test_lock_and_staleness_recheck
+  - target_and_regression_rerun
+  - critical_integration_or_contract_requirement
+  - manual_verification_pending_blocks
+  - technical_failure_not_overridable_by_approval
+  - critical_merge_gate
+  - traceability_required_before_verify_pass
+  - aeh_stops_at_merge_ready
+- id: AEH-RUNTIME-BOOTSTRAP-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH Bootstrap Install Pipeline
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/bootstrap/pipeline.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/bootstrap/pipeline.py
+  status: VERIFIED
+  supports:
+  - bootstrap_dry_run_zero_write
+  - semantic_hash_ignores_nondeterministic_timestamps
+  - manifest_source_hashes
+  - install_plan
+  - runtime_snapshot_install
+  - managed_section_merge
+  - gitignore_private_boundary
+  - per_file_atomic_replace
+  - rollback_on_apply_failure
+  - post_install_runtime_integrity
+- id: AEH-RUNTIME-DOCTOR-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH Doctor
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/doctor/doctor.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/doctor/doctor.py
+  status: VERIFIED
+  supports:
+  - doctor_read_only
+  - install_residue_detection
+  - manifest_schema_validation
+  - version_compatibility
+  - runtime_digest_validation
+  - profile_and_workflow_validation
+  - managed_adapter_block_validation
+  - capability_enforcement_honesty
+  - private_gitignore_check
+- id: AEH-RUNTIME-ADAPTER-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH Adapter Renderer
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/adapters/render.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/adapters/render.py
+  status: VERIFIED
+  supports:
+  - adapter_is_pure_renderer
+  - blocked_profile_refuses_render
+  - canonical_semantics_shared_across_agents
+  - deny_not_relaxed
+  - unsupported_capabilities_reported
+  - minimum_disclosure
+  - managed_section_idempotent_merge
+- id: AEH-ADAPTER-CODEX-6513102
+  family: AEH
+  type: adapter_declaration
+  title: AEH Codex Adapter Declaration
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: adapters/codex/adapter.yaml
+  url: https://github.com/YIMO691/aeh/blob/6513102/adapters/codex/adapter.yaml
+  status: VERIFIED
+  supports:
+  - codex_capability_map
+  - codex_git_push_guidance_only
+  - codex_human_review_guidance_only
+  - codex_tcb_notice
+- id: AEH-ADAPTER-CLAUDE-6513102
+  family: AEH
+  type: adapter_declaration
+  title: AEH Claude Adapter Declaration
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: adapters/claude/adapter.yaml
+  url: https://github.com/YIMO691/aeh/blob/6513102/adapters/claude/adapter.yaml
+  status: VERIFIED
+  supports:
+  - claude_capability_map
+  - claude_web_access_guidance_only
+  - claude_human_review_guidance_only
+  - claude_tcb_notice
+- id: AEH-SCHEMA-MANIFEST-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Manifest Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/manifest.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/manifest.schema.json
+  status: VERIFIED
+  supports:
+  - harness_version_and_source_revision
+  - compiler_version
+  - schema_version
+  - installed_at
+  - source_hashes_runtime_compiler_bootstrap_adapters
+- id: AEH-SCHEMA-INSTALL-PLAN-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Install Plan Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/install-plan.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/install-plan.schema.json
+  status: VERIFIED
+  supports:
+  - install_actions
+  - relative_path_safety
+  - operation_reason
+  - content_hash
+- id: AEH-SCHEMA-DOCTOR-6513102
+  family: AEH
+  type: machine_contract
+  title: AEH Doctor Report Contract
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: schemas/doctor.schema.json
+  url: https://github.com/YIMO691/aeh/blob/6513102/schemas/doctor.schema.json
+  status: VERIFIED
+  supports:
+  - doctor_ready_warn_blocked
+  - machine_readable_checks
+  - evidence_and_remediation_fields
+- id: AEH-CLI-6513102
+  family: AEH
+  type: runtime_implementation
+  title: AEH CLI
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: src/aeh/cli.py
+  url: https://github.com/YIMO691/aeh/blob/6513102/src/aeh/cli.py
+  status: VERIFIED
+  supports:
+  - single_cli_entry
+  - bootstrap_doctor_change_command_families
+  - exit_status_follows_machine_result
+- id: AEH-PYPROJECT-6513102
+  family: AEH
+  type: build_metadata
+  title: AEH pyproject.toml
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: pyproject.toml
+  url: https://github.com/YIMO691/aeh/blob/6513102/pyproject.toml
+  status: VERIFIED
+  supports:
+  - python_310_plus
+  - pyyaml_jsonschema_dependencies
+  - aeh_cli_script
+  - setuptools_packages_only_from_src
+  limitations:
+  - No package-data declaration for core/schemas/bootstrap/adapters at this revision.
+- id: AEH-KNOWN-LIMITATIONS-6513102
+  family: AEH_RELEASE
+  type: release_document
+  title: AEH V0.1.0 Known Limitations
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: docs/releases/v0.1.0/KNOWN_LIMITATIONS.md
+  url: https://github.com/YIMO691/aeh/blob/6513102/docs/releases/v0.1.0/KNOWN_LIMITATIONS.md
+  status: VERIFIED
+  supports:
+  - approval_is_attestation
+  - guidance_only_capabilities
+  - install_not_repo_wide_atomic
+  - legacy_shell_compatibility_and_no_os_sandbox
+  - no_repair
+  - no_upgrade
+  - no_deep_ci
+  - no_auto_merge_push_pr
+  - no_multi_agent_orchestrator
+  - manual_verification_pending
+  - editable_install_only
+  - classification_keyword_heuristic
+- id: AEH-RELEASE-TEST-6513102
+  family: AEH_RELEASE
+  type: release_test_report
+  title: AEH V0.1.0 Release Test Report
+  repository: YIMO691/aeh
+  revision: '6513102'
+  path: docs/releases/v0.1.0/RELEASE_TEST_REPORT.md
+  url: https://github.com/YIMO691/aeh/blob/6513102/docs/releases/v0.1.0/RELEASE_TEST_REPORT.md
+  status: VERIFIED
+  supports:
+  - 232_of_232_tests_passed
+  - windows_python311_release_environment
+  - suite_counts
+- id: EVAL-P1-PACKAGE-20260818
+  family: POV
+  type: local_evidence_bundle
+  title: TASK-20260817-aeh-pov-pilot-phase1-dryrun.zip
+  sha256: 33e2c441a6d63856e8ec5751e144c35cebd3f29d21bf69672bb5b7de0eeb5295
+  retrieved_at: '2026-08-18'
+  status: VERIFIED_LOCAL_BUNDLE
+  supports:
+  - phase1_handoff
+  - four_dry_runs
+  - run_manifests
+  - raw_agent_sessions
+  - hidden_test_outputs
+  - grader_outputs
+  - d004_external_aeh_replay
+  limitations:
+  - The uploaded ZIP does not contain reports/PHASE_1_RESULT.md or reports/phase1-verdict.yaml although HANDOFF.md states
+    those files existed in aeh-evals.
+  - Phase 1 is a protocol dry-run, not a product efficacy result.
+- id: EVAL-P1-HANDOFF-20260818
+  family: POV
+  type: local_evidence_document
+  title: Phase 1 Dry Run HANDOFF
+  parent_bundle: EVAL-P1-PACKAGE-20260818
+  path: TASK-20260817-aeh-pov-pilot-phase1-dryrun/HANDOFF.md
+  status: VERIFIED_FROM_BUNDLE
+  supports:
+  - protocol_v1_5
+  - four_runs_valid_pass
+  - 38_grader_tests
+  - g3_agent_cli_false
+  - g3_external_verify_blocked_change_state
+  - next_phase_not_started
+  - sandbox_bypass
+  - phase1_known_risks
+- id: EVAL-P1-D001
+  family: POV
+  type: dry_run
+  title: Phase 1 RUN-D001 / G0
+  parent_bundle: EVAL-P1-PACKAGE-20260818
+  run_id: RUN-D001
+  group: G0
+  task_id: TASK-004
+  status: VERIFIED_FROM_BUNDLE
+  supports:
+  - g0_functional_pass
+  - hidden_tests_pass
+  - dry_run_metrics
+- id: EVAL-P1-D002
+  family: POV
+  type: dry_run
+  title: Phase 1 RUN-D002 / G1
+  parent_bundle: EVAL-P1-PACKAGE-20260818
+  run_id: RUN-D002
+  group: G1
+  task_id: TASK-004
+  status: VERIFIED_FROM_BUNDLE
+  supports:
+  - g1_functional_pass
+  - hidden_tests_pass
+  - dry_run_metrics
+- id: EVAL-P1-D003
+  family: POV
+  type: dry_run
+  title: Phase 1 RUN-D003 / G2
+  parent_bundle: EVAL-P1-PACKAGE-20260818
+  run_id: RUN-D003
+  group: G2
+  task_id: TASK-004
+  status: VERIFIED_FROM_BUNDLE
+  supports:
+  - g2_openspec_1_9_0
+  - g2_functional_pass
+  - hidden_tests_pass
+  - dry_run_metrics
+- id: EVAL-P1-D004-RAW
+  family: POV
+  type: dry_run
+  title: Phase 1 RUN-D004 / G3 raw evidence
+  parent_bundle: EVAL-P1-PACKAGE-20260818
+  run_id: RUN-D004
+  group: G3
+  task_id: TASK-004
+  status: VERIFIED_FROM_BUNDLE
+  supports:
+  - agent_claimed_completed
+  - functional_outcome_pass
+  - hidden_tests_2_of_2_pass
+  - agent_cli_invoked_false
+  - aeh_artifacts_present
+  - external_replay_blocked_change_state
+  - wall_time_269
+  - tokens_31665
+  - tool_calls_10
+- id: EVAL-P0-USER-REPORTED-20260818
+  family: POV
+  type: user_reported_protocol_state
+  title: Phase 0 PROTOCOL_FREEZE completion report
+  status: USER_REPORTED_NOT_IN_CURRENT_BUNDLE
+  supports:
+  - h1_to_h5_hypotheses
+  - ten_metrics
+  - pre_registered_decision_gates
+  - six_python_tasks
+  - eight_attack_cases
+  - 72_run_runbook
+  limitations:
+  - Phase 0 repository contents were not independently re-opened in the current H5 implementation turn.
+  - Use as reported protocol context, not as independently reverified raw evidence.
+- id: EXT-BETTER-HARNESS-SNAPSHOT-20260818
+  family: HARNESS_EVALUATION
+  type: official_repository_commit
+  title: Better Harness — Harness-as-Code platform merge snapshot
+  repository: QoderAI/better-harness
+  revision: a550746e7cda41c572a9d6b6b793fe68de799b19
+  published: '2026-08-18'
+  url: https://github.com/QoderAI/better-harness/commit/a550746e7cda41c572a9d6b6b793fe68de799b19
+  status: VERIFIED_COMMIT
+  supports:
+  - harness_as_code_dsl
+  - comparison_and_execution_contracts
+  - harness_studio
+  - checkpoint_provenance
+  - run_evidence_bridge
+  note: This snapshot shows Better Harness moving closer to executable harness/control-plane and experiment infrastructure;
+    competitive boundaries must be periodically re-reviewed.
+- id: EXT-PROOFAGENT-SNAPSHOT-0_12_1
+  family: EVALUATION_GOVERNANCE
+  type: official_repository_commit
+  title: ProofAgent Harness v0.12.1 snapshot
+  repository: ProofAgent-ai/proofagent-harness
+  revision: ce6f821cebefa6330c9f1f3f1817713740b5f40d
+  published: '2026-08-14'
+  url: https://github.com/ProofAgent-ai/proofagent-harness/commit/ce6f821cebefa6330c9f1f3f1817713740b5f40d
+  status: VERIFIED_COMMIT
+  supports:
+  - proofagent_version_0_12_1
+  - reporting_and_attribution_hardening
+- id: EVAL-P11-VERDICT-3267E8A
+  family: POV
+  type: machine_verdict
+  title: Phase 1.1 v1.6 machine verdict
+  repository: aeh-evals
+  revision: 3267e8a
+  path: reports/phase1-1-verdict.yaml
+  status: VERIFIED_LOCAL_COMMIT
+  supports:
+  - phase1_1_frozen_and_replayed
+  - four_runs_valid
+  - freeze_pairs_6_of_6
+  - phase2_72_run_not_authorized
+- id: EVAL-P11-RESULT-20260819
+  family: POV
+  type: evaluation_report
+  title: Phase 1.1 G3 Treatment Freeze result
+  repository: aeh-evals
+  revision: 3267e8a
+  path: reports/PHASE_1_1_RESULT.md
+  status: VERIFIED_LOCAL_COMMIT
+  supports:
+  - g3_external_runner_route_b
+  - task_outcome_pass
+  - assurance_outcome_merge_ready
+  - direct_machine_truth_mutation_true
+- id: EVAL-P11-CLOSURE-20260819
+  family: POV
+  type: closure_record
+  title: Phase 1.1 Design and Evidence Baseline v0.2 closure
+  repository: aeh-evals
+  path: reports/PHASE_1_1_CLOSURE.md
+  status: VERIFIED_LOCAL_WORKTREE
+  supports:
+  - findings_p11_001_to_004_closed
+  - evidence_namespace_split
+  - replay_status_overall_semantics
+- id: EVAL-P11-D001
+  family: POV
+  type: internal_raw_run
+  title: Phase 1.1 RUN-D001 / G0
+  run_id: RUN-D001
+  group: G0
+  status: VERIFIED_INTERNAL_EVIDENCE
+  supports: [task_pass, assurance_not_applicable, metrics]
+- id: EVAL-P11-D002
+  family: POV
+  type: internal_raw_run
+  title: Phase 1.1 RUN-D002 / G1
+  run_id: RUN-D002
+  group: G1
+  status: VERIFIED_INTERNAL_EVIDENCE
+  supports: [task_pass, assurance_not_applicable, metrics]
+- id: EVAL-P11-D003
+  family: POV
+  type: internal_raw_run
+  title: Phase 1.1 RUN-D003 / G2
+  run_id: RUN-D003
+  group: G2
+  status: VERIFIED_INTERNAL_EVIDENCE
+  supports: [task_pass, assurance_not_applicable, metrics]
+- id: EVAL-P11-D004
+  family: POV
+  type: internal_raw_run
+  title: Phase 1.1 RUN-D004 / G3 External Runner
+  run_id: RUN-D004
+  group: G3
+  status: VERIFIED_INTERNAL_EVIDENCE
+  supports:
+  - task_pass
+  - assurance_merge_ready
+  - aeh_verify_status_verify_complete
+  - aeh_verify_overall_merge_ready
+  - direct_machine_truth_mutation_true
+quality_notes:
+- Phase 1 v1.5 keeps EVAL-P1 identifiers; Phase 1.1 v1.6 uses EVAL-P11 identifiers.
+- Complete Phase 1.1 sessions remain internal; the public evaluation repository carries reports and hashes.
+- No source is allowed to support claims beyond what its public material actually states.
+- Competitive-gap conclusions are INFERENCE/DECISION, not facts asserted by any individual source.

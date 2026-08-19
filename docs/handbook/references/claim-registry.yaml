@@ -1,0 +1,445 @@
+registry:
+  id: AEH-HANDBOOK-CLAIMS
+  version: '0.5'
+  updated_at: '2026-08-19'
+claims:
+- id: CLM-001
+  statement: Modern coding agents already cover substantial parts of repository exploration, planning, code modification,
+    tool execution, testing, and iterative repair.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EXT-OPENAI-CODEX-HARNESS-2026
+  - EXT-ANTHROPIC-LONG-RUNNING-HARNESS-2025
+  - EXT-MINI-SWE-AGENT
+- id: CLM-002
+  statement: Repository intelligence/context engineering is a distinct engineering concern from change acceptance.
+  type: FACT_PLUS_ARCHITECTURAL_INFERENCE
+  status: SUPPORTED
+  evidence:
+  - EXT-OPENAI-HARNESS-ENGINEERING-2026
+  - EXT-ANTHROPIC-CONTEXT-ENGINEERING-2025
+  - EXT-AGENTS-MD
+- id: CLM-003
+  statement: Spec authoring is already a well-developed ecosystem concern and should not be AEH's primary product boundary.
+  type: DECISION_SUPPORTED_BY_ECOSYSTEM
+  status: SUPPORTED_FOR_ARCHITECTURE
+  evidence:
+  - EXT-GITHUB-SPEC-KIT
+  - EXT-GITHUB-SPEC-KIT-SDD
+  - EXT-OPENSPEC
+- id: CLM-004
+  statement: Runtime isolation, tool permissions and tool-call policy already have native owners in coding-agent/runtime ecosystems.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EXT-OPENAI-CODEX-CONFIG
+  - EXT-GEMINI-POLICY-ENGINE
+  - EXT-GEMINI-HOOKS
+  - EXT-GEMINI-SANDBOX
+  - EXT-MCP-SPEC-20260728
+- id: CLM-005
+  statement: 'Agent evaluation and change assurance are not the same abstraction: evaluation measures an agent/system over
+    tasks and trials; assurance decides whether a particular change is acceptable.'
+  type: FACT_PLUS_DEFINITION
+  status: SUPPORTED
+  evidence:
+  - EXT-ANTHROPIC-AGENT-EVALS-2026
+  - INT-DEEP-RESEARCH-20260818
+- id: CLM-006
+  statement: Task success does not imply assurance success.
+  type: OBSERVED
+  status: PROVISIONALLY_SUPPORTED
+  evidence:
+  - EVAL-P1-D004
+  limitations:
+  - Observed in one dry-run task; this establishes conceptual separation, not prevalence.
+- id: CLM-007
+  statement: Artifact presence does not imply evidence validity.
+  type: OBSERVED
+  status: PROVISIONALLY_SUPPORTED
+  evidence:
+  - EVAL-P1-D004
+  - AEH-ARCH-6513102
+- id: CLM-008
+  statement: AEH V0.1 explicitly separates Guidance, Normative Contract, and Enforcement Engine.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-ARCH-6513102
+- id: CLM-009
+  statement: AEH V0.1 explicitly models LLM, Contract, Validator and Evidence as distinct roles.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-ARCH-6513102
+  - AEH-README-6513102
+- id: CLM-010
+  statement: AEH V0.1 defines a Trusted Mutation Boundary for machine truth, test files, production code, approvals and verification
+    artifacts.
+  type: FACT
+  status: SUPPORTED_AS_NORMATIVE_V01
+  evidence:
+  - AEH-ARCH-6513102
+- id: CLM-011
+  statement: The stable long-term concern for AEH is not the literal RED/GREEN state names but provenance, authority separation,
+    oracle integrity, scope integrity, reproducibility, traceability and acceptance.
+  type: ARCHITECTURAL_DECISION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - EXT-ANTHROPIC-MANAGED-AGENTS-2026
+  - EXT-GITHUB-SPEC-KIT
+  - EXT-OPENSPEC
+- id: CLM-012
+  statement: Generator and final Acceptance Authority should be separated for high-assurance change verification.
+  type: NORMATIVE
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - AEH-ARCH-6513102
+  - EXT-ANTHROPIC-HARNESS-DESIGN-2026
+  - EVAL-P1-D004
+- id: CLM-013
+  statement: AEH should be positioned as vendor-neutral Change Assurance rather than as a general Agent Harness.
+  type: ARCHITECTURAL_DECISION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - AEH-ARCH-6513102
+  - EXT-OPENAI-CODEX-HARNESS-2026
+  - EXT-ANTHROPIC-MANAGED-AGENTS-2026
+- id: CLM-014
+  statement: Spec Authoring, project context, agent loops, MCP runtime and OS sandbox should default to integration rather
+    than reimplementation inside AEH.
+  type: ARCHITECTURAL_DECISION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - EXT-GITHUB-SPEC-KIT
+  - EXT-OPENSPEC
+  - EXT-AGENTS-MD
+  - EXT-MCP-SPEC-20260728
+  - EXT-GEMINI-POLICY-ENGINE
+  - EXT-GEMINI-SANDBOX
+  - EXT-MINI-SWE-AGENT
+- id: CLM-015
+  statement: No representative project reviewed in the 2026-08-18 research was found to publicly center its whole product
+    on the complete vendor-neutral, change-scoped contract→provenance→oracle integrity→scope→traceability→external acceptance
+    chain.
+  type: RESEARCH_INFERENCE
+  status: PROVISIONAL
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - EXT-PROOFAGENT
+  - EXT-BETTER-HARNESS
+  - EXT-GITHUB-SPEC-KIT
+  - EXT-OPENSPEC
+  limitations:
+  - Absence in reviewed representative public projects is not proof that no such system exists.
+  - The gap can shrink quickly.
+- id: CLM-016
+  statement: AEH improves task success by at least 10 percentage points.
+  type: HYPOTHESIS
+  status: UNPROVEN
+  evidence: []
+- id: CLM-017
+  statement: AEH reduces false completion by at least 50%.
+  type: HYPOTHESIS
+  status: UNPROVEN
+  evidence: []
+- id: CLM-018
+  statement: AEH can block at least 95% of the pre-registered integrity attacks with zero critical escapes.
+  type: HYPOTHESIS
+  status: UNPROVEN
+  evidence: []
+- id: CLM-019
+  statement: AEH's median wall-time overhead can remain at or below the pre-registered acceptable maximum.
+  type: HYPOTHESIS
+  status: UNPROVEN
+  evidence: []
+- id: CLM-020
+  statement: AEH provides unique value that cannot be reproduced more cheaply by Spec Kit/OpenSpec + native policy/sandbox
+    + CI + existing evaluation/governance tools.
+  type: HYPOTHESIS
+  status: UNPROVEN
+  evidence: []
+- id: CLM-021
+  statement: AEH V0.1 Evidence Index can bind evidence to repository base_commit/dirty state and per-source rel_path/file_hash,
+    while recording confidence, limitations and unknowns.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-SCHEMA-EVIDENCE-6513102
+- id: CLM-022
+  statement: AEH V0.1 RED records command, exit code, output hash, expected/actual failure, repository hashes and an explicit
+    VALID_RED/INVALID_RED taxonomy.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-SCHEMA-RED-6513102
+  - AEH-RUNTIME-RED-6513102
+- id: CLM-023
+  statement: AEH V0.1 RED runtime blocks stale grounding evidence, detects production mutation during RED, and creates a test
+    lock only after all required RED tests classify as VALID_RED.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-RED-6513102
+  - AEH-SCHEMA-TESTLOCK-6513102
+- id: CLM-024
+  statement: AEH V0.1 GREEN runtime recomputes the test lock, checks protected artifact hashes, enforces declared changed_files
+    against allowed paths and after_hash values, reruns target/regression tests, and rechecks the lock afterwards.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-GREEN-6513102
+  - AEH-SCHEMA-GREEN-6513102
+- id: CLM-025
+  statement: AEH V0.1 Traceability runtime can block uncovered automated/invariant ACs and orphan tests, code, or verification
+    records.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-TRACE-6513102
+  - AEH-SCHEMA-TRACE-6513102
+- id: CLM-026
+  statement: AEH V0.1 VERIFY reruns target/regression checks, requires integration or contract verification for CRITICAL changes,
+    blocks pending manual verification, requires CRITICAL MERGE_GATE approval, and requires traceability completion before
+    setting the verify gate.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-VERIFY-6513102
+  - AEH-SCHEMA-VERIFY-6513102
+  - AEH-SCHEMA-APPROVAL-6513102
+- id: CLM-027
+  statement: AEH V0.1 classification explicitly uses business impact, blast radius, irreversibility, uncertainty, compatibility
+    and data sensitivity, with hard escalation for economy, persistence, protocol, auth, security and destructive domains.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-CORE-CLASSIFICATIONS-6513102
+- id: CLM-028
+  statement: Test Lock should be understood as one implementation of the more general architecture invariant Oracle Ownership
+    Separation.
+  type: ARCHITECTURAL_DECISION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - AEH-ARCH-6513102
+  - AEH-RUNTIME-RED-6513102
+  - AEH-RUNTIME-GREEN-6513102
+  - INT-DEEP-RESEARCH-20260818
+- id: CLM-029
+  statement: 'Change Scope and Runtime Permission are distinct: permission asks what a process can technically mutate; scope
+    asks what this change is authorized to mutate.'
+  type: ARCHITECTURAL_DEFINITION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - AEH-RUNTIME-GREEN-6513102
+  - EXT-GEMINI-POLICY-ENGINE
+  - EXT-GEMINI-SANDBOX
+- id: CLM-030
+  statement: AEH V0.1 human approval is an attestation record, not a strong identity proof, even though schema requires APPROVED
+    records to use actor.type=human.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-SCHEMA-APPROVAL-6513102
+  - AEH-README-6513102
+- id: CLM-031
+  statement: A machine-truth file becomes authoritative only when its mutation path and validation path are trusted; YAML/JSON
+    existence alone is insufficient.
+  type: NORMATIVE
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - AEH-ARCH-6513102
+  - EVAL-P1-D004
+- id: CLM-032
+  statement: AEH V0.1 Bootstrap can calculate a zero-write dry-run install plan and uses semantic hashing that strips non-semantic
+    timestamp fields.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-BOOTSTRAP-6513102
+  - AEH-SCHEMA-INSTALL-PLAN-6513102
+- id: CLM-033
+  statement: AEH V0.1 Bootstrap installs versioned core/schema runtime snapshots and records source_revision plus runtime/compiler/bootstrap/adapters
+    digests in manifest.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-BOOTSTRAP-6513102
+  - AEH-SCHEMA-MANIFEST-6513102
+- id: CLM-034
+  statement: AEH V0.1 Bootstrap uses per-file os.replace and rollback on apply failure, but release documentation explicitly
+    states this is not a repository-wide atomic transaction.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-BOOTSTRAP-6513102
+  - AEH-KNOWN-LIMITATIONS-6513102
+- id: CLM-035
+  statement: AEH V0.1 Doctor is read-only and blocks runtime digest mismatch, incomplete-install residues, invalid profile/workflow
+    state, and unavailable deny enforcement when capability status is UNENFORCEABLE.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-DOCTOR-6513102
+  - AEH-SCHEMA-DOCTOR-6513102
+- id: CLM-036
+  statement: AEH V0.1 Adapter is a pure renderer/translator that consumes compiled semantics; it does not resolve precedence
+    or policy conflicts itself.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RUNTIME-ADAPTER-6513102
+- id: CLM-037
+  statement: AEH V0.1 capability declarations distinguish ENFORCEABLE and GUIDANCE_ONLY, and known limitations report Codex
+    git_push deny plus Claude web_access deny and human-review requirements as non-fully-enforced cases.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-ADAPTER-CODEX-6513102
+  - AEH-ADAPTER-CLAUDE-6513102
+  - AEH-KNOWN-LIMITATIONS-6513102
+- id: CLM-038
+  statement: AEH V0.1 exposes a single aeh CLI for bootstrap, doctor and change lifecycle commands, and the CLI exit code
+    reflects machine outcomes rather than narrative text.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-CLI-6513102
+- id: CLM-039
+  statement: At revision 6513102, AEH package discovery includes only src/aeh* and does not declare package data for core/schemas/bootstrap/adapters,
+    consistent with the released editable-install-only limitation.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-PYPROJECT-6513102
+  - AEH-KNOWN-LIMITATIONS-6513102
+- id: CLM-040
+  statement: AEH V0.1 release evidence reports 232/232 automated tests passing in the documented Windows/Python 3.11.15 environment.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - AEH-RELEASE-TEST-6513102
+- id: CLM-041
+  statement: CI should ultimately strengthen AEH by moving Acceptance recomputation into an environment outside the local
+    Generator's write authority, but user-project deep CI integration is not implemented in V0.1.
+  type: ARCHITECTURAL_DECISION_PLUS_CURRENT_LIMIT
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - AEH-ARCH-6513102
+  - AEH-KNOWN-LIMITATIONS-6513102
+  - AEH-ROADMAP-V02-6513102
+- id: CLM-042
+  statement: An AEH audit bundle should package the minimal artifacts needed for a third party to replay or explain an acceptance
+    decision; this is a handbook target model, not a complete V0.1 exported-bundle feature.
+  type: ARCHITECTURAL_PROPOSAL
+  status: PROPOSED
+  evidence:
+  - AEH-SCHEMA-MANIFEST-6513102
+  - AEH-SCHEMA-RED-6513102
+  - AEH-SCHEMA-GREEN-6513102
+  - AEH-SCHEMA-VERIFY-6513102
+  - AEH-SCHEMA-TRACE-6513102
+- id: CLM-043
+  statement: The Phase 1 dry-run package contains four TASK-004 runs covering G0-G3; all four recorded functional outcome
+    PASS and hidden tests PASS.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EVAL-P1-D001
+  - EVAL-P1-D002
+  - EVAL-P1-D003
+  - EVAL-P1-D004-RAW
+- id: CLM-044
+  statement: RUN-D004 records agent_claimed=COMPLETED and outcome=PASS while the agent did not invoke the AEH CLI; later external
+    AEH verify replay returned BLOCKED_CHANGE_STATE with state=DONE.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EVAL-P1-D004-RAW
+- id: CLM-045
+  statement: Phase 1 demonstrates protocol-mechanics value and the conceptual separation of task outcome from assurance outcome,
+    but it does not demonstrate AEH product efficacy.
+  type: RESEARCH_CONCLUSION
+  status: SUPPORTED
+  evidence:
+  - EVAL-P1-HANDOFF-20260818
+  - EVAL-P1-D004-RAW
+  - INT-DEEP-RESEARCH-20260818
+- id: CLM-046
+  statement: A clean Proof-of-Value treatment should define G3 as G2 plus external AEH assurance, keeping model, repository,
+    prompt basis, runtime permissions and evaluation conditions otherwise controlled.
+  type: EXPERIMENTAL_DESIGN_DECISION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - ADR-HB-007
+  - EVAL-P1-D004-RAW
+  - INT-DEEP-RESEARCH-20260818
+- id: CLM-047
+  statement: Attack cases A01-A08 are existential tests of AEH's authority boundary because they test whether a non-cooperative
+    Generator can corrupt test, gate, evidence, scope, approval or contract truth and still obtain acceptance.
+  type: ARCHITECTURAL_EVALUATION_DECISION
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - EVAL-P0-USER-REPORTED-20260818
+  - AEH-ARCH-6513102
+- id: CLM-048
+  statement: The 72-run Python pilot, if executed under the frozen protocol, should be treated as a signal pilot for that
+    task distribution rather than proof of general efficacy across C#/.NET, Unity or large brownfield repositories.
+  type: EVALUATION_BOUNDARY
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - EXT-ANTHROPIC-AGENT-EVALS-2026
+- id: CLM-049
+  statement: AEH should only progress from conditional continuation to unconditional continuation if it shows assurance gains,
+    survives adversarial integrity tests, has acceptable friction, cannot be cheaply replaced by existing tool composition,
+    and generalizes beyond the initial Python slice.
+  type: STRATEGIC_DECISION_RULE
+  status: PROPOSED_FOR_FREEZE
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - ADR-HB-008
+- id: CLM-050
+  statement: Current Phase 1 timing/token measurements must not be interpreted as stable AEH overhead estimates because n=1
+    per group and the G3 treatment was not cleanly isolated.
+  type: EVALUATION_LIMITATION
+  status: SUPPORTED
+  evidence:
+  - EVAL-P1-D001
+  - EVAL-P1-D002
+  - EVAL-P1-D003
+  - EVAL-P1-D004-RAW
+  - INT-DEEP-RESEARCH-20260818
+- id: CLM-051
+  statement: Phase 1.1 v1.6 completed four valid TASK-004 runs with six identical frozen-field comparisons; the G3 External Runner reached AEH status VERIFY_COMPLETE and overall MERGE_READY.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EVAL-P11-VERDICT-3267E8A
+  - EVAL-P11-D001
+  - EVAL-P11-D002
+  - EVAL-P11-D003
+  - EVAL-P11-D004
+- id: CLM-052
+  statement: In Phase 1.1 RUN-D004, the coding agent directly modified .aeh machine-truth artifacts; the run records integrity.direct_machine_truth_mutation=true even though the external controller ultimately obtained MERGE_READY.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EVAL-P11-D004
+  - EVAL-P11-RESULT-20260819
+- id: CLM-053
+  statement: Phase 1.1 validates the frozen result model and minimum External Runner mechanism but does not establish product efficacy, attack resistance, economics, or cross-domain validity.
+  type: RESEARCH_CONCLUSION
+  status: SUPPORTED
+  evidence:
+  - EVAL-P11-RESULT-20260819
+  - EVAL-P11-CLOSURE-20260819
+- id: CLM-054
+  statement: Completion of Phase 1.1 does not authorize the 72-run pilot; phase2_72_run.authorized remains false and the next protocol action remains STOP.
+  type: FACT
+  status: SUPPORTED
+  evidence:
+  - EVAL-P11-VERDICT-3267E8A

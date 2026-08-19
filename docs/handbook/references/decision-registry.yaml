@@ -1,0 +1,269 @@
+registry:
+  id: AEH-HANDBOOK-DECISIONS
+  version: '0.5'
+  updated_at: '2026-08-19'
+decisions:
+- id: ADR-HB-001
+  title: Handbook North Star
+  status: ACCEPTED_V0_2
+  decision: The handbook defines AEH primarily as a vendor-neutral Change Assurance system, not as a general Agent Harness.
+  rationale:
+  - Agent loops, context, spec authoring and runtime controls already have strong ecosystem owners.
+  - The durable candidate value is independent change acceptance.
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - AEH-ARCH-6513102
+- id: ADR-HB-002
+  title: Acceptance Authority Separation
+  status: ACCEPTED_V0_2
+  decision: The generating Agent MUST NOT be the final owner of machine acceptance truth.
+  invariant: The final acceptance verdict must be independently recomputable outside the Generator's authority.
+  evidence:
+  - AEH-ARCH-6513102
+  - EVAL-P1-D004
+  - EXT-ANTHROPIC-HARNESS-DESIGN-2026
+- id: ADR-HB-003
+  title: Task Outcome and Assurance Outcome
+  status: ACCEPTED_V0_2
+  decision: Handbook and evaluation artifacts MUST distinguish agent_claim, task_outcome and assurance_outcome.
+  evidence:
+  - EVAL-P1-D004
+  - EXT-ANTHROPIC-AGENT-EVALS-2026
+- id: ADR-HB-004
+  title: Six-Plane Reference Architecture
+  status: ACCEPTED_V0_2
+  decision: 'Agentic Software Engineering is described using Intent/Spec, Repository Intelligence/Context, Agent Reasoning/Harness,
+    Execution/Tool, Verification/Governance, and Evaluation planes, with Evidence and Policy/Identity as cross-cutting substrates.
+
+    '
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - EXT-OPENAI-HARNESS-ENGINEERING-2026
+  - EXT-ANTHROPIC-CONTEXT-ENGINEERING-2025
+  - EXT-MCP-SPEC-20260728
+  - EXT-ANTHROPIC-AGENT-EVALS-2026
+- id: ADR-HB-005
+  title: Spec Provider Boundary
+  status: ACCEPTED_V0_2
+  decision: AEH should validate normalized requirements/acceptance constraints but should not compete as a full Spec Authoring
+    product.
+  preferred_strategy: INTEGRATE
+  candidate_providers:
+  - OpenSpec
+  - GitHub Spec Kit
+  - PRD
+  - Issue
+  - Native AEH minimal input
+  evidence:
+  - EXT-OPENSPEC
+  - EXT-GITHUB-SPEC-KIT
+- id: ADR-HB-006
+  title: Native Runtime Governance Boundary
+  status: ACCEPTED_V0_2
+  decision: AEH should not implement an OS sandbox as a core product capability; it should integrate with native runtime enforcement
+    and verify declared capabilities.
+  preferred_strategy: INTEGRATE
+  evidence:
+  - EXT-GEMINI-POLICY-ENGINE
+  - EXT-GEMINI-HOOKS
+  - EXT-GEMINI-SANDBOX
+  - EXT-OPENAI-CODEX-CONFIG
+  - EXT-MCP-SPEC-20260728
+- id: ADR-HB-007
+  title: PoV G3 Treatment
+  status: ACCEPTED_PHASE_1_1_TREATMENT
+  decision: The clean experimental treatment for G3 is G2 + External AEH Assurance.
+  rationale:
+  - The experiment should measure AEH assurance, not whether Codex knows how to operate the AEH CLI.
+  evidence:
+  - EVAL-P1-D004
+  - INT-DEEP-RESEARCH-20260818
+- id: ADR-HB-008
+  title: Current Strategic Verdict
+  status: ACTIVE_RESEARCH_VERDICT
+  decision: CONTINUE_BUT_NARROW — conditional
+  means:
+    continue:
+    - Proof-of-Value
+    - Change Assurance Core
+    - External Validator
+    - Evidence and Integrity
+    - Adversarial Assurance
+    pause:
+    - RAG
+    - General Memory
+    - Web UI
+    - General Multi-Agent Orchestration
+    - Self-built OS Sandbox
+    - Large Spec Authoring Framework
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+- id: ADR-HB-009
+  title: Integration Before Reimplementation
+  status: ACCEPTED_V0_2
+  decision: When a mature ecosystem owner exists outside Change Assurance, AEH defaults to integration rather than reimplementation.
+  evidence:
+  - EXT-GITHUB-SPEC-KIT
+  - EXT-OPENSPEC
+  - EXT-AGENTS-MD
+  - EXT-MCP-SPEC-20260728
+  - EXT-MINI-SWE-AGENT
+- id: ADR-HB-010
+  title: Do Not Overstate Product Efficacy
+  status: ACTIVE
+  decision: Until PoV decision gates pass, the handbook MUST describe AEH product efficacy as NOT_YET_PROVEN.
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - EVAL-P1-D004
+- id: ADR-HB-011
+  title: Evidence Trust Model
+  status: ACCEPTED_V0_2
+  decision: Artifact presence is only an observation; acceptance evidence requires provenance/freshness/integrity checks and,
+    where applicable, external recomputation.
+  evidence:
+  - AEH-SCHEMA-EVIDENCE-6513102
+  - EVAL-P1-D004
+  - AEH-RUNTIME-VERIFY-6513102
+- id: ADR-HB-012
+  title: Oracle Ownership Separation
+  status: ACCEPTED_V0_2
+  decision: Test Lock is an implementation mechanism; the architecture invariant is that the implementation under validation
+    cannot unilaterally redefine the acceptance oracle and retain the same assurance state.
+  evidence:
+  - AEH-ARCH-6513102
+  - AEH-RUNTIME-RED-6513102
+  - AEH-RUNTIME-GREEN-6513102
+- id: ADR-HB-013
+  title: Scope Is Legality, Not Capability
+  status: ACCEPTED_V0_2
+  decision: Change Scope verification remains separate from OS/runtime sandboxing. Native runtime controls capability; AEH
+    verifies change authorization and actual diff integrity.
+  evidence:
+  - AEH-RUNTIME-GREEN-6513102
+  - EXT-GEMINI-SANDBOX
+  - EXT-GEMINI-POLICY-ENGINE
+- id: ADR-HB-014
+  title: Risk-weighted Traceability
+  status: ACCEPTED_V0_2
+  decision: Traceability is a core assurance primitive, but its required depth should be risk-weighted rather than identical
+    for every change.
+  evidence:
+  - AEH-RUNTIME-TRACE-6513102
+  - AEH-CORE-CLASSIFICATIONS-6513102
+- id: ADR-HB-015
+  title: Context Complexity and Engineering Risk Are Orthogonal
+  status: ACCEPTED_V0_2
+  decision: Context depth must not be used as a substitute for engineering risk. Risk governs assurance strength; context
+    complexity governs how much project knowledge an agent needs.
+  evidence:
+  - AEH-CORE-CLASSIFICATIONS-6513102
+  - EXT-ANTHROPIC-CONTEXT-ENGINEERING-2025
+- id: ADR-HB-016
+  title: Truth Requires Trusted Mutation Boundary
+  status: ACCEPTED_V0_2
+  decision: Machine truth is not defined by file format. Authoritative state requires constrained writers, integrity checks
+    and validator-mediated transition/recomputation.
+  evidence:
+  - AEH-ARCH-6513102
+  - EVAL-P1-D004
+- id: ADR-HB-017
+  title: Engineering Architecture Uses Responsibility-to-Code Mapping
+  status: ACCEPTED_V0_2
+  decision: The handbook describes stable conceptual responsibilities first and maps them to current modules second; current
+    file layout is evidence, not the architectural definition itself.
+  evidence:
+  - AEH-ARCH-6513102
+  - AEH-CLI-6513102
+- id: ADR-HB-018
+  title: Doctor Is Observation and Admission Control, Not Repair
+  status: ACCEPTED_V0_2
+  decision: Doctor remains read-only. Recovery/repair is a separate mutation capability and must not be silently embedded
+    in health checks.
+  evidence:
+  - AEH-RUNTIME-DOCTOR-6513102
+  - AEH-KNOWN-LIMITATIONS-6513102
+- id: ADR-HB-019
+  title: Capability Honesty
+  status: ACCEPTED_V0_2
+  decision: AEH must represent control strength explicitly (e.g. ENFORCEABLE/GUIDANCE_ONLY/UNENFORCEABLE) and must not claim
+    hard enforcement where only instructions exist.
+  evidence:
+  - AEH-RUNTIME-ADAPTER-6513102
+  - AEH-RUNTIME-DOCTOR-6513102
+  - AEH-ADAPTER-CODEX-6513102
+  - AEH-ADAPTER-CLAUDE-6513102
+- id: ADR-HB-020
+  title: External CI as Stronger Acceptance Boundary
+  status: ACCEPTED_V0_2
+  decision: For stronger assurance, recomputation should be runnable in protected CI/SCM infrastructure outside the Generator
+    workspace; AEH itself should stop at an acceptance verdict and not own merge/push/release.
+  evidence:
+  - AEH-README-6513102
+  - AEH-KNOWN-LIMITATIONS-6513102
+  - AEH-ROADMAP-V02-6513102
+- id: ADR-HB-021
+  title: Audit Bundle Is Replay-Oriented
+  status: ACCEPTED_V0_2
+  decision: An audit bundle is defined by the questions it lets an independent reviewer answer and replay, not by a fixed
+    archive format.
+  evidence:
+  - AEH-SCHEMA-MANIFEST-6513102
+  - AEH-SCHEMA-RED-6513102
+  - AEH-SCHEMA-GREEN-6513102
+  - AEH-SCHEMA-VERIFY-6513102
+  - AEH-SCHEMA-TRACE-6513102
+- id: ADR-HB-022
+  title: Known Limitations Are Architecture Inputs
+  status: ACCEPTED_V0_2
+  decision: The handbook treats release limitations as explicit design boundaries and roadmap inputs; it must not describe
+    planned repair/upgrade/CI/sandbox/identity features as current capabilities.
+  evidence:
+  - AEH-KNOWN-LIMITATIONS-6513102
+  - AEH-ROADMAP-V02-6513102
+- id: ADR-HB-023
+  title: PoV Measures Incremental Assurance, Not Agent Familiarity With AEH
+  status: ACCEPTED_V0_2
+  decision: G3 is defined conceptually as G2 + external AEH assurance; the experiment must not primarily measure whether the
+    Coding Agent knows the AEH CLI.
+  evidence:
+  - EVAL-P1-D004-RAW
+  - INT-DEEP-RESEARCH-20260818
+- id: ADR-HB-024
+  title: Task and Assurance Verdicts Are Separate Evaluation Outputs
+  status: ACCEPTED_V0_2
+  decision: PoV records agent_claim, task_outcome and assurance_outcome separately; functional PASS with assurance BLOCKED
+    is a legitimate result, not a contradiction.
+  evidence:
+  - EVAL-P1-D004-RAW
+  - EXT-ANTHROPIC-AGENT-EVALS-2026
+- id: ADR-HB-025
+  title: Adversarial Results Are Reported Separately
+  status: ACCEPTED_V0_2
+  decision: A01-A08 results form an ADVERSARIAL_RESULT and must not be mixed into ordinary task-success metrics.
+  evidence:
+  - EVAL-P0-USER-REPORTED-20260818
+  - INT-DEEP-RESEARCH-20260818
+- id: ADR-HB-026
+  title: Do Not Repair AEH Mid-Benchmark
+  status: ACCEPTED_V0_2
+  decision: After formal pilot execution begins, an AEH failure is recorded as a failure for that frozen version. Protocol
+    defects require abort/new protocol/restart rather than hot-fixing a subset of runs.
+  evidence:
+  - EVAL-P1-HANDOFF-20260818
+  - INT-DEEP-RESEARCH-20260818
+- id: ADR-HB-027
+  title: Signal Before Scale
+  status: ACCEPTED_V0_2
+  decision: The Python 72-run pilot is used to detect a meaningful signal before spending on cross-domain C#/.NET/Unity validation.
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+- id: ADR-HB-028
+  title: Final Verdict Includes Uniqueness and Economics
+  status: ACCEPTED_V0_2
+  decision: Even a technically successful AEH must be integrated or stopped if comparable assurance can be obtained materially
+    more cheaply from existing Spec/Policy/CI/Eval tooling.
+  evidence:
+  - INT-DEEP-RESEARCH-20260818
+  - EXT-PROOFAGENT
+  - EXT-GITHUB-SPEC-KIT
+  - EXT-OPENSPEC

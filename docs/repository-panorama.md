@@ -1,10 +1,17 @@
 # AEH V0.2 仓库全景图（Repository Panorama）
 
-> 状态：DRAFT v0.2（Phase 0 修订版，待 architecture.md 冻结）
+> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；目标形态仍按里程碑实现
 >
 > 注意：本文档描述 V0.2 目标形态；其中尚未在 V0.1 落地的目录与能力（如 policies/、
 > skills/、templates/、merge-rules、dotnet/unity 示例）不代表 V0.1 已存在。
 > V0.1 实际能力见 README §13 与 CHANGELOG.md。
+>
+> 证据边界：AEH 软件仍为 `v0.1.0 @ 6513102`；Phase 1.1 只验证 v1.6 冻结协议和
+> External Runner 最小机制，产品有效性为 `NOT_YET_PROVEN`，72-run 未授权。
+>
+> v0.2 统一边界：AEH 是独立 Change Assurance System；Generator 与 Acceptance
+> Authority 分离；Task Outcome 与 Assurance Outcome 分离；G3 Route B 是实验性
+> External Runner；任何直接机器事实修改都必须显式进入 Integrity Evidence。
 >
 > 用途：冻结 **AEH V0.1 完成后仓库最终长什么样、如何安装到用户项目、哪些内容是机器真值、哪些规则由谁定义与强制、任务运行时如何留证**。
 >

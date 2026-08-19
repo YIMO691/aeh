@@ -5,7 +5,8 @@ AEH does not write your code — it installs a contract layer into your reposito
 so that agents must work through evidence, spec, tests and verification, with
 independently enforced gates.
 
-> V0.1.0 status: release candidate. See §12 Security / Known limitations.
+> V0.1.0 status: released. The Design & Evidence Baseline v0.2 is documentation,
+> not the AEH software v0.2.0 release. See §12 Security / Known limitations.
 
 ---
 
@@ -183,6 +184,10 @@ Out of scope (V0.2+): repair/recover, upgrade system, CI deep integration, RAG,
 Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
 approval identity.
 V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
+
+Architecture and evidence baseline: see `docs/handbook/README.md`. It integrates
+Phase 1.1 protocol v1.6 while keeping product efficacy `NOT_YET_PROVEN` and
+Phase 2 / 72-run unauthorized.
 
 ## Development
 
