@@ -5,15 +5,12 @@ import os
 import yaml
 import jsonschema
 
+from .. import paths as aeh_paths
 from . import change as ch
 
 
 class TraceError(ValueError):
     pass
-
-
-def _default_root():
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -30,7 +27,7 @@ def _norm(p):
 
 
 def build_traceability(target, change_id, ae_root=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     cdir = ch._change_dir(target, change_id)
     spec = _load_yaml(os.path.join(cdir, "spec.yaml"))
     plan = _load_yaml(os.path.join(cdir, "test-plan.yaml"))

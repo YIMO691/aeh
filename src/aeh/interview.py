@@ -21,6 +21,8 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from . import paths as aeh_paths
+
 CONTRACT = "bootstrap.interview"
 CONTRACT_VERSION = 1
 QUESTION_TYPES = ["FACT", "PREFERENCE", "POLICY", "PERMISSION"]
@@ -35,17 +37,11 @@ class InterviewError(ValueError):
     pass
 
 
-def _default_schema_path():
-    return os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-        "schemas", "interview.schema.json")
-
-
 def load_questions(rules_root, schema_path=None):
     """加载并校验全部问题规则；非法规则拒绝（InterviewError）。返回 (questions, digest)。"""
     if not os.path.isdir(rules_root):
         raise InterviewError("interview rules root does not exist: " + rules_root)
-    schema_path = schema_path or _default_schema_path()
+    schema_path = schema_path or aeh_paths.join("schemas", "interview.schema.json")
     with open(schema_path, "r", encoding="utf-8") as f:
         schema = yaml.safe_load(f)
     questions = []

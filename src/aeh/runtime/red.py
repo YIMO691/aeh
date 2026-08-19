@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
@@ -20,11 +21,6 @@ ENV_SIGNATURES = ["ModuleNotFoundError", "ImportError", "command not found", "No
 
 class RedError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/runtime/red.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -97,7 +93,7 @@ def classify_red(exit_code, output, t):
     return "INVALID_RED_UNEXPECTED_FAILURE", {"category": "unexpected", "signature": "unmatched"}
 
 def change_red(target, change_id, ae_root=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         d = doc.run_doctor(target, ae_root)
         if d["overall"] == "BLOCKED":

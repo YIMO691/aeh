@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
 from ..discovery import _resolve_within
 from ..doctor import doctor as doc
 from . import change as ch
@@ -22,11 +23,6 @@ from . import grounding as gr
 
 class TestDesignError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/runtime/test_design.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -98,7 +94,7 @@ def validate_coverage(spec, plan, level):
 
 
 def change_test_design(target, change_id, plan_path, test_src=None, ae_root=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         d = doc.run_doctor(target, ae_root)
         if d["overall"] == "BLOCKED":

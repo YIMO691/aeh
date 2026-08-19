@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
@@ -17,11 +18,6 @@ from . import red as rmod
 
 class GreenError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/runtime/green.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -205,7 +201,7 @@ def _run_regression(target, plan, cdir, prefix, change_id):
 
 
 def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     d = doc.run_doctor(target, ae_root)
     if d["overall"] == "BLOCKED":
         return {"status": "BLOCKED_DOCTOR", "change_id": change_id,

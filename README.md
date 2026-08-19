@@ -45,15 +45,28 @@ unsupported_capabilities (GUIDANCE_ONLY) — never silently dropped, never relax
 
 ## 4. Installation
 
-V0.1 installs as an editable package (the only supported installation path for
-now — see §12 limitations):
+Install AEH from a source checkout using the standard, non-editable wheel path:
 
     git clone <repo-url>
     cd adaptive-engineering-harness
     python -m venv .venv
     .venv\Scripts\activate        # Windows；POSIX 用 source .venv/bin/activate
-    pip install -e .
+    python -m pip install .
     aeh --help
+
+The build embeds the canonical `core/`, `schemas/`, `bootstrap/`, and `adapters/`
+resources in the wheel, so `aeh` can run from any working directory. AEH is not
+published to PyPI yet; install from a trusted checkout or an internally built wheel.
+
+For AEH development, use an editable install and run the full regression:
+
+    python -m pip install -e .
+    python -m unittest discover -s tests -p "test_*.py"
+
+To reproduce the clean-room wheel gate locally:
+
+    python -m pip wheel --no-deps . --wheel-dir dist
+    python scripts/cleanroom_smoke.py --wheel "dist/*.whl"
 
 ## 5. Quick Start
 
@@ -164,8 +177,8 @@ irreversible_migration, destructive_data_operation.
   Claude web_access deny) — reported honestly, never silently dropped.
 - **No repair/upgrade system**, no CI deep integration, no automatic merge/push,
   no complex multi-agent orchestration. These are post-V0.1.
-- **Editable install only**: pip install -e . keeps core/schemas beside the
-  source tree; a relocatable wheel with data files is post-V0.1.
+- **No PyPI release yet**: relocatable wheel installation is supported from a
+  trusted checkout or built artifact, but package-index publication is deferred.
 - **Manual verification items stay PENDING** until the REVIEW phase — V0.1 has
   no separate approval gate for manual checks.
 - **Keyword hints are heuristics**: they escalate (fail-safe), they never

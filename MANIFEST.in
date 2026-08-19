@@ -1,0 +1,6 @@
+graft core
+graft schemas
+graft bootstrap
+graft adapters
+include setup.py
+global-exclude __pycache__ *.py[cod]

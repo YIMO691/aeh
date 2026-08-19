@@ -18,6 +18,8 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from . import paths as aeh_paths
+
 CONTRACT = "bootstrap.discovery"
 CONTRACT_VERSION = 2
 SCANNER_VERSION = "0.2.0"
@@ -220,9 +222,7 @@ def discover(repository_root, rules_root, rule_schema_path=None, limits=None):
     if not os.path.isdir(repository_root):
         raise DiscoveryError("repository root does not exist: " + repository_root)
     if rule_schema_path is None:
-        rule_schema_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-            "schemas", "discovery-rule.schema.json")
+        rule_schema_path = aeh_paths.join("schemas", "discovery-rule.schema.json")
     limits = dict(DEFAULT_LIMITS if limits is None else {**DEFAULT_LIMITS, **limits})
     rules, digest = _load_rules(rules_root, rule_schema_path)
     ctx = {"walk_files": 0, "warnings": []}

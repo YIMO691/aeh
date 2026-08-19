@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
@@ -18,11 +19,6 @@ from . import grounding as gr
 
 class SpecError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/runtime/specification.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -146,7 +142,7 @@ def validate_spec(requirements, evidence_ids, level, scope, unknowns):
     return None, []
 
 def build_spec(target, change_id, reqs_path=None, ae_root=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         d = doc.run_doctor(target, ae_root)
         if d["overall"] == "BLOCKED":

@@ -17,6 +17,7 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
 from ..discovery import _resolve_within, _is_binary
 from ..doctor import doctor as doc
 from . import change as ch
@@ -31,11 +32,6 @@ LATIN_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 class GroundingError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/runtime/grounding.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -289,7 +285,7 @@ def check_stale(target, change_id):
 
 
 def change_ground(target, change_id, ae_root=None, limits=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         d = doc.run_doctor(target, ae_root)
         if d["overall"] == "BLOCKED":
