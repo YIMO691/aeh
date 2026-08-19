@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Transaction Journal Contract",
+  "type": "object",
+  "required": ["contract", "version", "transaction_id", "kind", "target", "plan_digest", "status", "created_at", "operations"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "aeh.transaction-journal"},
+    "version": {"const": 1},
+    "transaction_id": {"type": "string", "pattern": "^(BST|RPR)-[0-9]{4}-[0-9]{4}$"},
+    "kind": {"type": "string", "enum": ["bootstrap", "repair", "upgrade"]},
+    "target": {"type": "string"},
+    "plan_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {
+      "type": "string",
+      "enum": ["PREPARING", "PREPARED", "APPLYING", "APPLIED", "APPLY_FAILED_ROLLED_BACK", "APPLY_FAILED", "ROLLED_BACK"]
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "rolled_back_at": {"type": "string", "format": "date-time"},
+    "error": {"type": "string"},
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["index", "action", "path", "reason", "before", "after", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "index": {"type": "integer", "minimum": 1},
+          "action": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "pattern": "^(?![A-Za-z]:[\\\\/])(?!.*(^|/)\\.\\.(/|$)).+$"},
+          "reason": {"type": "string"},
+          "before": {"$ref": "#/definitions/fileState"},
+          "after": {"$ref": "#/definitions/fileState"},
+          "backup_ref": {"type": "string"},
+          "status": {"type": "string", "enum": ["PENDING", "APPLIED", "ROLLED_BACK"]}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "fileState": {
+      "type": "object",
+      "required": ["exists", "kind", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "exists": {"type": "boolean"},
+        "kind": {"type": ["string", "null"], "enum": ["file", "directory", null]},
+        "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

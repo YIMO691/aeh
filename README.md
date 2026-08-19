@@ -119,6 +119,23 @@ aeh doctor <target> is read-only and reports BLOCKED / WARN / PASS checks
 staging residue). On a fresh repository it honestly reports
 install.aeh_exists: BLOCKED → run aeh bootstrap — it never pretends.
 
+### Repair and rollback (V0.2 M2 development baseline)
+
+Doctor never repairs automatically. Inspect the deterministic dry-run plan first,
+then opt in to the exact writes:
+
+    aeh repair .
+    aeh repair . --apply
+
+Each applied bootstrap or repair transaction has a persistent journal and byte-level
+backups under `.aeh/transactions/`. Rollback refuses to overwrite later edits:
+
+    aeh repair . --rollback RPR-2026-0001
+
+Repair covers canonical runtime restoration, bounded managed-section repair, atomic-write
+residue, and the `.aeh/private/` gitignore boundary. A runtime source/version mismatch is
+blocked and left for the explicit upgrade milestone.
+
 ## 8. First Change
 
 1. aeh change new "<title>" --level STANDARD — classification (hard-escalation
@@ -170,12 +187,12 @@ irreversible_migration, destructive_data_operation.
   command-string compatibility path (shell=True); no OS sandbox. Trust the plan author.
 - **Human approval = attestation**, not strong identity: aeh change approve --actor <name>
   records an honest human attestation; no OIDC/IAM/signatures/approval TTL yet.
-- **Multi-file install is rollback-capable but not a repository-wide atomic
-  transaction**: bootstrap stages → validates → applies; individual file writes
-  are not a single atomic unit.
+- **Multi-file writes are journaled, not filesystem-wide atomic**: bootstrap and repair
+  use per-file atomic replace plus persistent backups and rollback; a whole transaction is
+  not one OS-level atomic operation.
 - **Some adapter capabilities are GUIDANCE_ONLY** (e.g., Codex git_push deny,
   Claude web_access deny) — reported honestly, never silently dropped.
-- **No repair/upgrade system**, no CI deep integration, no automatic merge/push,
+- **No upgrade system**, no CI deep integration, no automatic merge/push,
   no complex multi-agent orchestration. These are post-V0.1.
 - **No PyPI release yet**: relocatable wheel installation is supported from a
   trusted checkout or built artifact, but package-index publication is deferred.
@@ -184,17 +201,18 @@ irreversible_migration, destructive_data_operation.
 - **Keyword hints are heuristics**: they escalate (fail-safe), they never
   silently downgrade.
 
-## 13. Current V0.1 scope
+## 13. Software version and development scope
 
-Feature freeze is in effect: V0.1 accepts only release blockers, security and
-documentation fixes — no new features.
+The package metadata remains `0.1.0` while V0.2 milestones are reviewed. The M1/M2
+development baseline must not be described or tagged as released software `v0.2.0`.
 
-In scope: bootstrap, doctor, change lifecycle (new/ground/spec/test-design/red/green/
-refactor/verify/approve/review), five-level workflows, evidence model, test lock,
-traceability, risk-based verification, Codex/Claude adapters.
+In scope: bootstrap, doctor, plan-first repair/rollback, change lifecycle
+(new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
+workflows, evidence model, test lock, traceability, risk-based verification, and
+Codex/Claude adapters.
 
-Out of scope (V0.2+): repair/recover, upgrade system, CI deep integration, RAG,
-Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
+Out of scope: upgrade system, CI deep integration, RAG, Web UI, mutation testing,
+impact analysis, multi-agent orchestration, strong
 approval identity.
 V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 

@@ -13,6 +13,7 @@ import json
 import os
 import shutil
 from datetime import datetime, timezone
+from pathlib import Path
 
 import jsonschema
 import yaml
@@ -132,18 +133,46 @@ def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=
         checks.append(_check("install.runtime_dir", "install", "PASS", "runtime/ present", [runtime_dir]))
     else:
         checks.append(_check("install.runtime_dir", "install", "BLOCKED", "runtime/ missing",
-                             [runtime_dir], "re-run aeh bootstrap"))
+                             [runtime_dir], "run aeh repair <target>, then review and use --apply"))
 
     # staging / journal / partial 残留（RISK-INSTALL-CRASH-001 的发现路径）
     residues = []
-    for dp, _, fns in os.walk(target):
+    for dp, dns, fns in os.walk(target):
+        relative_dir = os.path.relpath(dp, target).replace("\\", "/")
+        if relative_dir == ".aeh/private" or relative_dir.startswith(".aeh/private/"):
+            dns[:] = []
+            continue
+        if relative_dir == ".aeh":
+            dns[:] = [name for name in dns if name != "private"]
         for fn in fns:
             if fn.endswith(".aeh-tmp") or fn.endswith(".aeh-rollback"):
                 residues.append(os.path.relpath(os.path.join(dp, fn), target))
+    transactions_root = os.path.join(aeh_dir, "transactions")
+    if os.path.isdir(transactions_root):
+        for transaction_id in sorted(os.listdir(transactions_root)):
+            journal_path = os.path.join(transactions_root, transaction_id, "journal.yaml")
+            if not os.path.isfile(journal_path):
+                residues.append(os.path.relpath(os.path.dirname(journal_path), target))
+                continue
+            try:
+                journal = _load_yaml(journal_path)
+                if journal.get("status") in ("PREPARING", "PREPARED", "APPLYING", "APPLY_FAILED"):
+                    residues.append(os.path.relpath(journal_path, target))
+            except Exception:
+                residues.append(os.path.relpath(journal_path, target))
     if residues:
+        incomplete_ids = sorted({
+            Path(item).parent.name for item in residues
+            if item.replace("\\", "/").startswith(".aeh/transactions/")
+        })
+        remediation = "run aeh repair <target> to inspect a dry-run plan; apply only with --apply"
+        if incomplete_ids:
+            remediation += "; interrupted transaction recovery requires aeh repair <target> --rollback " + \
+                incomplete_ids[0]
         checks.append(_check("install.staging_residue", "install", "BLOCKED",
                              "BLOCKED_INCOMPLETE_INSTALL: staging/journal residue found",
-                             sorted(residues), "manual review; repair command 属后续阶段"))
+                             sorted(residues),
+                             remediation))
     else:
         checks.append(_check("install.staging_residue", "install", "PASS", "no staging residue"))
 
@@ -177,7 +206,7 @@ def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=
             checks.append(_check("contract.runtime_digest", "contract", "BLOCKED",
                                  "BLOCKED_RUNTIME_INTEGRITY: runtime contract may be tampered",
                                  ["expected=" + str(expected_runtime), "actual=" + str(actual_runtime)],
-                                 "re-run aeh bootstrap; 不得基于被篡改契约继续 READY"))
+                                 "run aeh repair <target>; canonical source must match manifest before --apply"))
         # core contract readability
         try:
             for fname in sorted(os.listdir(os.path.join(runtime_dir, "core"))):
@@ -253,7 +282,7 @@ def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=
             else:
                 checks.append(_check(cid, "adapters", "BLOCKED",
                                      "malformed managed block in " + name + " (" + status + ")",
-                                     [p], "re-run aeh bootstrap"))
+                                     [p], "run aeh repair <target>; unsafe marker layouts remain blocked"))
         else:
             checks.append(_check(cid, "adapters", "WARN", name + " missing (adapter not installed)",
                                  [], "re-run aeh bootstrap"))
@@ -294,10 +323,11 @@ def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=
         else:
             checks.append(_check("private.gitignore", "private", "BLOCKED",
                                  ".aeh/private/ not covered by .gitignore", [gi_path],
-                                 "add \".aeh/private/\" to .gitignore"))
+                                 "run aeh repair <target>, then review and use --apply"))
     else:
         checks.append(_check("private.gitignore", "private", "WARN",
-                             ".gitignore absent; .aeh/private/ coverage unknown", [], "create .gitignore"))
+                             ".gitignore absent; .aeh/private/ coverage unknown", [],
+                             "run aeh repair <target>, then review and use --apply"))
     private_dir = os.path.join(aeh_dir, "private")
     if os.path.isdir(private_dir):
         names = sorted(os.listdir(private_dir))

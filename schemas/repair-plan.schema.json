@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Repair Plan Contract",
+  "type": "object",
+  "required": ["contract", "version", "target", "dry_run", "doctor_overall_before", "repairable_checks", "operations"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "repair.plan"},
+    "version": {"const": 1},
+    "target": {"type": "string"},
+    "dry_run": {"type": "boolean"},
+    "doctor_overall_before": {"type": "string", "enum": ["READY", "READY_WITH_WARNINGS", "BLOCKED"]},
+    "repairable_checks": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action", "path", "reason", "before_hash", "after_hash", "source_ref"],
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["WRITE_CANONICAL_RUNTIME", "REMOVE_UNEXPECTED_RUNTIME", "REPLACE_MANAGED_SECTION", "REMOVE_RESIDUE", "UPDATE_GITIGNORE"]
+          },
+          "path": {"type": "string", "pattern": "^(?![A-Za-z]:[\\\\/])(?!.*(^|/)\\.\\.(/|$)).+$"},
+          "reason": {"type": "string", "minLength": 1},
+          "before_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "after_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "source_ref": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}
