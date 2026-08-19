@@ -1,13 +1,15 @@
 # AEH V0.2 仓库全景图（Repository Panorama）
 
-> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；M1–M3 已形成未发布的 v0.2.0 review candidate
+> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；M1–M3 已合并，v0.2.0
+> release candidate 已通过独立 Release Safety Review，等待 Owner 发布执行裁决
 >
 > 注意：本文档描述 V0.2 目标形态；其中尚未在 V0.1 落地的目录与能力（如 policies/、
 > skills/、templates/、merge-rules、dotnet/unity 示例）不代表 V0.1 已存在。
 > V0.1 实际能力见 README §13 与 CHANGELOG.md。
 >
-> 证据边界：AEH 软件仍为 `v0.1.0 @ 6513102`；Phase 1.1 只验证 v1.6 冻结协议和
-> External Runner 最小机制，产品有效性为 `NOT_YET_PROVEN`，72-run 未授权。
+> 证据边界：Handbook/Phase 1.1 的软件证据快照仍为 `v0.1.0 @ 6513102`；当前仓库
+> 软件候选为 `v0.2.0`。Phase 1.1 只验证 v1.6 冻结协议和 External Runner 最小机制，
+> 产品有效性为 `NOT_YET_PROVEN`，72-run 未授权。
 >
 > v0.2 统一边界：AEH 是独立 Change Assurance System；Generator 与 Acceptance
 > Authority 分离；Task Outcome 与 Assurance Outcome 分离；G3 Route B 是实验性

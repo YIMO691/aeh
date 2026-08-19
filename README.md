@@ -5,8 +5,9 @@ AEH does not write your code — it installs a contract layer into your reposito
 so that agents must work through evidence, spec, tests and verification, with
 independently enforced gates.
 
-> V0.1.0 is released. Software V0.2.0 is an **unreleased review candidate** built
-> by the stacked M1–M3 branches; no tag, GitHub Release, or PyPI publication exists yet.
+> V0.1.0 is released. Software V0.2.0 is an **integrated, unreleased release
+> candidate** on `main`. Its Release Safety Review passed; no v0.2.0 tag,
+> GitHub Release, or PyPI publication exists yet.
 
 ---
 
@@ -224,9 +225,10 @@ irreversible_migration, destructive_data_operation.
 
 ## 13. Software version and development scope
 
-The package metadata is `0.2.0` on the M3 review branch. This is a candidate assembled from
-M1–M3 and must not be described as released until a separate Release Safety Review, tag, and
-publication decision are complete.
+The package metadata is `0.2.0` on `main`. M1–M3 are merged and the independent
+Release Safety Review verdict is `READY_FOR_OWNER_RELEASE`. The candidate must not
+be described as released until the Owner separately authorizes and executes the tag,
+GitHub Release, and any package-index publication.
 
 In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycle
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
@@ -241,6 +243,10 @@ V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 Architecture and evidence baseline: see `docs/handbook/README.md`. It integrates
 Phase 1.1 protocol v1.6 while keeping product efficacy `NOT_YET_PROVEN` and
 Phase 2 / 72-run unauthorized.
+
+Release evidence and accepted limitations: see
+`docs/releases/v0.2.0/RELEASE_CHECKLIST.md`, `RELEASE_TEST_REPORT.md`, and
+`KNOWN_LIMITATIONS.md`.
 
 ## Development
 

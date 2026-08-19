@@ -1,6 +1,6 @@
 # AEH V0.2 Roadmap
 
-> 状态：**V02-0 ACCEPTED；M1–M3 IMPLEMENTED AS STACKED REVIEW CANDIDATES；V0.2.0 RELEASE REVIEW PENDING**（2026-08-19）
+> 状态：**V02-0 + M1–M3 MERGED；V0.2.0 RELEASE SAFETY REVIEW PASS；OWNER RELEASE EXECUTION PENDING**（2026-08-19）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -12,9 +12,10 @@
 
 - 现状：V0.1.0 已发布（`docs/releases/v0.1.0/RELEASE_TEST_REPORT.md`：232/232）。
 - Phase 1.1：v1.6 冻结协议与 External Runner 最小机制已验证；72-run 未授权，产品有效性未证明。
-- **M1–M3 已形成独立、叠加式审查候选；软件包现为未发布的 v0.2.0 candidate。**
+- **M1–M3 已按依赖顺序审查并合并到 main；软件包现为未发布的 v0.2.0 candidate。**
 - M1 提供 wheel/CI，M2 提供显式 repair/transaction，M3 提供 v0.1 snapshot 到当前
-  candidate 的显式 upgrade。下一门是独立 Release Safety Review，不自动 tag 或发布。
+  candidate 的显式 upgrade。独立 Release Safety Review 已通过；下一门仅为 Owner
+  发布执行裁决，不自动 tag、创建 Release 或发布 PyPI。
 - 顺序总览：`V02-0 → M1 → M2 → M3 → M4 → M5 → M6`，一次只开一个 M。
 
 ## 2. 输入与约束
@@ -119,7 +120,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 代码影响：无 AEH 功能代码或 Schema 修改。
 - 结果：允许 M1 进入独立 SPEC/PLAN，不表示 M1 已实现或软件 v0.2.0 已发布。
 
-### M1 基础设施可信度：wheel 打包 + AEH 自身 CI 回归门（已实现，待审查/合并）
+### M1 基础设施可信度：wheel 打包 + AEH 自身 CI 回归门（已合并）
 
 - 目标：非 editable 安装可用；每次推送跑全量回归。
 - In：pyproject package-data/资源定位重构；.github/workflows 回归 workflow；配套测试与文档安装节。
@@ -130,7 +131,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 本地风险：① setuptools 数据文件重定位在 editable 与 wheel 两条路径必须同时测试，否则易半修；② Windows/POSIX 资源路径差异——用 clean-room 双路径验证兜底。
 - 实现结果：relocatable wheel、Windows/Linux CI matrix 与 clean-room smoke 已落地；软件包版本仍为 `0.1.0`，未发布 PyPI/tag。
 
-### M2 修复/恢复：aeh repair + 原子应用日志 + 工作流 repair UX（已实现，待审查/合并）
+### M2 修复/恢复：aeh repair + 原子应用日志 + 工作流 repair UX（已合并）
 
 - 目标：安装损坏可诊断→dry-run→修复→审计→回滚；TEST_REPAIR/SPEC_REPAIR 一键直达。
 - In：`aeh repair` 子命令（数据驱动修复规则）；bootstrap journal 与回滚；repair 命令 UX；doctor 修复建议联动。
@@ -141,7 +142,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 本地风险：① repair 会写用户文件——默认 dry-run、先日志后应用、绝不自动 APPROVE；② 修复规则过度匹配可能误伤用户原文——规则必须最小作用域并带回归夹具。
 - 实现结果：5 类故障注入、事务 journal、显式 rollback、漂移阻断和 TEST_REPAIR/SPEC_REPAIR 路由已覆盖；完整回归 `259/259`，wheel clean-room repair smoke 通过。
 
-### M3 升级系统：aeh upgrade（已实现，待审查/合并）
+### M3 升级系统：aeh upgrade（已合并）
 
 - 目标：已装项目显式升级 runtime/契约，不丢用户数据，中断可回滚。
 - In：升级计划（diff）→ dry-run → 应用 → 回滚；manifest 版本/digest 更新；升级后 doctor 自检。
