@@ -12,6 +12,7 @@
 """
 import fnmatch
 import hashlib
+import ntpath
 import os
 from datetime import datetime, timezone
 
@@ -42,7 +43,7 @@ def _resolve_within(root, rel):
     """安全解析相对路径：拒绝绝对路径、拒绝 .. 段、拒绝越界（含 symlink 越界）。"""
     if not isinstance(rel, str) or rel == "":
         return None
-    if os.path.isabs(rel):
+    if os.path.isabs(rel) or ntpath.isabs(rel):
         return None
     norm = os.path.normpath(rel)
     if norm == ".." or norm.startswith(".." + os.sep) or ".." + os.sep in norm:
