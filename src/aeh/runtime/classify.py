@@ -9,18 +9,15 @@ import os
 
 import yaml
 
+from .. import paths as aeh_paths
+
 
 class ClassifyError(ValueError):
     pass
 
 
-def _default_root():
-    # src/aeh/runtime/classify.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
-
 def load_classification_contract(path=None):
-    with open(path or os.path.join(_default_root(), "core", "classifications.yaml"), "r", encoding="utf-8") as f:
+    with open(path or aeh_paths.join("core", "classifications.yaml"), "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 

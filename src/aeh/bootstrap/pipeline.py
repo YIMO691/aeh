@@ -26,6 +26,7 @@ from .. import compiler as cm
 from .. import conflict as cf
 from .. import discovery as disc
 from .. import interview as iv
+from .. import paths as aeh_paths
 from ..adapters import render as ar
 
 CONTRACT = "bootstrap.install-plan"
@@ -44,11 +45,6 @@ SEMANTIC_STRIP_KEYS = {"scanned_at", "answered_at", "installed_at", "recompiled_
 
 class BootstrapError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/bootstrap/pipeline.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -113,7 +109,7 @@ def load_answers(path):
     if not path or not os.path.isfile(path):
         return {"contract": "bootstrap.interview.answers", "version": 1, "answers": {}, "reset": []}
     data = _load_yaml(path)
-    schema = _load_yaml(os.path.join(_default_root(), "schemas", "answers.schema.json"))
+    schema = _load_yaml(aeh_paths.join("schemas", "answers.schema.json"))
     try:
         jsonschema.validate(data, schema)
     except jsonschema.ValidationError as e:
@@ -133,9 +129,20 @@ def compute_digests(ae_root):
                             parts.append(rel.replace(os.sep, "/") + "\0" + _sha256(f.read()))
         return _sha256(("\n".join(sorted(parts))).encode("utf-8"))
     runtime = dir_digest(["core", "schemas"], (".yaml", ".json"))
-    compiler = tree_digest(ae_root, ["src/aeh/compiler.py", "src/aeh/conflict.py",
-                                     "src/aeh/discovery.py", "src/aeh/interview.py",
-                                     "src/aeh/adapters/render.py"])
+    compiler_parts = []
+    for rel, module in (("src/aeh/compiler.py", cm),
+                        ("src/aeh/conflict.py", cf),
+                        ("src/aeh/discovery.py", disc),
+                        ("src/aeh/interview.py", iv),
+                        ("src/aeh/adapters/render.py", ar)):
+        source_path = module.__file__
+        if source_path and source_path.endswith((".pyc", ".pyo")):
+            source_path = source_path[:-1]
+        if not source_path or not os.path.isfile(source_path):
+            raise BootstrapError("BOOTSTRAP_FAILED_RESOURCE: missing compiler source " + rel)
+        with open(source_path, "rb") as f:
+            compiler_parts.append(rel + "\0" + _sha256(f.read()))
+    compiler = _sha256(("\n".join(sorted(compiler_parts))).encode("utf-8"))
     bootstrap_contract = dir_digest(["bootstrap"], (".yaml",))
     adapters = dir_digest(["adapters"], (".yaml", ".md"))
     return {"runtime": runtime, "compiler": compiler, "bootstrap_contract": bootstrap_contract, "adapters": adapters}
@@ -200,7 +207,7 @@ def build_staged(target, ae_root, profile, ewf, discovery_out, answers, codex_ou
 
 
 def validate_plan(plan, schema_path):
-    schema = _load_yaml(schema_path or os.path.join(_default_root(), "schemas", "install-plan.schema.json"))
+    schema = _load_yaml(schema_path or aeh_paths.join("schemas", "install-plan.schema.json"))
     jsonschema.validate(plan, schema)
     for op in plan["operations"]:
         _path_safe(plan["target"], op["path"])
@@ -322,15 +329,15 @@ def validate_runtime_integrity(target):
 def post_validate(target):
     checks = {}
     manifest = _load_yaml(os.path.join(target, ".aeh", "manifest.yaml"))
-    jsonschema.validate(manifest, _load_yaml(os.path.join(_default_root(), "schemas", "manifest.schema.json")))
+    jsonschema.validate(manifest, _load_yaml(aeh_paths.join("schemas", "manifest.schema.json")))
     checks["manifest_schema"] = True
     profile = _load_yaml(os.path.join(target, ".aeh", "profile.yaml"))
-    jsonschema.validate(profile, _load_yaml(os.path.join(_default_root(), "schemas", "profile.schema.json")))
+    jsonschema.validate(profile, _load_yaml(aeh_paths.join("schemas", "profile.schema.json")))
     checks["profile_schema"] = True
     if profile.get("status") == "BLOCKED":
         raise BootstrapError("BOOTSTRAP_FAILED_VALIDATION: profile BLOCKED")
     ewf = _load_yaml(os.path.join(target, ".aeh", "effective-workflow.yaml"))
-    jsonschema.validate(ewf, _load_yaml(os.path.join(_default_root(), "schemas", "effective-workflow.schema.json")))
+    jsonschema.validate(ewf, _load_yaml(aeh_paths.join("schemas", "effective-workflow.schema.json")))
     checks["effective_workflow_schema"] = True
     actual, expected = validate_runtime_integrity(target)
     if actual != expected:
@@ -356,7 +363,7 @@ def post_validate(target):
 
 def bootstrap(target, answers_path=None, dry_run=False, source_revision="dev", ae_root=None, interview_rules=None):
     """Bootstrap 主入口。返回结构化 report（不抛 BLOCKED，以 status 表达）。"""
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         if not os.path.isdir(target):
             raise BootstrapError("target not a directory: " + target)

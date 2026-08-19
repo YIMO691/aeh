@@ -8,6 +8,11 @@ import json
 import sys
 
 
+def _emit(report):
+    """Write JSON that is safe on legacy Windows console encodings."""
+    print(json.dumps(report, ensure_ascii=True, indent=2, default=str))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="aeh")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -78,71 +83,71 @@ def main(argv=None):
             dry_run=args.dry_run,
             source_revision=args.source_revision,
         )
-        print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+        _emit(report)
         return 0 if report["status"] in ("PLAN_READY", "BOOTSTRAP_COMPLETE") else 1
     if args.cmd == "doctor":
         from .doctor import doctor as doc
         report = doc.run_doctor(args.target)
-        print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+        _emit(report)
         return 0 if report["overall"] != "BLOCKED" else 1
     if args.cmd == "change":
         from .runtime import change as chmod
         if args.change_cmd == "new":
             report = chmod.change_new(args.workdir, args.title, suggested_level=args.level)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "CHANGE_CREATED" else 1
         if args.change_cmd == "status":
             report = chmod.change_status(args.workdir, args.change_id)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0
         if args.change_cmd == "transition":
             report = chmod.change_transition(args.workdir, args.change_id, args.to, condition=args.condition)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "TRANSITION_OK" else 1
         if args.change_cmd == "ground":
             from .runtime import grounding as gmod
             report = gmod.change_ground(args.workdir, args.change_id)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "GROUNDING_COMPLETE" else 1
         if args.change_cmd == "spec":
             from .runtime import specification as smod
             report = smod.build_spec(args.workdir, args.change_id, reqs_path=args.reqs)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "SPEC_COMPLETE" else 1
         if args.change_cmd == "test-design":
             from .runtime import test_design as tdmod
             report = tdmod.change_test_design(args.workdir, args.change_id, args.plan, test_src=args.test_src)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "TEST_DESIGN_COMPLETE" else 1
         if args.change_cmd == "red":
             from .runtime import red as rmod
             report = rmod.change_red(args.workdir, args.change_id)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "RED_COMPLETE" else 1
         if args.change_cmd == "green":
             from .runtime import green as gmod
             report = gmod.change_green(args.workdir, args.change_id, scope_path=args.scope)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "GREEN_COMPLETE" else 1
         if args.change_cmd == "refactor":
             from .runtime import green as gmod2
             report = gmod2.change_refactor(args.workdir, args.change_id, scope_path=args.scope)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "REFACTOR_COMPLETE" else 1
         if args.change_cmd == "verify":
             from .runtime import verify as vmod
             report = vmod.change_verify(args.workdir, args.change_id)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "VERIFY_COMPLETE" else 1
         if args.change_cmd == "approve":
             from .runtime import approval as apmod
             report = apmod.record_approval(args.workdir, args.change_id, args.gate, args.status, args.actor, evidence_ref=args.evidence_ref)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "APPROVAL_RECORDED" else 1
         if args.change_cmd == "review":
             from .runtime import verify as vmod2
             report = vmod2.change_review(args.workdir, args.change_id)
-            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+            _emit(report)
             return 0 if report["status"] == "REVIEW_READY" else 1
     return 2
 

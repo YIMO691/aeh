@@ -17,6 +17,8 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
+
 CONTRACT = "doctor.report"
 CONTRACT_VERSION = 1
 HARNESS_VERSION = "0.1.0"
@@ -28,11 +30,6 @@ GITIGNORE_ENTRY = ".aeh/private/"
 
 class DoctorError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/doctor/doctor.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -108,7 +105,7 @@ def _prov_value(profile, section, key):
 
 
 def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     which = which or shutil.which
     checks = []
 

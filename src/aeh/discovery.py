@@ -12,11 +12,14 @@
 """
 import fnmatch
 import hashlib
+import ntpath
 import os
 from datetime import datetime, timezone
 
 import jsonschema
 import yaml
+
+from . import paths as aeh_paths
 
 CONTRACT = "bootstrap.discovery"
 CONTRACT_VERSION = 2
@@ -40,7 +43,7 @@ def _resolve_within(root, rel):
     """安全解析相对路径：拒绝绝对路径、拒绝 .. 段、拒绝越界（含 symlink 越界）。"""
     if not isinstance(rel, str) or rel == "":
         return None
-    if os.path.isabs(rel):
+    if os.path.isabs(rel) or ntpath.isabs(rel):
         return None
     norm = os.path.normpath(rel)
     if norm == ".." or norm.startswith(".." + os.sep) or ".." + os.sep in norm:
@@ -220,9 +223,7 @@ def discover(repository_root, rules_root, rule_schema_path=None, limits=None):
     if not os.path.isdir(repository_root):
         raise DiscoveryError("repository root does not exist: " + repository_root)
     if rule_schema_path is None:
-        rule_schema_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-            "schemas", "discovery-rule.schema.json")
+        rule_schema_path = aeh_paths.join("schemas", "discovery-rule.schema.json")
     limits = dict(DEFAULT_LIMITS if limits is None else {**DEFAULT_LIMITS, **limits})
     rules, digest = _load_rules(rules_root, rule_schema_path)
     ctx = {"walk_files": 0, "warnings": []}

@@ -7,6 +7,7 @@ import yaml
 import jsonschema
 from datetime import datetime, timezone
 
+from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 
@@ -19,11 +20,6 @@ class ApprovalError(ValueError):
 # 取值域与 core 严格一致（contract test 冻结该不变量）。
 ALLOWED_GATES = ("SPEC_REVIEW", "RED_GATE", "MERGE_GATE")
 APPROVED_STATUSES = ("APPROVED", "REJECTED")
-
-
-def _default_root():
-    # src/aeh/runtime/approval.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -47,7 +43,7 @@ def load_approvals(target, change_id):
 
 
 def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None, ae_root=None):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         if gate not in ALLOWED_GATES:
             return {"status": "BLOCKED_UNKNOWN_GATE", "change_id": change_id, "gate": gate}

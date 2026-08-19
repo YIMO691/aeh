@@ -16,6 +16,8 @@ import os
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
+
 CONTRACT = "adapter.render"
 DEFAULT_MARKERS = {
     "begin": "<!-- AEH:BEGIN MANAGED -->",
@@ -25,11 +27,6 @@ DEFAULT_MARKERS = {
 
 class AdapterError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/adapters/render.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -43,8 +40,8 @@ def _read_text(path):
 
 
 def load_adapter(agent, adapter_root=None, adapter_schema_path=None):
-    adapter_root = adapter_root or os.path.join(_default_root(), "adapters", agent)
-    adapter_schema_path = adapter_schema_path or os.path.join(_default_root(), "schemas", "adapter.schema.json")
+    adapter_root = adapter_root or aeh_paths.join("adapters", agent)
+    adapter_schema_path = adapter_schema_path or aeh_paths.join("schemas", "adapter.schema.json")
     decl = _load_yaml(os.path.join(adapter_root, "adapter.yaml"))
     schema = _load_yaml(adapter_schema_path)
     jsonschema.validate(decl, schema)
@@ -170,7 +167,7 @@ def render(agent, profile, effective_workflow, manifest=None, adapter_root=None)
         "semantics": semantics,
         "diagnostics": {"unsupported_capabilities": unsupported},
     }
-    out_schema = _load_yaml(os.path.join(_default_root(), "schemas", "adapter-output.schema.json"))
+    out_schema = _load_yaml(aeh_paths.join("schemas", "adapter-output.schema.json"))
     jsonschema.validate(output, out_schema)
     return output
 

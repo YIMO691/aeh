@@ -7,6 +7,7 @@ import yaml
 import jsonschema
 from datetime import datetime, timezone
 
+from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 from . import green as gmod
@@ -16,10 +17,6 @@ from . import traceability as tmod
 
 class VerifyError(ValueError):
     pass
-
-
-def _default_root():
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -96,7 +93,7 @@ def _run_one(target, cdir, change_id, entry, rid, verifies, vtype, prefix):
 
 
 def _verify_core(target, change_id, ae_root):
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     d = doc.run_doctor(target, ae_root)
     if d["overall"] == "BLOCKED":
         return {"status": "BLOCKED_DOCTOR", "change_id": change_id,
@@ -294,7 +291,7 @@ def change_verify(target, change_id, ae_root=None):
 
 def change_review(target, change_id, ae_root=None):
     """只读投影：从 machine artifacts 重建 review.md。绝不写 APPROVED。"""
-    ae_root = ae_root or _default_root()
+    ae_root = ae_root or aeh_paths.ae_root()
     try:
         cdir = ch._change_dir(target, change_id)
         change = ch.load_change(target, change_id)

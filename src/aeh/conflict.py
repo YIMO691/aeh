@@ -10,10 +10,9 @@
 """
 import hashlib
 import json
-import os
-
 import yaml
 
+from . import paths as aeh_paths
 
 class CompilerError(ValueError):
     pass
@@ -29,14 +28,8 @@ SCOPE_TO_PRECEDENCE = {
 }
 
 
-def _default_precedence_path():
-    return os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-        "core", "precedence.yaml")
-
-
 def load_precedence(path=None):
-    with open(path or _default_precedence_path(), "r", encoding="utf-8") as f:
+    with open(path or aeh_paths.join("core", "precedence.yaml"), "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     order = data["order"]
     assert data["same_level_conflict"]["verdict"] == "BLOCKED_POLICY_CONFLICT"

@@ -4,7 +4,9 @@
 discovery 输出 Schema 校验、unknown 生成、规则与扫描器零硬编码。
 """
 import os
+import shutil
 import sys
+import tempfile
 import unittest
 
 import jsonschema
@@ -31,9 +33,16 @@ def load_schema():
 class TestDiscovery(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.py_result = discover(os.path.join(FIXTURES, "minimal-py"), RULES)
+        cls.py_fixture = tempfile.mkdtemp(prefix="aeh-discovery-git-fixture-")
+        shutil.copytree(os.path.join(FIXTURES, "minimal-py"), cls.py_fixture, dirs_exist_ok=True)
+        os.makedirs(os.path.join(cls.py_fixture, ".git"), exist_ok=True)
+        cls.py_result = discover(cls.py_fixture, RULES)
         cls.node_result = discover(os.path.join(FIXTURES, "minimal-node"), RULES)
         cls.empty_result = discover(os.path.join(FIXTURES, "empty"), RULES)
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.py_fixture)
 
     @staticmethod
     def find(result, domain, field, value):
@@ -91,8 +100,8 @@ class TestDiscovery(unittest.TestCase):
             jsonschema.validate(r, load_schema())
 
     def test_scan_is_deterministic(self):
-        a = discover(os.path.join(FIXTURES, "minimal-py"), RULES)
-        b = discover(os.path.join(FIXTURES, "minimal-py"), RULES)
+        a = discover(self.py_fixture, RULES)
+        b = discover(self.py_fixture, RULES)
         self.assertEqual(a["facts"], b["facts"])
         self.assertEqual(a["unknowns"], b["unknowns"])
 

@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 import jsonschema
 import yaml
 
+from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import classify as cls
 
@@ -23,11 +24,6 @@ CHG_RE = re.compile(r"^CHG-(\d{4})-(\d{4})$")
 
 class ChangeError(ValueError):
     pass
-
-
-def _default_root():
-    # src/aeh/runtime/change.py -> 4 层到项目根
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def _load_yaml(path):
@@ -97,7 +93,7 @@ def change_new(target, title, suggested_level=None, ae_root=None, now=None):
             "preflight_warnings": warnings,
             "created_at": (now or datetime.now(timezone.utc)).isoformat(),
         }
-        schema = _load_yaml(os.path.join(ae_root or _default_root(), "schemas", "change.schema.json"))
+        schema = _load_yaml(os.path.join(ae_root or aeh_paths.ae_root(), "schemas", "change.schema.json"))
         jsonschema.validate(change, schema)
         cdir = _change_dir(target, change_id)
         os.makedirs(cdir, exist_ok=False)

@@ -29,11 +29,6 @@ ROUTES = [
     ("repository.language", "project", lambda rest: "languages"),
 ]
 
-
-def _default_root():
-    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
 def _provenance(record, shadowed_records=None):
     entry = {
         "value": record["value"],
