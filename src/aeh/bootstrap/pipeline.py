@@ -33,7 +33,7 @@ from ..adapters import render as ar
 CONTRACT = "bootstrap.install-plan"
 CONTRACT_VERSION = 1
 HARNESS_NAME = "adaptive-engineering-harness"
-HARNESS_VERSION = "0.1.0"
+HARNESS_VERSION = "0.2.0"
 COMPILER_VERSION = "0.1.0"
 SCHEMA_VERSION = "1"
 GITIGNORE_ENTRY = ".aeh/private/"
@@ -149,6 +149,18 @@ def compute_digests(ae_root):
     return {"runtime": runtime, "compiler": compiler, "bootstrap_contract": bootstrap_contract, "adapters": adapters}
 
 
+def canonical_runtime_files(ae_root):
+    """Return the package-authoritative runtime snapshot as relative bytes."""
+    files = {}
+    for folder, extension in (("core", ".yaml"), ("schemas", ".json")):
+        source_dir = os.path.join(ae_root, folder)
+        for name in sorted(os.listdir(source_dir)):
+            if name.endswith(extension):
+                with open(os.path.join(source_dir, name), "rb") as stream:
+                    files[folder + "/" + name] = stream.read()
+    return files
+
+
 def build_manifest_base(source_revision, digests):
     return {
         "harness": {"name": HARNESS_NAME, "version": HARNESS_VERSION, "source_revision": source_revision},
@@ -186,15 +198,10 @@ def build_staged(target, ae_root, profile, ewf, discovery_out, answers, codex_ou
     add(".aeh/changes/", "dir", None, "CREATE", "per-change workspaces", None)
     # runtime snapshot（core + schemas；skills 尚无内容，不创建空目录）
     runtime_files = []
-    for folder, exts in (("core", (".yaml",)), ("schemas", (".json",))):
-        src_dir = os.path.join(ae_root, folder)
-        for fname in sorted(os.listdir(src_dir)):
-            if fname.endswith(exts):
-                rel = ".aeh/runtime/" + folder + "/" + fname
-                with open(os.path.join(src_dir, fname), "rb") as f:
-                    content = f.read()
-                staged[rel] = {"kind": "file", "content": content}
-                runtime_files.append(rel)
+    for runtime_relative, content in canonical_runtime_files(ae_root).items():
+        rel = ".aeh/runtime/" + runtime_relative
+        staged[rel] = {"kind": "file", "content": content}
+        runtime_files.append(rel)
     for rel in runtime_files:
         ops.append({"action": "INSTALL_RUNTIME", "path": rel, "reason": "versioned runtime snapshot",
                     "content_hash": _sha256(staged[rel]["content"]), "kind": "file"})

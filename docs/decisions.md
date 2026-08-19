@@ -520,3 +520,23 @@
   SPEC_CHANGED_IN_GREEN；不得绕过 Doctor、Gate 或审批。
 - **CD-108**: transaction path 在计划与应用阶段统一拒绝绝对路径、`..`、跨卷和 symlink
   越界；journal/backup 是机器真值，叙事报告不得替代。
+
+## V0.2 M3 Upgrade（2026-08-19）
+
+- **CD-109**: `aeh upgrade <target>` 默认只生成 `upgrade.plan`；写入必须显式
+  `--apply`。M3 完成形成软件 `0.2.0` candidate，但不授权 tag/Release/PyPI。
+- **CD-110**: 自动迁移写边界仅为 `.aeh/runtime/core|schemas`（overwrite/remove）与
+  `.aeh/manifest.yaml`（merge）。profile、effective workflow、bootstrap answers、private、
+  changes/approvals、AGENTS/CLAUDE 和 gitignore 必须 byte-preserved。
+- **CD-111**: upgrade 前必须证明 actual installed runtime digest 等于旧 manifest expected
+  digest；否则 `BLOCKED_UPGRADE_SOURCE_INTEGRITY`，必须使用匹配旧版本 repair，当前包不得猜测修复。
+- **CD-112**: 目标版本高于当前包时阻断 downgrade；版本相同但 runtime digest 不同时
+  `BLOCKED_UPGRADE_VERSION_COLLISION`，禁止用同版本号传播可变内容。
+- **CD-113**: Upgrade source authority 是当前可信包内 canonical runtime；计划逐文件公开
+  action/policy/reason/source_ref/before-after hash，不公开正文或 private 内容。
+- **CD-114**: manifest merge 保留 installed_at、未知扩展字段和既有 history；追加的 history
+  仅记录 from/to version、revision、runtime digest。时间与逐项状态由 UPG journal 记录。
+- **CD-115**: UPG 复用 `aeh.transaction-journal`、before backups、apply drift、异常反向回滚
+  与显式 rollback drift gate；rollback 恢复旧版本后 Doctor 版本阻断是诚实结果，不是假失败。
+- **CD-116**: M3 不实现 profile recompile、adapter regeneration、任意历史迁移、网络发现、
+  自动升级、增量 patch 或多版本并存；这些必须另立迁移契约与授权。

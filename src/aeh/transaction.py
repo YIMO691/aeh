@@ -14,7 +14,7 @@ from . import paths as aeh_paths
 
 CONTRACT = "aeh.transaction-journal"
 CONTRACT_VERSION = 1
-_ID_RE = re.compile(r"^(BST|RPR)-(\d{4})-(\d{4})$")
+_ID_RE = re.compile(r"^(BST|RPR|UPG)-(\d{4})-(\d{4})$")
 
 
 class TransactionError(RuntimeError):

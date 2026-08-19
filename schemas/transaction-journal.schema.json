@@ -7,7 +7,7 @@
   "properties": {
     "contract": {"const": "aeh.transaction-journal"},
     "version": {"const": 1},
-    "transaction_id": {"type": "string", "pattern": "^(BST|RPR)-[0-9]{4}-[0-9]{4}$"},
+    "transaction_id": {"type": "string", "pattern": "^(BST|RPR|UPG)-[0-9]{4}-[0-9]{4}$"},
     "kind": {"type": "string", "enum": ["bootstrap", "repair", "upgrade"]},
     "target": {"type": "string"},
     "plan_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},

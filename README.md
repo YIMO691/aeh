@@ -5,8 +5,8 @@ AEH does not write your code — it installs a contract layer into your reposito
 so that agents must work through evidence, spec, tests and verification, with
 independently enforced gates.
 
-> V0.1.0 status: released. The Design & Evidence Baseline v0.2 is documentation,
-> not the AEH software v0.2.0 release. See §12 Security / Known limitations.
+> V0.1.0 is released. Software V0.2.0 is an **unreleased review candidate** built
+> by the stacked M1–M3 branches; no tag, GitHub Release, or PyPI publication exists yet.
 
 ---
 
@@ -134,7 +134,26 @@ backups under `.aeh/transactions/`. Rollback refuses to overwrite later edits:
 
 Repair covers canonical runtime restoration, bounded managed-section repair, atomic-write
 residue, and the `.aeh/private/` gitignore boundary. A runtime source/version mismatch is
-blocked and left for the explicit upgrade milestone.
+blocked and must use the explicit upgrade command or a matching older repair source.
+
+### Explicit upgrade (V0.2 M3 candidate)
+
+Upgrade is also plan-first. It validates that the installed runtime still matches its old
+manifest before showing the runtime/manifest diff:
+
+    aeh upgrade . --source-revision <trusted-revision>
+    aeh upgrade . --apply --source-revision <trusted-revision>
+
+Only `.aeh/runtime/core|schemas` and `.aeh/manifest.yaml` are eligible for writes.
+Profile, effective workflow, bootstrap answers, private data, changes/approvals, agent files,
+and `.gitignore` are preserved. Every applied upgrade has a `UPG-*` journal and can be rolled
+back while its after-state still matches:
+
+    aeh upgrade . --rollback UPG-2026-0001
+
+Downgrades, damaged source snapshots, and same-version/different-content collisions are blocked.
+Automatic/network upgrade, arbitrary historical migrations, and multi-version installs remain
+out of scope.
 
 ## 8. First Change
 
@@ -192,7 +211,9 @@ irreversible_migration, destructive_data_operation.
   not one OS-level atomic operation.
 - **Some adapter capabilities are GUIDANCE_ONLY** (e.g., Codex git_push deny,
   Claude web_access deny) — reported honestly, never silently dropped.
-- **No upgrade system**, no CI deep integration, no automatic merge/push,
+- **Upgrade is deliberately bounded**: explicit full runtime snapshot upgrade only; no network
+  discovery, automatic upgrade, incremental patching, or multi-version coexistence.
+- No CI deep integration, no automatic merge/push,
   no complex multi-agent orchestration. These are post-V0.1.
 - **No PyPI release yet**: relocatable wheel installation is supported from a
   trusted checkout or built artifact, but package-index publication is deferred.
@@ -203,16 +224,17 @@ irreversible_migration, destructive_data_operation.
 
 ## 13. Software version and development scope
 
-The package metadata remains `0.1.0` while V0.2 milestones are reviewed. The M1/M2
-development baseline must not be described or tagged as released software `v0.2.0`.
+The package metadata is `0.2.0` on the M3 review branch. This is a candidate assembled from
+M1–M3 and must not be described as released until a separate Release Safety Review, tag, and
+publication decision are complete.
 
-In scope: bootstrap, doctor, plan-first repair/rollback, change lifecycle
+In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycle
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
 workflows, evidence model, test lock, traceability, risk-based verification, and
 Codex/Claude adapters.
 
-Out of scope: upgrade system, CI deep integration, RAG, Web UI, mutation testing,
-impact analysis, multi-agent orchestration, strong
+Out of scope: automatic/network/incremental/multi-version upgrade, CI deep integration, RAG,
+Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
 approval identity.
 V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 

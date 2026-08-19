@@ -1,6 +1,6 @@
 # AEH V0.2 仓库全景图（Repository Panorama）
 
-> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；目标形态仍按里程碑实现
+> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；M1–M3 已形成未发布的 v0.2.0 review candidate
 >
 > 注意：本文档描述 V0.2 目标形态；其中尚未在 V0.1 落地的目录与能力（如 policies/、
 > skills/、templates/、merge-rules、dotnet/unity 示例）不代表 V0.1 已存在。
@@ -1377,23 +1377,26 @@ aeh bootstrap
 
 ### 25.2 升级不静默覆盖
 
-未来：
+M3 candidate 已实现：
 
 ```bash
-aeh upgrade
+aeh upgrade .
+aeh upgrade . --apply
+aeh upgrade . --rollback UPG-2026-0001
 ```
 
-应至少区分：
+当前计划明确区分：
 
 ```text
-Harness runtime update
-Profile recompile
-Adapter regeneration
-Conflict detection
-Migration report
+Harness runtime update       implemented: overwrite/remove under .aeh/runtime
+Manifest migration report    implemented: deterministic history + UPG journal
+Profile recompile            preserved/deferred
+Adapter regeneration         preserved/deferred
+Conflict detection           source-integrity/version/collision gates implemented
 ```
 
-V0.1 不要求完整实现 `upgrade`，但 `manifest.yaml` 与版本字段必须为它预留。
+自动/网络/增量升级、多版本并存和任意历史迁移仍未实现。当前自动写边界不包含
+profile、answers、private、changes/approvals 或用户 agent 文档。
 
 ---
 
