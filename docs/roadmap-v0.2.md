@@ -1,6 +1,6 @@
 # AEH V0.2 Roadmap
 
-> 状态：**DRAFT — 待 Owner 批准**（2026-08-17）
+> 状态：**V02-0 DESIGN & EVIDENCE BASELINE ACCEPTED；M1 待独立 SPEC/PLAN**（2026-08-19）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -11,10 +11,11 @@
 ## 1. 10 秒结论
 
 - 现状：V0.1.0 已发布（`docs/releases/v0.1.0/RELEASE_TEST_REPORT.md`：232/232）。
-- **下一个里程碑 = M1「基础设施可信度」：可迁移 wheel 打包 + AEH 自身 CI 回归门。**
+- Phase 1.1：v1.6 冻结协议与 External Runner 最小机制已验证；72-run 未授权，产品有效性未证明。
+- **V02-0 已完成设计与证据基线；下一个软件里程碑 = M1「基础设施可信度」。**
 - 理由：M1 是全部后续里程碑的回归护栏与分发底座，得分最高（4.35/4.05），成本最低，
   且不动任何冻结契约；其余里程碑（repair/upgrade/审批强化）均以 M1 为 blockedBy。
-- 顺序总览：`M1 → M2 → M3 → M4 → M5 → M6`，一次只开一个 M。
+- 顺序总览：`V02-0 → M1 → M2 → M3 → M4 → M5 → M6`，一次只开一个 M。
 
 ## 2. 输入与约束
 
@@ -26,6 +27,8 @@
 | 冻结架构 | upgrade 语义、manifest 版本/digest、写入边界已预留 | `docs/architecture.md` ADR-003/P-09 |
 | V0.2 目标形态 DRAFT | 远期目录形态参考 | `docs/repository-panorama.md` |
 | 回归基线 | 232/232，Python 3.10+ | `docs/releases/v0.1.0/RELEASE_TEST_REPORT.md` |
+| Design & Evidence Baseline | Handbook v0.2；AEH 软件仍为 v0.1.0 | `docs/handbook/` |
+| Phase 1.1 | v1.6；PHASE_1_1_FROZEN_AND_REPLAYED；72-run unauthorized | `aeh-evals reports/PHASE_1_1_CLOSURE.md` |
 
 约束：本文不承诺日期/人员/版本号；只给依赖顺序、复杂度档位与退出条件。
 术语与 README/architecture.md 一致。复杂度口径见 §5。
@@ -105,8 +108,16 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 
 ## 6. 里程碑与依赖
 
-一次只开一个 M；顺序 `M1 → M2 → M3 → M4 → M5 → M6`。每个 M 开工前独立走
+一次只开一个 M；顺序 `V02-0 → M1 → M2 → M3 → M4 → M5 → M6`。每个 M 开工前独立走
 规范驱动开发六阶段，契约影响=Y 的必须新增 CD-1xx。
+
+### V02-0 Design & Evidence Baseline（已完成）
+
+- 目标：统一 Phase 1.1 机器证据、Handbook 架构决策和 V0.2 设计边界。
+- 退出：Phase 1.1 findings 关闭；Handbook 00–26/A–G、Registry、总稿与 manifest 全部通过；
+  明确 AEH 软件仍为 v0.1.0、产品有效性未证明、72-run 未授权。
+- 代码影响：无 AEH 功能代码或 Schema 修改。
+- 结果：允许 M1 进入独立 SPEC/PLAN，不表示 M1 已实现或软件 v0.2.0 已发布。
 
 ### M1 基础设施可信度：wheel 打包 + AEH 自身 CI 回归门
 
@@ -171,13 +182,14 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 ### 依赖 DAG（已做拓扑校验：no cycle）
 
 ```text
-M1
+V02-0 ─ M1
 ├─ M2 ─ M3 ─┐
 └─ M4 ─ M5 ─┴─ M6
 ```
 
 | 边 | 理由 |
 |---|---|
+| M1 blockedBy V02-0 | 软件工作必须建立在已对账的设计与证据基线上 |
 | M2 blockedBy M1 | repair 需 wheel 分发 + CI 回归护栏 |
 | M3 blockedBy M2 | upgrade 中断回滚复用 M2 的 journal/rollback |
 | M4 blockedBy M1 | gates/approvals 契约变更必须先在 CI 有回归护栏 |
@@ -214,7 +226,7 @@ M1
 
 ### 治理规则
 
-1. 本文批准后作为 V0.2 启动输入；不冻结、不替代任何契约。
+1. V02-0 已批准为 V0.2 设计与证据输入；它不替代冻结的软件契约，也不是软件发版。
 2. 每个 M 独立走规范驱动开发六阶段；契约影响=Y 的必须有 CD-1xx 决策记录。
 3. V0.1 线只打补丁（release-fix 记录），V0.2 功能一律在 V0.2 分支线实现。
 4. 每个 M 的退出条件含「回归 232+n PASS + 证据落盘 + Owner Gate」，缺一不可。

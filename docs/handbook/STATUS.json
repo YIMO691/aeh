@@ -1,0 +1,29 @@
+{
+  "package": "AEH-Design-and-Evidence-Baseline-v0.2",
+  "generated_at": "2026-08-19",
+  "handbook_version": "v0.2",
+  "aeh_software_version": "v0.1.0",
+  "aeh_reference_revision": "6513102",
+  "phases": {
+    "PHASE_1_1_EVIDENCE": "INTEGRATED_V1.6",
+    "H1_REGISTRIES": "COMPLETE_V0.2",
+    "H2_ARCHITECTURE_SKELETON": "COMPLETE_V0.2",
+    "H3_CORE_ASSURANCE": "COMPLETE_V0.2",
+    "H4_ENGINEERING_IMPLEMENTATION": "COMPLETE_V0.2",
+    "H5_PROVE": "UPDATED_WITH_PHASE_1_1"
+  },
+  "h4_chapters": [
+    "16_AEH_Engineering_Implementation_Architecture.md",
+    "17_Bootstrap_Doctor_and_Project_Onboarding.md",
+    "18_Agent_Adapter_and_Capability_Negotiation.md",
+    "19_CI_CD_and_Team_Engineering.md",
+    "20_Artifact_Integrity_and_Audit_Bundle.md",
+    "21_Failure_Recovery_and_Engineering_Limits.md"
+  ],
+  "strategic_verdict": "CONTINUE_BUT_NARROW_CONDITIONAL",
+  "product_efficacy": "NOT_YET_PROVEN",
+  "phase1_1_protocol": "v1.6",
+  "phase2_72_run_authorized": false,
+  "aeh_code_modified": false,
+  "next": "M1_SPEC_PLAN_AFTER_V02_0_GATE"
+}

@@ -1,0 +1,47 @@
+review_version: '0.3'
+reviewed_at: '2026-08-19'
+handbook_version: v0.2
+aeh_software_version: v0.1.0
+aeh_reference_revision: '6513102'
+source_claim_decision_ids:
+  sources: 65
+  claims: 54
+  decisions: 28
+  defined: 147
+  referenced: 98
+  missing_references: []
+  duplicate_ids: []
+  verdict: PASS
+chapters:
+  expected: 00-26
+  found: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+  missing: []
+  verdict: PASS
+appendices:
+  expected: A-G
+  found: [A, B, C, D, E, F, G]
+  missing: []
+  verdict: PASS
+phase1_1:
+  protocol: v1.6
+  integrated: true
+  verdict: PHASE_1_1_FROZEN_AND_REPLAYED
+  g3_status: VERIFY_COMPLETE
+  g3_overall: MERGE_READY
+  direct_machine_truth_mutation: true
+  phase2_72_run_authorized: false
+architecture_invariants:
+  generator_acceptance_authority_separated: true
+  task_vs_assurance_separated: true
+  guidance_vs_enforcement_separated: true
+  context_complexity_vs_risk_separated: true
+  build_vs_integrate_boundary_present: true
+  product_efficacy_not_overstated: true
+  handbook_version_distinct_from_software_version: true
+known_open_evidence_gaps:
+- 72-run pilot not started or authorized.
+- A01-A08 formal adversarial results not integrated.
+- Economics and uniqueness are not proven.
+- C#/.NET, Unity and large brownfield validation not integrated.
+- Codex WebSocket stability remains a future experiment risk.
+verdict: PASS_WITH_OPEN_EVIDENCE_GAPS
