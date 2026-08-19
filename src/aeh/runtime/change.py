@@ -174,3 +174,16 @@ def change_status(target, change_id, ae_root=None):
     return {"change_id": change_id, "level": change.get("workflow", {}).get("level"),
             "classification": change.get("classification", {}).get("level", change.get("classification")),
             "state": change["state"], "gates": change.get("gates", {}), "phases": rows}
+
+
+def change_repair(target, change_id, kind, ae_root=None):
+    """Route GREEN into a frozen repair state without bypassing transition checks."""
+    routes = {
+        "test": ("TEST_REPAIR", "BLOCKED_TEST_CHANGED"),
+        "spec": ("SPEC_REPAIR", "SPEC_CHANGED_IN_GREEN"),
+    }
+    if kind not in routes:
+        return {"status": "CHANGE_FAILED", "change_id": change_id,
+                "error": "unknown repair kind: " + str(kind)}
+    destination, condition = routes[kind]
+    return change_transition(target, change_id, destination, condition=condition, ae_root=ae_root)

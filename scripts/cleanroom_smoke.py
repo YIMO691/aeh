@@ -96,6 +96,27 @@ def main(argv=None):
         if after.get("overall") not in ("READY", "READY_WITH_WARNINGS"):
             raise RuntimeError("post-bootstrap doctor is not ready: " + repr(after.get("overall")))
 
+        runtime_file = target / ".aeh" / "runtime" / "core" / "workflow.yaml"
+        runtime_file.unlink()
+        repair_plan = json_output(
+            run([aeh, "repair", target], cwd=root),
+            "repair dry-run",
+        )
+        if repair_plan.get("status") != "REPAIR_PLAN_READY" or runtime_file.exists():
+            raise RuntimeError("repair dry-run changed state or did not produce a plan")
+        repaired = json_output(
+            run([aeh, "repair", target, "--apply"], cwd=root),
+            "repair apply",
+        )
+        if repaired.get("status") != "REPAIR_APPLIED" or not runtime_file.is_file():
+            raise RuntimeError("repair apply did not restore the runtime: " + repr(repaired))
+        after_repair = json_output(
+            run([aeh, "doctor", target], cwd=root),
+            "post-repair doctor",
+        )
+        if after_repair.get("overall") not in ("READY", "READY_WITH_WARNINGS"):
+            raise RuntimeError("post-repair doctor is not ready: " + repr(after_repair.get("overall")))
+
         change = json_output(
             run([
                 aeh, "change", "new", "wheel smoke",
@@ -108,7 +129,8 @@ def main(argv=None):
 
         print("SMOKE_PASS")
         print("wheel=" + wheel.name)
-        print("doctor=" + after["overall"])
+        print("doctor=" + after_repair["overall"])
+        print("repair_transaction=" + repaired["transaction_id"])
         print("change_id=" + change["change_id"])
     return 0
 

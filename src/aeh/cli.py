@@ -1,8 +1,4 @@
-"""AEH CLI — 最小入口（Phase 6）
-
-仅支持：aeh bootstrap <target> [--dry-run] [--answers <file>] [--source-revision <rev>]
-其他子命令族留给后续 Phase。
-"""
+"""AEH command-line entry point for install health, repair, and change assurance."""
 import argparse
 import json
 import sys
@@ -23,6 +19,11 @@ def main(argv=None):
     b.add_argument("--source-revision", default="dev", help="AEH source revision recorded in manifest")
     d = sub.add_parser("doctor", help="observe/validate/diagnose an AEH installation (read-only)")
     d.add_argument("target")
+    rp = sub.add_parser("repair", help="plan, apply, or roll back installation repair")
+    rp.add_argument("target")
+    repair_mode = rp.add_mutually_exclusive_group()
+    repair_mode.add_argument("--apply", action="store_true", help="explicitly apply the generated plan")
+    repair_mode.add_argument("--rollback", metavar="TRANSACTION_ID", help="roll back an applied transaction")
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -73,6 +74,10 @@ def main(argv=None):
     crv = chsub.add_parser("review", help="project review.md from machine artifacts (Phase 13, read-only)")
     crv.add_argument("change_id")
     crv.add_argument("--workdir", default=".", help="AEH target repository")
+    crp = chsub.add_parser("repair", help="enter TEST_REPAIR or SPEC_REPAIR through the state machine")
+    crp.add_argument("change_id")
+    crp.add_argument("--kind", required=True, choices=("test", "spec"))
+    crp.add_argument("--workdir", default=".", help="AEH target repository")
     args = parser.parse_args(argv)
 
     if args.cmd == "bootstrap":
@@ -90,6 +95,15 @@ def main(argv=None):
         report = doc.run_doctor(args.target)
         _emit(report)
         return 0 if report["overall"] != "BLOCKED" else 1
+    if args.cmd == "repair":
+        from . import repair as repair_module
+        if args.rollback:
+            report = repair_module.rollback(args.target, args.rollback)
+            _emit(report)
+            return 0 if report["status"] == "REPAIR_ROLLED_BACK" else 1
+        report = repair_module.run_repair(args.target, apply=args.apply)
+        _emit(report)
+        return 0 if report["status"] in ("REPAIR_PLAN_READY", "REPAIR_APPLIED", "REPAIR_NOOP") else 1
     if args.cmd == "change":
         from .runtime import change as chmod
         if args.change_cmd == "new":
@@ -149,6 +163,10 @@ def main(argv=None):
             report = vmod2.change_review(args.workdir, args.change_id)
             _emit(report)
             return 0 if report["status"] == "REVIEW_READY" else 1
+        if args.change_cmd == "repair":
+            report = chmod.change_repair(args.workdir, args.change_id, args.kind)
+            _emit(report)
+            return 0 if report["status"] == "TRANSITION_OK" else 1
     return 2
 
 

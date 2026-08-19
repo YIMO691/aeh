@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Repair Rule Contract",
+  "type": "object",
+  "required": ["contract", "version", "rules"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "bootstrap.repair.rules"},
+    "version": {"type": "integer", "minimum": 1},
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "check_ids", "statuses", "action"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+          "check_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "statuses": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "enum": ["WARN", "BLOCKED"]}
+          },
+          "action": {
+            "type": "string",
+            "enum": ["RESTORE_RUNTIME", "REPAIR_MANAGED", "REMOVE_RESIDUE", "UPDATE_GITIGNORE"]
+          }
+        }
+      }
+    }
+  }
+}

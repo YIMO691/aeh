@@ -497,3 +497,26 @@
   https://github.com/YIMO691/aeh/releases/tag/v0.1.0（tag v0.1.0 重定到 main 头
   87061a3，Release Notes 从 CHANGELOG 生成，release id 370637806）。
   未发布 PyPI（未授权）。
+
+## V0.2 M2 Repair / Recovery（2026-08-19）
+
+- **CD-101**: `aeh repair <target>` 默认只生成 `repair.plan`；写入必须显式 `--apply`。
+  Doctor 保持只读，诊断权与修复写入权不合并。
+- **CD-102**: bootstrap、repair 与未来 upgrade 共用 `aeh.transaction-journal`：第一项
+  目标写入前必须落 PREPARED journal 和 before backup；每项写入后记录状态；异常反向回滚。
+- **CD-103**: runtime repair source authority = 当前 AEH 包内 canonical runtime，且其 digest
+  必须与目标 manifest 的 `source_hashes.runtime` 完全一致；不一致时
+  `BLOCKED_REPAIR_SOURCE_MISMATCH`，不得把 upgrade 冒充 repair。
+- **CD-104**: Repair plan 只公开相对路径、action、reason、source_ref 与 before/after hash，
+  不携带正文；`.aeh/private` 不进入 residue 扫描或 repair backup。
+- **CD-105**: 显式 rollback 是全计划 drift gate：已完成事务要求每项等于 after-state；
+  中断事务只接受可证明的 before/after-state。任一文件落在两者之外时整体
+  `BLOCKED_ROLLBACK_DRIFT`，零写入，不覆盖后续用户修改。apply 也在每项写入前复核
+  before-state，漂移项不写并反向恢复本事务此前已写项目。
+- **CD-106**: managed block 自动修复只允许替换可界定的 marker envelope，并保留 envelope
+  外全部非 marker 文本；无有序 begin/end envelope 时 `BLOCKED_REPAIR_UNSAFE_MANAGED`。
+- **CD-107**: `aeh change repair --kind test|spec` 只是冻结状态机条件边的 UX 投影：
+  GREEN→TEST_REPAIR 仍需 BLOCKED_TEST_CHANGED，GREEN→SPEC_REPAIR 仍需
+  SPEC_CHANGED_IN_GREEN；不得绕过 Doctor、Gate 或审批。
+- **CD-108**: transaction path 在计划与应用阶段统一拒绝绝对路径、`..`、跨卷和 symlink
+  越界；journal/backup 是机器真值，叙事报告不得替代。

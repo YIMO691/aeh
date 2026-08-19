@@ -1,0 +1,20 @@
+contract: bootstrap.repair.rules
+version: 1
+
+rules:
+  - id: restore-runtime
+    check_ids: [install.runtime_dir, contract.runtime_digest, contract.core_readable, contract.schemas_valid]
+    statuses: [BLOCKED]
+    action: RESTORE_RUNTIME
+  - id: repair-managed
+    check_ids: [adapter.agents_managed, adapter.claude_managed]
+    statuses: [BLOCKED]
+    action: REPAIR_MANAGED
+  - id: remove-install-residue
+    check_ids: [install.staging_residue]
+    statuses: [BLOCKED]
+    action: REMOVE_RESIDUE
+  - id: protect-private-boundary
+    check_ids: [private.gitignore]
+    statuses: [WARN, BLOCKED]
+    action: UPDATE_GITIGNORE

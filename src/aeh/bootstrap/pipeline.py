@@ -27,6 +27,7 @@ from .. import conflict as cf
 from .. import discovery as disc
 from .. import interview as iv
 from .. import paths as aeh_paths
+from .. import transaction as tx
 from ..adapters import render as ar
 
 CONTRACT = "bootstrap.install-plan"
@@ -213,20 +214,21 @@ def validate_plan(plan, schema_path):
         _path_safe(plan["target"], op["path"])
 
 
-def apply_staged(target, staged, ops):
-    """stage 校验通过后原子 apply：逐文件 os.replace；失败回滚，用户原文不丢失。"""
-    journal = []  # (path, original_bytes | None)
-    created = []
+def apply_staged(target, staged, ops, source_plan=None):
+    """Apply staged output through the persistent transaction journal."""
+    mutations = []
     try:
         for op in ops:
             rel = op["path"]
             entry = staged.get(rel)
             if entry is None:
                 continue
-            dest = os.path.join(target, rel)
+            destination = os.path.join(target, rel)
             kind = entry["kind"]
             if kind == "dir":
-                os.makedirs(dest, exist_ok=True)
+                if not os.path.isdir(destination):
+                    mutations.append({"action": op["action"], "path": rel, "kind": "directory",
+                                      "content": None, "reason": op["reason"]})
                 continue
             if kind == "file":
                 content = entry["content"]
@@ -234,61 +236,28 @@ def apply_staged(target, staged, ops):
                     content = _dump_yaml(content).encode("utf-8")
                 elif isinstance(content, str):
                     content = content.encode("utf-8")
-                if os.path.isfile(dest) and open(dest, "rb").read() == content:
-                    continue  # 相同内容：不制造无意义写
-                if op["action"] == "CREATE" and os.path.isfile(dest):
-                    continue  # 已存在：幂等跳过（installed_at 等由首装保留）
-                os.makedirs(os.path.dirname(dest), exist_ok=True)
-                backup = open(dest, "rb").read() if os.path.isfile(dest) else None
-                tmp = dest + ".aeh-tmp"
-                with open(tmp, "wb") as f:
-                    f.write(content)
-                os.replace(tmp, dest)
-                journal.append((dest, backup))
-                created.append(dest)
+                if op["action"] == "CREATE" and os.path.isfile(destination):
+                    continue
             elif kind == "managed":
-                dest = os.path.join(target, rel)
                 existing = ""
-                if os.path.isfile(dest):
-                    with open(dest, "r", encoding="utf-8") as fh:
-                        existing = fh.read()
-                merged = ar.merge_managed_section(existing, entry["content"])
-                backup = existing if os.path.isfile(dest) else None
-                os.makedirs(os.path.dirname(dest), exist_ok=True)
-                tmp = dest + ".aeh-tmp"
-                with open(tmp, "w", encoding="utf-8") as f:
-                    f.write(merged)
-                os.replace(tmp, dest)
-                journal.append((dest, backup))
-                created.append(dest)
+                if os.path.isfile(destination):
+                    with open(destination, "r", encoding="utf-8") as stream:
+                        existing = stream.read()
+                content = ar.merge_managed_section(existing, entry["content"]).encode("utf-8")
             elif kind == "gitignore":
-                dest = os.path.join(target, rel)
                 existing = ""
-                if os.path.isfile(dest):
-                    with open(dest, "r", encoding="utf-8") as fh:
-                        existing = fh.read()
-                merged = merge_gitignore(existing, entry["content"])
-                backup = existing if os.path.isfile(dest) else None
-                tmp = dest + ".aeh-tmp"
-                with open(tmp, "w", encoding="utf-8") as f:
-                    f.write(merged)
-                os.replace(tmp, dest)
-                journal.append((dest, backup))
-                created.append(dest)
-    except Exception:
-        for dest, backup in reversed(journal):
-            try:
-                if backup is None:
-                    if os.path.isfile(dest):
-                        os.remove(dest)
-                else:
-                    tmp = dest + ".aeh-rollback"
-                    with open(tmp, "wb") as f:
-                        f.write(backup)
-                    os.replace(tmp, dest)
-            except OSError:
-                pass
-        raise BootstrapError("BOOTSTRAP_FAILED")
+                if os.path.isfile(destination):
+                    with open(destination, "r", encoding="utf-8") as stream:
+                        existing = stream.read()
+                content = merge_gitignore(existing, entry["content"]).encode("utf-8")
+            else:
+                raise BootstrapError("BOOTSTRAP_FAILED: unsupported staged kind " + str(kind))
+            mutations.append({"action": op["action"], "path": rel, "kind": "file",
+                              "content": content, "reason": op["reason"]})
+        return tx.apply_mutations(target, "bootstrap", "BST", mutations,
+                                  source_plan or {"operations": ops})
+    except tx.TransactionError as exc:
+        raise BootstrapError("BOOTSTRAP_FAILED: " + str(exc)) from exc
 
 
 def finalize_manifest(target, source_revision, digests):
@@ -395,10 +364,11 @@ def bootstrap(target, answers_path=None, dry_run=False, source_revision="dev", a
         manifest_final = finalize_manifest(target, source_revision, digests)
         if manifest_final is not None:
             staged[".aeh/manifest.yaml"] = {"kind": "file", "content": manifest_final}
-        apply_staged(target, staged, ops)
+        transaction = apply_staged(target, staged, ops, plan)
         checks = post_validate(target)
         return {"status": "BOOTSTRAP_COMPLETE", "target": target, "plan": plan,
-                "validations": checks, "pending_questions": pending}
+                "validations": checks, "pending_questions": pending,
+                "transaction_id": transaction["transaction_id"] if transaction else None}
     except BootstrapError as e:
         return {"status": str(e).split(":")[0] if str(e).startswith(("BLOCKED", "BOOTSTRAP")) else "BOOTSTRAP_FAILED",
                 "target": target, "error": str(e)}
