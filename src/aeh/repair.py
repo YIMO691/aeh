@@ -88,17 +88,6 @@ def _repair_managed_text(existing, generated):
     return prefix + MANAGED_BEGIN + "\n" + generated + "\n" + MANAGED_END + suffix
 
 
-def _canonical_runtime(ae_root):
-    files = {}
-    for folder, extension in (("core", ".yaml"), ("schemas", ".json")):
-        source_dir = os.path.join(ae_root, folder)
-        for name in sorted(os.listdir(source_dir)):
-            if name.endswith(extension):
-                with open(os.path.join(source_dir, name), "rb") as stream:
-                    files[folder + "/" + name] = stream.read()
-    return files
-
-
 def _matched_actions(doctor_report, rules):
     checks = {check["check_id"]: check for check in doctor_report["checks"]}
     matched = {}
@@ -138,7 +127,7 @@ def _build_plan(target, apply, ae_root):
             canonical_digest = bp.compute_digests(ae_root)["runtime"]
             if expected_digest != canonical_digest:
                 raise RepairError("BLOCKED_REPAIR_SOURCE_MISMATCH")
-            canonical = _canonical_runtime(ae_root)
+            canonical = bp.canonical_runtime_files(ae_root)
             runtime_root = tx.resolve_path(target, ".aeh/runtime")
             for relative_source, content in canonical.items():
                 relative_target = ".aeh/runtime/" + relative_source

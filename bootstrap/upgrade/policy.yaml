@@ -1,0 +1,18 @@
+contract: bootstrap.upgrade.policy
+version: 1
+
+managed_paths:
+  - path: .aeh/runtime/
+    strategy: overwrite
+  - path: .aeh/manifest.yaml
+    strategy: merge
+
+preserve_paths:
+  - .aeh/profile.yaml
+  - .aeh/effective-workflow.yaml
+  - .aeh/bootstrap/
+  - .aeh/private/
+  - .aeh/changes/
+  - AGENTS.md
+  - CLAUDE.md
+  - .gitignore

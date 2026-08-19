@@ -24,6 +24,12 @@ def main(argv=None):
     repair_mode = rp.add_mutually_exclusive_group()
     repair_mode.add_argument("--apply", action="store_true", help="explicitly apply the generated plan")
     repair_mode.add_argument("--rollback", metavar="TRANSACTION_ID", help="roll back an applied transaction")
+    up = sub.add_parser("upgrade", help="plan, apply, or roll back a runtime snapshot upgrade")
+    up.add_argument("target")
+    upgrade_mode = up.add_mutually_exclusive_group()
+    upgrade_mode.add_argument("--apply", action="store_true", help="explicitly apply the generated plan")
+    upgrade_mode.add_argument("--rollback", metavar="TRANSACTION_ID", help="roll back an applied upgrade")
+    up.add_argument("--source-revision", default="dev", help="destination AEH revision recorded in manifest")
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -104,6 +110,16 @@ def main(argv=None):
         report = repair_module.run_repair(args.target, apply=args.apply)
         _emit(report)
         return 0 if report["status"] in ("REPAIR_PLAN_READY", "REPAIR_APPLIED", "REPAIR_NOOP") else 1
+    if args.cmd == "upgrade":
+        from . import upgrade as upgrade_module
+        if args.rollback:
+            report = upgrade_module.rollback(args.target, args.rollback)
+            _emit(report)
+            return 0 if report["status"] == "UPGRADE_ROLLED_BACK" else 1
+        report = upgrade_module.run_upgrade(
+            args.target, apply=args.apply, source_revision=args.source_revision)
+        _emit(report)
+        return 0 if report["status"] in ("UPGRADE_PLAN_READY", "UPGRADE_APPLIED", "UPGRADE_NOOP") else 1
     if args.cmd == "change":
         from .runtime import change as chmod
         if args.change_cmd == "new":

@@ -52,6 +52,55 @@ def venv_aeh(root):
     return root / ("Scripts/aeh.exe" if os.name == "nt" else "bin/aeh")
 
 
+def shape_v01_snapshot(python, target):
+    """Turn the fresh candidate install into the repository's v0.1 runtime shape."""
+    old_manifest_schema = (
+        Path(__file__).resolve().parents[1]
+        / "tests" / "fixtures" / "upgrade-v0.1" / "manifest.schema.json"
+    )
+    code = r'''
+import hashlib
+import os
+from pathlib import Path
+import shutil
+import sys
+import yaml
+
+target = Path(sys.argv[1])
+old_manifest_schema = Path(sys.argv[2])
+schemas = target / ".aeh" / "runtime" / "schemas"
+for name in (
+    "repair-plan.schema.json", "repair-rule.schema.json",
+    "transaction-journal.schema.json", "upgrade-plan.schema.json",
+    "upgrade-policy.schema.json",
+):
+    path = schemas / name
+    if path.exists():
+        path.unlink()
+shutil.copyfile(old_manifest_schema, schemas / "manifest.schema.json")
+transactions = target / ".aeh" / "transactions"
+if transactions.exists():
+    shutil.rmtree(transactions)
+parts = []
+runtime = target / ".aeh" / "runtime"
+for folder in ("core", "schemas"):
+    directory = runtime / folder
+    for path in sorted(directory.iterdir()):
+        if path.is_file():
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            parts.append(folder + "/" + path.name + "\0" + digest)
+runtime_digest = hashlib.sha256("\n".join(sorted(parts)).encode("utf-8")).hexdigest()
+manifest_path = target / ".aeh" / "manifest.yaml"
+manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+manifest["harness"]["version"] = "0.1.0"
+manifest["harness"]["source_revision"] = "6513102"
+manifest["source_hashes"]["runtime"] = runtime_digest
+manifest.pop("upgrade_history", None)
+manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=True), encoding="utf-8")
+'''
+    run([python, "-c", code, target, old_manifest_schema])
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--wheel", required=True, help="wheel path or glob resolving to one wheel")
@@ -117,6 +166,36 @@ def main(argv=None):
         if after_repair.get("overall") not in ("READY", "READY_WITH_WARNINGS"):
             raise RuntimeError("post-repair doctor is not ready: " + repr(after_repair.get("overall")))
 
+        shape_v01_snapshot(python, target)
+        old_doctor = json_output(
+            run([aeh, "doctor", target], cwd=root, expected=(1,)),
+            "v0.1-shaped doctor",
+        )
+        if old_doctor.get("overall") != "BLOCKED":
+            raise RuntimeError("v0.1-shaped target was not blocked for explicit upgrade")
+        manifest_path = target / ".aeh" / "manifest.yaml"
+        manifest_before_plan = manifest_path.read_bytes()
+        upgrade_plan = json_output(
+            run([aeh, "upgrade", target, "--source-revision", "cleanroom-m3"], cwd=root),
+            "upgrade dry-run",
+        )
+        if upgrade_plan.get("status") != "UPGRADE_PLAN_READY":
+            raise RuntimeError("upgrade did not produce a dry-run plan: " + repr(upgrade_plan))
+        if manifest_path.read_bytes() != manifest_before_plan:
+            raise RuntimeError("upgrade dry-run changed the manifest")
+        upgraded = json_output(
+            run([aeh, "upgrade", target, "--apply", "--source-revision", "cleanroom-m3"], cwd=root),
+            "upgrade apply",
+        )
+        if upgraded.get("status") != "UPGRADE_APPLIED":
+            raise RuntimeError("upgrade apply did not complete: " + repr(upgraded))
+        after_upgrade = json_output(
+            run([aeh, "doctor", target], cwd=root),
+            "post-upgrade doctor",
+        )
+        if after_upgrade.get("overall") not in ("READY", "READY_WITH_WARNINGS"):
+            raise RuntimeError("post-upgrade doctor is not ready: " + repr(after_upgrade.get("overall")))
+
         change = json_output(
             run([
                 aeh, "change", "new", "wheel smoke",
@@ -129,8 +208,9 @@ def main(argv=None):
 
         print("SMOKE_PASS")
         print("wheel=" + wheel.name)
-        print("doctor=" + after_repair["overall"])
+        print("doctor=" + after_upgrade["overall"])
         print("repair_transaction=" + repaired["transaction_id"])
+        print("upgrade_transaction=" + upgraded["transaction_id"])
         print("change_id=" + change["change_id"])
     return 0
 

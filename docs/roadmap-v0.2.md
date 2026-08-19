@@ -1,6 +1,6 @@
 # AEH V0.2 Roadmap
 
-> 状态：**V02-0 ACCEPTED；M1/M2 IMPLEMENTED AS STACKED REVIEW CANDIDATES；M3 NOT STARTED**（2026-08-19）
+> 状态：**V02-0 ACCEPTED；M1–M3 IMPLEMENTED AS STACKED REVIEW CANDIDATES；V0.2.0 RELEASE REVIEW PENDING**（2026-08-19）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -12,9 +12,9 @@
 
 - 现状：V0.1.0 已发布（`docs/releases/v0.1.0/RELEASE_TEST_REPORT.md`：232/232）。
 - Phase 1.1：v1.6 冻结协议与 External Runner 最小机制已验证；72-run 未授权，产品有效性未证明。
-- **M1 与 M2 已形成独立、叠加式审查候选；二者尚未发布为软件 v0.2.0。**
-- M1 提供 wheel 与跨平台回归护栏；M2 在其上提供显式、可审计、可回滚的 repair。
-  两个候选完成审查后，下一个软件里程碑是 M3「升级系统」。
+- **M1–M3 已形成独立、叠加式审查候选；软件包现为未发布的 v0.2.0 candidate。**
+- M1 提供 wheel/CI，M2 提供显式 repair/transaction，M3 提供 v0.1 snapshot 到当前
+  candidate 的显式 upgrade。下一门是独立 Release Safety Review，不自动 tag 或发布。
 - 顺序总览：`V02-0 → M1 → M2 → M3 → M4 → M5 → M6`，一次只开一个 M。
 
 ## 2. 输入与约束
@@ -141,7 +141,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 本地风险：① repair 会写用户文件——默认 dry-run、先日志后应用、绝不自动 APPROVE；② 修复规则过度匹配可能误伤用户原文——规则必须最小作用域并带回归夹具。
 - 实现结果：5 类故障注入、事务 journal、显式 rollback、漂移阻断和 TEST_REPAIR/SPEC_REPAIR 路由已覆盖；完整回归 `259/259`，wheel clean-room repair smoke 通过。
 
-### M3 升级系统：aeh upgrade
+### M3 升级系统：aeh upgrade（已实现，待审查/合并）
 
 - 目标：已装项目显式升级 runtime/契约，不丢用户数据，中断可回滚。
 - In：升级计划（diff）→ dry-run → 应用 → 回滚；manifest 版本/digest 更新；升级后 doctor 自检。
@@ -150,6 +150,9 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 退出：v0.1 安装项目升级到 v0.2 成功且 profile/approvals/changes 不丢；注入中断可回滚；manifest 更新正确；回归 232+n。
 - 契约影响：Y（升级写入边界；ADR-003/P-09 已预留）。关联：KL#6、C-002。
 - 本地风险：① 升级覆盖用户配置——升级计划必须逐文件声明 preserve/overwrite/merge；② digest 不一致的旧安装可能无法识别版本来源——先 repair 后 upgrade 的顺序保证。
+- 实现结果：runtime/manifest 最小写边界、v0.1 source-integrity gate、UPG journal、
+  deterministic history、项目数据 preserve、失败/显式 rollback 与 clean-room upgrade smoke 已覆盖；
+  完整回归 `273/273`（Windows 本地符号链接权限限制导致 1 项平台测试跳过，Linux CI 执行该项）。
 
 ### M4 P2 收口 + 批准凭据最小强化
 

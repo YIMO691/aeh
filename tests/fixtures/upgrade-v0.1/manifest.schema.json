@@ -62,18 +62,6 @@
       "type": "string",
       "format": "date-time"
     },
-    "upgrade_history": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["from", "to"],
-        "additionalProperties": false,
-        "properties": {
-          "from": {"$ref": "#/definitions/upgradeEndpoint"},
-          "to": {"$ref": "#/definitions/upgradeEndpoint"}
-        }
-      }
-    },
     "source_hashes": {
       "type": "object",
       "required": [
@@ -103,18 +91,6 @@
       "additionalProperties": {
         "type": "string",
         "pattern": "^[0-9a-fA-F]{64}$"
-      }
-    }
-  },
-  "definitions": {
-    "upgradeEndpoint": {
-      "type": "object",
-      "required": ["harness_version", "source_revision", "runtime_digest"],
-      "additionalProperties": false,
-      "properties": {
-        "harness_version": {"type": "string"},
-        "source_revision": {"type": "string"},
-        "runtime_digest": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"}
       }
     }
   },

@@ -22,7 +22,7 @@ from .. import paths as aeh_paths
 
 CONTRACT = "doctor.report"
 CONTRACT_VERSION = 1
-HARNESS_VERSION = "0.1.0"
+HARNESS_VERSION = "0.2.0"
 SCHEMA_VERSION = "1"
 MANAGED_BEGIN = "<!-- AEH:BEGIN MANAGED -->"
 MANAGED_END = "<!-- AEH:END MANAGED -->"
@@ -196,7 +196,7 @@ def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=
         else:
             checks.append(_check("contract.version_compat", "contract", "BLOCKED",
                                  "BLOCKED_VERSION_INCOMPATIBLE: harness=" + str(hv) + " schema=" + str(sv),
-                                 [], "upgrade 属后续阶段"))
+                                 [], "inspect aeh upgrade <target>; apply only after reviewing its dry-run plan"))
         expected_runtime = manifest.get("source_hashes", {}).get("runtime")
         actual_runtime = _runtime_digest(target)
         if actual_runtime == expected_runtime:

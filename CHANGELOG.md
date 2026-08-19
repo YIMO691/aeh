@@ -2,6 +2,22 @@
 
 All notable changes to AEH are recorded here per phase.
 
+## [0.2.0] — UNRELEASED CANDIDATE
+
+### Added
+
+- M1: relocatable wheel resource bundle and Windows/Linux regression CI.
+- M2: plan-first `aeh repair`, persistent BST/RPR transaction journals, byte backups,
+  drift-safe apply/rollback, Doctor remediation, and TEST_REPAIR/SPEC_REPAIR routing.
+- M3: plan-first `aeh upgrade`, UPG journals, explicit v0.1 runtime snapshot migration,
+  deterministic manifest upgrade history, protected project-data boundaries, and rollback.
+
+### Release status
+
+- Candidate only: no v0.2.0 tag, GitHub Release, or PyPI publication.
+- Product effectiveness remains `NOT_YET_PROVEN`; Phase 2 / 72-run remains unauthorized.
+- A separate Release Safety Review is required after the stacked M1–M3 review chain.
+
 ## [0.1.0] — 2026-08-14 (RELEASED to https://github.com/YIMO691/aeh)
 
 ### Added
