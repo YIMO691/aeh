@@ -14,9 +14,11 @@ All notable changes to AEH are recorded here per phase.
 
 ### Release status
 
-- Candidate only: no v0.2.0 tag, GitHub Release, or PyPI publication.
+- Integrated candidate only: M1–M3 are merged to `main`; no v0.2.0 tag, GitHub
+  Release, or PyPI publication exists yet.
 - Product effectiveness remains `NOT_YET_PROVEN`; Phase 2 / 72-run remains unauthorized.
-- A separate Release Safety Review is required after the stacked M1–M3 review chain.
+- Independent Release Safety Review: `READY_FOR_OWNER_RELEASE`; publication still
+  requires a separate Owner execution decision.
 
 ## [0.1.0] — 2026-08-14 (RELEASED to https://github.com/YIMO691/aeh)
 

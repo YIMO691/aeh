@@ -540,3 +540,20 @@
   与显式 rollback drift gate；rollback 恢复旧版本后 Doctor 版本阻断是诚实结果，不是假失败。
 - **CD-116**: M3 不实现 profile recompile、adapter regeneration、任意历史迁移、网络发现、
   自动升级、增量 patch 或多版本并存；这些必须另立迁移契约与授权。
+
+## V0.2.0 Release Safety Review（2026-08-19）
+
+- **RSR-001**: V02-0、M1、M2、M3 按 PR #1→#4 依赖顺序合并；最终 M3 merge commit
+  `cc7d93f` 的 tree 与已验收 M3 head `e6f8d5a` 完全一致。
+- **RSR-002**: Handbook 确定性校验 PASS（00–26、A–G、Registry、总稿与 SHA-256
+  清单）；公开路径 ASCII，secret/private path scan PASS。
+- **RSR-003**: 本地集成回归 273/273 PASS；GitHub main 在 Windows/Linux、Python
+  3.10/3.11 与双平台 clean-room wheel gate 全部通过。
+- **RSR-004**: 固定 `SOURCE_DATE_EPOCH` 双重 wheel 构建哈希一致；wheel metadata、
+  console entry point、runtime/core/schema/repair/upgrade 资源边界检查 PASS。
+- **RSR-005**: clean-room bootstrap → repair → v0.1-shaped snapshot → upgrade →
+  Doctor → first change PASS；repair/upgrade 分别产生 RPR/UPG journal。
+- **RSR-006**: Release blocker：P0=0、P1=0；测试代码中的既有文件句柄
+  `ResourceWarning` 记为 P2 工程债，不影响当前确定性或功能验收。
+- **RSR-VERDICT**: `READY_FOR_OWNER_RELEASE`。此裁决不自动授权或执行 tag、
+  GitHub Release、PyPI；产品有效性仍为 `NOT_YET_PROVEN`，Phase 2 / 72-run 未授权。
