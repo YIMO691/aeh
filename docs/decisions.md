@@ -557,3 +557,12 @@
   `ResourceWarning` 记为 P2 工程债，不影响当前确定性或功能验收。
 - **RSR-VERDICT**: `READY_FOR_OWNER_RELEASE`。此裁决不自动授权或执行 tag、
   GitHub Release、PyPI；产品有效性仍为 `NOT_YET_PROVEN`，Phase 2 / 72-run 未授权。
+
+## V0.2.0 Owner Release Execution（2026-08-20）
+
+- **OWNER-RELEASE-EXEC-V020**: Owner 指令“执行”在前序明确选项下按安全默认解释为
+  GitHub 发布：合并发布状态记录、创建轻量 tag `v0.2.0`、创建公开 GitHub Release，
+  并附加经固定 build epoch 双重构建验证的 relocatable wheel。PyPI 属独立分发渠道，
+  未获明确授权，不执行。
+- **RELEASE-BOUNDARY-V020**: GitHub 发布不改变研究裁决；产品有效性继续为
+  `NOT_YET_PROVEN`，Phase 2 / 72-run 继续未授权，M4 亦未自动启动。

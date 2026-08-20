@@ -2,7 +2,7 @@
 
 All notable changes to AEH are recorded here per phase.
 
-## [0.2.0] — UNRELEASED CANDIDATE
+## [0.2.0] — 2026-08-20 (RELEASED to https://github.com/YIMO691/aeh/releases/tag/v0.2.0)
 
 ### Added
 
@@ -12,13 +12,14 @@ All notable changes to AEH are recorded here per phase.
 - M3: plan-first `aeh upgrade`, UPG journals, explicit v0.1 runtime snapshot migration,
   deterministic manifest upgrade history, protected project-data boundaries, and rollback.
 
-### Release status
+### Release execution
 
-- Integrated candidate only: M1–M3 are merged to `main`; no v0.2.0 tag, GitHub
-  Release, or PyPI publication exists yet.
+- M1–M3 are merged to `main`; tag `v0.2.0` and the GitHub Release are public.
+- A relocatable wheel is attached to the GitHub Release with its SHA-256 recorded
+  in `docs/releases/v0.2.0/RELEASE_CHECKLIST.md`.
+- PyPI publication is not authorized and has not occurred.
 - Product effectiveness remains `NOT_YET_PROVEN`; Phase 2 / 72-run remains unauthorized.
-- Independent Release Safety Review: `READY_FOR_OWNER_RELEASE`; publication still
-  requires a separate Owner execution decision.
+- Independent Release Safety Review: `READY_FOR_OWNER_RELEASE`; P0=0, P1=0.
 
 ## [0.1.0] — 2026-08-14 (RELEASED to https://github.com/YIMO691/aeh)
 

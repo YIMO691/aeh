@@ -4,9 +4,9 @@ Review date: 2026-08-19
 
 Verdict: `READY_FOR_OWNER_RELEASE`
 
-This verdict does not create or authorize a tag, GitHub Release, or PyPI
-publication. Product effectiveness remains `NOT_YET_PROVEN`, and Phase 2 /
-72-run remains unauthorized.
+Owner release execution: GitHub tag and Release published on 2026-08-20; PyPI
+not authorized and not published. Product effectiveness remains
+`NOT_YET_PROVEN`, and Phase 2 / 72-run remains unauthorized.
 
 ## R0 Integration provenance
 
@@ -53,8 +53,9 @@ publication. Product effectiveness remains `NOT_YET_PROVEN`, and Phase 2 /
 - [x] Console entry point `aeh = aeh.cli:main` present
 - [x] Runtime core, schemas, adapters, repair rules, and upgrade policy present
 - [x] Tests, task evidence, and private machine data absent from wheel
-- [x] Candidate wheel SHA-256:
-      `A9D204F92B75F5953D52A321A0DAC195A037CA45C4F40434EC4B6E4C21B60A5C`
+- [x] Release wheel built twice with `SOURCE_DATE_EPOCH=1787184000`
+- [x] Release wheel SHA-256:
+      `8FC11F9B42CD90FB4E4D1B64380E429D9AD19D80CACFC76396C0B46F59B3ED19`
 
 ## R5 Clean-room lifecycle
 
@@ -74,3 +75,11 @@ publication. Product effectiveness remains `NOT_YET_PROVEN`, and Phase 2 /
   resource exhaustion, nondeterminism, or failed gate.
 
 Final decision: `READY_FOR_OWNER_RELEASE`.
+
+## R7 Owner release execution
+
+- [x] Release-state PR merged to `main`
+- [x] Lightweight tag `v0.2.0` created from final release commit
+- [x] Public GitHub Release `AEH v0.2.0 - Repairable and Upgradeable Runtime`
+- [x] Relocatable wheel attached
+- [x] PyPI not published

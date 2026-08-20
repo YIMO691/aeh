@@ -1,6 +1,6 @@
 # AEH V0.2 Roadmap
 
-> 状态：**V02-0 + M1–M3 MERGED；V0.2.0 RELEASE SAFETY REVIEW PASS；OWNER RELEASE EXECUTION PENDING**（2026-08-19）
+> 状态：**V02-0 + M1–M3 MERGED；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-20）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -14,8 +14,8 @@
 - Phase 1.1：v1.6 冻结协议与 External Runner 最小机制已验证；72-run 未授权，产品有效性未证明。
 - **M1–M3 已按依赖顺序审查并合并到 main；软件包现为未发布的 v0.2.0 candidate。**
 - M1 提供 wheel/CI，M2 提供显式 repair/transaction，M3 提供 v0.1 snapshot 到当前
-  candidate 的显式 upgrade。独立 Release Safety Review 已通过；下一门仅为 Owner
-  发布执行裁决，不自动 tag、创建 Release 或发布 PyPI。
+  candidate 的显式 upgrade。独立 Release Safety Review 已通过，Owner 已执行 tag 与
+  GitHub Release；PyPI 未授权、未发布。M4 尚未启动，必须另立 SPEC/PLAN 与授权。
 - 顺序总览：`V02-0 → M1 → M2 → M3 → M4 → M5 → M6`，一次只开一个 M。
 
 ## 2. 输入与约束
