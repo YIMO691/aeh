@@ -28,8 +28,15 @@ Review date: 2026-08-19
 
 - PEP 517 wheel build: PASS
 - Fixed-epoch repeatability: byte-identical
-- Candidate wheel SHA-256:
-  `A9D204F92B75F5953D52A321A0DAC195A037CA45C4F40434EC4B6E4C21B60A5C`
+- Release wheel fixed build epoch: `SOURCE_DATE_EPOCH=1787184000`
+- Release wheel SHA-256:
+  `8FC11F9B42CD90FB4E4D1B64380E429D9AD19D80CACFC76396C0B46F59B3ED19`
 - Dependency check: PASS
 - Clean-room lifecycle: `SMOKE_PASS`
 - Final Doctor: `READY_WITH_WARNINGS` for capability/environment warnings only
+
+## Release channel
+
+- GitHub tag/Release: `v0.2.0`
+- Release asset: `adaptive_engineering_harness-0.2.0-py3-none-any.whl`
+- PyPI: not published

@@ -5,9 +5,9 @@ AEH does not write your code — it installs a contract layer into your reposito
 so that agents must work through evidence, spec, tests and verification, with
 independently enforced gates.
 
-> V0.1.0 is released. Software V0.2.0 is an **integrated, unreleased release
-> candidate** on `main`. Its Release Safety Review passed; no v0.2.0 tag,
-> GitHub Release, or PyPI publication exists yet.
+> V0.2.0 is released on GitHub with a relocatable wheel, plan-first repair, and
+> explicit runtime upgrade. It is not published to PyPI; install from the
+> GitHub release asset or a trusted source checkout.
 
 ---
 
@@ -225,10 +225,10 @@ irreversible_migration, destructive_data_operation.
 
 ## 13. Software version and development scope
 
-The package metadata is `0.2.0` on `main`. M1–M3 are merged and the independent
-Release Safety Review verdict is `READY_FOR_OWNER_RELEASE`. The candidate must not
-be described as released until the Owner separately authorizes and executes the tag,
-GitHub Release, and any package-index publication.
+The package metadata is `0.2.0` on `main`. M1–M3 are merged, the independent
+Release Safety Review verdict is `READY_FOR_OWNER_RELEASE`, and the Owner has
+executed the GitHub `v0.2.0` tag and Release. PyPI publication remains out of
+scope and has not occurred.
 
 In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycle
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
