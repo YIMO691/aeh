@@ -202,6 +202,12 @@ AEH 不仅要定义“什么是真值”，还必须定义“谁有权修改真�
 
 Validator 在执行关键 Gate 前必须能够核对当前 runtime/core/schema 等关键 Contract 与 `manifest.yaml` 记录的 digest/source manifest 是否一致；若 Contract 被未授权篡改，必须阻塞，而不是基于“被换过的裁判规则”继续判 PASS。
 
+RED 完成并进入 LOCK_TEST 后、Coding Agent 开始实现之前，Controller 必须在受管仓库
+之外封存 Change 工作区内 YAML/JSON 机器真值的路径集合与内容哈希。GREEN、VERIFY、
+REVIEW 与此后的可信批准路径先核对该检查点；新增、删除、修改、符号链接或检查点缺失
+一律 fail closed。各合法 Controller 写路径完成后推进检查点。检查点目录
+不得位于目标仓库内，因为同一写入者可同时伪造仓库内工件与仓库内哈希。
+
 冻结原则：
 
 > **Machine Truth + Validator 只有在 Trusted Mutation Boundary 存在时才构成真正 Enforcement。**

@@ -15,6 +15,7 @@ from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
+from . import ownership as omod
 
 ENV_SIGNATURES = ["ModuleNotFoundError", "ImportError", "command not found", "No such file or directory"]
 
@@ -99,6 +100,9 @@ def change_red(target, change_id, ae_root=None):
         if d["overall"] == "BLOCKED":
             return {"status": "BLOCKED_DOCTOR", "change_id": change_id,
                     "blocking": [c["check_id"] for c in d["checks"] if c["status"] == "BLOCKED"]}
+        omod.ensure_state_available(target, change_id)
+        if omod.checkpoint_exists(target, change_id):
+            omod.assert_checkpoint(target, change_id)
         change = ch.load_change(target, change_id)
         if change["state"]["current"] not in ("TEST_DESIGN", "RED", "LOCK_TEST"):
             return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id,
@@ -200,7 +204,12 @@ def change_red(target, change_id, ae_root=None):
         tr1 = ch.change_transition(target, change_id, "LOCK_TEST", condition="VALID_RED")
         if tr1["status"] != "TRANSITION_OK":
             return {"status": "RED_COMPLETE_BUT_TRANSITION_FAILED", "change_id": change_id, "transition": tr1}
+        # LOCK_TEST is the last Controller step before the coding agent writes
+        # production code. Seal machine truth here so GREEN can detect any
+        # agent-side .aeh additions or rewrites made during implementation.
+        omod.record_checkpoint(target, change_id)
         return {"status": "RED_COMPLETE", "change_id": change_id, "verdicts": verdicts,
                 "state": "LOCK_TEST", "gate": "PASS"}
-    except (RedError, ch.ChangeError, jsonschema.ValidationError) as e:
-        return {"status": "RED_FAILED", "change_id": change_id, "error": str(e)}
+    except (RedError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError) as e:
+        code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "RED_FAILED"
+        return {"status": code, "change_id": change_id, "error": str(e)}

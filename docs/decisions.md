@@ -566,3 +566,16 @@
   未获明确授权，不执行。
 - **RELEASE-BOUNDARY-V020**: GitHub 发布不改变研究裁决；产品有效性继续为
   `NOT_YET_PROVEN`，Phase 2 / 72-run 继续未授权，M4 亦未自动启动。
+
+## Post-eval Machine Truth Isolation（2026-08-25）
+
+- **CD-117**: RED 成功进入 LOCK_TEST 后、Coding Agent 开始前，Controller 在受管仓库外
+  保存 change-scoped YAML/JSON 的精确路径集合与 SHA-256；GREEN、VERIFY、REVIEW 及
+  此后的 trusted approval 在读取机器真值前必须比对，added/removed/modified/symlink 均返回
+  `BLOCKED_MACHINE_TRUTH_PROVENANCE`。
+- **CD-118**: Controller state root 默认使用 OS user-state 目录；
+  `AEH_CONTROLLER_STATE_DIR` 仅作部署与测试覆盖，解析后位于 target 内必须阻断。
+  仓库内普通 hash 不构成所有权证明。
+- **CD-119**: 旧版本进行中的 Change 若没有外部检查点，GREEN/VERIFY fail closed 为
+  `BLOCKED_CONTROLLER_CHECKPOINT_MISSING`，必须经 governed repair 重放 RED 或重启 Change；
+  GREEN/VERIFY 不得在首次看到现有机器真值时自动信任并补建检查点。

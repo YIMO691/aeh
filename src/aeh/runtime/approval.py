@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import ownership as omod
 
 
 class ApprovalError(ValueError):
@@ -57,6 +58,11 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
             return {"status": "BLOCKED_DOCTOR", "change_id": change_id,
                     "blocking": [c["check_id"] for c in d["checks"] if c["status"] == "BLOCKED"]}
         change = ch.load_change(target, change_id)
+        # RED/LOCK_TEST establishes the Controller checkpoint. Later approvals
+        # may only extend an intact state and must advance the checkpoint.
+        if omod.checkpoint_exists(target, change_id):
+            omod.assert_checkpoint(target, change_id)
+            omod.ensure_state_available(target, change_id)
         cdir = ch._change_dir(target, change_id)
         entry = {"gate": gate, "status": status,
                  "actor": {"type": "human", "id": actor_id.strip()},
@@ -75,8 +81,10 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
         jsonschema.validate(body, schema)
         with open(docp, "w", encoding="utf-8") as f:
             f.write(_dump_yaml(body))
+        if omod.checkpoint_exists(target, change_id):
+            omod.record_checkpoint(target, change_id)
         return {"status": "APPROVAL_RECORDED", "change_id": change_id, "gate": gate,
                 "decision": status, "actor_id": entry["actor"]["id"]}
-    except (ApprovalError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
+    except (ApprovalError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "APPROVAL_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}

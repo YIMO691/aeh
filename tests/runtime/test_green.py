@@ -139,7 +139,25 @@ class TestGreen(unittest.TestCase):
         with open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), "a", encoding="utf-8") as f:
             f.write("# tampered\n")
         rep = gmod.change_green(target, cid)
-        self.assertEqual(rep["status"], "BLOCKED_RUNTIME_CONTEXT_STALE")
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE")
+
+    def test_run_f055_machine_truth_writes_blocked_before_green(self):
+        target = make_target()
+        cid = to_lock(target)
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        for name, body in (
+                ("tasks.yaml", {"tasks": [{"id": "TASK-001", "status": "DONE"}]}),
+                ("traceability.yaml", {"requirements": []}),
+                ("verification.yaml", {"overall": "MERGE_READY", "results": []})):
+            with open(os.path.join(cdir, name), "w", encoding="utf-8") as stream:
+                yaml.safe_dump(body, stream, sort_keys=True, allow_unicode=True)
+        before, after = apply_fix(target)
+        rep = gmod.change_green(target, cid, scope_path=scope_manifest(tempfile.mkdtemp(),
+                                                    [{"path": "src/reward.py", "before_hash": before, "after_hash": after}]))
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=tasks.yaml,traceability.yaml,verification.yaml", rep["error"])
+        self.assertFalse(os.path.exists(os.path.join(cdir, "green.yaml")))
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "LOCK_TEST")
 
     def test_runtime_tamper_blocked(self):
         target = make_target()
