@@ -583,3 +583,15 @@
   在测试子进程退出后、读取批准或写入/重封存机器真值前必须再次核对 Controller
   checkpoint，阻断测试期 evidence/approval laundering。Change 工作区根及其父级中的
   symlink/Windows reparse point 同样 fail closed；强隔离仍依赖 OS/filesystem boundary。
+
+## V0.2.1 Integrity Patch Preparation（2026-08-26）
+
+- **CD-121**: v0.2.1 是仅承载 CD-117–120/RUN-F055 修复的补丁候选，不自动吸收 M4、
+  分类调优、评测协议重构、A01–A08 或新的平台能力。
+- **CD-122**: 包、Bootstrap manifest、Doctor compatibility 与 Discovery scanner 的公开
+  软件版本统一提升为 `0.2.1`；compiler compatibility 与 runtime schema version 不变。
+- **CD-123**: 从完整性有效的 v0.2.0 manifest 升级到 v0.2.1 必须走现有 plan-first
+  upgrade，并只产生可解释的 manifest/runtime 差异；项目 profile、workflow、private、
+  changes、approvals 和 agent files 继续 byte-preserved。
+- **CD-124**: 补丁准备权限止于 review PR。tag、GitHub Release、PyPI、模型复测、
+  A01–A08 与 PR merge 均保留独立 Owner Gate；候选不得把漏洞修复表述成有效性证明。

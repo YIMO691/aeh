@@ -2,6 +2,29 @@
 
 All notable changes to AEH are recorded here per phase.
 
+## [0.2.1] — Unreleased
+
+### Fixed
+
+- Make change-scoped YAML/JSON machine truth Controller-owned by sealing an
+  external checkpoint at RED/LOCK_TEST and rejecting untrusted additions,
+  removals, edits, symlinks, and Windows reparse points.
+- Re-check provenance after every repository-controlled test subprocess in
+  repeated RED, GREEN/REFACTOR, and VERIFY, closing the RUN-F055 test-time
+  laundering route before Controller truth can be written or resealed.
+- Fail closed for in-flight changes created without a Controller checkpoint.
+
+### Validation status
+
+- The remediation head passed 288 local zero-model tests (3 platform skips),
+  build/diff/clean-room checks, 12/12 pull-request checks, and the post-merge
+  `main` workflow. The V0.2.1 candidate adds an upgrade regression and passes
+  289 local tests (3 platform skips) plus its fixed-epoch clean-room wheel gate.
+- This entry describes a release candidate only. No `v0.2.1` tag, GitHub
+  Release, PyPI publication, model rerun, or A01–A08 attack run has occurred.
+- The frozen Phase 2 v1.10 verdict remains `REPOSITION`; this patch fixes the
+  observed integrity escape but does not by itself prove product effectiveness.
+
 ## [0.2.0] — 2026-08-20 (RELEASED to https://github.com/YIMO691/aeh/releases/tag/v0.2.0)
 
 ### Added

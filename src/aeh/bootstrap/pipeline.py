@@ -33,7 +33,7 @@ from ..adapters import render as ar
 CONTRACT = "bootstrap.install-plan"
 CONTRACT_VERSION = 1
 HARNESS_NAME = "adaptive-engineering-harness"
-HARNESS_VERSION = "0.2.0"
+HARNESS_VERSION = "0.2.1"
 COMPILER_VERSION = "0.1.0"
 SCHEMA_VERSION = "1"
 GITIGNORE_ENTRY = ".aeh/private/"

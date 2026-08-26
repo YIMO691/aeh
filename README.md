@@ -5,9 +5,10 @@ AEH does not write your code — it installs a contract layer into your reposito
 so that agents must work through evidence, spec, tests and verification, with
 independently enforced gates.
 
-> V0.2.0 is released on GitHub with a relocatable wheel, plan-first repair, and
-> explicit runtime upgrade. It is not published to PyPI; install from the
-> GitHub release asset or a trusted source checkout.
+> V0.2.0 is the latest GitHub release. The current source is the unreleased
+> V0.2.1 integrity-patch candidate, which adds Controller-owned machine-truth
+> isolation. Neither version is published to PyPI; install from a trusted
+> GitHub release asset or source checkout.
 
 ---
 
@@ -241,10 +242,17 @@ irreversible_migration, destructive_data_operation.
 
 ## 13. Software version and development scope
 
-The package metadata is `0.2.0` on `main`. M1–M3 are merged, the independent
-Release Safety Review verdict is `READY_FOR_OWNER_RELEASE`, and the Owner has
-executed the GitHub `v0.2.0` tag and Release. PyPI publication remains out of
-scope and has not occurred.
+The package metadata in the current source candidate is `0.2.1`; the latest
+published release remains `v0.2.0`. M1–M3 and the post-evaluation Controller
+machine-truth isolation fix are merged to `main`. V0.2.1 has not been tagged or
+released, and PyPI publication remains out of scope.
+
+Phase 2 v1.10 completed 72 frozen runs and recommended `REPOSITION`: use AEH as
+selective independent assurance for genuinely high-risk changes, not as a
+mandatory unattended workflow for every coding task. The observed RUN-F055
+integrity escape is fixed in the V0.2.1 candidate, but no remediation model rerun
+or A01–A08 attack run has been authorized or performed. Product effectiveness
+therefore remains `NOT_YET_PROVEN`.
 
 In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycle
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
@@ -256,13 +264,15 @@ Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
 approval identity.
 V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 
-Architecture and evidence baseline: see `docs/handbook/README.md`. It integrates
-Phase 1.1 protocol v1.6 while keeping product efficacy `NOT_YET_PROVEN` and
-Phase 2 / 72-run unauthorized.
+Architecture and evidence baseline: see `docs/handbook/README.md`. The handbook
+remains an explicitly version-bound Phase 1.1 snapshot; the later Phase 2 v1.10
+result and remediation status are summarized above rather than retroactively
+rewritten into that frozen evidence baseline.
 
 Release evidence and accepted limitations: see
 `docs/releases/v0.2.0/RELEASE_CHECKLIST.md`, `RELEASE_TEST_REPORT.md`, and
-`KNOWN_LIMITATIONS.md`.
+`KNOWN_LIMITATIONS.md`. V0.2.1 candidate evidence is under
+`docs/releases/v0.2.1/`.
 
 ## Development
 
