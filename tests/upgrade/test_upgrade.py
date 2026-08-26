@@ -137,13 +137,38 @@ class TestUpgradeFlow(UpgradeBase):
         self.assertEqual(self.protected_snapshot(target), protected)
 
         manifest = yaml.safe_load(Path(target, ".aeh", "manifest.yaml").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["harness"]["version"], "0.2.0")
+        self.assertEqual(manifest["harness"]["version"], "0.2.1")
         self.assertEqual(manifest["harness"]["source_revision"], "m3-candidate")
         self.assertEqual(manifest["installed_at"], before_manifest["installed_at"])
         self.assertEqual(manifest["owner_extension"], {"preserve": True})
         self.assertEqual(manifest["source_hashes"]["runtime"], bp.compute_digests(str(ROOT))["runtime"])
         self.assertEqual(manifest["upgrade_history"][-1]["from"]["harness_version"], "0.1.0")
-        self.assertEqual(manifest["upgrade_history"][-1]["to"]["harness_version"], "0.2.0")
+        self.assertEqual(manifest["upgrade_history"][-1]["to"]["harness_version"], "0.2.1")
+
+    def test_v020_manifest_upgrades_to_v021_without_runtime_rewrite(self):
+        target = self.make_current()
+        protected = self.protected_snapshot(target)
+        manifest_path = Path(target, ".aeh", "manifest.yaml")
+        manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+        manifest["harness"]["version"] = "0.2.0"
+        manifest["harness"]["source_revision"] = "v0.2.0"
+        manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=True), encoding="utf-8")
+
+        planned = upgrade.run_upgrade(target, source_revision="v0.2.1-candidate")
+        self.assertEqual(planned["status"], "UPGRADE_PLAN_READY", planned)
+        self.assertEqual(
+            {item["action"] for item in planned["plan"]["operations"]},
+            {"MERGE_MANIFEST"},
+        )
+
+        applied = upgrade.run_upgrade(
+            target, apply=True, source_revision="v0.2.1-candidate")
+        self.assertEqual(applied["status"], "UPGRADE_APPLIED", applied)
+        self.assertEqual(self.protected_snapshot(target), protected)
+        upgraded = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(upgraded["harness"]["version"], "0.2.1")
+        self.assertEqual(upgraded["upgrade_history"][-1]["from"]["harness_version"], "0.2.0")
+        self.assertEqual(upgraded["upgrade_history"][-1]["to"]["harness_version"], "0.2.1")
 
     def test_obsolete_runtime_file_is_removed(self):
         target = self.make_v01(legacy_extra=True)
@@ -215,7 +240,7 @@ class TestUpgradeSafety(UpgradeBase):
         target = self.make_v01()
         manifest_path = Path(target, ".aeh", "manifest.yaml")
         manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
-        manifest["harness"]["version"] = "0.2.0"
+        manifest["harness"]["version"] = "0.2.1"
         manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=True), encoding="utf-8")
         before = tree_hashes(target)
         result = upgrade.run_upgrade(target, apply=True)
