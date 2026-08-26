@@ -24,6 +24,18 @@ AEH turns a normal repository into a governed engineering workspace:
 One core, two platforms: the same compiled profile renders enforcement instructions
 for Codex (AGENTS.md) and Claude (CLAUDE.md) without semantic drift.
 
+### Why this project exists
+
+AEH is one step in a longer engineering argument: a probabilistic model begins
+as a partial black box; a Harness gives it context, tools and controlled
+execution; a Workflow makes required control deterministic; AEH separates
+implementation from independent Change acceptance; and AEW handles the
+long-lived Project/Task/Run environment without duplicating AEH truth.
+
+Read [From Black Box to AEW](docs/research/01_From_Black_Box_to_AEW.md) for the
+complete narrative, or start with the [research guide](docs/research/README.md)
+and its explicit evidence limits.
+
 ## 2. Why
 
 Coding agents are good at writing code and bad at being audited. AEH gives you:

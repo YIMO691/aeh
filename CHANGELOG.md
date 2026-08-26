@@ -2,7 +2,7 @@
 
 All notable changes to AEH are recorded here per phase.
 
-## [Unreleased] — AEW integration branch
+## [Unreleased]
 
 ### Added
 
@@ -12,6 +12,9 @@ All notable changes to AEH are recorded here per phase.
   Project/Task/Run IDs to AEH-owned Change state, verdicts, artifact hashes,
   and Scope/Ownership/Authority/Lifecycle/Provenance/Cost metadata.
 - JSON Schemas and contract/CLI regressions for both integration surfaces.
+- A public research narrative tracing the design from black-box model limits to
+  Harness, deterministic Workflow, AEH Change Assurance and the separate AEW
+  operational architecture, with research method and source/limitation maps.
 
 ### Boundaries
 
@@ -19,7 +22,7 @@ All notable changes to AEH are recorded here per phase.
   runtime, sandbox, or multi-agent orchestrator to AEH.
 - SCM inspection is local, bounded, read-only, and network-free. Recognizing
   an SVN working copy does not yet certify the full AEH lifecycle on SVN.
-- This feature branch does not change the v0.2.1 tag/release/PyPI status.
+- These changes do not change the v0.2.1 tag/release/PyPI status.
 
 ## [0.2.1] — Unreleased
 
