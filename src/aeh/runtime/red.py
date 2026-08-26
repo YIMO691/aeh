@@ -101,7 +101,8 @@ def change_red(target, change_id, ae_root=None):
             return {"status": "BLOCKED_DOCTOR", "change_id": change_id,
                     "blocking": [c["check_id"] for c in d["checks"] if c["status"] == "BLOCKED"]}
         omod.ensure_state_available(target, change_id)
-        if omod.checkpoint_exists(target, change_id):
+        had_checkpoint = omod.checkpoint_exists(target, change_id)
+        if had_checkpoint:
             omod.assert_checkpoint(target, change_id)
         change = ch.load_change(target, change_id)
         if change["state"]["current"] not in ("TEST_DESIGN", "RED", "LOCK_TEST"):
@@ -156,6 +157,10 @@ def change_red(target, change_id, ae_root=None):
                             "changed_files_hash": tests_hash, "test_files_hash": tests_hash,
                             "commit": None, "verdict": verdict})
         after = _snapshot(target, os.path.join(".aeh", "changes", change_id))
+        if had_checkpoint:
+            # A repeated RED executes repository code after the initial seal.
+            # Do not let that execution extend Controller-owned machine truth.
+            omod.assert_checkpoint(target, change_id)
         if before != after:
             return {"status": "BLOCKED_PRODUCTION_CHANGED_DURING_RED", "change_id": change_id,
                     "changed": sorted(set(before) ^ set(after))}

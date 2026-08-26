@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import tempfile
 from datetime import datetime, timezone
 
@@ -25,6 +26,17 @@ class OwnershipError(ValueError):
 
 def _canonical(path):
     return os.path.normcase(os.path.realpath(os.path.abspath(path)))
+
+
+def _is_link_or_reparse(path):
+    """Detect POSIX links and Windows reparse points such as junctions."""
+    if os.path.islink(path):
+        return True
+    try:
+        attrs = getattr(os.lstat(path), "st_file_attributes", 0)
+    except OSError:
+        return False
+    return bool(attrs & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400))
 
 
 def _default_state_root():
@@ -65,11 +77,24 @@ def _machine_truth_snapshot(target, change_id):
     cdir = os.path.join(target, ".aeh", "changes", change_id)
     if not os.path.isdir(cdir):
         raise OwnershipError("BLOCKED_CHANGE_WORKSPACE_MISSING: " + change_id)
+    guarded = (
+        (os.path.join(target, ".aeh"), ".aeh"),
+        (os.path.join(target, ".aeh", "changes"), ".aeh/changes"),
+        (cdir, "."),
+    )
+    for path, rel in guarded:
+        if _is_link_or_reparse(path):
+            raise OwnershipError("BLOCKED_MACHINE_TRUTH_SYMLINK: " + rel)
+    try:
+        if os.path.commonpath([_canonical(target), _canonical(cdir)]) != _canonical(target):
+            raise OwnershipError("BLOCKED_MACHINE_TRUTH_SYMLINK: .")
+    except ValueError as exc:
+        raise OwnershipError("BLOCKED_MACHINE_TRUTH_SYMLINK: .") from exc
     snapshot = {}
     for current, dirs, files in os.walk(cdir, followlinks=False):
         for name in dirs:
             path = os.path.join(current, name)
-            if os.path.islink(path):
+            if _is_link_or_reparse(path):
                 rel = os.path.relpath(path, cdir).replace(os.sep, "/")
                 raise OwnershipError("BLOCKED_MACHINE_TRUTH_SYMLINK: " + rel)
         dirs[:] = sorted(dirs)
@@ -77,7 +102,7 @@ def _machine_truth_snapshot(target, change_id):
             if not name.lower().endswith((".yaml", ".yml", ".json")):
                 continue
             path = os.path.join(current, name)
-            if os.path.islink(path):
+            if _is_link_or_reparse(path):
                 rel = os.path.relpath(path, cdir).replace(os.sep, "/")
                 raise OwnershipError("BLOCKED_MACHINE_TRUTH_SYMLINK: " + rel)
             rel = os.path.relpath(path, cdir).replace(os.sep, "/")

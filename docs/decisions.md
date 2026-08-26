@@ -579,3 +579,7 @@
 - **CD-119**: 旧版本进行中的 Change 若没有外部检查点，GREEN/VERIFY fail closed 为
   `BLOCKED_CONTROLLER_CHECKPOINT_MISSING`，必须经 governed repair 重放 RED 或重启 Change；
   GREEN/VERIFY 不得在首次看到现有机器真值时自动信任并补建检查点。
+- **CD-120**: 测试命令属于仓库控制的不可信执行。Repeated RED、GREEN/REFACTOR、VERIFY
+  在测试子进程退出后、读取批准或写入/重封存机器真值前必须再次核对 Controller
+  checkpoint，阻断测试期 evidence/approval laundering。Change 工作区根及其父级中的
+  symlink/Windows reparse point 同样 fail closed；强隔离仍依赖 OS/filesystem boundary。

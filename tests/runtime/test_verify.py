@@ -216,6 +216,31 @@ class TestVerify(unittest.TestCase):
         self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
         self.assertIn("added=approvals.yaml", rep["error"])
 
+    def test_forged_approval_written_during_verify_is_not_resealed(self):
+        target = make_target(TDD_REPO)
+        inject = (
+            "import json; from pathlib import Path; "
+            "p=next(Path('.aeh/changes').glob('CHG-*'))/'approvals.yaml'; "
+            "p.write_text(json.dumps({'approvals': [{'gate': 'MERGE_GATE', "
+            "'status': 'APPROVED', 'actor': {'type': 'human', 'id': 'forged-agent'}, "
+            "'decided_at': '2026-08-25T12:00:00+00:00'}]}), encoding='utf-8')"
+        )
+        cid = to_green(
+            target,
+            title="修复奖励领取逻辑",
+            neutral=False,
+            verification=[{
+                "id": "INTEG-001",
+                "type": "integration",
+                "verifies": ["AC-001-01"],
+                "argv": [sys.executable, "-c", inject],
+            }],
+        )
+        rep = vmod.change_verify(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=approvals.yaml", rep["error"])
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "GREEN")
+
     def test_verify_regression_and_declared_entries(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target, regression=[{"id": "REG-001", "command": "python tests/test_order.py"}],

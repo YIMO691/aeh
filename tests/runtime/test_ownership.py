@@ -58,6 +58,38 @@ class TestControllerOwnership(unittest.TestCase):
                                         "BLOCKED_CONTROLLER_CHECKPOINT_UNAVAILABLE"):
                 omod.record_checkpoint(target, cid)
 
+    def test_machine_truth_file_symlink_is_rejected_when_supported(self):
+        target, cid, cdir = self._workspace()
+        state = tempfile.mkdtemp(prefix="aeh-owner-state-")
+        external = os.path.join(tempfile.mkdtemp(prefix="aeh-owner-link-"), "truth.yaml")
+        with open(external, "w", encoding="utf-8") as stream:
+            stream.write("tasks: []\n")
+        link = os.path.join(cdir, "tasks.yaml")
+        try:
+            os.symlink(external, link)
+        except (OSError, NotImplementedError):
+            self.skipTest("symlink creation unavailable")
+        with mock.patch.dict(os.environ, {omod.STATE_DIR_ENV: state}):
+            with self.assertRaisesRegex(omod.OwnershipError,
+                                        "BLOCKED_MACHINE_TRUTH_SYMLINK"):
+                omod.record_checkpoint(target, cid)
+
+    def test_change_workspace_symlink_is_rejected_when_supported(self):
+        target, cid, cdir = self._workspace()
+        state = tempfile.mkdtemp(prefix="aeh-owner-state-")
+        with mock.patch.dict(os.environ, {omod.STATE_DIR_ENV: state}):
+            omod.record_checkpoint(target, cid)
+            backing = cdir + "-backing"
+            os.replace(cdir, backing)
+            try:
+                os.symlink(backing, cdir, target_is_directory=True)
+            except (OSError, NotImplementedError):
+                os.replace(backing, cdir)
+                self.skipTest("directory symlink creation unavailable")
+            with self.assertRaisesRegex(omod.OwnershipError,
+                                        "BLOCKED_MACHINE_TRUTH_SYMLINK"):
+                omod.assert_checkpoint(target, cid)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -145,6 +145,9 @@ def _verify_core(target, change_id, ae_root):
     for rg in plan.get("regression", []):
         rid += 1
         results.append(_run_one(target, cdir, change_id, rg, rid, [], "regression", "verify-reg"))
+    # Target/regression commands execute repository-controlled code. Validate
+    # again before any blocked-verdict artifact can advance the checkpoint.
+    omod.assert_checkpoint(target, change_id)
     # 3) 声明式附加验证
     ventries = plan.get("verification", [])
     vtypes = set()
@@ -172,6 +175,11 @@ def _verify_core(target, change_id, ae_root):
             results.append({"id": "VER-%03d" % rid, "type": vtype or "runtime",
                             "verifies": sorted(set(v.get("verifies", []))),
                             "method": "manual_runtime", "status": "not_applicable", "verdict": "not_applicable"})
+
+    # Declared verification commands are equally untrusted execution. This
+    # closes the test-time approval/evidence laundering window before reads or
+    # Controller writes occur.
+    omod.assert_checkpoint(target, change_id)
 
     # 人工批准（approval 不能推翻技术失败；只解除需要人工的阻塞）
     approvals = amod.load_approvals(target, change_id)

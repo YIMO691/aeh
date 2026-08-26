@@ -159,6 +159,36 @@ class TestGreen(unittest.TestCase):
         self.assertFalse(os.path.exists(os.path.join(cdir, "green.yaml")))
         self.assertEqual(ch.load_change(target, cid)["state"]["current"], "LOCK_TEST")
 
+    def test_machine_truth_write_during_green_test_is_not_resealed(self):
+        target = make_target()
+        cid = to_lock(target)
+        prod = os.path.join(target, "src", "reward.py")
+        with open(prod, "rb") as stream:
+            before = hashlib.sha256(stream.read()).hexdigest()
+        with open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8") as stream:
+            fixed = stream.read()
+        injection = (
+            "\nfrom pathlib import Path as _Path\n"
+            "_change = next(_Path('.aeh/changes').glob('CHG-*'))\n"
+            "(_change / 'tasks.yaml').write_text('tasks: []\\n', encoding='utf-8')\n"
+        )
+        with open(prod, "w", encoding="utf-8") as stream:
+            stream.write(fixed + injection)
+        with open(prod, "rb") as stream:
+            after = hashlib.sha256(stream.read()).hexdigest()
+        rep = gmod.change_green(
+            target,
+            cid,
+            scope_path=scope_manifest(
+                tempfile.mkdtemp(),
+                [{"path": "src/reward.py", "before_hash": before, "after_hash": after}],
+            ),
+        )
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=tasks.yaml", rep["error"])
+        self.assertFalse(os.path.exists(os.path.join(target, ".aeh", "changes", cid, "green.yaml")))
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "LOCK_TEST")
+
     def test_runtime_tamper_blocked(self):
         target = make_target()
         cid = to_lock(target)

@@ -241,10 +241,14 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
         return {"status": "BLOCKED_RUNTIME_CONTEXT_STALE", "change_id": change_id, "stale": stale}
     plan["_cid"] = change_id
     recs, ok = _run_required(target, plan, cdir, "green" if verdict_kind == "GREEN_PASS" else "refactor", change_id)
+    # Test processes execute repository-controlled code. Re-check after they
+    # exit so their writes cannot be adopted by the next Controller seal.
+    omod.assert_checkpoint(target, change_id)
     if not ok:
         return {"status": "GREEN_FAILED" if verdict_kind == "GREEN_PASS" else "REFACTOR_REGRESSION",
                 "change_id": change_id, "tests": recs}
     reg_recs, reg_ok = _run_regression(target, plan, cdir, "green-reg" if verdict_kind == "GREEN_PASS" else "refactor-reg", change_id)
+    omod.assert_checkpoint(target, change_id)
     if not reg_ok:
         return {"status": "GREEN_FAILED" if verdict_kind == "GREEN_PASS" else "REFACTOR_REGRESSION",
                 "change_id": change_id, "regression": reg_recs}

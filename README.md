@@ -214,9 +214,13 @@ irreversible_migration, destructive_data_operation.
 - **Controller checkpoint boundary**: at RED/LOCK_TEST, change-scoped YAML/JSON
   hashes are stored outside the governed repository (override with
   `AEH_CONTROLLER_STATE_DIR`, which must also remain outside it). This detects
-  agent-side machine-truth writes during implementation and later phases; it
-  assumes the Controller process has a filesystem boundary the coding agent
-  cannot write. An in-flight change created by an older AEH build has no
+  agent-side machine-truth writes during implementation and later phases.
+  GREEN, repeated RED, and VERIFY re-check the checkpoint after every batch of
+  repository-controlled test commands and before Controller truth is written,
+  so test-time writes are not adopted by the next seal. The boundary still
+  assumes the Controller state is protected by an OS/filesystem boundary that
+  both the coding agent and executed repository code cannot write; AEH does not
+  provide an OS sandbox. An in-flight change created by an older AEH build has no
   checkpoint and therefore fails closed until RED is replayed through a governed
   repair path (or the change is restarted).
 - **Multi-file writes are journaled, not filesystem-wide atomic**: bootstrap and repair
