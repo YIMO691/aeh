@@ -256,8 +256,22 @@ class TestVerify(unittest.TestCase):
 
     def test_verify_critical_insufficient_plan(self):
         target = make_target(TDD_REPO)
-        cid = to_green(target, title="修复奖励领取逻辑", neutral=False)
-        rep = vmod.change_verify(target, cid)
+        tmp = tempfile.mkdtemp(prefix="aeh-g13-critical-")
+        created = ch.change_new(target, "修复奖励领取逻辑", suggested_level="STANDARD")
+        cid = created["change_id"]
+        self.assertEqual(gr.change_ground(target, cid)["status"], "GROUNDING_COMPLETE")
+        self.assertEqual(
+            sp.build_spec(
+                target, cid,
+                reqs_path=write_yaml(tmp, "reqs.yaml", reqs_body(neutral=False)),
+            )["status"],
+            "SPEC_COMPLETE",
+        )
+        rep = td.change_test_design(
+            target, cid,
+            write_yaml(tmp, "plan.yaml", plan_body(neutral=False)),
+            test_src=TDD_SRC,
+        )
         self.assertEqual(rep["status"], "BLOCKED_VERIFICATION_PLAN_INSUFFICIENT")
 
     def test_verify_critical_requires_merge_approval(self):
@@ -312,26 +326,29 @@ class TestVerify(unittest.TestCase):
         cid = to_green(target, verification=[{"id": "MANUAL-001", "type": "manual",
                                               "verifies": ["AC-001-01"]}])
         rep = vmod.change_verify(target, cid)
-        self.assertEqual(rep["status"], "BLOCKED_MANUAL_VERIFICATION_PENDING")
+        self.assertEqual(rep["status"], "BLOCKED_WAITING_MANUAL")
 
     def test_manual_pending_not_overridden_by_approval(self):
-        # V0.1：manual 验证一律 pending（REVIEW 阶段完成）；MERGE_GATE 批准不能
-        # 把 manual 缺口变成已通过（approval 不能推翻技术缺口）。
+        # MERGE_GATE 与 VERIFY_MANUAL 是不同权力；合并批准不能替代手工验证证明。
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target, verification=[{"id": "MANUAL-001", "type": "manual",
                                               "verifies": ["AC-001-01"]}])
         amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
         rep = vmod.change_verify(target, cid)
-        self.assertEqual(rep["status"], "BLOCKED_MANUAL_VERIFICATION_PENDING")
+        self.assertEqual(rep["status"], "BLOCKED_WAITING_MANUAL")
         ver = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "verification.yaml"), encoding="utf-8"))
         self.assertEqual(ver["overall"], "BLOCKED")
         self.assertIn("blocked_reason", ver)
 
-    def test_manual_verification_gate_not_a_human_gate(self):
-        # VERIFY_MANUAL 不是合法批准 gate（core human_approval_gates 冻结三值）
+    def test_manual_verification_gate_is_a_human_gate(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
-        self.assertEqual(amod.record_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "owner")["status"], "BLOCKED_UNKNOWN_GATE")
+        self.assertEqual(
+            amod.record_approval(
+                target, cid, "VERIFY_MANUAL", "APPROVED", "owner", ttl_seconds=3600
+            )["status"],
+            "APPROVAL_RECORDED",
+        )
 
     def test_lock_tamper_blocked(self):
         target = make_target(NEUTRAL_REPO)

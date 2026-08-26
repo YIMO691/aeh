@@ -23,6 +23,7 @@
             "enum": [
               "SPEC_REVIEW",
               "RED_GATE",
+              "VERIFY_MANUAL",
               "MERGE_GATE"
             ]
           },
@@ -31,6 +32,7 @@
             "enum": [
               "APPROVED",
               "REJECTED",
+              "REVOKED",
               "PENDING"
             ]
           },
@@ -56,6 +58,34 @@
           "decided_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "revoked_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "revoked_by": {
+            "type": "object",
+            "required": [
+              "type",
+              "id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "human"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "revocation_evidence_ref": {
+            "type": "string"
           },
           "evidence_ref": {
             "type": "string"
@@ -88,6 +118,36 @@
               },
               "required": [
                 "actor"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "REVOKED"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "actor": {
+                  "properties": {
+                    "type": {
+                      "const": "human"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "revoked_at",
+                "revoked_by"
               ]
             }
           }

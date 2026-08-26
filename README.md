@@ -9,6 +9,8 @@ independently enforced gates.
 > V0.2.1 integrity-patch candidate, which adds Controller-owned machine-truth
 > isolation. Neither version is published to PyPI; install from a trusted
 > GitHub release asset or source checkout.
+> The local `feature/m4-governance` branch additionally contains verified M4
+> governance work; it has no assigned release version and is not merged.
 
 ---
 
@@ -101,6 +103,22 @@ section tells the agent what AEH enforces. Drive the workflow yourself:
     aeh change verify CHG-2026-0001
     aeh change approve CHG-2026-0001 --gate MERGE_GATE --status APPROVED --actor <your-name>
 
+If the plan declares manual verification, record its separate, time-bounded
+attestation and rerun verify:
+
+    aeh change approve CHG-2026-0001 --gate VERIFY_MANUAL --status APPROVED \
+      --actor <reviewer> --ttl-seconds 3600
+    aeh change verify CHG-2026-0001
+
+An existing approval can be explicitly revoked without erasing its original
+approver or decision timestamp:
+
+    aeh change approve CHG-2026-0001 --gate VERIFY_MANUAL --status REVOKED \
+      --actor <revoker> --evidence-ref <decision-or-incident-id>
+
+See [M4 manual verification and approval lifecycle](docs/m4-governance.md) for
+expiry, backward compatibility, rejection, and revocation semantics.
+
 Every command above was executed end-to-end in a clean-room environment
 (fresh venv + fresh repository) as part of the V0.1 release gate.
 
@@ -181,8 +199,9 @@ out of scope.
 6. Fix the production code (the agent's job), then aeh change green <id> --scope scope.yaml —
    AEH verifies scope hashes, lock integrity and that RED tests now pass.
 7. aeh change refactor <id> --scope scope.yaml (optional, structural-equivalence refactor).
-8. aeh change verify <id> — verification + traceability; CRITICAL requires a
-   declared integration/contract verification entry and human MERGE_GATE approval
+8. aeh change verify <id> — verification + traceability; CRITICAL test-design
+   already requires a declared integration/contract verification entry and verify
+   requires human MERGE_GATE approval
    (aeh change approve). RED/LOCK_TEST records a Controller checkpoint outside
    the repository before coding starts; GREEN and VERIFY fail closed if any
    change-scoped YAML/JSON was added, removed, or modified outside a Controller
@@ -243,8 +262,9 @@ See `docs/integrations/aew.md` for ownership and verdict mappings.
 
 - **Command execution**: test commands run via argv (structured) with a
   command-string compatibility path (shell=True); no OS sandbox. Trust the plan author.
-- **Human approval = attestation**, not strong identity: aeh change approve --actor <name>
-  records an honest human attestation; no OIDC/IAM/signatures/approval TTL yet.
+- **Human approval = attestation**, not strong identity: `aeh change approve
+  --actor <name>` records an honest human attestation. M4 adds optional bounded
+  TTL, expiry, and explicit revocation, but not OIDC/IAM/signatures.
 - **Controller checkpoint boundary**: at RED/LOCK_TEST, change-scoped YAML/JSON
   hashes are stored outside the governed repository (override with
   `AEH_CONTROLLER_STATE_DIR`, which must also remain outside it). This detects
@@ -272,8 +292,9 @@ See `docs/integrations/aew.md` for ownership and verdict mappings.
   lifecycle certification.
 - **No PyPI release yet**: relocatable wheel installation is supported from a
   trusted checkout or built artifact, but package-index publication is deferred.
-- **Manual verification items stay PENDING** until the REVIEW phase — V0.1 has
-  no separate approval gate for manual checks.
+- **Manual verification is explicit human evidence** — a declared manual item
+  remains blocked until an effective `VERIFY_MANUAL` approval exists. It is
+  recorded as `approved`, never misreported as an automated test pass.
 - **Keyword hints are heuristics**: they escalate (fail-safe), they never
   silently downgrade.
 
@@ -281,8 +302,10 @@ See `docs/integrations/aew.md` for ownership and verdict mappings.
 
 The package metadata in the current source candidate is `0.2.1`; the latest
 published release remains `v0.2.0`. M1–M3 and the post-evaluation Controller
-machine-truth isolation fix are merged to `main`. V0.2.1 has not been tagged or
-released, and PyPI publication remains out of scope.
+machine-truth isolation fix are merged to `main`. M4 is locally implemented and
+verified on a feature branch but has no push, merge, or release decision.
+V0.2.1 has not been tagged or released, and PyPI publication remains out of
+scope.
 
 Phase 2 v1.10 completed 72 frozen runs and recommended `REPOSITION`: use AEH as
 selective independent assurance for genuinely high-risk changes, not as a
@@ -297,6 +320,8 @@ In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycl
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
 workflows, evidence model, test lock, traceability, risk-based verification, and
 Codex/Claude adapters, plus read-only SCM inspection and AEW governance export.
+The local M4 branch adds a manual verification Gate, approval TTL/expiry and
+revocation, and earlier CRITICAL plan validation.
 
 Out of scope: automatic/network/incremental/multi-version upgrade, CI deep integration, RAG,
 Web UI, mutation testing, impact analysis, multi-agent orchestration, strong

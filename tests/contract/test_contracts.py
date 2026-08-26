@@ -147,6 +147,21 @@ class TestConsistency(unittest.TestCase):
         enum = self.approvals_schema["properties"]["approvals"]["items"]["properties"]["gate"]["enum"]
         self.assertEqual(sorted(enum), sorted(self.gates["human_approval_gates"]))
 
+    def test_m4_manual_gate_and_approval_lifecycle_contract(self):
+        self.assertIn("VERIFY_MANUAL", self.gates["human_approval_gates"])
+        items = self.approvals_schema["properties"]["approvals"]["items"]
+        properties = items["properties"]
+        self.assertIn("REVOKED", properties["status"]["enum"])
+        for field in ("expires_at", "revoked_at", "revoked_by", "revocation_evidence_ref"):
+            self.assertIn(field, properties)
+        with self.assertRaises(jsonschema.ValidationError):
+            jsonschema.validate({"approvals": [{
+                "gate": "VERIFY_MANUAL",
+                "status": "REVOKED",
+                "actor": {"type": "human", "id": "owner"},
+                "decided_at": "2026-08-26T09:00:00+00:00",
+            }]}, self.approvals_schema)
+
     def test_change_state_enum_matches_states_yaml(self):
         enum = self.change_schema["properties"]["state"]["properties"]["current"]["enum"]
         self.assertEqual(sorted(enum), sorted(self.states["states"]))

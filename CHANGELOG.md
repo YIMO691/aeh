@@ -6,6 +6,11 @@ All notable changes to AEH are recorded here per phase.
 
 ### Added
 
+- M4 governance hardening on the feature branch: the dedicated
+  `VERIFY_MANUAL` human gate, bounded approval TTL, explicit provenance-
+  preserving revocation, and CLI support through `--ttl-seconds` / `REVOKED`.
+- TEST_DESIGN now rejects CRITICAL plans that omit declared integration or
+  contract verification; VERIFY retains the check for legacy plans.
 - Read-only `aeh integration inspect` for bounded local Git/SVN/no-SCM
   identification and nested repository boundary discovery.
 - Deterministic `aeh integration export` envelopes that link external
@@ -18,11 +23,24 @@ All notable changes to AEH are recorded here per phase.
 
 ### Boundaries
 
+- Approval remains an honest human attestation rather than cryptographic
+  identity. Missing expiry is accepted for backward compatibility and reported
+  as a warning; strong identity belongs to M5.
+- M4 implementation does not choose a release version and is not part of the
+  frozen v0.2.1 candidate without a separate Owner version/merge decision.
 - The integration does not add an external workspace state store, memory,
   runtime, sandbox, or multi-agent orchestrator to AEH.
 - SCM inspection is local, bounded, read-only, and network-free. Recognizing
   an SVN working copy does not yet certify the full AEH lifecycle on SVN.
 - These changes do not change the v0.2.1 tag/release/PyPI status.
+
+### Validation status
+
+- M4 source and compatibility regression: `314` tests completed (`310` passed,
+  `4` expected Windows symlink-permission skips).
+- PEP 517 wheel build and clean-room install smoke passed; the installed wheel
+  exposed `VERIFY_MANUAL`, `--ttl-seconds`, and `REVOKED`, and retained
+  bootstrap/doctor/repair/upgrade/change/AEW-integration smoke coverage.
 
 ## [0.2.1] — Unreleased
 

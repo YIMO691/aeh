@@ -87,10 +87,13 @@ def main(argv=None):
     cvf.add_argument("--workdir", default=".", help="AEH target repository")
     cap = chsub.add_parser("approve", help="record trusted human approval (Phase 13)")
     cap.add_argument("change_id")
-    cap.add_argument("--gate", required=True, help="SPEC_REVIEW | RED_GATE | MERGE_GATE")
-    cap.add_argument("--status", required=True, help="APPROVED | REJECTED")
+    cap.add_argument("--gate", required=True,
+                     help="SPEC_REVIEW | RED_GATE | VERIFY_MANUAL | MERGE_GATE")
+    cap.add_argument("--status", required=True, help="APPROVED | REJECTED | REVOKED")
     cap.add_argument("--actor", required=True, help="human attestor identity (honest attestation)")
     cap.add_argument("--evidence-ref", default=None, help="optional reference (decision/artifact id)")
+    cap.add_argument("--ttl-seconds", type=int, default=None,
+                     help="optional APPROVED lifetime (1..2678400 seconds)")
     cap.add_argument("--workdir", default=".", help="AEH target repository")
     crv = chsub.add_parser("review", help="project review.md from machine artifacts (Phase 13, read-only)")
     crv.add_argument("change_id")
@@ -208,9 +211,12 @@ def main(argv=None):
             return 0 if report["status"] == "VERIFY_COMPLETE" else 1
         if args.change_cmd == "approve":
             from .runtime import approval as apmod
-            report = apmod.record_approval(args.workdir, args.change_id, args.gate, args.status, args.actor, evidence_ref=args.evidence_ref)
+            report = apmod.record_approval(
+                args.workdir, args.change_id, args.gate, args.status, args.actor,
+                evidence_ref=args.evidence_ref, ttl_seconds=args.ttl_seconds,
+            )
             _emit(report)
-            return 0 if report["status"] == "APPROVAL_RECORDED" else 1
+            return 0 if report["status"] in ("APPROVAL_RECORDED", "APPROVAL_REVOKED") else 1
         if args.change_cmd == "review":
             from .runtime import verify as vmod2
             report = vmod2.change_review(args.workdir, args.change_id)

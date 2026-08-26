@@ -613,3 +613,19 @@
 - **CD-129**: AEW State Store、Memory、通用 Runtime/Sandbox、多 Agent 编排和证据
   大规模复制均不进入 AEH Core。后续采用适配器与引用集成，并以实际 Pilot 的成本收益
   决定是否扩展。
+
+## M4 Approval and Manual Verification Governance（2026-08-26）
+
+- **CD-130**: `VERIFY_MANUAL` 是独立的人工作证 Gate，不与 `MERGE_GATE` 合并。只要
+  test plan 声明 manual verification，该项必须得到有效人类证词；成功结果写为
+  `verdict=approved`，不得伪装成 automated test pass。
+- **CD-131**: `APPROVED` 可声明 1–2,678,400 秒 TTL 并派生 `expires_at`。为兼容旧
+  `approvals.yaml`，缺少 expiry 的批准继续有效但在消费时产生显式 WARN；过期批准一律
+  不满足 Gate。
+- **CD-132**: 显式撤销只作用于已有 APPROVED 记录，保留原 `actor/decided_at`，追加
+  `revoked_by/revoked_at` 与可选证据引用；不存在或非 APPROVED 的记录不可被伪造为撤销。
+- **CD-133**: CRITICAL plan 缺 integration/contract verification 时必须在 TEST_DESIGN
+  阻断，早于测试文件和 test-plan 机器真值写入；VERIFY 保留同一校验以覆盖旧的进行中
+  Change 与纵深防御。
+- **CD-134**: M4 的本地实施授权不包含版本选择、push、PR、merge、tag、Release 或
+  PyPI。v0.2.1 候选的冻结边界不被此 feature branch 静默改写。
