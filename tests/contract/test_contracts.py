@@ -34,6 +34,8 @@ FIXTURE_SCHEMA = {
     "traceability": "traceability.schema.json",
     "verification": "verification.schema.json",
     "approvals": "approvals.schema.json",
+    "aew-governance-adapter": "aew-governance-adapter.schema.json",
+    "scm-inspection": "scm-inspection.schema.json",
 }
 
 

@@ -595,3 +595,21 @@
   changes、approvals 和 agent files 继续 byte-preserved。
 - **CD-124**: 补丁准备权限止于 review PR。tag、GitHub Release、PyPI、模型复测、
   A01–A08 与 PR merge 均保留独立 Owner Gate；候选不得把漏洞修复表述成有效性证明。
+
+## AEW Integration Boundary（2026-08-26）
+
+- **CD-125**: Agent Engineering Workspace（AEW）与 AEH 不合并。AEW/外部系统拥有
+  Project/Task/Run、Provider、Runtime 与恢复状态；AEH 继续唯一拥有工程 Change 的
+  Ground/Spec/RED/GREEN/Test Lock/Verify 语义及接受判定。
+- **CD-126**: 集成采用只读、确定性、Schema 校验的导出 envelope。外部 Task/Run ID
+  是引用，不写入或镜像成 AEH 的第二套可变任务真值；导出不包含证据正文，只包含相对
+  路径、类型与 SHA-256。
+- **CD-127**: 每个导出显式表达 Scope、Ownership、Authority、Lifecycle、Provenance、
+  Cost。Portable verdict 仅作跨系统映射，AEH 原生 `MERGE_READY / READY_WITH_WARNINGS /
+  BLOCKED` 始终保留且具有工程治理权威。
+- **CD-128**: SCM inspection 只执行本地、无网络、无写入、资源有界的检测。支持识别
+  Git、SVN、无 SCM 和有限深度的嵌套仓库；SVN 识别不等于完整 AEH 生命周期已经取得
+  SVN 认证。
+- **CD-129**: AEW State Store、Memory、通用 Runtime/Sandbox、多 Agent 编排和证据
+  大规模复制均不进入 AEH Core。后续采用适配器与引用集成，并以实际 Pilot 的成本收益
+  决定是否扩展。

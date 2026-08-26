@@ -206,12 +206,37 @@ def main(argv=None):
         if change.get("status") != "CHANGE_CREATED":
             raise RuntimeError("change new did not succeed: " + repr(change))
 
+        scm_inspection = json_output(
+            run([aeh, "integration", "inspect", target, "--max-depth", "1"], cwd=root),
+            "integration inspect",
+        )
+        if (scm_inspection.get("status") != "INSPECTION_COMPLETE"
+                or scm_inspection.get("read_only") is not True
+                or scm_inspection.get("network_used") is not False):
+            raise RuntimeError("integration inspect contract failed: " + repr(scm_inspection))
+
+        aew_export = json_output(
+            run([
+                aeh, "integration", "export", change["change_id"],
+                "--workdir", target,
+                "--project-id", "CLEANROOM-PROJECT",
+                "--task-id", "CLEANROOM-TASK",
+                "--run-id", "CLEANROOM-RUN",
+            ], cwd=root),
+            "integration export",
+        )
+        if (aew_export.get("status") != "EXPORT_COMPLETE"
+                or aew_export.get("governance", {}).get("portable_verdict") != "NOT_VERIFIED"):
+            raise RuntimeError("integration export contract failed: " + repr(aew_export))
+
         print("SMOKE_PASS")
         print("wheel=" + wheel.name)
         print("doctor=" + after_upgrade["overall"])
         print("repair_transaction=" + repaired["transaction_id"])
         print("upgrade_transaction=" + upgraded["transaction_id"])
         print("change_id=" + change["change_id"])
+        print("integration_inspect=" + scm_inspection["root_repository"]["type"])
+        print("integration_export=" + aew_export["governance"]["portable_verdict"])
     return 0
 
 

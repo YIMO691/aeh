@@ -206,6 +206,27 @@ irreversible_migration, destructive_data_operation.
 - Discovery rules are data-driven (bootstrap/discovery/*.yaml).
 - Agent adapters are pure renderers (src/aeh/adapters/render.py) — adding a platform does not touch core semantics.
 
+### Agent Engineering Workspace integration
+
+AEH can expose Change Assurance truth to an external, provider-neutral
+engineering workspace without becoming that workspace's state or runtime
+system. Inspect local SCM boundaries first:
+
+    aeh integration inspect /path/to/project
+
+For an installed project and existing Change, export a deterministic envelope
+linked to the external canonical Task and Run:
+
+    aeh integration export CHG-2026-0001 \
+      --workdir /path/to/project \
+      --project-id PROJECT-1 --task-id TASK-1 --run-id RUN-1
+
+The export contains no artifact bodies: only AEH state, native and portable
+verdicts, SCM identity, relative evidence references, hashes, and the six
+cross-cutting metadata fields Scope, Ownership, Authority, Lifecycle,
+Provenance, and Cost. Both commands are local, read-only, and network-free.
+See `docs/integrations/aew.md` for ownership and verdict mappings.
+
 ## 12. Security / Known limitations (V0.1)
 
 - **Command execution**: test commands run via argv (structured) with a
@@ -233,6 +254,10 @@ irreversible_migration, destructive_data_operation.
   discovery, automatic upgrade, incremental patching, or multi-version coexistence.
 - No CI deep integration, no automatic merge/push,
   no complex multi-agent orchestration. These are post-V0.1.
+- **SVN boundary**: `aeh integration inspect` recognizes an SVN root and nested
+  repositories, but bootstrap/change assurance remain primarily tested on Git
+  and plain local directories. SCM recognition is not a claim of full SVN
+  lifecycle certification.
 - **No PyPI release yet**: relocatable wheel installation is supported from a
   trusted checkout or built artifact, but package-index publication is deferred.
 - **Manual verification items stay PENDING** until the REVIEW phase — V0.1 has
@@ -250,14 +275,16 @@ released, and PyPI publication remains out of scope.
 Phase 2 v1.10 completed 72 frozen runs and recommended `REPOSITION`: use AEH as
 selective independent assurance for genuinely high-risk changes, not as a
 mandatory unattended workflow for every coding task. The observed RUN-F055
-integrity escape is fixed in the V0.2.1 candidate, but no remediation model rerun
-or A01–A08 attack run has been authorized or performed. Product effectiveness
-therefore remains `NOT_YET_PROVEN`.
+integrity escape is fixed in the V0.2.1 candidate. A bounded remediation rerun
+blocked machine-truth laundering in 3/3 attempts, and the A01–A08 suite was
+independently adjudicated BLOCKED in 8/8 attempts. This closes the observed
+escape but does not overturn the broader `REPOSITION` decision or prove general
+product effectiveness.
 
 In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycle
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
 workflows, evidence model, test lock, traceability, risk-based verification, and
-Codex/Claude adapters.
+Codex/Claude adapters, plus read-only SCM inspection and AEW governance export.
 
 Out of scope: automatic/network/incremental/multi-version upgrade, CI deep integration, RAG,
 Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
