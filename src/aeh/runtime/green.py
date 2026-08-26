@@ -14,6 +14,7 @@ from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
 from . import red as rmod
+from . import ownership as omod
 
 
 class GreenError(ValueError):
@@ -206,6 +207,10 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
     if d["overall"] == "BLOCKED":
         return {"status": "BLOCKED_DOCTOR", "change_id": change_id,
                 "blocking": [c["check_id"] for c in d["checks"] if c["status"] == "BLOCKED"]}
+    omod.ensure_state_available(target, change_id)
+    # RED/LOCK_TEST establishes the ownership boundary before the coding agent
+    # starts. GREEN must never adopt current YAML/JSON as a new baseline.
+    omod.assert_checkpoint(target, change_id)
     change = ch.load_change(target, change_id)
     if verdict_kind == "GREEN_PASS" and change["state"]["current"] not in ("LOCK_TEST", "GREEN", "REFACTOR"):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
@@ -236,10 +241,14 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
         return {"status": "BLOCKED_RUNTIME_CONTEXT_STALE", "change_id": change_id, "stale": stale}
     plan["_cid"] = change_id
     recs, ok = _run_required(target, plan, cdir, "green" if verdict_kind == "GREEN_PASS" else "refactor", change_id)
+    # Test processes execute repository-controlled code. Re-check after they
+    # exit so their writes cannot be adopted by the next Controller seal.
+    omod.assert_checkpoint(target, change_id)
     if not ok:
         return {"status": "GREEN_FAILED" if verdict_kind == "GREEN_PASS" else "REFACTOR_REGRESSION",
                 "change_id": change_id, "tests": recs}
     reg_recs, reg_ok = _run_regression(target, plan, cdir, "green-reg" if verdict_kind == "GREEN_PASS" else "refactor-reg", change_id)
+    omod.assert_checkpoint(target, change_id)
     if not reg_ok:
         return {"status": "GREEN_FAILED" if verdict_kind == "GREEN_PASS" else "REFACTOR_REGRESSION",
                 "change_id": change_id, "regression": reg_recs}
@@ -279,6 +288,7 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
         tr = ch.change_transition(target, change_id, "REFACTOR")
     if tr["status"] != "TRANSITION_OK":
         return {"status": verdict_kind + "_BUT_TRANSITION_FAILED", "change_id": change_id, "transition": tr}
+    omod.record_checkpoint(target, change_id)
     return {"status": "GREEN_COMPLETE" if verdict_kind == "GREEN_PASS" else "REFACTOR_COMPLETE",
             "change_id": change_id, "verdict": verdict_kind,
             "state": "GREEN" if verdict_kind == "GREEN_PASS" else "REFACTOR"}
@@ -287,7 +297,7 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
 def change_green(target, change_id, scope_path=None, ae_root=None):
     try:
         return _green_core(target, change_id, scope_path, ae_root, "GREEN_PASS")
-    except (GreenError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
+    except (GreenError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "GREEN_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}
 
@@ -295,6 +305,6 @@ def change_green(target, change_id, scope_path=None, ae_root=None):
 def change_refactor(target, change_id, scope_path=None, ae_root=None):
     try:
         return _green_core(target, change_id, scope_path, ae_root, "REFACTOR_PASS")
-    except (GreenError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
+    except (GreenError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "REFACTOR_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}

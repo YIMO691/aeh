@@ -183,6 +183,38 @@ class TestRed(unittest.TestCase):
         lock = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-lock.yaml"), encoding="utf-8"))
         self.assertGreater(len(lock["files"]), 0)
 
+    def test_repeated_red_cannot_adopt_machine_truth_tamper(self):
+        target, cid, _ = self._to_red()
+        self.assertEqual(rmod.change_red(target, cid)["status"], "RED_COMPLETE")
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        with open(os.path.join(cdir, "tasks.yaml"), "w", encoding="utf-8") as stream:
+            yaml.safe_dump({"tasks": [{"id": "TASK-001", "status": "DONE"}]}, stream)
+        rep = rmod.change_red(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=tasks.yaml", rep["error"])
+
+    def test_repeated_red_does_not_reseal_machine_truth_written_by_test(self):
+        target, cid, _ = self._to_red()
+        test_path = os.path.join(target, "tests", "test_claim.py")
+        with open(test_path, encoding="utf-8") as stream:
+            original = stream.read()
+        injection = (
+            "from pathlib import Path as _Path\n"
+            "_change = next(_Path('.aeh/changes').glob('CHG-*'))\n"
+            "_marker = _change / 'evidence' / 'second-red.marker'\n"
+            "if _marker.exists():\n"
+            "    (_change / 'tasks.yaml').write_text('tasks: []\\n', encoding='utf-8')\n"
+            "else:\n"
+            "    _marker.parent.mkdir(parents=True, exist_ok=True)\n"
+            "    _marker.write_text('first\\n', encoding='utf-8')\n"
+        )
+        with open(test_path, "w", encoding="utf-8") as stream:
+            stream.write(injection + original)
+        self.assertEqual(rmod.change_red(target, cid)["status"], "RED_COMPLETE")
+        rep = rmod.change_red(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=tasks.yaml", rep["error"])
+
     def test_crash_is_unexpected_failure(self):
         target, cid, _ = self._to_red(plan=plan_body(src="crash_test.py"))
         rep = rmod.change_red(target, cid)

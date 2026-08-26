@@ -170,7 +170,11 @@ out of scope.
 7. aeh change refactor <id> --scope scope.yaml (optional, structural-equivalence refactor).
 8. aeh change verify <id> — verification + traceability; CRITICAL requires a
    declared integration/contract verification entry and human MERGE_GATE approval
-   (aeh change approve). Output: MERGE_READY / READY_WITH_WARNINGS / BLOCKED.
+   (aeh change approve). RED/LOCK_TEST records a Controller checkpoint outside
+   the repository before coding starts; GREEN and VERIFY fail closed if any
+   change-scoped YAML/JSON was added, removed, or modified outside a Controller
+   command. Output: MERGE_READY /
+   READY_WITH_WARNINGS / BLOCKED.
 9. aeh change review <id> — projects review.md (narrative only; machine truth is YAML).
 
 **AEH stops at MERGE_READY.** Merge, push, PR and release remain external systems.
@@ -207,6 +211,18 @@ irreversible_migration, destructive_data_operation.
   command-string compatibility path (shell=True); no OS sandbox. Trust the plan author.
 - **Human approval = attestation**, not strong identity: aeh change approve --actor <name>
   records an honest human attestation; no OIDC/IAM/signatures/approval TTL yet.
+- **Controller checkpoint boundary**: at RED/LOCK_TEST, change-scoped YAML/JSON
+  hashes are stored outside the governed repository (override with
+  `AEH_CONTROLLER_STATE_DIR`, which must also remain outside it). This detects
+  agent-side machine-truth writes during implementation and later phases.
+  GREEN, repeated RED, and VERIFY re-check the checkpoint after every batch of
+  repository-controlled test commands and before Controller truth is written,
+  so test-time writes are not adopted by the next seal. The boundary still
+  assumes the Controller state is protected by an OS/filesystem boundary that
+  both the coding agent and executed repository code cannot write; AEH does not
+  provide an OS sandbox. An in-flight change created by an older AEH build has no
+  checkpoint and therefore fails closed until RED is replayed through a governed
+  repair path (or the change is restarted).
 - **Multi-file writes are journaled, not filesystem-wide atomic**: bootstrap and repair
   use per-file atomic replace plus persistent backups and rollback; a whole transaction is
   not one OS-level atomic operation.

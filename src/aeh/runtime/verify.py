@@ -13,6 +13,7 @@ from . import change as ch
 from . import green as gmod
 from . import approval as amod
 from . import traceability as tmod
+from . import ownership as omod
 
 
 class VerifyError(ValueError):
@@ -67,7 +68,7 @@ def _red_block(red_rec):
     return None
 
 
-def _record_blocked(cdir, change_id, reason, results, red_block, ae_root):
+def _record_blocked(target, cdir, change_id, reason, results, red_block, ae_root):
     # 诚实的失败记录：BLOCKED 也要落 verification.yaml（overall=BLOCKED + blocked_reason），
     # 绝不静默返回；verify gate 不会被置位。
     body = {"results": results, "overall": "BLOCKED", "blocked_reason": reason,
@@ -77,6 +78,7 @@ def _record_blocked(cdir, change_id, reason, results, red_block, ae_root):
     jsonschema.validate(body, _load_yaml(os.path.join(ae_root, "schemas", "verification.schema.json")))
     with open(os.path.join(cdir, "verification.yaml"), "w", encoding="utf-8") as f:
         f.write(_dump_yaml(body))
+    omod.record_checkpoint(target, change_id)
 
 
 def _run_one(target, cdir, change_id, entry, rid, verifies, vtype, prefix):
@@ -98,6 +100,10 @@ def _verify_core(target, change_id, ae_root):
     if d["overall"] == "BLOCKED":
         return {"status": "BLOCKED_DOCTOR", "change_id": change_id,
                 "blocking": [c["check_id"] for c in d["checks"] if c["status"] == "BLOCKED"]}
+    # Verify nothing until the Controller-owned snapshot established at RED and
+    # advanced by later Controller steps proves machine truth is unchanged.
+    omod.assert_checkpoint(target, change_id)
+    omod.ensure_state_available(target, change_id)
     change = ch.load_change(target, change_id)
     if change["state"]["current"] not in ("GREEN", "REFACTOR", "VERIFY"):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id,
@@ -139,13 +145,16 @@ def _verify_core(target, change_id, ae_root):
     for rg in plan.get("regression", []):
         rid += 1
         results.append(_run_one(target, cdir, change_id, rg, rid, [], "regression", "verify-reg"))
+    # Target/regression commands execute repository-controlled code. Validate
+    # again before any blocked-verdict artifact can advance the checkpoint.
+    omod.assert_checkpoint(target, change_id)
     # 3) 声明式附加验证
     ventries = plan.get("verification", [])
     vtypes = set()
     for v in ventries:
         vtypes.add(v.get("type", ""))
     if level == "CRITICAL" and not (vtypes & {"integration", "contract"}):
-        _record_blocked(cdir, change_id, "CRITICAL requires declared integration/contract verification",
+        _record_blocked(target, cdir, change_id, "CRITICAL requires declared integration/contract verification",
                         results, red_block, ae_root)
         return {"status": "BLOCKED_VERIFICATION_PLAN_INSUFFICIENT", "change_id": change_id,
                 "error": "CRITICAL requires declared integration/contract verification"}
@@ -167,6 +176,11 @@ def _verify_core(target, change_id, ae_root):
                             "verifies": sorted(set(v.get("verifies", []))),
                             "method": "manual_runtime", "status": "not_applicable", "verdict": "not_applicable"})
 
+    # Declared verification commands are equally untrusted execution. This
+    # closes the test-time approval/evidence laundering window before reads or
+    # Controller writes occur.
+    omod.assert_checkpoint(target, change_id)
+
     # 人工批准（approval 不能推翻技术失败；只解除需要人工的阻塞）
     approvals = amod.load_approvals(target, change_id)
     ap_path = os.path.join(cdir, "approvals.yaml")
@@ -174,7 +188,7 @@ def _verify_core(target, change_id, ae_root):
         try:
             jsonschema.validate(_load_yaml(ap_path), _load_yaml(os.path.join(ae_root, "schemas", "approvals.schema.json")))
         except jsonschema.ValidationError:
-            _record_blocked(cdir, change_id, "approvals.yaml failed schema validation (possible fabricated approval)",
+            _record_blocked(target, cdir, change_id, "approvals.yaml failed schema validation (possible fabricated approval)",
                             results, red_block, ae_root)
             return {"status": "BLOCKED_INVALID_APPROVALS", "change_id": change_id}
     warnings = []
@@ -185,13 +199,13 @@ def _verify_core(target, change_id, ae_root):
             # 一律 pending，由 REVIEW 阶段人工完成（Phase 14）。
             manual_pending.append(r["id"])
     if manual_pending:
-        _record_blocked(cdir, change_id, "manual verification pending human attestation: " + ",".join(manual_pending),
+        _record_blocked(target, cdir, change_id, "manual verification pending human attestation: " + ",".join(manual_pending),
                         results, red_block, ae_root)
         return {"status": "BLOCKED_MANUAL_VERIFICATION_PENDING", "change_id": change_id, "vers": manual_pending}
     for r in results:
         if r.get("verdict") == "fail":
             failing = [x["id"] for x in results if x.get("verdict") == "fail"]
-            _record_blocked(cdir, change_id, "verification failed: " + ",".join(failing),
+            _record_blocked(target, cdir, change_id, "verification failed: " + ",".join(failing),
                             results, red_block, ae_root)
             return {"status": "BLOCKED_VERIFICATION_FAILED", "change_id": change_id, "failing": failing}
         if r.get("verdict") == "not_applicable":
@@ -199,10 +213,10 @@ def _verify_core(target, change_id, ae_root):
 
     merge = approvals.get("MERGE_GATE", {})
     if merge.get("status") == "REJECTED":
-        _record_blocked(cdir, change_id, "human MERGE_GATE approval REJECTED", results, red_block, ae_root)
+        _record_blocked(target, cdir, change_id, "human MERGE_GATE approval REJECTED", results, red_block, ae_root)
         return {"status": "BLOCKED_HUMAN_MERGE_REJECTED", "change_id": change_id}
     if level == "CRITICAL" and merge.get("status") != "APPROVED":
-        _record_blocked(cdir, change_id, "CRITICAL requires trusted human MERGE_GATE approval (aeh change approve)",
+        _record_blocked(target, cdir, change_id, "CRITICAL requires trusted human MERGE_GATE approval (aeh change approve)",
                         results, red_block, ae_root)
         return {"status": "BLOCKED_HUMAN_APPROVAL_REQUIRED", "change_id": change_id,
                 "error": "CRITICAL requires trusted human MERGE_GATE approval (aeh change approve) before MERGE_READY"}
@@ -222,7 +236,7 @@ def _verify_core(target, change_id, ae_root):
     # 可追溯性（必须先有 verification.yaml 才能建 VER 链）
     tr = tmod.build_traceability(target, change_id, ae_root)
     if tr["status"] != "TRACEABILITY_COMPLETE":
-        _record_blocked(cdir, change_id, "traceability incomplete: " + "; ".join(tr.get("issues", [])),
+        _record_blocked(target, cdir, change_id, "traceability incomplete: " + "; ".join(tr.get("issues", [])),
                         results, red_block, ae_root)
         return {"status": tr["status"], "change_id": change_id, "issues": tr.get("issues")}
 
@@ -238,6 +252,7 @@ def _verify_core(target, change_id, ae_root):
             return {"status": "BLOCKED_TRANSITION_FAILED", "change_id": change_id, "transition": tr2}
 
     _write_review_md(cdir, change_id, level, results, overall, warnings, tr["traceability"])
+    omod.record_checkpoint(target, change_id)
     return {"status": "VERIFY_COMPLETE", "change_id": change_id, "overall": overall,
             "state": "VERIFY", "results": len(results), "warnings": warnings}
 
@@ -285,7 +300,7 @@ def _write_review_md(cdir, change_id, level, results, overall, warnings, traceab
 def change_verify(target, change_id, ae_root=None):
     try:
         return _verify_core(target, change_id, ae_root)
-    except (VerifyError, gmod.GreenError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
+    except (VerifyError, omod.OwnershipError, gmod.GreenError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "VERIFY_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}
 
@@ -294,6 +309,7 @@ def change_review(target, change_id, ae_root=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
         cdir = ch._change_dir(target, change_id)
+        omod.assert_checkpoint(target, change_id)
         change = ch.load_change(target, change_id)
         ver_path = os.path.join(cdir, "verification.yaml")
         if not os.path.isfile(ver_path):
@@ -304,6 +320,6 @@ def change_review(target, change_id, ae_root=None):
         _write_review_md(cdir, change_id, _level_of(change), ver.get("results", []),
                          ver.get("overall", "BLOCKED"), ver.get("warnings", []), trace)
         return {"status": "REVIEW_READY", "change_id": change_id, "overall": ver.get("overall")}
-    except (VerifyError, ch.ChangeError, FileNotFoundError) as e:
+    except (VerifyError, omod.OwnershipError, ch.ChangeError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "REVIEW_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}

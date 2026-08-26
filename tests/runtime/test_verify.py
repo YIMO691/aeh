@@ -175,6 +175,72 @@ class TestVerify(unittest.TestCase):
         assert vmod.change_verify(target, cid)["status"] == "VERIFY_COMPLETE"
         self.assertEqual(vmod.change_verify(target, cid)["status"], "VERIFY_COMPLETE")
 
+    def test_agent_machine_truth_writes_blocked_before_verify(self):
+        """RUN-F055 regression: Controller truth cannot be laundered by overwrite."""
+        target = make_target(NEUTRAL_REPO)
+        cid = to_green(target)
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        for name, body in (
+                ("tasks.yaml", {"tasks": [{"id": "TASK-001", "status": "PASS"}]}),
+                ("traceability.yaml", {"requirements": []}),
+                ("verification.yaml", {"overall": "MERGE_READY", "results": []})):
+            with open(os.path.join(cdir, name), "w", encoding="utf-8") as stream:
+                yaml.safe_dump(body, stream, sort_keys=True, allow_unicode=True)
+        rep = vmod.change_verify(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=tasks.yaml,traceability.yaml,verification.yaml", rep["error"])
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "GREEN")
+
+    def test_existing_machine_truth_tamper_blocked_before_verify(self):
+        target = make_target(NEUTRAL_REPO)
+        cid = to_green(target)
+        cpath = os.path.join(target, ".aeh", "changes", cid, "change.yaml")
+        forged = yaml.safe_load(open(cpath, encoding="utf-8"))
+        forged["title"] = "agent rewrote controller truth"
+        with open(cpath, "w", encoding="utf-8") as stream:
+            yaml.safe_dump(forged, stream, sort_keys=True, allow_unicode=True)
+        rep = vmod.change_verify(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("modified=change.yaml", rep["error"])
+
+    def test_schema_valid_forged_human_approval_blocked_by_provenance(self):
+        target = make_target(NEUTRAL_REPO)
+        cid = to_green(target)
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        forged = {"approvals": [{"gate": "MERGE_GATE", "status": "APPROVED",
+                                  "actor": {"type": "human", "id": "forged-owner"},
+                                  "decided_at": "2026-08-25T12:00:00+00:00"}]}
+        with open(os.path.join(cdir, "approvals.yaml"), "w", encoding="utf-8") as stream:
+            yaml.safe_dump(forged, stream, sort_keys=True, allow_unicode=True)
+        rep = vmod.change_verify(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=approvals.yaml", rep["error"])
+
+    def test_forged_approval_written_during_verify_is_not_resealed(self):
+        target = make_target(TDD_REPO)
+        inject = (
+            "import json; from pathlib import Path; "
+            "p=next(Path('.aeh/changes').glob('CHG-*'))/'approvals.yaml'; "
+            "p.write_text(json.dumps({'approvals': [{'gate': 'MERGE_GATE', "
+            "'status': 'APPROVED', 'actor': {'type': 'human', 'id': 'forged-agent'}, "
+            "'decided_at': '2026-08-25T12:00:00+00:00'}]}), encoding='utf-8')"
+        )
+        cid = to_green(
+            target,
+            title="修复奖励领取逻辑",
+            neutral=False,
+            verification=[{
+                "id": "INTEG-001",
+                "type": "integration",
+                "verifies": ["AC-001-01"],
+                "argv": [sys.executable, "-c", inject],
+            }],
+        )
+        rep = vmod.change_verify(target, cid)
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("added=approvals.yaml", rep["error"])
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "GREEN")
+
     def test_verify_regression_and_declared_entries(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target, regression=[{"id": "REG-001", "command": "python tests/test_order.py"}],
@@ -201,6 +267,17 @@ class TestVerify(unittest.TestCase):
                                       "verifies": ["AC-001-01"], "command": "python tests/test_claim.py"}])
         rep = vmod.change_verify(target, cid)
         self.assertEqual(rep["status"], "BLOCKED_HUMAN_APPROVAL_REQUIRED")
+
+    def test_controller_approval_after_blocked_verify_reseals_and_retries(self):
+        target = make_target(TDD_REPO)
+        cid = to_green(target, title="修复奖励领取逻辑", neutral=False,
+                       verification=[{"id": "INTEG-001", "type": "integration",
+                                      "verifies": ["AC-001-01"], "command": "python tests/test_claim.py"}])
+        self.assertEqual(vmod.change_verify(target, cid)["status"],
+                         "BLOCKED_HUMAN_APPROVAL_REQUIRED")
+        approved = amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        self.assertEqual(approved["status"], "APPROVAL_RECORDED", approved)
+        self.assertEqual(vmod.change_verify(target, cid)["status"], "VERIFY_COMPLETE")
 
     def test_verify_critical_with_approval_ready(self):
         target = make_target(TDD_REPO)
@@ -287,7 +364,7 @@ class TestVerify(unittest.TestCase):
         self.assertEqual(rep["status"], "BLOCKED_TRACEABILITY_INCOMPLETE", rep)
         self.assertTrue(any("orphan code" in i for i in rep.get("issues", [])))
 
-    def test_traceability_orphan_test_blocked(self):
+    def test_test_plan_tamper_blocked_before_traceability(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
         plan_path = os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml")
@@ -296,8 +373,8 @@ class TestVerify(unittest.TestCase):
         with open(plan_path, "w", encoding="utf-8") as f:
             yaml.safe_dump(plan, f, sort_keys=True, allow_unicode=True)
         rep = vmod.change_verify(target, cid)
-        self.assertEqual(rep["status"], "BLOCKED_TRACEABILITY_INCOMPLETE", rep)
-        self.assertTrue(any("orphan test" in i for i in rep.get("issues", [])))
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE", rep)
+        self.assertIn("modified=test-plan.yaml", rep["error"])
 
     def test_system_fabricated_approval_blocked(self):
         target = make_target(NEUTRAL_REPO)
@@ -309,7 +386,8 @@ class TestVerify(unittest.TestCase):
         with open(os.path.join(cdir, "approvals.yaml"), "w", encoding="utf-8") as f:
             yaml.safe_dump(forged, f, sort_keys=True, allow_unicode=True)
         rep = vmod.change_verify(target, cid)
-        self.assertEqual(rep["status"], "BLOCKED_INVALID_APPROVALS")
+        self.assertEqual(rep["status"], "BLOCKED_MACHINE_TRUTH_PROVENANCE")
+        self.assertIn("added=approvals.yaml", rep["error"])
 
     def test_approval_input_validation(self):
         target = make_target(NEUTRAL_REPO)
