@@ -1,0 +1,39 @@
+{
+  "status": "EXPORT_COMPLETE",
+  "contract": "aeh.aew-governance-adapter",
+  "version": 1,
+  "read_only": true,
+  "network_used": false,
+  "external_refs": {"project_id": "PRJ-1", "task_id": "TASK-1", "run_id": "RUN-1"},
+  "governance": {
+    "provider": "AEH",
+    "change_id": "CHG-2026-0001",
+    "classification": "STANDARD",
+    "workflow_level": "STANDARD",
+    "phase": "VERIFY",
+    "gates": {"verify": "PASS"},
+    "native_verdict": "MERGE_READY",
+    "portable_verdict": "VERIFIED"
+  },
+  "source": {
+    "repository_ref": ".",
+    "source_control": {
+      "type": "GIT",
+      "identity": {"commit": null, "branch": null, "revision": null, "repository_uuid": null, "dirty": false}
+    },
+    "harness_version": "0.2.1",
+    "harness_source_revision": "fixture",
+    "manifest_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "artifacts": [
+    {"kind": "CHANGE_CONTRACT", "path": ".aeh/changes/CHG-2026-0001/change.yaml", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}
+  ],
+  "metadata": {
+    "scope": {"kind": "CHANGE", "ref": "CHG-2026-0001"},
+    "ownership": {"operational_task_run": "AEW_OR_EXTERNAL_OWNER", "engineering_change": "AEH", "repository": "SCM_OR_PROJECT"},
+    "authority": "ENGINEERING_CHANGE_ASSURANCE",
+    "lifecycle": "DERIVED_READ_ONLY_SNAPSHOT",
+    "provenance": {"change_contract_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef", "artifact_count": 1},
+    "cost": {"class": "BOUNDED_LOCAL_READ", "writes": false, "network": false}
+  }
+}

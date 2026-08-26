@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Read-only SCM Inspection",
+  "type": "object",
+  "required": ["status", "contract", "version", "read_only", "network_used", "target_root", "root_repository", "nested_repositories", "limits", "warnings"],
+  "additionalProperties": false,
+  "properties": {
+    "status": {"const": "INSPECTION_COMPLETE"},
+    "contract": {"const": "aeh.scm-inspection"},
+    "version": {"const": 1},
+    "read_only": {"const": true},
+    "network_used": {"const": false},
+    "target_root": {"type": "string", "minLength": 1},
+    "root_repository": {"$ref": "#/definitions/repository"},
+    "nested_repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "type": {"type": "string", "enum": ["GIT", "SVN"]}
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "required": ["max_depth", "max_directories"],
+      "additionalProperties": false,
+      "properties": {
+        "max_depth": {"type": "integer", "minimum": 0, "maximum": 16},
+        "max_directories": {"type": "integer", "minimum": 1, "maximum": 100000}
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "code": {"type": "string", "minLength": 1},
+          "path": {"type": "string"}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "identity": {
+      "type": "object",
+      "required": ["commit", "branch", "revision", "repository_uuid", "dirty"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": {"type": ["string", "null"]},
+        "branch": {"type": ["string", "null"]},
+        "revision": {"type": ["string", "null"]},
+        "repository_uuid": {"type": ["string", "null"]},
+        "dirty": {"type": ["boolean", "null"]}
+      }
+    },
+    "repository": {
+      "type": "object",
+      "required": ["type", "identity"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"type": "string", "enum": ["GIT", "SVN", "NONE"]},
+        "identity": {"$ref": "#/definitions/identity"}
+      }
+    }
+  }
+}

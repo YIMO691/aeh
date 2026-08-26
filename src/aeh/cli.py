@@ -30,6 +30,21 @@ def main(argv=None):
     upgrade_mode.add_argument("--apply", action="store_true", help="explicitly apply the generated plan")
     upgrade_mode.add_argument("--rollback", metavar="TRANSACTION_ID", help="roll back an applied upgrade")
     up.add_argument("--source-revision", default="dev", help="destination AEH revision recorded in manifest")
+    integration = sub.add_parser(
+        "integration", help="read-only workspace/SCM integration surfaces")
+    integration_sub = integration.add_subparsers(dest="integration_cmd", required=True)
+    integration_inspect = integration_sub.add_parser(
+        "inspect", help="inspect Git/SVN and nested repository boundaries without writes")
+    integration_inspect.add_argument("target")
+    integration_inspect.add_argument("--max-depth", type=int, default=4)
+    integration_inspect.add_argument("--max-directories", type=int, default=5000)
+    integration_export = integration_sub.add_parser(
+        "export", help="export AEH Change Assurance truth for an external Task/Run")
+    integration_export.add_argument("change_id")
+    integration_export.add_argument("--workdir", default=".", help="AEH target repository")
+    integration_export.add_argument("--project-id", default=None, help="optional external project ID")
+    integration_export.add_argument("--task-id", required=True, help="external canonical Task ID")
+    integration_export.add_argument("--run-id", required=True, help="external canonical Run ID")
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -120,6 +135,28 @@ def main(argv=None):
             args.target, apply=args.apply, source_revision=args.source_revision)
         _emit(report)
         return 0 if report["status"] in ("UPGRADE_PLAN_READY", "UPGRADE_APPLIED", "UPGRADE_NOOP") else 1
+    if args.cmd == "integration":
+        from .integrations import aew as integration_module
+        try:
+            if args.integration_cmd == "inspect":
+                report = integration_module.inspect_scm(
+                    args.target,
+                    max_depth=args.max_depth,
+                    max_directories=args.max_directories,
+                )
+            else:
+                report = integration_module.export_change(
+                    args.workdir,
+                    args.change_id,
+                    project_id=args.project_id,
+                    task_id=args.task_id,
+                    run_id=args.run_id,
+                )
+            _emit(report)
+            return 0
+        except (integration_module.IntegrationError, OSError) as exc:
+            _emit({"status": "INTEGRATION_FAILED", "error": str(exc)})
+            return 1
     if args.cmd == "change":
         from .runtime import change as chmod
         if args.change_cmd == "new":

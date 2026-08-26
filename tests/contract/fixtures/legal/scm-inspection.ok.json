@@ -1,0 +1,15 @@
+{
+  "status": "INSPECTION_COMPLETE",
+  "contract": "aeh.scm-inspection",
+  "version": 1,
+  "read_only": true,
+  "network_used": false,
+  "target_root": "fixture-root",
+  "root_repository": {
+    "type": "SVN",
+    "identity": {"commit": null, "branch": null, "revision": "123", "repository_uuid": "fixture-uuid", "dirty": null}
+  },
+  "nested_repositories": [{"path": "project/nested", "type": "GIT"}],
+  "limits": {"max_depth": 4, "max_directories": 5000},
+  "warnings": [{"code": "svn_dirty_not_scanned", "path": "."}]
+}

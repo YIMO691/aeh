@@ -2,6 +2,25 @@
 
 All notable changes to AEH are recorded here per phase.
 
+## [Unreleased] — AEW integration branch
+
+### Added
+
+- Read-only `aeh integration inspect` for bounded local Git/SVN/no-SCM
+  identification and nested repository boundary discovery.
+- Deterministic `aeh integration export` envelopes that link external
+  Project/Task/Run IDs to AEH-owned Change state, verdicts, artifact hashes,
+  and Scope/Ownership/Authority/Lifecycle/Provenance/Cost metadata.
+- JSON Schemas and contract/CLI regressions for both integration surfaces.
+
+### Boundaries
+
+- The integration does not add an external workspace state store, memory,
+  runtime, sandbox, or multi-agent orchestrator to AEH.
+- SCM inspection is local, bounded, read-only, and network-free. Recognizing
+  an SVN working copy does not yet certify the full AEH lifecycle on SVN.
+- This feature branch does not change the v0.2.1 tag/release/PyPI status.
+
 ## [0.2.1] — Unreleased
 
 ### Fixed
@@ -21,7 +40,9 @@ All notable changes to AEH are recorded here per phase.
   `main` workflow. The V0.2.1 candidate adds an upgrade regression and passes
   289 local tests (3 platform skips) plus its fixed-epoch clean-room wheel gate.
 - This entry describes a release candidate only. No `v0.2.1` tag, GitHub
-  Release, PyPI publication, model rerun, or A01–A08 attack run has occurred.
+  Release, or PyPI publication has occurred. The bounded remediation model
+  rerun and A01–A08 attack evaluation were completed separately and merged in
+  the evaluation repository; they did not publish or release AEH.
 - The frozen Phase 2 v1.10 verdict remains `REPOSITION`; this patch fixes the
   observed integrity escape but does not by itself prove product effectiveness.
 

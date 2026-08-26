@@ -22,11 +22,13 @@ from aeh.doctor import doctor as doc  # noqa: E402
 
 
 POST_V01_SCHEMAS = (
+    "aew-governance-adapter.schema.json",
     "repair-plan.schema.json",
     "repair-rule.schema.json",
     "transaction-journal.schema.json",
     "upgrade-plan.schema.json",
     "upgrade-policy.schema.json",
+    "scm-inspection.schema.json",
 )
 
 
