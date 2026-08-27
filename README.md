@@ -219,7 +219,7 @@ The current source version is `0.3.0.dev0`; the latest public release is
 SCM/AEW integration, and M4 governance are present on the current development
 line. PyPI is not published.
 
-The current baseline completed 346 tests: 342 passed and 4 expected Windows
+The current baseline completed 347 tests: 343 passed and 4 expected Windows
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 

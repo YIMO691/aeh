@@ -203,6 +203,24 @@ class TestCiReplay(unittest.TestCase):
         self.assertEqual(report["verdict"], "INVALID", report)
         self.assertEqual(report["checks"][-1]["id"], "implementation.hashes")
 
+    def test_base_preimage_accepts_safe_line_ending_materialization(self):
+        target = tempfile.mkdtemp(prefix="aeh-ci-filter-")
+        git(target, "init")
+        git(target, "config", "user.email", "aeh-test@example.invalid")
+        git(target, "config", "user.name", "AEH Test")
+        git(target, "config", "core.autocrlf", "true")
+        sample = Path(target, "sample.txt")
+        sample.write_bytes(b"first\r\nsecond\r\n")
+        revision = commit_all(target, "filtered base")
+        raw = subprocess.run(
+            ["git", "-C", target, "show", revision + ":sample.txt"],
+            capture_output=True, check=True,
+        ).stdout
+        self.assertEqual(raw, b"first\nsecond\n")
+        self.assertIn(hashlib.sha256(sample.read_bytes()).hexdigest(),
+                      ci._portable_content_hashes(
+                          ci._git_blob(target, revision, "sample.txt")))
+
     def test_committed_path_escape_is_rejected_before_lock_replay(self):
         target = self.make_copy()
         path = Path(target, ".aeh", "changes", self.change_id, "test-plan.yaml")

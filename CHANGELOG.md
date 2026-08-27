@@ -75,7 +75,7 @@ All notable changes to AEH are recorded here per phase.
 
 ### Validation status
 
-- M6.1 raises the expected Windows baseline to `346` discovered (`342` passed,
+- M6.1 raises the expected Windows baseline to `347` discovered (`343` passed,
   `4` expected symlink-permission skips), including real Change-flow replay,
   deterministic/zero-write assertions and repository/head/base/runtime/test-
   lock/evidence/traceability/credential attack cases.

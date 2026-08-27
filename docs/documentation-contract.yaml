@@ -18,8 +18,8 @@ roadmap:
   planned: []
 
 validation:
-  local_tests_discovered: 346
-  local_tests_passed: 342
+  local_tests_discovered: 347
+  local_tests_passed: 343
   local_tests_skipped: 4
   latest_main_ci_jobs_passed: 6
 

@@ -78,6 +78,7 @@ def _git(target, *args):
 
 
 def _git_blob(target, revision, relative):
+    """Return raw revision bytes without invoking checkout filters."""
     environment = dict(os.environ)
     environment["GIT_OPTIONAL_LOCKS"] = "0"
     result = subprocess.run(
@@ -87,6 +88,16 @@ def _git_blob(target, revision, relative):
     if result.returncode != 0:
         return None
     return result.stdout
+
+
+def _portable_content_hashes(content):
+    """Return safe byte hashes for Git's ordinary LF/CRLF materializations."""
+    variants = {content}
+    if b"\x00" not in content:
+        canonical = content.replace(b"\r\n", b"\n")
+        variants.add(canonical)
+        variants.add(canonical.replace(b"\n", b"\r\n"))
+    return {_sha256_bytes(item) for item in variants}
 
 
 def _remote_repository_id(remote):
@@ -390,10 +401,11 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
         changed_paths = []
         for changed in implementation.get("changed_files", []):
             path = inputs.add(changed["path"])
-            if _sha256_file(path) != changed["after_hash"].lower():
+            head_content = _git_blob(target, head_sha, changed["path"])
+            if head_content is None or changed["after_hash"].lower() not in _portable_content_hashes(head_content):
                 raise ReplayFailure("implementation.hashes", "INVALID", "production after_hash mismatch: " + changed["path"])
             base_content = _git_blob(target, base_sha, changed["path"])
-            if base_content is not None and _sha256_bytes(base_content) != changed["before_hash"].lower():
+            if base_content is not None and changed["before_hash"].lower() not in _portable_content_hashes(base_content):
                 raise ReplayFailure("implementation.hashes", "INVALID", "production before_hash does not match base_sha: " + changed["path"])
             changed_paths.append(changed["path"])
         before_parts = sorted(item["before_hash"].lower() + "\0" + item["path"]

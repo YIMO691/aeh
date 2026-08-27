@@ -11,7 +11,7 @@
 | Latest GitHub release | `v0.2.0` |
 | PyPI | Not published |
 | Roadmap | M1–M5 merged; M6.1 implementation candidate; M6.2–M6.3 planned |
-| Current source test baseline | 346 discovered, 342 passed, 4 expected Windows symlink-permission skips |
+| Current source test baseline | 347 discovered, 343 passed, 4 expected Windows symlink-permission skips |
 | Latest post-merge main CI | 6/6 jobs passed on Ubuntu/Windows and Python 3.10/3.11 |
 
 `0.3.0.dev0` is development metadata, not a tag or public release. The frozen
