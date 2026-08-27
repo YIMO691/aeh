@@ -65,7 +65,11 @@ def plan_body():
                         "expected_before_fix": {"type": "behavior_failure", "signature": "duplicate_reward"},
                         "required": True}],
             "test_files": [{"src": "claim_test.py", "dest": "tests/test_claim.py"}],
-            "regression": []}
+            "regression": [],
+            "verification": [{
+                "id": "INTEG-001", "type": "integration",
+                "verifies": ["AC-001-01"], "command": "python tests/test_claim.py"
+            }]}
 
 
 def to_lock(target, title="修复重复领取逻辑"):

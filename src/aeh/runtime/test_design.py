@@ -90,6 +90,11 @@ def validate_coverage(spec, plan, level):
         missing_invariant = (invariants - verified) - declared_na
         if missing_invariant:
             return "TEST_DESIGN_INCOMPLETE", ["critical invariant AC uncovered: " + x for x in sorted(missing_invariant)]
+        verification_types = {entry.get("type") for entry in plan.get("verification", [])}
+        if not (verification_types & {"integration", "contract"}):
+            return "BLOCKED_VERIFICATION_PLAN_INSUFFICIENT", [
+                "CRITICAL requires declared integration/contract verification"
+            ]
     return None, []
 
 

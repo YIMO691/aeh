@@ -182,8 +182,8 @@ def _verify_core(target, change_id, ae_root):
     omod.assert_checkpoint(target, change_id)
 
     # 人工批准（approval 不能推翻技术失败；只解除需要人工的阻塞）
-    approvals = amod.load_approvals(target, change_id)
     ap_path = os.path.join(cdir, "approvals.yaml")
+    approvals = {}
     if os.path.isfile(ap_path):
         try:
             jsonschema.validate(_load_yaml(ap_path), _load_yaml(os.path.join(ae_root, "schemas", "approvals.schema.json")))
@@ -191,36 +191,66 @@ def _verify_core(target, change_id, ae_root):
             _record_blocked(target, cdir, change_id, "approvals.yaml failed schema validation (possible fabricated approval)",
                             results, red_block, ae_root)
             return {"status": "BLOCKED_INVALID_APPROVALS", "change_id": change_id}
+        approvals = amod.load_approvals(target, change_id)
     warnings = []
-    manual_pending = []
-    for r in results:
-        if r.get("type") == "manual":
-            # V0.1：手动验证不伪造自动化，也不引入 core 外的批准 gate；
-            # 一律 pending，由 REVIEW 阶段人工完成（Phase 14）。
-            manual_pending.append(r["id"])
-    if manual_pending:
-        _record_blocked(target, cdir, change_id, "manual verification pending human attestation: " + ",".join(manual_pending),
+
+    # A human attestation never hides or overrides a technical failure.
+    failing = [r["id"] for r in results if r.get("verdict") == "fail"]
+    if failing:
+        _record_blocked(target, cdir, change_id, "verification failed: " + ",".join(failing),
                         results, red_block, ae_root)
-        return {"status": "BLOCKED_MANUAL_VERIFICATION_PENDING", "change_id": change_id, "vers": manual_pending}
+        return {"status": "BLOCKED_VERIFICATION_FAILED", "change_id": change_id, "failing": failing}
     for r in results:
-        if r.get("verdict") == "fail":
-            failing = [x["id"] for x in results if x.get("verdict") == "fail"]
-            _record_blocked(target, cdir, change_id, "verification failed: " + ",".join(failing),
-                            results, red_block, ae_root)
-            return {"status": "BLOCKED_VERIFICATION_FAILED", "change_id": change_id, "failing": failing}
         if r.get("verdict") == "not_applicable":
             warnings.append(r["id"] + " not_applicable")
 
+    manual_pending = []
+    for r in results:
+        if r.get("type") == "manual":
+            manual_pending.append(r["id"])
+    if manual_pending:
+        manual = approvals.get("VERIFY_MANUAL", {})
+        manual_state, manual_warnings = amod.assess_approval(manual)
+        if manual_state == "REJECTED":
+            _record_blocked(target, cdir, change_id, "human VERIFY_MANUAL approval REJECTED",
+                            results, red_block, ae_root)
+            return {"status": "BLOCKED_MANUAL_VERIFICATION_REJECTED",
+                    "change_id": change_id, "vers": manual_pending}
+        if manual_state != "APPROVED":
+            _record_blocked(
+                target, cdir, change_id,
+                "manual verification waiting for effective VERIFY_MANUAL approval: " +
+                ",".join(manual_pending) + " state=" + manual_state,
+                results, red_block, ae_root,
+            )
+            return {"status": "BLOCKED_WAITING_MANUAL", "change_id": change_id,
+                    "vers": manual_pending, "approval_state": manual_state}
+        for result in results:
+            if result.get("type") == "manual":
+                result["status"] = "pass"
+                result["verdict"] = "approved"
+        warnings.extend(manual_warnings)
+        warnings.append("manual verification approved by " +
+                        (manual.get("actor", {}).get("id") or "?"))
+
     merge = approvals.get("MERGE_GATE", {})
-    if merge.get("status") == "REJECTED":
+    merge_state, merge_warnings = amod.assess_approval(merge)
+    if merge_state == "REJECTED":
         _record_blocked(target, cdir, change_id, "human MERGE_GATE approval REJECTED", results, red_block, ae_root)
         return {"status": "BLOCKED_HUMAN_MERGE_REJECTED", "change_id": change_id}
-    if level == "CRITICAL" and merge.get("status") != "APPROVED":
-        _record_blocked(target, cdir, change_id, "CRITICAL requires trusted human MERGE_GATE approval (aeh change approve)",
+    if level == "CRITICAL" and merge_state != "APPROVED":
+        reason = "CRITICAL requires effective human MERGE_GATE approval; state=" + merge_state
+        _record_blocked(target, cdir, change_id, reason,
                         results, red_block, ae_root)
-        return {"status": "BLOCKED_HUMAN_APPROVAL_REQUIRED", "change_id": change_id,
-                "error": "CRITICAL requires trusted human MERGE_GATE approval (aeh change approve) before MERGE_READY"}
-    if level == "CRITICAL" and merge.get("status") == "APPROVED":
+        status_by_state = {
+            "EXPIRED": "BLOCKED_HUMAN_APPROVAL_EXPIRED",
+            "REVOKED": "BLOCKED_HUMAN_APPROVAL_REVOKED",
+            "INVALID": "BLOCKED_INVALID_APPROVALS",
+        }
+        return {"status": status_by_state.get(merge_state, "BLOCKED_HUMAN_APPROVAL_REQUIRED"),
+                "change_id": change_id, "approval_state": merge_state, "error": reason}
+    if level == "CRITICAL" and merge_state == "APPROVED":
+        warnings.extend(merge_warnings)
         warnings.append("CRITICAL MERGE_GATE approved by " + (merge.get("actor", {}).get("id") or "?"))
 
     body = {"results": results, "overall": "READY_WITH_WARNINGS" if warnings else "MERGE_READY",

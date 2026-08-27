@@ -75,7 +75,16 @@ def plan_body(src="claim_test.py", signature="duplicate_reward", extra=None, ver
          "required": required}
     if extra:
         t.update(extra)
-    return {"tests": [t], "test_files": [{"src": src, "dest": "tests/test_claim.py"}]}
+    return {
+        "tests": [t],
+        "test_files": [{"src": src, "dest": "tests/test_claim.py"}],
+        "verification": [{
+            "id": "INTEG-001",
+            "type": "integration",
+            "verifies": [verify],
+            "command": "python tests/test_claim.py",
+        }],
+    }
 
 
 def run_full(target, title="修复重复领取逻辑", reqs=None, plan=None, test_src=TDD_SRC):
