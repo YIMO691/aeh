@@ -209,8 +209,10 @@ launcher, and credential-bound approvals. It does **not** provide:
 
 M5 is deliberately bounded: HMAC proves possession of a configured shared
 credential, while the execution policy constrains launch semantics without
-claiming OS isolation. M6.1 supplies the read-only replay core; M6.2 SCM
-enforcement and M6.3 bounded Change concurrency remain planned.
+claiming OS isolation. M6.1 supplies the merged read-only replay core. M6.2a–c
+now provide a GitHub event adapter, secure workflow renderer, and read-only
+enforcement audit as an implementation candidate; live repository rollout and
+adversarial dogfood remain M6.2d, and bounded Change concurrency remains M6.3.
 
 ## Current status
 
@@ -219,12 +221,12 @@ The current source version is `0.3.0.dev0`; the latest public release is
 SCM/AEW integration, and M4 governance are present on the current development
 line. PyPI is not published.
 
-The current baseline completed 347 tests: 343 passed and 4 expected Windows
+The current branch baseline completes 356 tests: 352 passed and 4 expected Windows
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 
-M1–M5 are merged. M6.1 is an implementation candidate on this source branch;
-M6.2 and M6.3 remain planned. See the canonical
+M1–M5 and M6.1 are merged. M6.2a–c are an implementation candidate on this
+source branch; M6.2d and M6.3 remain planned. See the canonical
 [current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
 ## Documentation
@@ -236,6 +238,7 @@ M6.2 and M6.3 remain planned. See the canonical
 - [Engineering guide](docs/engineering-guide.md)
 - [M5 security boundary](docs/m5-security.md)
 - [M6.1 CI replay](docs/m6-ci-replay.md)
+- [M6.2 GitHub assurance](docs/m6-2-github-assurance.md)
 - [Research narrative](docs/research/README.md)
 - [Decisions and risks](docs/decisions.md)
 - [Contributing](CONTRIBUTING.md)

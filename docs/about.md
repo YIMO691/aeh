@@ -89,9 +89,10 @@ service, identity provider, or general-purpose OS sandbox. It stops at
 M5 provides a portable constrained-process boundary and HMAC credential
 verification. Those controls do not provide kernel isolation, public-key
 non-repudiation, OIDC, enterprise IAM, or legal human identity. M6.1 can replay
-acceptance evidence in an external checkout without executing project code,
-but SCM required-check enforcement (M6.2) and bounded Change concurrency
-(M6.3) are not current capabilities. The latest public release is
+acceptance evidence in an external checkout without executing project code.
+M6.2a–c can bind that replay to GitHub event/run identity, render a pinned
+workflow, and audit enforcement without mutating SCM; live required-check
+deployment is still M6.2d, and bounded Change concurrency is M6.3. The latest public release is
 `v0.2.0`; `0.3.0.dev0` is unreleased, and no AEH version is published to PyPI.
 
 ## Continue reading

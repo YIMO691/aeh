@@ -60,7 +60,9 @@ A contract change normally requires:
 
 M6.1 follows this rule with `core/ci-policy.yaml`, CI policy/report schemas,
 legal and illegal fixtures, real-flow attack tests, upgrade coverage, and a
-documented read-only boundary. M6.2/M6.3 require their own implementation Gates.
+documented read-only boundary. M6.2a–c add a separate enforcement policy,
+provider event/snapshot/report/workflow contracts, exact-diff attacks, a secure
+renderer and read-only audit. M6.2d/M6.3 require separate implementation Gates.
 
 M5 execution and approval changes must preserve the boundaries in
 [m5-security.md](m5-security.md): no-shell default execution, dual explicit
@@ -71,6 +73,12 @@ CI replay changes must preserve [m6-ci-replay.md](m6-ci-replay.md): never run
 project-declared commands, never write below the inspected repository root,
 bind repository/base/head/runtime/time and committed inputs, and fail closed
 when a protected approval credential is unavailable.
+
+GitHub integration changes must preserve
+[m6-2-github-assurance.md](m6-2-github-assurance.md): exact check/App/head and
+workflow digest binding, one fresh Change, complete declared diff closure,
+immutable artifact/action pins, no protected credential in repository CI, and
+honest `INCONCLUSIVE` results when provider metadata is unavailable.
 
 ## Documentation rules
 

@@ -3,6 +3,8 @@ import argparse
 import json
 import sys
 
+import jsonschema
+
 
 def _emit(report):
     """Write JSON that is safe on legacy Windows console encodings."""
@@ -70,6 +72,28 @@ def main(argv=None):
                            help="external approval credential; repeat for multiple signer keys")
     ci_verify.add_argument("--report", default=None,
                            help="optional JSON path outside the inspected repository")
+    ci_github = ci_sub.add_parser("github", help="GitHub event binding and enforcement audit")
+    ci_github_sub = ci_github.add_subparsers(dest="ci_github_cmd", required=True)
+    ci_event = ci_github_sub.add_parser("verify-event", help="bind a GitHub event/run to M6.1 replay")
+    ci_event.add_argument("--event", required=True, help="GitHub event payload JSON")
+    ci_event.add_argument("--event-type", default=None,
+                          help="pull_request or merge_group; defaults to GITHUB_EVENT_NAME")
+    ci_event.add_argument("--run-snapshot", required=True, help="authenticated run snapshot JSON")
+    ci_event.add_argument("--workdir", default=".", help="exact Git checkout to inspect")
+    ci_event.add_argument("--policy", default=None, help="configured enforcement policy")
+    ci_event.add_argument("--report", default=None, help="optional JSON path outside the checkout")
+    ci_render = ci_github_sub.add_parser("render-workflow", help="render deterministic secure workflow JSON")
+    ci_render.add_argument("--policy", default=None, help="configured enforcement policy")
+    ci_audit = ci_github_sub.add_parser("audit", help="read-only GitHub enforcement audit")
+    ci_audit.add_argument("--repository", default=None, help="OWNER/REPO for a live audit")
+    ci_audit.add_argument("--branch", default="main")
+    ci_audit.add_argument("--snapshot", default=None, help="authenticated provider snapshot JSON")
+    ci_audit.add_argument("--policy", default=None, help="configured enforcement policy")
+    ci_audit.add_argument("--token-env", default="GITHUB_TOKEN",
+                          help="environment variable holding a GitHub token")
+    ci_snapshot = ci_github_sub.add_parser("snapshot-run", help="capture authenticated current run metadata")
+    ci_snapshot.add_argument("--output", required=True, help="output JSON path")
+    ci_snapshot.add_argument("--policy", default=None, help="configured enforcement policy")
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -201,6 +225,58 @@ def main(argv=None):
             return 1
     if args.cmd == "ci":
         from . import ci as ci_module
+        if args.ci_cmd == "github":
+            from . import github_ci
+            try:
+                policy = github_ci.load_policy(args.policy)
+                if args.ci_github_cmd == "verify-event":
+                    with open(args.event, "r", encoding="utf-8") as stream:
+                        event = json.load(stream)
+                    with open(args.run_snapshot, "r", encoding="utf-8") as stream:
+                        run_snapshot = json.load(stream)
+                    event_type = args.event_type or __import__("os").environ.get("GITHUB_EVENT_NAME")
+                    report = github_ci.verify_event(
+                        args.workdir, event, event_type, run_snapshot, policy)
+                    if args.report:
+                        ci_module.write_report(report, args.report, args.workdir)
+                elif args.ci_github_cmd == "render-workflow":
+                    report = github_ci.render_workflow(policy)
+                elif args.ci_github_cmd == "snapshot-run":
+                    environment = __import__("os").environ
+                    repository = environment.get("GITHUB_REPOSITORY")
+                    run_id = environment.get("GITHUB_RUN_ID")
+                    token = environment.get("GH_TOKEN") or environment.get("GITHUB_TOKEN")
+                    if not repository or not run_id or not token:
+                        raise github_ci.AssuranceFailure(
+                            "run.environment", "INCONCLUSIVE",
+                            "GITHUB_REPOSITORY, GITHUB_RUN_ID, and GH_TOKEN are required")
+                    report = github_ci.fetch_run_snapshot(
+                        repository, run_id, token, policy,
+                        environment.get("GITHUB_API_URL", "https://api.github.com"))
+                    github_ci.write_json(report, args.output)
+                else:
+                    if args.snapshot:
+                        with open(args.snapshot, "r", encoding="utf-8") as stream:
+                            snapshot = json.load(stream)
+                    else:
+                        environment = __import__("os").environ
+                        token = environment.get(args.token_env)
+                        if not args.repository or not token:
+                            raise github_ci.AssuranceFailure(
+                                "audit.input", "INCONCLUSIVE",
+                                "live audit requires --repository and token environment variable")
+                        snapshot = github_ci.fetch_enforcement_snapshot(
+                            args.repository, args.branch, token, policy,
+                            environment.get("GITHUB_API_URL", "https://api.github.com"))
+                    report = github_ci.audit_enforcement(policy, snapshot)
+                _emit(report)
+                return 0 if report.get("verdict", "PASS") == "PASS" else 1
+            except (github_ci.AssuranceFailure, OSError, ValueError,
+                    json.JSONDecodeError, jsonschema.ValidationError) as exc:
+                _emit({"verdict": getattr(exc, "verdict", "INCONCLUSIVE"),
+                       "check": getattr(exc, "check_id", "github.internal"),
+                       "error": str(exc)})
+                return 1
         try:
             approval_keys = _approval_key_map(args.approval_key)
         except ValueError as exc:

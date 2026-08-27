@@ -38,6 +38,7 @@ LINK_DOCUMENTS = (
     "docs/m4-governance.md",
     "docs/m5-security.md",
     "docs/m6-ci-replay.md",
+    "docs/m6-2-github-assurance.md",
     "examples/README.md",
 )
 

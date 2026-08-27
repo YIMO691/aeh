@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH deterministic workflow rendering result",
+  "type": "object",
+  "required": ["contract", "version", "provider", "path", "sha256", "content"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "ci.workflow-template"}, "version": {"const": 1}, "provider": {"const": "github"},
+    "path": {"type": "string", "pattern": "^\\.github/workflows/"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "content": {"type": "string", "minLength": 1}
+  }
+}

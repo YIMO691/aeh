@@ -696,3 +696,23 @@
 - **CD-155**: M6.1 不提供通用不可绕过性、管理员 bypass 防护、自动 merge/push/PR、
   hosted service 或多 Agent scheduler。AEH 继续拥有 assurance，SCM 拥有 merge policy，
   AEW/其他 orchestrator 拥有执行编排。
+
+## M6.2 GitHub Assurance Integration（2026-08-27）
+
+- **CD-156**: GitHub 集成区分 `OBSERVED_WORKFLOW`、
+  `REQUIRED_REPOSITORY_WORKFLOW`、`EXTERNALLY_GOVERNED_WORKFLOW`；仅观察到绿色
+  workflow 不等于 merge enforcement。required 结论必须绑定 exact check name + App ID。
+- **CD-157**: PR/merge-group 只接受一个在 base 不存在的 fresh Change；实际 base..head
+  diff 必须由 Change 目录、implementation changed_files、test plan/lock 和显式 governed
+  metadata 完整闭包。zero/multiple/stale/undeclared path 一律 INVALID。
+- **CD-158**: workflow renderer 仅接受 HTTPS immutable wheel filename + SHA-256，官方
+  Actions 固定 full commit SHA，exact head checkout 使用 fetch-depth 0、禁用 credential
+  persistence。artifact 或 expected workflow digest 未配置时 fail closed。
+- **CD-159**: repository-controlled workflow 不得获得 protected approval HMAC key；遇到
+  VERIFY_MANUAL/CRITICAL credential 需求返回 `TRUSTED_CREDENTIAL_CHANNEL_REQUIRED`，未来
+  external governed executor 需独立设计和授权。
+- **CD-160**: enforcement audit 为只读；检查 strict、exact check/App、admin、force/delete、
+  bypass、workflow digest/events 和 latest-head check。权限不足、404/403、rate limit 或
+  metadata 缺失为 INCONCLUSIVE，不得推断 PASS。
+- **CD-161**: M6.2a–c 权限止于一个可评测 PR。immutable artifact 发布、workflow 安装、
+  branch protection/ruleset 修改、live dogfood、merge、M6.3 均属于后续独立 Owner Gate。

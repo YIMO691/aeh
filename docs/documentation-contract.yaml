@@ -18,8 +18,8 @@ roadmap:
   planned: []
 
 validation:
-  local_tests_discovered: 347
-  local_tests_passed: 343
+  local_tests_discovered: 356
+  local_tests_passed: 352
   local_tests_skipped: 4
   latest_main_ci_jobs_passed: 6
 
@@ -32,6 +32,7 @@ canonical_documents:
   engineering: docs/engineering-guide.md
   security: docs/m5-security.md
   ci_replay: docs/m6-ci-replay.md
+  github_assurance: docs/m6-2-github-assurance.md
   roadmap: docs/roadmap-v0.2.md
   history: CHANGELOG.md
 
@@ -52,3 +53,4 @@ current_claim_files:
   - docs/engineering-guide.md
   - docs/m5-security.md
   - docs/m6-ci-replay.md
+  - docs/m6-2-github-assurance.md
