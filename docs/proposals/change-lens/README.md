@@ -1,6 +1,6 @@
 # AEH Change Lens Implementation Proposal
 
-> Status: **PROPOSAL / NOT IMPLEMENTED / NOT ROADMAP-COMMITTED**
+> Status: **HANDED OFF TO INDEPENDENT REPOSITORY / NOT IMPLEMENTED**
 > Authority: **NON-NORMATIVE**
 > Baseline: `main@394f7f644c08ed33e967207cb5ec792ea9d7970b`
 > Machine-readable companion: [proposal.yaml](proposal.yaml)
@@ -10,9 +10,23 @@ explains an AI-assisted code change as an evidence-linked transition from the
 old logic path to the new logic path. It does not change AEH runtime contracts,
 Gates, current milestone status, or release claims.
 
-Implementation must not begin until the Owner resolves the entry decisions in
-section 6 and records an explicit start decision. A merged proposal is approval
-to review the design, not approval to implement or release it.
+The Owner resolved the entry decisions on 2026-08-27 and selected an independent
+repository. The canonical bilingual plan now lives at
+[YIMO691/aeh-change-lens](https://github.com/YIMO691/aeh-change-lens), with
+Chinese as the authoritative language. This document remains the AEH-side
+proposal record; implementation still requires a separate explicit start
+authorization and is not an AEH roadmap or release claim.
+
+## 0. Owner decision and handoff
+
+- first analyzed language: Python;
+- delivery: independent repository and Python package;
+- language policy: bilingual, Chinese first and authoritative;
+- execution policy: deterministic and offline by default;
+- LLM explanation: explicit opt-in only;
+- primary users: change authors and reviewers;
+- pilot: 10-20 manually annotated Changes;
+- current Gate: `PLAN_READY / IMPLEMENTATION_AUTHORIZATION_NOT_GRANTED`.
 
 ## 1. Outcome
 
@@ -161,15 +175,16 @@ AEH `REQ -> AC -> TEST -> CODE -> VER` truth.
 
 ## 6. Entry decisions and prerequisites
 
-The following Owner decisions block implementation:
+The Owner resolved the following entry decisions on 2026-08-27:
 
 | ID | Decision | Recommended default | Why it matters |
 |---|---|---|---|
-| CL-DEC-001 | First supported language | C# for Unity/game code; otherwise Python | Fixes parser, compiler/indexer, fixtures, and oracle |
+| CL-DEC-001 | First supported language | Python | Fixes parser, compiler/indexer, fixtures, and oracle |
 | CL-DEC-002 | Delivery topology | Separate repository/package | Prevents experimental UI/analysis dependencies entering AEH's TCB |
 | CL-DEC-003 | LLM policy | Offline deterministic core; LLM explanation opt-in | Protects source confidentiality and repeatability |
 | CL-DEC-004 | Target user | Change author and code reviewer | Determines graph depth and explanation language |
 | CL-DEC-005 | Pilot corpus | 10-20 manually annotated Changes | Required to measure graph correctness and usefulness |
+| CL-DEC-006 | Language policy | Bilingual; Chinese first and authoritative | Prevents presentation order and translation authority from drifting |
 
 Technical prerequisites:
 
@@ -181,8 +196,9 @@ Technical prerequisites:
 - an approved local evidence/output directory exists;
 - no source or artifacts leave the machine without explicit authorization.
 
-Until `CL-DEC-001` through `CL-DEC-005` are resolved, the implementation Gate
-is `BLOCKED_BY_CONTRACT`.
+The decision Gate is `PLAN_READY`. Implementation authorization remains
+`NOT_GRANTED`; resolving product defaults does not authorize code execution,
+source upload, or implementation work.
 
 ## 7. Acceptance criteria
 

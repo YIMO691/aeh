@@ -2,8 +2,10 @@ schema_version: 1
 artifact_type: non_normative_feature_proposal
 proposal_id: AEH-CHANGE-LENS
 title: AEH Change Lens
-status: PROPOSAL_NOT_IMPLEMENTED_NOT_ROADMAP_COMMITTED
+status: HANDED_OFF_TO_INDEPENDENT_REPOSITORY_NOT_IMPLEMENTED
 authority: NON_NORMATIVE
+canonical_repository: https://github.com/YIMO691/aeh-change-lens
+canonical_language: zh-CN
 baseline:
   repository: https://github.com/YIMO691/aeh
   revision: 394f7f644c08ed33e967207cb5ec792ea9d7970b
@@ -43,24 +45,27 @@ scope:
     - cloud upload or telemetry by default
 
 entry_gate:
-  verdict: BLOCKED_BY_CONTRACT
-  start_requires_owner_decision: true
-  open_decisions:
+  verdict: PLAN_READY
+  implementation_authorization: NOT_GRANTED
+  resolved_decisions:
     - id: CL-DEC-001
       topic: first_supported_language
-      recommended: C# for Unity/game code; otherwise Python
+      decision: Python
     - id: CL-DEC-002
       topic: delivery_topology
-      recommended: separate repository/package
+      decision: separate repository/package
     - id: CL-DEC-003
       topic: llm_policy
-      recommended: offline deterministic core with opt-in LLM explanation
+      decision: offline deterministic core with opt-in LLM explanation
     - id: CL-DEC-004
       topic: target_user
-      recommended: change author and code reviewer
+      decision: change author and code reviewer
     - id: CL-DEC-005
       topic: pilot_corpus
-      recommended: 10-20 manually annotated Changes
+      decision: 10-20 manually annotated Changes
+    - id: CL-DEC-006
+      topic: language_policy
+      decision: bilingual with Chinese first and authoritative
 
 confidence_levels:
   - CONFIRMED_STATIC
