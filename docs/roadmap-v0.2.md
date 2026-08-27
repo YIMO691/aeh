@@ -3,7 +3,7 @@
 > 文档类别：**CURRENT ROADMAP**。当前软件事实的简表见 [status.md](status.md)；
 > 本文负责依赖、进入/退出 Gate 与未来范围，不承担 Release 证据职责。
 >
-> 状态：**V02-0 + M1–M4 MERGED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
+> 状态：**V02-0 + M1–M5 MERGED；M6 PLANNED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -16,7 +16,7 @@
 - 现状：V0.1.0 已发布（`docs/releases/v0.1.0/RELEASE_TEST_REPORT.md`：232/232）。
 - Phase 1.1：v1.6 冻结协议与 External Runner 最小机制已验证；在该基线冻结时 72-run
   尚未授权，后续 Phase 2 v1.10 已完成并给出 `REPOSITION`。
-- **M1–M4 已按依赖顺序审查并合并到 main；v0.2.0 已发布。Phase 2 暴露的
+- **M1–M5 已按依赖顺序审查并合并到 main；v0.2.0 已发布。Phase 2 暴露的
   RUN-F055 机器真值逃逸已在 main 修复，当前源码为未发布的 `0.3.0.dev0`。**
 - M1 提供 wheel/CI，M2 提供显式 repair/transaction，M3 提供 v0.1 snapshot 到当前
   candidate 的显式 upgrade。独立 Release Safety Review 已通过，Owner 已执行 v0.2.0
@@ -177,7 +177,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
   PR #11 合并前 12/12 检查及合并后 6/6 `main` 作业全绿；当前归入
   `0.3.0.dev0` 未发布开发线，tag、Release 与 PyPI 仍需独立 Owner 决策。
 
-### M5 安全边界：命令执行沙箱 + 强审批身份
+### M5 安全边界：受约束进程执行 + 凭据绑定审批（已合并）
 
 - 目标：测试命令在可配置隔离边界内执行；approval 支持签名/凭据校验。
 - In：执行器隔离层（shell=True 兼容路径默认收紧）；approvals 签名验证。
@@ -186,6 +186,11 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 退出：shell=True 路径默认禁用或需显式授权；注入攻击测试不逃逸；伪造 approval 被拒；回归 232+n。
 - 契约影响：Y（命令执行/审批契约 → CD）。关联：KL#1、KL#4、RISK-EXEC-001、RISK-023、ENF-APPROVAL-001、C-020、C-009b。
 - 本地风险：① 沙箱跨平台能力差异大——Windows/POSIX 分能力矩阵，未支持项诚实报 WARN；② 签名密钥分发/轮换是新的治理面——密钥管理独立 SPEC，禁止写死在公共 core。
+- 实现状态：AEH 管理的 argv 与兼容命令字符串默认统一走 `shell=False`；
+  shell 需要 test plan 声明与当前 CLI 调用双重授权；cwd、timeout、参数数量/
+  长度及继承环境受版本化策略约束。APPROVED/REJECTED/REVOKED 决定由外部
+  HMAC-SHA256 凭据绑定 Change、Gate、actor、时间、TTL 与证据引用；撤销保留原
+  签名并追加独立撤销签名。该能力不宣称 OS 隔离、非否认性、OIDC/IAM 或法律身份。
 
 ### M6 规模化：CI 深集成 + 多代理编排
 

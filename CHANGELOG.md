@@ -6,6 +6,18 @@ All notable changes to AEH are recorded here per phase.
 
 ### Added
 
+- M5 constrained process execution: structured argv and compatibility command
+  strings run with `shell=False`; shell syntax requires a locked plan
+  declaration plus per-invocation `--allow-shell`; cwd, timeout, argument, and
+  environment limits are enforced by a versioned runtime policy.
+- M5 credential-bound approval decisions using HMAC-SHA256 over canonical
+  Change/Gate/actor/time/TTL/evidence payloads. Revocation preserves the
+  original signature and adds an independently signed revocation credential;
+  protected positive Gates reject missing, wrong-key, tampered, or replayed
+  credentials.
+- A current M5 security/threat-model document and attack regressions for shell
+  injection, cwd escape, environment leakage, payload mutation, wrong key, and
+  cross-Change replay.
 - A current documentation portal, product About, source-status page, implemented
   architecture, engineering guide, and a current-state supplement for the
   version-bound handbook.
@@ -33,13 +45,15 @@ All notable changes to AEH are recorded here per phase.
   evidence, and archive remain version-bound history. The alignment adds
   navigation and explicit status labels rather than rewriting old evidence as
   current truth.
-- Approval remains an honest human attestation rather than cryptographic
-  identity. Missing expiry is accepted for backward compatibility and reported
-  as a warning; strong identity belongs to M5.
+- HMAC credentials prove possession of a configured shared secret, not legal
+  human identity, public-key non-repudiation, OIDC, enterprise IAM, or hardware
+  custody. Historical unsigned approvals remain readable but cannot unlock M5
+  protected positive Gates.
 - M4 is assigned to the new `0.3.0.dev0` source line rather than being silently
   folded into the frozen v0.2.1 integrity-patch candidate.
-- The integration does not add an external workspace state store, memory,
-  runtime, sandbox, or multi-agent orchestrator to AEH.
+- The integration does not add an external workspace state store, memory, or
+  multi-agent orchestrator to AEH. M5 process policy is not kernel, container,
+  VM, filesystem, network, syscall, or process-tree isolation.
 - SCM inspection is local, bounded, read-only, and network-free. Recognizing
   an SVN working copy does not yet certify the full AEH lifecycle on SVN.
 - `0.3.0.dev0` is development metadata, not a tag, GitHub Release, or PyPI
@@ -47,6 +61,9 @@ All notable changes to AEH are recorded here per phase.
 
 ### Validation status
 
+- M5 raises the expected Windows baseline to `331` discovered (`327` passed,
+  `4` expected symlink-permission skips), including 13 focused execution and
+  credential threat-model tests plus contract invariants.
 - Documentation alignment adds one contract/link regression, bringing the
   expected current Windows baseline to `316` discovered (`312` passed and `4`
   expected symlink-permission skips); the final exact-commit result is recorded

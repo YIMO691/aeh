@@ -16,6 +16,7 @@ from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
 from . import ownership as omod
+from . import execution as xmod
 
 ENV_SIGNATURES = ["ModuleNotFoundError", "ImportError", "command not found", "No such file or directory"]
 
@@ -93,7 +94,7 @@ def classify_red(exit_code, output, t):
             return "INVALID_RED_ENVIRONMENT", {"category": "environment", "signature": s}
     return "INVALID_RED_UNEXPECTED_FAILURE", {"category": "unexpected", "signature": "unmatched"}
 
-def change_red(target, change_id, ae_root=None):
+def change_red(target, change_id, ae_root=None, allow_shell=False):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
         d = doc.run_doctor(target, ae_root)
@@ -128,19 +129,22 @@ def change_red(target, change_id, ae_root=None):
         results = []
         required = [t for t in plan["tests"] if t.get("required", True)]
         for t in required:
-            cmd = t.get("execution", {}).get("command") or t["command"]
-            timeout = t.get("execution", {}).get("timeout_seconds", 60)
+            execution = t.get("execution", {})
+            cmd = execution.get("command") or t["command"]
+            run_spec = {
+                "command": execution.get("command") or (
+                    None if execution.get("argv") is not None else t["command"]),
+                "argv": execution.get("argv"),
+                "cwd": execution.get("cwd"),
+                "timeout_seconds": execution.get("timeout_seconds", 60),
+                "shell": execution.get("shell", False),
+                "env": execution.get("env"),
+            }
             try:
-                proc = subprocess.run(cmd, shell=True, cwd=target, capture_output=True,
-                                      text=True, timeout=timeout)
-                exit_code = proc.returncode
-                output = (proc.stdout or "") + "\n" + (proc.stderr or "")
-            except subprocess.TimeoutExpired:
-                exit_code = 124
-                output = "timeout"
-            except OSError as e:
-                exit_code = 127
-                output = str(e)
+                exit_code, output, _ = xmod.run_execution(
+                    target, run_spec, allow_shell=allow_shell, ae_root=ae_root)
+            except xmod.ExecutionPolicyError as exc:
+                raise RedError(str(exc)) from exc
             verdict, actual = classify_red(exit_code, output, t)
             out_path = os.path.join(cdir, "evidence", "red-" + t["id"] + ".log")
             os.makedirs(os.path.dirname(out_path), exist_ok=True)

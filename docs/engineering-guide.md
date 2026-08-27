@@ -58,8 +58,13 @@ A contract change normally requires:
 - compatibility behavior for previously installed snapshots;
 - documentation of truth ownership and failure behavior.
 
-M5 and M6 are not implicit extensions of an unrelated change. They require
-their own specification, threat model, plan, tests, and Owner decision.
+M6 is not an implicit extension of an unrelated change. It requires its own
+specification, threat model, plan, tests, and Owner decision.
+
+M5 execution and approval changes must preserve the boundaries in
+[m5-security.md](m5-security.md): no-shell default execution, dual explicit
+shell authorization, external credential custody, and no claims of OS sandbox
+or enterprise identity properties.
 
 ## Documentation rules
 

@@ -22,13 +22,13 @@ Every fix must ship with a regression test.
 ## Current development policy
 
 The current source line is `0.3.0.dev0`; the latest public release is `v0.2.0`;
-M1–M4 are merged, M5–M6 are planned, and PyPI is not published. Read
+M1–M5 are merged, M6 is planned, and PyPI is not published. Read
 `docs/status.md` before treating a roadmap or handbook statement as current.
 
 Keep released lines stable: v0.1/v0.2 release evidence is immutable, and fixes
 to released behavior require a regression test plus a decision or release-fix
 entry. New capabilities must follow the dependency order and entry Gates in
-`docs/roadmap-v0.2.md`. M5 or M6 work requires its own specification, threat
+`docs/roadmap-v0.2.md`. M6 work requires its own specification, threat
 model, plan, and Owner decision; it must not arrive as incidental scope in an
 unrelated change.
 

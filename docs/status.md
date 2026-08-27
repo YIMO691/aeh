@@ -10,8 +10,8 @@
 | Source version | `0.3.0.dev0` |
 | Latest GitHub release | `v0.2.0` |
 | PyPI | Not published |
-| Roadmap | M1–M4 merged; M5–M6 planned |
-| Current source test baseline | 316 discovered, 312 passed, 4 expected Windows symlink-permission skips |
+| Roadmap | M1–M5 merged; M6 planned |
+| Current source test baseline | 331 discovered, 327 passed, 4 expected Windows symlink-permission skips |
 | Latest post-merge main CI | 6/6 jobs passed on Ubuntu/Windows and Python 3.10/3.11 |
 
 `0.3.0.dev0` is development metadata, not a tag or public release. The frozen
@@ -26,12 +26,13 @@ carried forward into the current source line.
 | M2 | MERGED | plan-first repair, transaction journal, rollback, bootstrap recovery |
 | M3 | MERGED | explicit version-bound upgrade and rollback |
 | M4 | MERGED | manual verification Gate, approval TTL/expiry/revocation, earlier CRITICAL plan validation |
-| M5 | PLANNED | execution sandbox and strong approval identity |
+| M5 | MERGED | constrained process execution and credential-bound protected approvals |
 | M6 | PLANNED | deep user-project CI integration and bounded multi-agent concurrency |
 
-By milestone count, four of six planned M milestones are merged. This does not
-mean the final product is complete: M5 is a prerequisite for the trust boundary
-needed by M6.
+By milestone count, five of six planned M milestones are merged. This does not
+mean the final product is complete: M5 constrains portable process launch and
+shared-credential approval, but does not provide OS isolation or enterprise
+identity. M6 remains separate.
 
 ## Current capability boundary
 
@@ -39,9 +40,9 @@ AEH can bootstrap and diagnose a repository, govern a Change from classification
 through `MERGE_READY`, preserve test and evidence integrity, recover or upgrade
 an installed runtime, and export bounded governance truth to AEW.
 
-AEH cannot yet provide cryptographic human identity, a general execution
-sandbox, an unbypassable remote CI service, or multi-agent orchestration. It
-does not merge or release changes by itself.
+AEH cannot provide public-key human identity, non-repudiation, a kernel-level
+execution sandbox, an unbypassable remote CI service, or multi-agent
+orchestration. It does not merge or release changes by itself.
 
 ## Evidence and authority
 

@@ -1,0 +1,41 @@
+contract: execution.policy
+version: 1
+mode: constrained_process
+shell:
+  default: deny
+  require_plan_declaration: true
+  require_invocation_authorization: true
+limits:
+  default_timeout_seconds: 120
+  max_timeout_seconds: 900
+  max_arguments: 256
+  max_argument_length: 8192
+environment:
+  inherit_allowlist:
+    - CARGO_HOME
+    - CI
+    - COMSPEC
+    - DOTNET_ROOT
+    - GITHUB_ACTIONS
+    - GITHUB_WORKSPACE
+    - HOME
+    - HTTP_PROXY
+    - HTTPS_PROXY
+    - JAVA_HOME
+    - LANG
+    - LC_ALL
+    - NODE_PATH
+    - NO_PROXY
+    - NPM_CONFIG_PREFIX
+    - PATH
+    - PATHEXT
+    - PYTHONIOENCODING
+    - PYTHONPATH
+    - REQUESTS_CA_BUNDLE
+    - RUSTUP_HOME
+    - SSL_CERT_FILE
+    - SystemRoot
+    - TEMP
+    - TMP
+    - USERPROFILE
+    - VIRTUAL_ENV

@@ -59,6 +59,8 @@ The `0.3.0.dev0` source line includes:
 - test locking, evidence hashes, traceability, and risk gates;
 - plan-first repair, upgrade, transaction journals, rollback, and recovery;
 - manual verification, approval expiry/TTL, and provenance-preserving revocation;
+- constrained no-shell-by-default process launch with explicit shell authorization;
+- credential-bound protected approvals and signed revocation;
 - Codex and Claude adapter generation;
 - bounded, read-only Git/SVN inspection and deterministic AEW governance export.
 
@@ -78,12 +80,14 @@ not a mandatory unattended workflow for every coding task.
 ## Honest boundaries
 
 AEH is not an autonomous coding agent, orchestration platform, remote CI
-service, identity provider, or general-purpose sandbox. It stops at
+service, identity provider, or general-purpose OS sandbox. It stops at
 `MERGE_READY`; push, pull request, merge, and release remain external actions.
 
-M5 and M6 remain planned work. Strong approval identity, a cross-platform
-execution sandbox, deep user-project CI integration, and multi-agent
-orchestration are not current capabilities. The latest public release is
+M5 provides a portable constrained-process boundary and HMAC credential
+verification. Those controls do not provide kernel isolation, public-key
+non-repudiation, OIDC, enterprise IAM, or legal human identity. M6 remains
+planned; deep user-project CI integration and multi-agent orchestration are not
+current capabilities. The latest public release is
 `v0.2.0`; `0.3.0.dev0` is unreleased, and no AEH version is published to PyPI.
 
 ## Continue reading
