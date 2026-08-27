@@ -6,6 +6,15 @@ All notable changes to AEH are recorded here per phase.
 
 ### Added
 
+- M6.1 provider-neutral `aeh ci verify`: a target-read-only replay of committed
+  Change Assurance evidence bound to canonical SCM repository identity, exact
+  base/head, installed runtime, explicit observed time, externally held
+  approval credentials, all consumed file hashes, and a deterministic report
+  digest. It never executes project-declared commands.
+- Versioned CI replay policy/report contracts, legal/illegal fixtures, real
+  Change-flow attack tests, external-only report output, and bootstrap/upgrade/
+  wheel propagation through the existing runtime snapshot mechanism.
+
 - M5 constrained process execution: structured argv and compatibility command
   strings run with `shell=False`; shell syntax requires a locked plan
   declaration plus per-invocation `--allow-shell`; cwd, timeout, argument, and
@@ -41,6 +50,11 @@ All notable changes to AEH are recorded here per phase.
 
 ### Boundaries
 
+- M6.1 is an acceptance replay core, not a hosted or universally unbypassable
+  CI service. SCM required checks, workflow/ruleset protection, bypass control,
+  runner/time trust and merge enforcement remain M6.2; Change concurrency is
+  M6.3. AEH still does not merge, push, deploy, or orchestrate agents.
+
 - The Handbook v0.2, Phase 0 architecture, Repository Panorama, release
   evidence, and archive remain version-bound history. The alignment adds
   navigation and explicit status labels rather than rewriting old evidence as
@@ -60,6 +74,11 @@ All notable changes to AEH are recorded here per phase.
   publication. The latest public release remains v0.2.0.
 
 ### Validation status
+
+- M6.1 raises the expected Windows baseline to `347` discovered (`343` passed,
+  `4` expected symlink-permission skips), including real Change-flow replay,
+  deterministic/zero-write assertions and repository/head/base/runtime/test-
+  lock/evidence/traceability/credential attack cases.
 
 - M5 raises the expected Windows baseline to `331` discovered (`327` passed,
   `4` expected symlink-permission skips), including 13 focused execution and

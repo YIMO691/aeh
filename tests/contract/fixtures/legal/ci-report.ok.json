@@ -1,0 +1,16 @@
+{
+  "contract": "ci.replay-report",
+  "version": 1,
+  "repository_id": "example/project",
+  "change_id": "CHG-2026-0001",
+  "base_sha": "0123456789abcdef0123456789abcdef01234567",
+  "head_sha": "89abcdef0123456789abcdef0123456789abcdef",
+  "observed_at": "2026-08-27T04:00:00+00:00",
+  "harness": {"version": "0.3.0.dev0", "source_revision": "example", "runtime_digest": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"},
+  "policy_digest": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "verdict": "PASS",
+  "checks": [{"id": "example", "status": "PASS", "message": "example"}],
+  "inputs": [{"path": ".aeh/manifest.yaml", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}],
+  "safety": {"read_only_target": true, "project_code_executed": false, "network_used": false},
+  "canonical_digest": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}

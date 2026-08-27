@@ -36,6 +36,8 @@ FIXTURE_SCHEMA = {
     "approvals": "approvals.schema.json",
     "aew-governance-adapter": "aew-governance-adapter.schema.json",
     "scm-inspection": "scm-inspection.schema.json",
+    "ci-policy": "ci-policy.schema.json",
+    "ci-report": "ci-report.schema.json",
 }
 
 
@@ -64,6 +66,7 @@ class TestSchemas(unittest.TestCase):
         cls.classifications = load_core("classifications.yaml")
         cls.evidence = load_core("evidence.yaml")
         cls.execution_policy = load_core("execution-policy.yaml")
+        cls.ci_policy = load_core("ci-policy.yaml")
 
     def test_all_schemas_parse_and_use_draft07(self):
         for name in FIXTURE_SCHEMA.values():
@@ -103,6 +106,7 @@ class TestConsistency(unittest.TestCase):
         cls.precedence = load_core("precedence.yaml")
         cls.classifications = load_core("classifications.yaml")
         cls.evidence = load_core("evidence.yaml")
+        cls.ci_policy = load_core("ci-policy.yaml")
         cls.change_schema = load_schema("change.schema.json")
         cls.approvals_schema = load_schema("approvals.schema.json")
         cls.verification_schema = load_schema("verification.schema.json")
@@ -165,6 +169,14 @@ class TestConsistency(unittest.TestCase):
         self.assertEqual(properties["scheme"]["const"], "hmac-sha256-v1")
         for field in ("key_fingerprint", "payload_hash", "signature"):
             self.assertEqual(properties[field]["pattern"], "^[0-9a-f]{64}$")
+
+    def test_m6_ci_policy_is_read_only_and_fail_closed(self):
+        jsonschema.validate(self.ci_policy, load_schema("ci-policy.schema.json"))
+        self.assertEqual(self.ci_policy["required_change_state"], "VERIFY")
+        self.assertIn("verify", self.ci_policy["required_gates"])
+        self.assertEqual(self.ci_policy["critical_merge_gate"], "MERGE_GATE")
+        self.assertEqual(self.ci_policy["manual_verification_gate"], "VERIFY_MANUAL")
+        self.assertIn("verification.yaml", self.ci_policy["required_artifacts"])
 
     def test_m4_manual_gate_and_approval_lifecycle_contract(self):
         self.assertIn("VERIFY_MANUAL", self.gates["human_approval_gates"])

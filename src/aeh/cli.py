@@ -57,6 +57,19 @@ def main(argv=None):
     integration_export.add_argument("--project-id", default=None, help="optional external project ID")
     integration_export.add_argument("--task-id", required=True, help="external canonical Task ID")
     integration_export.add_argument("--run-id", required=True, help="external canonical Run ID")
+    ci = sub.add_parser("ci", help="read-only CI acceptance replay")
+    ci_sub = ci.add_subparsers(dest="ci_cmd", required=True)
+    ci_verify = ci_sub.add_parser("verify", help="replay committed Change Assurance evidence")
+    ci_verify.add_argument("change_id")
+    ci_verify.add_argument("--workdir", default=".", help="exact Git checkout to inspect")
+    ci_verify.add_argument("--repository-id", required=True, help="stable SCM repository identity")
+    ci_verify.add_argument("--base-sha", required=True, help="full base Git object ID")
+    ci_verify.add_argument("--head-sha", required=True, help="full head Git object ID")
+    ci_verify.add_argument("--observed-at", required=True, help="RFC3339 approval evaluation time")
+    ci_verify.add_argument("--approval-key", action="append", default=[], metavar="KEY_ID=PATH",
+                           help="external approval credential; repeat for multiple signer keys")
+    ci_verify.add_argument("--report", default=None,
+                           help="optional JSON path outside the inspected repository")
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -186,6 +199,28 @@ def main(argv=None):
         except (integration_module.IntegrationError, OSError) as exc:
             _emit({"status": "INTEGRATION_FAILED", "error": str(exc)})
             return 1
+    if args.cmd == "ci":
+        from . import ci as ci_module
+        try:
+            approval_keys = _approval_key_map(args.approval_key)
+        except ValueError as exc:
+            _emit({"status": "BLOCKED_BAD_APPROVAL_KEY", "error": str(exc)})
+            return 1
+        report = ci_module.verify(
+            args.workdir, args.change_id, args.repository_id, args.base_sha,
+            args.head_sha, args.observed_at, credential_files=approval_keys)
+        if args.report:
+            try:
+                ci_module.write_report(report, args.report, args.workdir)
+            except (ci_module.ReplayFailure, OSError) as exc:
+                report = dict(report)
+                report["verdict"] = "INVALID"
+                report["checks"] = list(report["checks"]) + [{
+                    "id": "output.boundary", "status": "INVALID", "message": str(exc)}]
+                report.pop("canonical_digest", None)
+                report["canonical_digest"] = ci_module._sha256_bytes(ci_module._canonical(report))
+        _emit(report)
+        return 0 if report["verdict"] == "PASS" else 1
     if args.cmd == "change":
         from .runtime import change as chmod
         if args.change_cmd == "new":

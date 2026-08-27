@@ -63,6 +63,9 @@ The `0.3.0.dev0` source line includes:
 - credential-bound protected approvals and signed revocation;
 - Codex and Claude adapter generation;
 - bounded, read-only Git/SVN inspection and deterministic AEW governance export.
+- provider-neutral, read-only CI replay that binds committed assurance evidence
+  to repository identity, exact base/head, installed runtime, observed approval
+  time, external credentials, and a deterministic report digest.
 
 ## When it is worth using
 
@@ -79,15 +82,16 @@ not a mandatory unattended workflow for every coding task.
 
 ## Honest boundaries
 
-AEH is not an autonomous coding agent, orchestration platform, remote CI
+AEH is not an autonomous coding agent, orchestration platform, hosted CI
 service, identity provider, or general-purpose OS sandbox. It stops at
 `MERGE_READY`; push, pull request, merge, and release remain external actions.
 
 M5 provides a portable constrained-process boundary and HMAC credential
 verification. Those controls do not provide kernel isolation, public-key
-non-repudiation, OIDC, enterprise IAM, or legal human identity. M6 remains
-planned; deep user-project CI integration and multi-agent orchestration are not
-current capabilities. The latest public release is
+non-repudiation, OIDC, enterprise IAM, or legal human identity. M6.1 can replay
+acceptance evidence in an external checkout without executing project code,
+but SCM required-check enforcement (M6.2) and bounded Change concurrency
+(M6.3) are not current capabilities. The latest public release is
 `v0.2.0`; `0.3.0.dev0` is unreleased, and no AEH version is published to PyPI.
 
 ## Continue reading
