@@ -48,7 +48,8 @@ def _log_result(cdir, change_id, prefix, rid, output):
 
 def _exec_spec(entry):
     spec = {"command": entry.get("command"), "argv": entry.get("argv"),
-            "cwd": entry.get("cwd"), "timeout_seconds": entry.get("timeout_seconds", 120)}
+            "cwd": entry.get("cwd"), "timeout_seconds": entry.get("timeout_seconds", 120),
+            "shell": entry.get("shell", False), "env": entry.get("env")}
     return spec
 
 
@@ -81,9 +82,11 @@ def _record_blocked(target, cdir, change_id, reason, results, red_block, ae_root
     omod.record_checkpoint(target, change_id)
 
 
-def _run_one(target, cdir, change_id, entry, rid, verifies, vtype, prefix):
+def _run_one(target, cdir, change_id, entry, rid, verifies, vtype, prefix,
+             allow_shell=False, ae_root=None):
     spec = _exec_spec(entry)
-    exit_code, output, _ = gmod.run_execution(target, spec)
+    exit_code, output, _ = gmod.run_execution(
+        target, spec, allow_shell=allow_shell, ae_root=ae_root)
     out_ref, out_hash = _log_result(cdir, change_id, prefix, rid, output)
     verdict = "pass" if exit_code == 0 else "fail"
     rec = {"id": "VER-%03d" % rid, "type": vtype, "verifies": sorted(set(verifies)),
@@ -94,7 +97,8 @@ def _run_one(target, cdir, change_id, entry, rid, verifies, vtype, prefix):
     return rec
 
 
-def _verify_core(target, change_id, ae_root):
+def _verify_core(target, change_id, ae_root, allow_shell=False,
+                 credential_files=None):
     ae_root = ae_root or aeh_paths.ae_root()
     d = doc.run_doctor(target, ae_root)
     if d["overall"] == "BLOCKED":
@@ -139,12 +143,18 @@ def _verify_core(target, change_id, ae_root):
         rid += 1
         entry = {"command": t.get("command"), "argv": t.get("execution", {}).get("argv"),
                  "cwd": t.get("execution", {}).get("cwd"),
-                 "timeout_seconds": t.get("execution", {}).get("timeout_seconds", 60)}
-        results.append(_run_one(target, cdir, change_id, entry, rid, t.get("verifies", []), "target_test", "verify"))
+                 "timeout_seconds": t.get("execution", {}).get("timeout_seconds", 60),
+                 "shell": t.get("execution", {}).get("shell", False),
+                 "env": t.get("execution", {}).get("env")}
+        results.append(_run_one(
+            target, cdir, change_id, entry, rid, t.get("verifies", []),
+            "target_test", "verify", allow_shell=allow_shell, ae_root=ae_root))
     # 2) 回归
     for rg in plan.get("regression", []):
         rid += 1
-        results.append(_run_one(target, cdir, change_id, rg, rid, [], "regression", "verify-reg"))
+        results.append(_run_one(
+            target, cdir, change_id, rg, rid, [], "regression", "verify-reg",
+            allow_shell=allow_shell, ae_root=ae_root))
     # Target/regression commands execute repository-controlled code. Validate
     # again before any blocked-verdict artifact can advance the checkpoint.
     omod.assert_checkpoint(target, change_id)
@@ -169,7 +179,10 @@ def _verify_core(target, change_id, ae_root):
             continue
         if v.get("command") or v.get("argv"):
             rid += 1
-            results.append(_run_one(target, cdir, change_id, v, rid, v.get("verifies", []), vtype or "runtime", "verify-v"))
+            results.append(_run_one(
+                target, cdir, change_id, v, rid, v.get("verifies", []),
+                vtype or "runtime", "verify-v", allow_shell=allow_shell,
+                ae_root=ae_root))
         else:
             rid += 1
             results.append({"id": "VER-%03d" % rid, "type": vtype or "runtime",
@@ -210,7 +223,9 @@ def _verify_core(target, change_id, ae_root):
             manual_pending.append(r["id"])
     if manual_pending:
         manual = approvals.get("VERIFY_MANUAL", {})
-        manual_state, manual_warnings = amod.assess_approval(manual)
+        manual_state, manual_warnings = amod.assess_approval(
+            manual, target=target, change_id=change_id,
+            credential_files=credential_files, require_credential=True)
         if manual_state == "REJECTED":
             _record_blocked(target, cdir, change_id, "human VERIFY_MANUAL approval REJECTED",
                             results, red_block, ae_root)
@@ -223,7 +238,9 @@ def _verify_core(target, change_id, ae_root):
                 ",".join(manual_pending) + " state=" + manual_state,
                 results, red_block, ae_root,
             )
-            return {"status": "BLOCKED_WAITING_MANUAL", "change_id": change_id,
+            blocked_status = "BLOCKED_INVALID_APPROVALS" if manual_state in (
+                "INVALID", "UNVERIFIED") else "BLOCKED_WAITING_MANUAL"
+            return {"status": blocked_status, "change_id": change_id,
                     "vers": manual_pending, "approval_state": manual_state}
         for result in results:
             if result.get("type") == "manual":
@@ -234,10 +251,18 @@ def _verify_core(target, change_id, ae_root):
                         (manual.get("actor", {}).get("id") or "?"))
 
     merge = approvals.get("MERGE_GATE", {})
-    merge_state, merge_warnings = amod.assess_approval(merge)
+    merge_state, merge_warnings = amod.assess_approval(
+        merge, target=target, change_id=change_id,
+        credential_files=credential_files,
+        require_credential=(level == "CRITICAL"))
     if merge_state == "REJECTED":
         _record_blocked(target, cdir, change_id, "human MERGE_GATE approval REJECTED", results, red_block, ae_root)
         return {"status": "BLOCKED_HUMAN_MERGE_REJECTED", "change_id": change_id}
+    if merge and merge_state in ("INVALID", "UNVERIFIED"):
+        reason = "MERGE_GATE credential is not verifiable; state=" + merge_state
+        _record_blocked(target, cdir, change_id, reason, results, red_block, ae_root)
+        return {"status": "BLOCKED_INVALID_APPROVALS", "change_id": change_id,
+                "approval_state": merge_state, "error": reason}
     if level == "CRITICAL" and merge_state != "APPROVED":
         reason = "CRITICAL requires effective human MERGE_GATE approval; state=" + merge_state
         _record_blocked(target, cdir, change_id, reason,
@@ -246,6 +271,7 @@ def _verify_core(target, change_id, ae_root):
             "EXPIRED": "BLOCKED_HUMAN_APPROVAL_EXPIRED",
             "REVOKED": "BLOCKED_HUMAN_APPROVAL_REVOKED",
             "INVALID": "BLOCKED_INVALID_APPROVALS",
+            "UNVERIFIED": "BLOCKED_INVALID_APPROVALS",
         }
         return {"status": status_by_state.get(merge_state, "BLOCKED_HUMAN_APPROVAL_REQUIRED"),
                 "change_id": change_id, "approval_state": merge_state, "error": reason}
@@ -320,16 +346,20 @@ def _write_review_md(cdir, change_id, level, results, overall, warnings, traceab
     lines.append("")
     lines.append("## Human approval")
     lines.append("")
-    lines.append("AEH records only honest human attestation via aeh change approve.")
+    lines.append("AEH records attributed decisions with externally held approval credentials.")
+    lines.append("HMAC proves configured credential possession, not legal identity or non-repudiation.")
     lines.append("Approval can never override a technical failure.")
     lines.append("")
     with open(os.path.join(cdir, "review.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
 
-def change_verify(target, change_id, ae_root=None):
+def change_verify(target, change_id, ae_root=None, allow_shell=False,
+                  credential_files=None):
     try:
-        return _verify_core(target, change_id, ae_root)
+        return _verify_core(
+            target, change_id, ae_root, allow_shell=allow_shell,
+            credential_files=credential_files)
     except (VerifyError, omod.OwnershipError, gmod.GreenError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "VERIFY_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}

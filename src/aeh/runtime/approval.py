@@ -1,7 +1,7 @@
 # AEH TRUSTED HUMAN APPROVAL PATH (Phase 13)
 # 人工批准的唯一写入路径：aeh change approve CLI -> record_approval。
 # AEH 是 Validator 不是 Coding Agent；Runtime 模块永远不写 APPROVED。
-# 诚实人工证词：actor.type 恒为 human，actor.id 为证词人身份；无签名即无批准。
+# actor.type 恒为 human；M5 credential 证明共享凭据持有，不夸大为法律身份。
 import os
 import yaml
 import jsonschema
@@ -11,6 +11,7 @@ from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
 from . import ownership as omod
+from . import credentials as credmod
 
 
 class ApprovalError(ValueError):
@@ -51,23 +52,51 @@ def _parse_datetime(value):
     return parsed.astimezone(timezone.utc)
 
 
-def assess_approval(entry, now=None):
+def assess_approval(entry, now=None, target=None, change_id=None,
+                    credential_files=None, require_credential=False):
     """Return effective state and compatibility warnings for one approval."""
     if not entry:
         return "MISSING", []
     status = entry.get("status")
+    if status == "REVOKED":
+        credential = entry.get("revocation_credential")
+        if credential and target and change_id:
+            valid, message = credmod.verify(
+                target, credential, entry, change_id, "REVOKED",
+                key_files=credential_files)
+            if not valid:
+                return "INVALID", [message]
+            return "REVOKED", [message]
+        if credential:
+            return "UNVERIFIED", ["revocation credential could not be resolved"]
+        return "REVOKED", ["legacy revocation has no credential"]
     if status != "APPROVED":
         return status or "INVALID", []
+    credential = entry.get("credential")
+    if not credential:
+        if require_credential:
+            return "UNVERIFIED", ["approval has no credential"]
+        credential_warnings = ["legacy approval has no credential"]
+    elif not target or not change_id:
+        return "UNVERIFIED", ["approval credential could not be resolved"]
+    else:
+        valid, message = credmod.verify(
+            target, credential, entry, change_id, "APPROVED",
+            key_files=credential_files)
+        if not valid:
+            return "INVALID", [message]
+        credential_warnings = [message]
     expires_at = entry.get("expires_at")
     if not expires_at:
-        return "APPROVED", [entry.get("gate", "approval") + " approval has no expiry"]
+        return "APPROVED", credential_warnings + [
+            entry.get("gate", "approval") + " approval has no expiry"]
     try:
         expires = _parse_datetime(expires_at)
     except (ApprovalError, ValueError):
         return "INVALID", []
     if _now_utc(now) >= expires:
         return "EXPIRED", []
-    return "APPROVED", []
+    return "APPROVED", credential_warnings
 
 
 def load_approvals(target, change_id):
@@ -82,7 +111,8 @@ def load_approvals(target, change_id):
 
 
 def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None,
-                    ttl_seconds=None, ae_root=None, now=None):
+                    ttl_seconds=None, ae_root=None, now=None, key_id=None,
+                    credential_file=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
         if gate not in ALLOWED_GATES:
@@ -92,6 +122,9 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
         if not actor_id or not isinstance(actor_id, str) or not actor_id.strip():
             return {"status": "BLOCKED_MISSING_ACTOR", "change_id": change_id,
                     "error": "trusted human approval requires actor identity (honest attestation)"}
+        if not key_id:
+            return {"status": "BLOCKED_CREDENTIAL_REQUIRED", "change_id": change_id,
+                    "error": "M5 approval decisions require --key-id and an external credential"}
         if ttl_seconds is not None and status != "APPROVED":
             return {"status": "BLOCKED_TTL_NOT_ALLOWED", "change_id": change_id,
                     "error": "ttl_seconds is valid only for APPROVED"}
@@ -131,6 +164,9 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
             entry["revoked_by"] = {"type": "human", "id": actor_id.strip()}
             if evidence_ref:
                 entry["revocation_evidence_ref"] = evidence_ref
+            entry["revocation_credential"] = credmod.sign(
+                target, key_id, entry, change_id, "REVOKED",
+                key_file=credential_file)
             result_status = "APPROVAL_REVOKED"
         else:
             entry = {"gate": gate, "status": status,
@@ -140,6 +176,9 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
                 entry["expires_at"] = (decided_at + timedelta(seconds=ttl_seconds)).isoformat()
             if evidence_ref:
                 entry["evidence_ref"] = evidence_ref
+            entry["credential"] = credmod.sign(
+                target, key_id, entry, change_id, status,
+                key_file=credential_file)
             result_status = "APPROVAL_RECORDED"
         body["approvals"] = others + [entry]
         schema = _load_yaml(os.path.join(ae_root, "schemas", "approvals.schema.json"))
@@ -149,7 +188,8 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
         if omod.checkpoint_exists(target, change_id):
             omod.record_checkpoint(target, change_id)
         return {"status": result_status, "change_id": change_id, "gate": gate,
-                "decision": status, "actor_id": actor_id.strip()}
-    except (ApprovalError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
+                "decision": status, "actor_id": actor_id.strip(), "key_id": key_id}
+    except (ApprovalError, credmod.CredentialError, omod.OwnershipError,
+            ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "APPROVAL_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}

@@ -48,7 +48,7 @@ truth and are referenced rather than absorbed.
 | Source implementation and repository history | project SCM |
 | AEH contract legality and Change state | AEH contracts and validators |
 | Test execution outcome | recorded command output plus AEH evidence validation |
-| Human decision | attributed approval record; not cryptographic identity in M4 |
+| Human decision | attributed record plus HMAC credential possession; not legal identity or non-repudiation |
 | PR, merge, deployment, release | external SCM/CI/release systems |
 | Workspace scheduling, agents, memory | AEW or another orchestrator |
 
@@ -84,17 +84,20 @@ state before advancement.
 
 Current protections include explicit mutation boundaries, schema validation,
 test locking, evidence hashes, source-revision checks, bounded local SCM
-inspection, approval TTL/expiry, and provenance-preserving revocation.
+inspection, approval TTL/expiry, credential signatures, provenance-preserving
+revocation, and constrained process-launch policy.
 
 Current limitations are equally important:
 
-- approval is an attributable human attestation, not strong identity;
-- test command execution is not a general cross-platform sandbox;
+- HMAC authenticates configured shared-credential possession, not legal human
+  identity, public-key non-repudiation, OIDC, IAM, or hardware custody;
+- constrained process launch is not kernel/container/VM/filesystem/network/
+  syscall/process-tree isolation;
 - CI evidence is external and not yet a deep, unbypassable user-project Gate;
 - AEH stops at `MERGE_READY` and does not autonomously merge or release.
 
-M5 addresses sandboxing and strong approval identity. M6 depends on M5 and adds
-deep CI integration plus bounded multi-agent concurrency.
+M5 implements this deliberately bounded portable security layer. M6 depends on
+it and adds deep CI integration plus bounded multi-agent concurrency.
 
 ## Compatibility and extension
 

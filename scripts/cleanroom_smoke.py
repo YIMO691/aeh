@@ -119,9 +119,14 @@ def main(argv=None):
         if not aeh.is_file():
             raise RuntimeError("wheel installation did not create the aeh console entry point")
         approval_help = run([aeh, "change", "approve", "--help"], cwd=root).stdout
-        for required_help in ("VERIFY_MANUAL", "REVOKED", "--ttl-seconds"):
+        for required_help in (
+            "VERIFY_MANUAL", "REVOKED", "--ttl-seconds", "--key-id", "--credential-file",
+        ):
             if required_help not in approval_help:
                 raise RuntimeError("installed approval CLI is missing " + required_help)
+        green_help = run([aeh, "change", "green", "--help"], cwd=root).stdout
+        if "--allow-shell" not in green_help:
+            raise RuntimeError("installed execution CLI is missing --allow-shell")
 
         target.mkdir()
         (target / "README.md").write_text("# AEH wheel smoke target\n", encoding="utf-8")
@@ -147,8 +152,16 @@ def main(argv=None):
         approvals_text = (
             target / ".aeh" / "runtime" / "schemas" / "approvals.schema.json"
         ).read_text(encoding="utf-8")
+        execution_policy = (
+            target / ".aeh" / "runtime" / "core" / "execution-policy.yaml"
+        ).read_text(encoding="utf-8")
+        execution_schema = (
+            target / ".aeh" / "runtime" / "schemas" / "execution-policy.schema.json"
+        ).read_text(encoding="utf-8")
         if "VERIFY_MANUAL" not in gates_text or "REVOKED" not in approvals_text:
             raise RuntimeError("installed wheel is missing M4 gate/schema resources")
+        if "constrained_process" not in execution_policy or "shell" not in execution_schema:
+            raise RuntimeError("installed wheel is missing M5 execution-policy resources")
 
         after = json_output(
             run([aeh, "doctor", target], cwd=root),
@@ -250,6 +263,7 @@ def main(argv=None):
         print("integration_inspect=" + scm_inspection["root_repository"]["type"])
         print("integration_export=" + aew_export["governance"]["portable_verdict"])
         print("m4_governance=VERIFY_MANUAL+TTL+REVOKED")
+        print("m5_security=SIGNED_APPROVALS+CONSTRAINED_PROCESS")
     return 0
 
 

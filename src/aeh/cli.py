@@ -9,6 +9,18 @@ def _emit(report):
     print(json.dumps(report, ensure_ascii=True, indent=2, default=str))
 
 
+def _approval_key_map(values):
+    result = {}
+    for value in values or []:
+        if "=" not in value:
+            raise ValueError("--approval-key must use KEY_ID=PATH")
+        key_id, path = value.split("=", 1)
+        if not key_id or not path or key_id in result:
+            raise ValueError("--approval-key requires unique non-empty KEY_ID=PATH")
+        result[key_id] = path
+    return result
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="aeh")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -74,17 +86,27 @@ def main(argv=None):
     crd = chsub.add_parser("red", help="execute RED tests (Phase 11)")
     crd.add_argument("change_id")
     crd.add_argument("--workdir", default=".", help="AEH target repository")
+    crd.add_argument("--allow-shell", action="store_true",
+                     help="authorize plan-declared shell execution for this invocation")
     cgn = chsub.add_parser("green", help="validate GREEN (Phase 12)")
     cgn.add_argument("change_id")
     cgn.add_argument("--scope", default=None, help="production scope manifest yaml")
     cgn.add_argument("--workdir", default=".", help="AEH target repository")
+    cgn.add_argument("--allow-shell", action="store_true",
+                     help="authorize plan-declared shell execution for this invocation")
     crf = chsub.add_parser("refactor", help="validate REFACTOR (Phase 12)")
     crf.add_argument("change_id")
     crf.add_argument("--scope", default=None, help="production scope manifest yaml")
     crf.add_argument("--workdir", default=".", help="AEH target repository")
+    crf.add_argument("--allow-shell", action="store_true",
+                     help="authorize plan-declared shell execution for this invocation")
     cvf = chsub.add_parser("verify", help="run risk-based verification + traceability (Phase 13)")
     cvf.add_argument("change_id")
     cvf.add_argument("--workdir", default=".", help="AEH target repository")
+    cvf.add_argument("--allow-shell", action="store_true",
+                     help="authorize plan-declared shell execution for this invocation")
+    cvf.add_argument("--approval-key", action="append", default=[], metavar="KEY_ID=PATH",
+                     help="external approval credential; repeat for multiple signer keys")
     cap = chsub.add_parser("approve", help="record trusted human approval (Phase 13)")
     cap.add_argument("change_id")
     cap.add_argument("--gate", required=True,
@@ -94,6 +116,10 @@ def main(argv=None):
     cap.add_argument("--evidence-ref", default=None, help="optional reference (decision/artifact id)")
     cap.add_argument("--ttl-seconds", type=int, default=None,
                      help="optional APPROVED lifetime (1..2678400 seconds)")
+    cap.add_argument("--key-id", required=True,
+                     help="approval credential identifier (secret is never stored in approvals.yaml)")
+    cap.add_argument("--credential-file", default=None,
+                     help="credential path; defaults to .aeh/private/approval-keys/<key-id>.key")
     cap.add_argument("--workdir", default=".", help="AEH target repository")
     crv = chsub.add_parser("review", help="project review.md from machine artifacts (Phase 13, read-only)")
     crv.add_argument("change_id")
@@ -191,22 +217,34 @@ def main(argv=None):
             return 0 if report["status"] == "TEST_DESIGN_COMPLETE" else 1
         if args.change_cmd == "red":
             from .runtime import red as rmod
-            report = rmod.change_red(args.workdir, args.change_id)
+            report = rmod.change_red(
+                args.workdir, args.change_id, allow_shell=args.allow_shell)
             _emit(report)
             return 0 if report["status"] == "RED_COMPLETE" else 1
         if args.change_cmd == "green":
             from .runtime import green as gmod
-            report = gmod.change_green(args.workdir, args.change_id, scope_path=args.scope)
+            report = gmod.change_green(
+                args.workdir, args.change_id, scope_path=args.scope,
+                allow_shell=args.allow_shell)
             _emit(report)
             return 0 if report["status"] == "GREEN_COMPLETE" else 1
         if args.change_cmd == "refactor":
             from .runtime import green as gmod2
-            report = gmod2.change_refactor(args.workdir, args.change_id, scope_path=args.scope)
+            report = gmod2.change_refactor(
+                args.workdir, args.change_id, scope_path=args.scope,
+                allow_shell=args.allow_shell)
             _emit(report)
             return 0 if report["status"] == "REFACTOR_COMPLETE" else 1
         if args.change_cmd == "verify":
             from .runtime import verify as vmod
-            report = vmod.change_verify(args.workdir, args.change_id)
+            try:
+                approval_keys = _approval_key_map(args.approval_key)
+            except ValueError as exc:
+                _emit({"status": "BLOCKED_BAD_APPROVAL_KEY", "error": str(exc)})
+                return 1
+            report = vmod.change_verify(
+                args.workdir, args.change_id, allow_shell=args.allow_shell,
+                credential_files=approval_keys)
             _emit(report)
             return 0 if report["status"] == "VERIFY_COMPLETE" else 1
         if args.change_cmd == "approve":
@@ -214,6 +252,7 @@ def main(argv=None):
             report = apmod.record_approval(
                 args.workdir, args.change_id, args.gate, args.status, args.actor,
                 evidence_ref=args.evidence_ref, ttl_seconds=args.ttl_seconds,
+                key_id=args.key_id, credential_file=args.credential_file,
             )
             _emit(report)
             return 0 if report["status"] in ("APPROVAL_RECORDED", "APPROVAL_REVOKED") else 1

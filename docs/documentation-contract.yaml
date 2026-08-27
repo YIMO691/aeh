@@ -13,12 +13,12 @@ release:
   pypi_published: false
 
 roadmap:
-  merged: [M1, M2, M3, M4]
-  planned: [M5, M6]
+  merged: [M1, M2, M3, M4, M5]
+  planned: [M6]
 
 validation:
-  local_tests_discovered: 316
-  local_tests_passed: 312
+  local_tests_discovered: 331
+  local_tests_passed: 327
   local_tests_skipped: 4
   latest_main_ci_jobs_passed: 6
 
@@ -29,6 +29,7 @@ canonical_documents:
   current_status: docs/status.md
   current_architecture: docs/architecture-current.md
   engineering: docs/engineering-guide.md
+  security: docs/m5-security.md
   roadmap: docs/roadmap-v0.2.md
   history: CHANGELOG.md
 
@@ -47,3 +48,4 @@ current_claim_files:
   - docs/status.md
   - docs/architecture-current.md
   - docs/engineering-guide.md
+  - docs/m5-security.md

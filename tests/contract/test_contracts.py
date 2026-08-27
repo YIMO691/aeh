@@ -63,6 +63,7 @@ class TestSchemas(unittest.TestCase):
         cls.precedence = load_core("precedence.yaml")
         cls.classifications = load_core("classifications.yaml")
         cls.evidence = load_core("evidence.yaml")
+        cls.execution_policy = load_core("execution-policy.yaml")
 
     def test_all_schemas_parse_and_use_draft07(self):
         for name in FIXTURE_SCHEMA.values():
@@ -146,6 +147,24 @@ class TestConsistency(unittest.TestCase):
     def test_approvals_gate_enum_matches_gates_yaml(self):
         enum = self.approvals_schema["properties"]["approvals"]["items"]["properties"]["gate"]["enum"]
         self.assertEqual(sorted(enum), sorted(self.gates["human_approval_gates"]))
+
+    def test_m5_execution_policy_is_fail_closed_and_schema_valid(self):
+        policy = load_core("execution-policy.yaml")
+        jsonschema.validate(policy, load_schema("execution-policy.schema.json"))
+        self.assertEqual(policy["mode"], "constrained_process")
+        self.assertEqual(policy["shell"]["default"], "deny")
+        self.assertTrue(policy["shell"]["require_plan_declaration"])
+        self.assertTrue(policy["shell"]["require_invocation_authorization"])
+        self.assertLessEqual(
+            policy["limits"]["default_timeout_seconds"],
+            policy["limits"]["max_timeout_seconds"],
+        )
+
+    def test_m5_approval_credential_contract_is_bounded(self):
+        properties = self.approvals_schema["definitions"]["credential"]["properties"]
+        self.assertEqual(properties["scheme"]["const"], "hmac-sha256-v1")
+        for field in ("key_fingerprint", "payload_hash", "signature"):
+            self.assertEqual(properties[field]["pattern"], "^[0-9a-f]{64}$")
 
     def test_m4_manual_gate_and_approval_lifecycle_contract(self):
         self.assertIn("VERIFY_MANUAL", self.gates["human_approval_gates"])

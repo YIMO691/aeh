@@ -31,6 +31,8 @@ TDD_REPO = os.path.join(ROOT, "tests", "fixtures", "tdd-repo")
 TDD_SRC = os.path.join(ROOT, "tests", "fixtures", "tdd-src")
 NEUTRAL_REPO = os.path.join(ROOT, "tests", "fixtures", "tdd-neutral")
 NEUTRAL_SRC = os.path.join(ROOT, "tests", "fixtures", "tdd-neutral-src")
+TEST_KEY_ID = "test-reviewer"
+TEST_KEY = b"aeh-m5-test-credential-material-32-bytes"
 
 
 def answers_path():
@@ -58,6 +60,21 @@ def write_yaml(tmpdir, name, body):
     with open(p, "w", encoding="utf-8") as f:
         yaml.safe_dump(body, f, sort_keys=True, allow_unicode=True)
     return p
+
+
+def provision_test_key(target):
+    key_dir = os.path.join(target, ".aeh", "private", "approval-keys")
+    os.makedirs(key_dir, exist_ok=True)
+    path = os.path.join(key_dir, TEST_KEY_ID + ".key")
+    with open(path, "wb") as stream:
+        stream.write(TEST_KEY)
+    return path
+
+
+def signed_approval(target, change_id, gate, status, actor_id, **kwargs):
+    kwargs.setdefault("key_id", TEST_KEY_ID)
+    return amod.record_approval(
+        target, change_id, gate, status, actor_id, **kwargs)
 
 
 def reqs_body(neutral=False):
@@ -116,6 +133,7 @@ def make_target(src):
     target = tempfile.mkdtemp(prefix="aeh-g13-t-")
     shutil.copytree(src, target, dirs_exist_ok=True)
     assert bp.bootstrap(target, answers_path(), dry_run=False)["status"] == "BOOTSTRAP_COMPLETE"
+    provision_test_key(target)
     return target
 
 
@@ -289,7 +307,7 @@ class TestVerify(unittest.TestCase):
                                       "verifies": ["AC-001-01"], "command": "python tests/test_claim.py"}])
         self.assertEqual(vmod.change_verify(target, cid)["status"],
                          "BLOCKED_HUMAN_APPROVAL_REQUIRED")
-        approved = amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        approved = signed_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
         self.assertEqual(approved["status"], "APPROVAL_RECORDED", approved)
         self.assertEqual(vmod.change_verify(target, cid)["status"], "VERIFY_COMPLETE")
 
@@ -298,7 +316,7 @@ class TestVerify(unittest.TestCase):
         cid = to_green(target, title="修复奖励领取逻辑", neutral=False,
                        verification=[{"id": "INTEG-001", "type": "integration",
                                       "verifies": ["AC-001-01"], "command": "python tests/test_claim.py"}])
-        apr = amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        apr = signed_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
         self.assertEqual(apr["status"], "APPROVAL_RECORDED", apr)
         rep = vmod.change_verify(target, cid)
         self.assertEqual(rep["status"], "VERIFY_COMPLETE", rep)
@@ -309,7 +327,7 @@ class TestVerify(unittest.TestCase):
         cid = to_green(target, verification=[{"id": "BROKEN-001", "type": "integration",
                                               "verifies": ["AC-001-01"],
                                               "command": "python tests/does_not_exist_verify.py"}])
-        apr = amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        apr = signed_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
         self.assertEqual(apr["status"], "APPROVAL_RECORDED")
         rep = vmod.change_verify(target, cid)
         self.assertEqual(rep["status"], "BLOCKED_VERIFICATION_FAILED", rep)
@@ -317,7 +335,7 @@ class TestVerify(unittest.TestCase):
     def test_merge_rejected_blocks_any_level(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
-        amod.record_approval(target, cid, "MERGE_GATE", "REJECTED", "owner")
+        signed_approval(target, cid, "MERGE_GATE", "REJECTED", "owner")
         rep = vmod.change_verify(target, cid)
         self.assertEqual(rep["status"], "BLOCKED_HUMAN_MERGE_REJECTED")
 
@@ -333,7 +351,7 @@ class TestVerify(unittest.TestCase):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target, verification=[{"id": "MANUAL-001", "type": "manual",
                                               "verifies": ["AC-001-01"]}])
-        amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        signed_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
         rep = vmod.change_verify(target, cid)
         self.assertEqual(rep["status"], "BLOCKED_WAITING_MANUAL")
         ver = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "verification.yaml"), encoding="utf-8"))
@@ -344,7 +362,7 @@ class TestVerify(unittest.TestCase):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
         self.assertEqual(
-            amod.record_approval(
+            signed_approval(
                 target, cid, "VERIFY_MANUAL", "APPROVED", "owner", ttl_seconds=3600
             )["status"],
             "APPROVAL_RECORDED",
@@ -409,9 +427,10 @@ class TestVerify(unittest.TestCase):
     def test_approval_input_validation(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
-        self.assertEqual(amod.record_approval(target, cid, "NOT_A_GATE", "APPROVED", "owner")["status"], "BLOCKED_UNKNOWN_GATE")
-        self.assertEqual(amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "")["status"], "BLOCKED_MISSING_ACTOR")
-        ok = amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        self.assertEqual(signed_approval(target, cid, "NOT_A_GATE", "APPROVED", "owner")["status"], "BLOCKED_UNKNOWN_GATE")
+        self.assertEqual(signed_approval(target, cid, "MERGE_GATE", "APPROVED", "")["status"], "BLOCKED_MISSING_ACTOR")
+        self.assertEqual(amod.record_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")["status"], "BLOCKED_CREDENTIAL_REQUIRED")
+        ok = signed_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
         self.assertEqual(ok["status"], "APPROVAL_RECORDED")
         body = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "approvals.yaml"), encoding="utf-8"))
         self.assertEqual(body["approvals"][0]["actor"]["type"], "human")
@@ -442,6 +461,7 @@ class TestVerify(unittest.TestCase):
         env["PYTHONPATH"] = os.path.join(ROOT, "src")
         ap = subprocess.run([sys.executable, "-m", "aeh.cli", "change", "approve", cid,
                              "--gate", "MERGE_GATE", "--status", "APPROVED", "--actor", "owner",
+                             "--key-id", TEST_KEY_ID,
                              "--workdir", target], capture_output=True, text=True, env=env, cwd=ROOT)
         self.assertEqual(ap.returncode, 0, ap.stdout + ap.stderr)
         vf = subprocess.run([sys.executable, "-m", "aeh.cli", "change", "verify", cid,

@@ -89,6 +89,12 @@
           },
           "evidence_ref": {
             "type": "string"
+          },
+          "credential": {
+            "$ref": "#/definitions/credential"
+          },
+          "revocation_credential": {
+            "$ref": "#/definitions/credential"
           }
         },
         "allOf": [
@@ -152,6 +158,40 @@
             }
           }
         ]
+      }
+    }
+  },
+  "definitions": {
+    "credential": {
+      "type": "object",
+      "required": [
+        "scheme",
+        "key_id",
+        "key_fingerprint",
+        "payload_hash",
+        "signature"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "const": "hmac-sha256-v1"
+        },
+        "key_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$"
+        },
+        "key_fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "payload_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
       }
     }
   },

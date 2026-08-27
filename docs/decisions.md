@@ -659,3 +659,25 @@
   的 independent change-assurance harness；Codex/Claude 是当前适配面，不是产品定义。
 - **CD-144**: 文档检查只扫描维护中的当前入口及导航链接，明确不把冻结历史全文强制
   改造成当前口径。新增或迁移当前入口时必须同步更新 contract 与回归测试。
+
+## M5 Execution and Approval Security Boundary（2026-08-27）
+
+- **CD-145**: AEH 管理的 argv 与兼容 command string 默认统一以 `shell=False` 启动；
+  command string 只负责兼容解析，不再隐式获得 shell。shell 元字符默认阻断，只有锁定
+  test plan 明确 `shell: true` 且本次 RED/GREEN/REFACTOR/VERIFY 调用显式
+  `--allow-shell` 时才可执行。
+- **CD-146**: 版本化 `execution.policy` 冻结 cwd realpath 必须位于 target、timeout 上限、
+  argv 数量/长度和继承环境 allowlist。该策略是 portable constrained-process boundary，
+  不宣称 kernel/container/VM/filesystem/network/syscall/process-tree 隔离；测试代码仍继承
+  AEH 进程的 OS 权限。
+- **CD-147**: 新的 APPROVED/REJECTED/REVOKED 决定必须由外部 HMAC-SHA256 凭据签署；
+  canonical payload 绑定 Change ID、Gate、decision、actor、时间、TTL 和证据引用。
+  secret 只允许位于 `.aeh/private/` 或外部注入路径，不写入 approvals、runtime、日志或 Git。
+- **CD-148**: 撤销保留原批准 credential，追加独立 revocation credential 并绑定原
+  payload hash。历史无签名记录保持 Schema 可读；但无签名、未知 key、fingerprint 不符、
+  payload 篡改或跨 Change/Gate 重放均不得解除 VERIFY_MANUAL 或 CRITICAL MERGE_GATE。
+- **CD-149**: HMAC 只证明配置的共享凭据持有，不证明法律人类身份、非否认性、硬件保管、
+  OIDC 或企业 IAM。更强身份与密钥生命周期需独立 Provider/部署规范；禁止把本实现宣传为
+  通用强身份系统。
+- **CD-150**: M5 权限止于一个可评测 PR；M6、自动 SCM、远端 CI 强制、编排、tag、Release、
+  PyPI 与 PR merge 继续保留独立 Owner Gate。

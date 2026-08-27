@@ -8,7 +8,7 @@
 >
 > **Independent change assurance for AI-assisted software engineering.**
 > Current source: `0.3.0.dev0` (unreleased) · Latest public release: `v0.2.0` ·
-> M1–M4 merged · M5–M6 planned · PyPI not published
+> M1–M5 merged · M6 planned · PyPI not published
 
 Coding agents can produce an implementation and a persuasive explanation. AEH
 adds a separate acceptance layer: machine-enforced contracts, replayable
@@ -51,6 +51,10 @@ research narrative.
   backups, rollback, and recovery;
 - supports manual verification, approval TTL/expiry, and
   provenance-preserving revocation;
+- constrains AEH-managed process launch with no-shell defaults, cwd/timeout/
+  environment policy, and dual authorization for declared shell execution;
+- binds protected positive approvals to externally held HMAC-SHA256
+  credentials with payload, Change, Gate, TTL, and revocation verification;
 - generates managed Codex and Claude adapter sections;
 - inspects bounded local Git/SVN boundaries and exports deterministic governance
   envelopes for AEW.
@@ -124,7 +128,8 @@ verification:
 ```bash
 aeh change approve CHG-2026-0001 \
   --gate VERIFY_MANUAL --status APPROVED --actor <reviewer> \
-  --ttl-seconds 86400 --evidence-ref <artifact-or-ticket>
+  --ttl-seconds 86400 --evidence-ref <artifact-or-ticket> \
+  --key-id <reviewer-key-id>
 aeh change verify CHG-2026-0001
 ```
 
@@ -133,11 +138,13 @@ An approval can be revoked without erasing the original attestation:
 ```bash
 aeh change approve CHG-2026-0001 \
   --gate VERIFY_MANUAL --status REVOKED --actor <revoker> \
-  --evidence-ref <decision-or-incident-id>
+  --evidence-ref <decision-or-incident-id> --key-id <revoker-key-id>
 ```
 
-See [M4 governance](docs/m4-governance.md) for expiry, compatibility, and
-CRITICAL plan behavior.
+Keys stay outside committed truth, normally under
+`.aeh/private/approval-keys/<key-id>.key`. See
+[M4 governance](docs/m4-governance.md) for lifecycle behavior and
+[M5 security](docs/m5-security.md) for credentials and command execution.
 
 ## Repair and upgrade
 
@@ -173,17 +180,19 @@ privacy, and non-goals.
 ## Trust boundary
 
 AEH currently provides contracts, validators, evidence integrity, explicit
-mutation boundaries, transaction rollback, approval expiry, and revocation. It
-does **not** yet provide:
+mutation boundaries, transaction rollback, a portable constrained-process
+launcher, and credential-bound approvals. It does **not** provide:
 
-- cryptographic approval identity, OIDC, or IAM;
-- a general cross-platform command-execution sandbox;
+- public-key identity, non-repudiation, OIDC, enterprise IAM, or hardware key custody;
+- kernel, container, VM, filesystem, network, syscall, or process-tree isolation;
 - an unbypassable remote CI service for user repositories;
 - multi-agent orchestration, RAG, mutation testing, impact analysis, or a Web UI;
 - automatic push, PR, merge, deployment, or release.
 
-M5 addresses sandboxing and strong approval identity. M6 depends on M5 and
-addresses deep CI integration plus bounded multi-agent concurrency.
+M5 is deliberately bounded: HMAC proves possession of a configured shared
+credential, while the execution policy constrains launch semantics without
+claiming OS isolation. M6 addresses deep CI integration plus bounded
+multi-agent concurrency.
 
 ## Current status
 
@@ -192,11 +201,11 @@ The current source version is `0.3.0.dev0`; the latest public release is
 SCM/AEW integration, and M4 governance are present on the current development
 line. PyPI is not published.
 
-The current baseline completed 316 tests: 312 passed and 4 expected Windows
+The current baseline completed 331 tests: 327 passed and 4 expected Windows
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 
-M1–M4 are merged. M5–M6 remain planned. See the canonical
+M1–M5 are merged. M6 remains planned. See the canonical
 [current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
 ## Documentation
@@ -206,6 +215,7 @@ M1–M4 are merged. M5–M6 remain planned. See the canonical
 - [Current status](docs/status.md)
 - [Current architecture](docs/architecture-current.md)
 - [Engineering guide](docs/engineering-guide.md)
+- [M5 security boundary](docs/m5-security.md)
 - [Research narrative](docs/research/README.md)
 - [Decisions and risks](docs/decisions.md)
 - [Contributing](CONTRIBUTING.md)

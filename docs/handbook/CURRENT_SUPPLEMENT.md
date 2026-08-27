@@ -25,6 +25,9 @@ not be edited into a false history of later implementation or evaluation.
   transferring AEH truth ownership to AEW.
 - M4 delivered manual verification, approval TTL/expiry/revocation, and earlier
   CRITICAL plan validation.
+- M5 delivered a portable constrained-process launch policy and
+  credential-bound protected approvals, with explicit limits that do not claim
+  OS isolation or enterprise identity.
 
 ## What has not changed
 
@@ -43,6 +46,7 @@ not be edited into a false history of later implementation or evaluation.
 - [Current status](../status.md)
 - [Current architecture](../architecture-current.md)
 - [Engineering guide](../engineering-guide.md)
+- [M5 security boundary](../m5-security.md)
 - [Research narrative](../research/README.md)
 - [Roadmap](../roadmap-v0.2.md)
 

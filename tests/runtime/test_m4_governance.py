@@ -25,6 +25,8 @@ from tests.runtime.test_verify import (
     make_target,
     plan_body,
     reqs_body,
+    signed_approval,
+    TEST_KEY_ID,
     to_green,
     write_yaml,
 )
@@ -44,7 +46,7 @@ class TestM4ApprovalLifecycle(unittest.TestCase):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
         decided = datetime(2026, 8, 26, 9, 0, tzinfo=UTC)
-        report = amod.record_approval(
+        report = signed_approval(
             target, cid, "MERGE_GATE", "APPROVED", "owner",
             ttl_seconds=60, now=decided,
         )
@@ -52,7 +54,8 @@ class TestM4ApprovalLifecycle(unittest.TestCase):
         entry = approval_doc(target, cid)["approvals"][0]
         self.assertEqual(entry["expires_at"], (decided + timedelta(seconds=60)).isoformat())
         state, warnings = amod.assess_approval(
-            entry, now=decided + timedelta(seconds=61)
+            entry, now=decided + timedelta(seconds=61), target=target,
+            change_id=cid, require_credential=True,
         )
         self.assertEqual(state, "EXPIRED")
         self.assertEqual(warnings, [])
@@ -60,12 +63,13 @@ class TestM4ApprovalLifecycle(unittest.TestCase):
     def test_legacy_approval_without_ttl_is_valid_with_warning(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
-        report = amod.record_approval(
+        report = signed_approval(
             target, cid, "MERGE_GATE", "APPROVED", "owner"
         )
         self.assertEqual(report["status"], "APPROVAL_RECORDED", report)
         entry = approval_doc(target, cid)["approvals"][0]
-        state, warnings = amod.assess_approval(entry)
+        state, warnings = amod.assess_approval(
+            entry, target=target, change_id=cid, require_credential=True)
         self.assertEqual(state, "APPROVED")
         self.assertTrue(any("no expiry" in warning for warning in warnings), warnings)
 
@@ -73,12 +77,12 @@ class TestM4ApprovalLifecycle(unittest.TestCase):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
         decided = datetime(2026, 8, 26, 9, 0, tzinfo=UTC)
-        approved = amod.record_approval(
+        approved = signed_approval(
             target, cid, "MERGE_GATE", "APPROVED", "owner",
             ttl_seconds=3600, now=decided,
         )
         self.assertEqual(approved["status"], "APPROVAL_RECORDED", approved)
-        revoked = amod.record_approval(
+        revoked = signed_approval(
             target, cid, "MERGE_GATE", "REVOKED", "security-reviewer",
             evidence_ref="INC-001", now=decided + timedelta(seconds=30),
         )
@@ -89,12 +93,14 @@ class TestM4ApprovalLifecycle(unittest.TestCase):
         self.assertEqual(entry["decided_at"], decided.isoformat())
         self.assertEqual(entry["revoked_by"]["id"], "security-reviewer")
         self.assertEqual(entry["revocation_evidence_ref"], "INC-001")
-        self.assertEqual(amod.assess_approval(entry)[0], "REVOKED")
+        self.assertEqual(amod.assess_approval(
+            entry, target=target, change_id=cid,
+            require_credential=True)[0], "REVOKED")
 
     def test_revoke_requires_existing_approved_record(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
-        report = amod.record_approval(
+        report = signed_approval(
             target, cid, "MERGE_GATE", "REVOKED", "owner"
         )
         self.assertEqual(report["status"], "BLOCKED_APPROVAL_NOT_REVOCABLE")
@@ -103,13 +109,13 @@ class TestM4ApprovalLifecycle(unittest.TestCase):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
         self.assertEqual(
-            amod.record_approval(
+            signed_approval(
                 target, cid, "MERGE_GATE", "REJECTED", "owner", ttl_seconds=60
             )["status"],
             "BLOCKED_TTL_NOT_ALLOWED",
         )
         self.assertEqual(
-            amod.record_approval(
+            signed_approval(
                 target, cid, "MERGE_GATE", "APPROVED", "owner", ttl_seconds=0
             )["status"],
             "BLOCKED_BAD_TTL",
@@ -137,7 +143,7 @@ class TestM4ManualVerification(unittest.TestCase):
     def test_manual_verification_approval_is_explicit_not_automated(self):
         target, cid = self.manual_change()
         self.assertEqual(vmod.change_verify(target, cid)["status"], "BLOCKED_WAITING_MANUAL")
-        approved = amod.record_approval(
+        approved = signed_approval(
             target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer", ttl_seconds=3600
         )
         self.assertEqual(approved["status"], "APPROVAL_RECORDED", approved)
@@ -153,7 +159,7 @@ class TestM4ManualVerification(unittest.TestCase):
 
     def test_manual_legacy_no_expiry_surfaces_warning(self):
         target, cid = self.manual_change()
-        amod.record_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer")
+        signed_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer")
         report = vmod.change_verify(target, cid)
         self.assertEqual(report["status"], "VERIFY_COMPLETE", report)
         self.assertEqual(report["overall"], "READY_WITH_WARNINGS")
@@ -164,14 +170,14 @@ class TestM4ManualVerification(unittest.TestCase):
 
     def test_rejected_manual_verification_is_distinct(self):
         target, cid = self.manual_change()
-        amod.record_approval(target, cid, "VERIFY_MANUAL", "REJECTED", "reviewer")
+        signed_approval(target, cid, "VERIFY_MANUAL", "REJECTED", "reviewer")
         report = vmod.change_verify(target, cid)
         self.assertEqual(report["status"], "BLOCKED_MANUAL_VERIFICATION_REJECTED", report)
 
     def test_revoked_manual_verification_fails_closed(self):
         target, cid = self.manual_change()
-        amod.record_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer")
-        amod.record_approval(target, cid, "VERIFY_MANUAL", "REVOKED", "owner")
+        signed_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer")
+        signed_approval(target, cid, "VERIFY_MANUAL", "REVOKED", "owner")
         report = vmod.change_verify(target, cid)
         self.assertEqual(report["status"], "BLOCKED_WAITING_MANUAL", report)
         self.assertEqual(report["approval_state"], "REVOKED")
@@ -179,7 +185,7 @@ class TestM4ManualVerification(unittest.TestCase):
     def test_expired_manual_verification_fails_closed(self):
         target, cid = self.manual_change()
         old = datetime(2020, 1, 1, tzinfo=UTC)
-        amod.record_approval(
+        signed_approval(
             target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer",
             ttl_seconds=1, now=old,
         )
@@ -197,7 +203,7 @@ class TestM4ManualVerification(unittest.TestCase):
             }],
         )
         old = datetime(2020, 1, 1, tzinfo=UTC)
-        amod.record_approval(
+        signed_approval(
             target, cid, "MERGE_GATE", "APPROVED", "owner",
             ttl_seconds=1, now=old,
         )
@@ -212,7 +218,7 @@ class TestM4ManualVerification(unittest.TestCase):
             "verifies": ["AC-001-01"],
             "command": "python tests/does_not_exist_verify.py",
         }])
-        amod.record_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer")
+        signed_approval(target, cid, "VERIFY_MANUAL", "APPROVED", "reviewer")
         report = vmod.change_verify(target, cid)
         self.assertEqual(report["status"], "BLOCKED_VERIFICATION_FAILED", report)
 
@@ -251,6 +257,7 @@ class TestM4ApprovalCLI(unittest.TestCase):
         approve = subprocess.run(
             [sys.executable, "-m", "aeh.cli", "change", "approve", cid,
              "--gate", "MERGE_GATE", "--status", "APPROVED", "--actor", "owner",
+             "--key-id", TEST_KEY_ID,
              "--ttl-seconds", "600", "--workdir", target],
             capture_output=True, text=True, env=env, cwd=ROOT,
         )
@@ -259,6 +266,7 @@ class TestM4ApprovalCLI(unittest.TestCase):
         revoke = subprocess.run(
             [sys.executable, "-m", "aeh.cli", "change", "approve", cid,
              "--gate", "MERGE_GATE", "--status", "REVOKED", "--actor", "owner",
+             "--key-id", TEST_KEY_ID,
              "--workdir", target],
             capture_output=True, text=True, env=env, cwd=ROOT,
         )

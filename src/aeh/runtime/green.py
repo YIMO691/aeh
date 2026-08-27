@@ -15,6 +15,7 @@ from . import change as ch
 from . import grounding as gr
 from . import red as rmod
 from . import ownership as omod
+from . import execution as xmod
 
 
 class GreenError(ValueError):
@@ -59,28 +60,12 @@ def _resolve_cwd(target, cwd):
     return p
 
 
-def run_execution(target, spec):
-    # 结构化执行：argv 优先；command string 仅为 compatibility path
-    cwd = _resolve_cwd(target, spec.get("cwd"))
-    if cwd is None:
-        raise GreenError("BLOCKED_CWD_ESCAPE: " + str(spec.get("cwd")))
-    timeout = spec.get("timeout_seconds", 120)
-    if not isinstance(timeout, int) or timeout <= 0:
-        timeout = 120
+def run_execution(target, spec, allow_shell=False, ae_root=None):
     try:
-        if spec.get("argv"):
-            proc = subprocess.run(spec["argv"], cwd=cwd, capture_output=True, text=True, timeout=timeout)
-            cmd_repr = "argv=" + " ".join(spec["argv"])
-        elif spec.get("command"):
-            proc = subprocess.run(spec["command"], shell=True, cwd=cwd, capture_output=True, text=True, timeout=timeout)
-            cmd_repr = "command=" + spec["command"] + " (compatibility shell path)"
-        else:
-            raise GreenError("execution spec missing argv/command")
-        return proc.returncode, (proc.stdout or "") + "\n" + (proc.stderr or ""), cmd_repr
-    except subprocess.TimeoutExpired:
-        return 124, "timeout", "timeout"
-    except OSError as e:
-        return 127, str(e), "oserror"
+        return xmod.run_execution(
+            target, spec, allow_shell=allow_shell, ae_root=ae_root)
+    except xmod.ExecutionPolicyError as exc:
+        raise GreenError(str(exc)) from exc
 
 
 def _lock_hash(lock):
@@ -149,7 +134,7 @@ def _load_scope(target, scope_path, change_id):
             allowed.append(ss["rel_path"])
     return {"allowed_paths": sorted(set(allowed)), "changed_files": []}
 
-def _run_required(target, plan, cdir, prefix, change_id):
+def _run_required(target, plan, cdir, prefix, change_id, allow_shell=False, ae_root=None):
     records = []
     red_rec = _load_yaml(os.path.join(cdir, "red.yaml"))
     required_ids = [t["test_id"] for t in red_rec.get("tests", []) if t["verdict"] == "VALID_RED"]
@@ -160,8 +145,11 @@ def _run_required(target, plan, cdir, prefix, change_id):
             raise GreenError("required RED test missing in plan: " + tid)
         spec = {"command": t.get("command"), "argv": t.get("execution", {}).get("argv"),
                 "cwd": t.get("execution", {}).get("cwd"),
-                "timeout_seconds": t.get("execution", {}).get("timeout_seconds", 60)}
-        exit_code, output, cmd_repr = run_execution(target, spec)
+                "timeout_seconds": t.get("execution", {}).get("timeout_seconds", 60),
+                "shell": t.get("execution", {}).get("shell", False),
+                "env": t.get("execution", {}).get("env")}
+        exit_code, output, cmd_repr = run_execution(
+            target, spec, allow_shell=allow_shell, ae_root=ae_root)
         out_path = os.path.join(cdir, "evidence", prefix + "-" + tid + ".log")
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
         with open(out_path, "w", encoding="utf-8") as f:
@@ -180,12 +168,14 @@ def _run_required(target, plan, cdir, prefix, change_id):
     return records, True
 
 
-def _run_regression(target, plan, cdir, prefix, change_id):
+def _run_regression(target, plan, cdir, prefix, change_id, allow_shell=False, ae_root=None):
     reg_records = []
     for i, rg in enumerate(plan.get("regression", [])):
         spec = {"command": rg.get("command"), "argv": rg.get("argv"),
-                "cwd": rg.get("cwd"), "timeout_seconds": rg.get("timeout_seconds", 120)}
-        exit_code, output, cmd_repr = run_execution(target, spec)
+                "cwd": rg.get("cwd"), "timeout_seconds": rg.get("timeout_seconds", 120),
+                "shell": rg.get("shell", False), "env": rg.get("env")}
+        exit_code, output, cmd_repr = run_execution(
+            target, spec, allow_shell=allow_shell, ae_root=ae_root)
         rid = rg.get("id") or ("REG-%02d" % (i + 1))
         out_path = os.path.join(cdir, "evidence", prefix + "-" + rid + ".log")
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
@@ -201,7 +191,7 @@ def _run_regression(target, plan, cdir, prefix, change_id):
     return reg_records, True
 
 
-def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
+def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shell=False):
     ae_root = ae_root or aeh_paths.ae_root()
     d = doc.run_doctor(target, ae_root)
     if d["overall"] == "BLOCKED":
@@ -240,14 +230,20 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
     if stale:
         return {"status": "BLOCKED_RUNTIME_CONTEXT_STALE", "change_id": change_id, "stale": stale}
     plan["_cid"] = change_id
-    recs, ok = _run_required(target, plan, cdir, "green" if verdict_kind == "GREEN_PASS" else "refactor", change_id)
+    recs, ok = _run_required(
+        target, plan, cdir,
+        "green" if verdict_kind == "GREEN_PASS" else "refactor",
+        change_id, allow_shell=allow_shell, ae_root=ae_root)
     # Test processes execute repository-controlled code. Re-check after they
     # exit so their writes cannot be adopted by the next Controller seal.
     omod.assert_checkpoint(target, change_id)
     if not ok:
         return {"status": "GREEN_FAILED" if verdict_kind == "GREEN_PASS" else "REFACTOR_REGRESSION",
                 "change_id": change_id, "tests": recs}
-    reg_recs, reg_ok = _run_regression(target, plan, cdir, "green-reg" if verdict_kind == "GREEN_PASS" else "refactor-reg", change_id)
+    reg_recs, reg_ok = _run_regression(
+        target, plan, cdir,
+        "green-reg" if verdict_kind == "GREEN_PASS" else "refactor-reg",
+        change_id, allow_shell=allow_shell, ae_root=ae_root)
     omod.assert_checkpoint(target, change_id)
     if not reg_ok:
         return {"status": "GREEN_FAILED" if verdict_kind == "GREEN_PASS" else "REFACTOR_REGRESSION",
@@ -294,17 +290,21 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind):
             "state": "GREEN" if verdict_kind == "GREEN_PASS" else "REFACTOR"}
 
 
-def change_green(target, change_id, scope_path=None, ae_root=None):
+def change_green(target, change_id, scope_path=None, ae_root=None, allow_shell=False):
     try:
-        return _green_core(target, change_id, scope_path, ae_root, "GREEN_PASS")
+        return _green_core(
+            target, change_id, scope_path, ae_root, "GREEN_PASS",
+            allow_shell=allow_shell)
     except (GreenError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "GREEN_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}
 
 
-def change_refactor(target, change_id, scope_path=None, ae_root=None):
+def change_refactor(target, change_id, scope_path=None, ae_root=None, allow_shell=False):
     try:
-        return _green_core(target, change_id, scope_path, ae_root, "REFACTOR_PASS")
+        return _green_core(
+            target, change_id, scope_path, ae_root, "REFACTOR_PASS",
+            allow_shell=allow_shell)
     except (GreenError, omod.OwnershipError, ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "REFACTOR_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}
