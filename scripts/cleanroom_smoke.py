@@ -127,6 +127,13 @@ def main(argv=None):
         green_help = run([aeh, "change", "green", "--help"], cwd=root).stdout
         if "--allow-shell" not in green_help:
             raise RuntimeError("installed execution CLI is missing --allow-shell")
+        ci_help = run([aeh, "ci", "verify", "--help"], cwd=root).stdout
+        for required_help in (
+            "--repository-id", "--base-sha", "--head-sha", "--observed-at",
+            "--approval-key", "--report",
+        ):
+            if required_help not in ci_help:
+                raise RuntimeError("installed CI replay CLI is missing " + required_help)
 
         target.mkdir()
         (target / "README.md").write_text("# AEH wheel smoke target\n", encoding="utf-8")
@@ -158,10 +165,18 @@ def main(argv=None):
         execution_schema = (
             target / ".aeh" / "runtime" / "schemas" / "execution-policy.schema.json"
         ).read_text(encoding="utf-8")
+        ci_policy = (
+            target / ".aeh" / "runtime" / "core" / "ci-policy.yaml"
+        ).read_text(encoding="utf-8")
+        ci_report_schema = (
+            target / ".aeh" / "runtime" / "schemas" / "ci-report.schema.json"
+        ).read_text(encoding="utf-8")
         if "VERIFY_MANUAL" not in gates_text or "REVOKED" not in approvals_text:
             raise RuntimeError("installed wheel is missing M4 gate/schema resources")
         if "constrained_process" not in execution_policy or "shell" not in execution_schema:
             raise RuntimeError("installed wheel is missing M5 execution-policy resources")
+        if "core.ci-policy" not in ci_policy or "ci.replay-report" not in ci_report_schema:
+            raise RuntimeError("installed wheel is missing M6.1 CI replay resources")
 
         after = json_output(
             run([aeh, "doctor", target], cwd=root),
@@ -264,6 +279,7 @@ def main(argv=None):
         print("integration_export=" + aew_export["governance"]["portable_verdict"])
         print("m4_governance=VERIFY_MANUAL+TTL+REVOKED")
         print("m5_security=SIGNED_APPROVALS+CONSTRAINED_PROCESS")
+        print("m6_1_ci=READ_ONLY_REPLAY_CLI+CONTRACTS")
     return 0
 
 

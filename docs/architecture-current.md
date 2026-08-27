@@ -19,6 +19,7 @@ Developer / coding agent
         +--> Change lifecycle runtime
         +--> repair / upgrade / rollback
         +--> SCM inspection / AEW export
+        +--> read-only CI evidence replay
         |
         v
 contracts + schemas + validators
@@ -38,7 +39,7 @@ truth and are referenced rather than absorbed.
 | Guidance | adapters, generated agent instructions, Markdown | explains how to work; never decides a Gate |
 | Normative contracts | `core/*.yaml`, `schemas/*.json` | defines legal states, evidence, transitions, and artifacts |
 | Compiler and bootstrap | `src/aeh/bootstrap`, discovery/interview/compiler code | derives and installs a versioned project runtime |
-| Enforcement runtime | `src/aeh/runtime`, doctor, repair, upgrade, integrations | independently evaluates and mutates only authorized AEH surfaces |
+| Enforcement runtime | `src/aeh/runtime`, doctor, repair, upgrade, integrations, CI replay | independently evaluates and mutates only authorized AEH surfaces; CI replay is target-read-only |
 | Evidence and projection | `.aeh/changes`, journals, reports, review projections | preserves replayable inputs, hashes, verdicts, and explanations |
 
 ## Truth ownership
@@ -93,11 +94,26 @@ Current limitations are equally important:
   identity, public-key non-repudiation, OIDC, IAM, or hardware custody;
 - constrained process launch is not kernel/container/VM/filesystem/network/
   syscall/process-tree isolation;
-- CI evidence is external and not yet a deep, unbypassable user-project Gate;
+- M6.1 produces deterministic read-only CI replay verdicts, but required-check
+  configuration, runner trust, bypass control, and merge enforcement remain external;
 - AEH stops at `MERGE_READY` and does not autonomously merge or release.
 
-M5 implements this deliberately bounded portable security layer. M6 depends on
-it and adds deep CI integration plus bounded multi-agent concurrency.
+M5 implements the bounded portable security layer. M6.1 adds the replay core;
+M6.2 and M6.3 remain responsible for protected-SCM integration and bounded
+Change concurrency respectively.
+
+## CI replay boundary
+
+`aeh ci verify` validates an exact clean Git checkout without running commands
+declared by that checkout. It recomputes installed-runtime integrity, schema
+legality, Change gates, test/protected-file locks, evidence hashes, grounding
+freshness, traceability, and approvals. Its canonical report binds the SCM
+repository identity, base/head IDs, caller-supplied observed time, installed
+runtime and every consumed repository input.
+
+The command does not establish a trusted clock or runner, configure a branch
+rule, prevent administrator bypass, merge, push, or write into the inspected
+repository. Those authority boundaries cannot be created by a local validator.
 
 ## Compatibility and extension
 

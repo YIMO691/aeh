@@ -681,3 +681,18 @@
   通用强身份系统。
 - **CD-150**: M5 权限止于一个可评测 PR；M6、自动 SCM、远端 CI 强制、编排、tag、Release、
   PyPI 与 PR merge 继续保留独立 Owner Gate。
+
+## M6.1 Read-only CI Replay Boundary（2026-08-27）
+
+- **CD-151**: M6.1 只复核已经提交的 AEH 机器工件；允许执行无网络的只读 Git 元数据
+  命令，禁止执行项目/test plan 命令、推进 Change、刷新证据或写入目标仓库。
+- **CD-152**: PASS 必须同时绑定 `remote.origin.url` 规范化后的 repository ID、完整
+  base/head object ID、clean checkout、安装 runtime digest、CI policy digest、显式
+  `observed_at` 与全部消费文件 SHA-256。报告摘要排除自身字段后按 canonical JSON 计算。
+- **CD-153**: `observed_at` 是决定 approval expiry 的显式可重放输入；M6.1 不宣称它是
+  可信时钟。受保护 CI 注入时间、runner/workflow 信任与 SCM required-check 属于 M6.2。
+- **CD-154**: VERIFY_MANUAL/MERGE_GATE 等受保护批准只接受目标仓库外显式注入的凭据；
+  缺 key、错误 key、过期/撤销/拒绝决定一律 fail closed，secret 不进入报告或输入摘要。
+- **CD-155**: M6.1 不提供通用不可绕过性、管理员 bypass 防护、自动 merge/push/PR、
+  hosted service 或多 Agent scheduler。AEH 继续拥有 assurance，SCM 拥有 merge policy，
+  AEW/其他 orchestrator 拥有执行编排。

@@ -1,0 +1,17 @@
+contract: core.ci-policy
+version: 1
+accepted_verification_overall: [MERGE_READY, READY_WITH_WARNINGS]
+required_change_state: VERIFY
+required_gates: [grounding, spec, red, green, verify]
+required_artifacts:
+  change.yaml: change.schema.json
+  evidence.yaml: evidence-index.schema.json
+  spec.yaml: spec.schema.json
+  test-plan.yaml: test-plan.schema.json
+  red.yaml: red.schema.json
+  test-lock.yaml: test-lock.schema.json
+  verification.yaml: verification.schema.json
+  traceability.yaml: traceability.schema.json
+protected_approval_gates: [VERIFY_MANUAL, MERGE_GATE]
+critical_merge_gate: MERGE_GATE
+manual_verification_gate: VERIFY_MANUAL

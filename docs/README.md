@@ -3,7 +3,7 @@
 > Status: **CURRENT**  
 > Source line: `0.3.0.dev0`  
 > Latest public release: `v0.2.0`  
-> Roadmap: M1–M5 merged; M6 planned; PyPI not published
+> Roadmap: M1–M5 merged; M6.1 implementation candidate; M6.2–M6.3 planned; PyPI not published
 
 This is the canonical entry point for AEH documentation. It separates current
 software truth from version-bound research and historical release evidence.
@@ -23,7 +23,8 @@ software truth from version-bound research and historical release evidence.
 3. [M4 manual verification governance](m4-governance.md)
 4. [M5 security boundary](m5-security.md)
 5. [AEW integration](integrations/aew.md)
-6. [Examples](../examples/README.md)
+6. [M6.1 CI replay](m6-ci-replay.md)
+7. [Examples](../examples/README.md)
 
 ### I want to develop or review AEH
 

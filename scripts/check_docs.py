@@ -37,6 +37,7 @@ LINK_DOCUMENTS = (
     "docs/integrations/aew.md",
     "docs/m4-governance.md",
     "docs/m5-security.md",
+    "docs/m6-ci-replay.md",
     "examples/README.md",
 )
 
@@ -131,12 +132,16 @@ def validate() -> list[str]:
 
     merged = [str(item) for item in roadmap["merged"]]
     planned = [str(item) for item in roadmap["planned"]]
+    in_progress = [str(item) for item in roadmap.get("in_progress", [])]
     for milestone in merged:
         if f"| {milestone} | MERGED |" not in status:
             errors.append(f"missing merged milestone row: {milestone}")
     for milestone in planned:
         if f"| {milestone} | PLANNED |" not in status:
             errors.append(f"missing planned milestone row: {milestone}")
+    for milestone in in_progress:
+        if f"| {milestone} | IN PROGRESS |" not in status:
+            errors.append(f"missing in-progress milestone row: {milestone}")
 
     changelog = text("CHANGELOG.md")
     if f"## [{source_version}]" not in changelog:
@@ -183,7 +188,7 @@ def main() -> int:
     print("DOCUMENTATION_CHECK_PASS")
     print("source_version=0.3.0.dev0")
     print("latest_github_release=v0.2.0")
-    print("roadmap=M1-M5_MERGED+M6_PLANNED")
+    print("roadmap=M1-M5_MERGED+M6_IN_PROGRESS")
     print(f"link_documents={len(LINK_DOCUMENTS)}")
     return 0
 

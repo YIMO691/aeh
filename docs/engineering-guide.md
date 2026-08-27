@@ -58,13 +58,19 @@ A contract change normally requires:
 - compatibility behavior for previously installed snapshots;
 - documentation of truth ownership and failure behavior.
 
-M6 is not an implicit extension of an unrelated change. It requires its own
-specification, threat model, plan, tests, and Owner decision.
+M6.1 follows this rule with `core/ci-policy.yaml`, CI policy/report schemas,
+legal and illegal fixtures, real-flow attack tests, upgrade coverage, and a
+documented read-only boundary. M6.2/M6.3 require their own implementation Gates.
 
 M5 execution and approval changes must preserve the boundaries in
 [m5-security.md](m5-security.md): no-shell default execution, dual explicit
 shell authorization, external credential custody, and no claims of OS sandbox
 or enterprise identity properties.
+
+CI replay changes must preserve [m6-ci-replay.md](m6-ci-replay.md): never run
+project-declared commands, never write below the inspected repository root,
+bind repository/base/head/runtime/time and committed inputs, and fail closed
+when a protected approval credential is unavailable.
 
 ## Documentation rules
 

@@ -58,6 +58,8 @@ research narrative.
 - generates managed Codex and Claude adapter sections;
 - inspects bounded local Git/SVN boundaries and exports deterministic governance
   envelopes for AEW.
+- replays committed Change Assurance evidence in a clean external Git checkout
+  without running project code or mutating the repository.
 
 AEH is intended for selective assurance where failure has meaningful cost:
 security, money, identity, permissions, migrations, shared contracts,
@@ -177,6 +179,22 @@ aeh integration export CHG-2026-0001 --workdir /path/to/project \
 See [AEW integration](docs/integrations/aew.md) for ownership, verdict mapping,
 privacy, and non-goals.
 
+## Read-only CI replay
+
+M6.1 exposes a provider-neutral verifier for an exact committed checkout:
+
+```bash
+aeh ci verify CHG-2026-0001 --workdir /path/to/checkout \
+  --repository-id github.com/owner/repository \
+  --base-sha <40-hex-base> --head-sha <40-hex-head> \
+  --observed-at 2026-08-27T04:00:00Z \
+  --approval-key reviewer=/outside/checkout/reviewer.key
+```
+
+It emits a deterministic JSON verdict and digest. It checks evidence already
+produced by AEH; it does not execute test-plan commands. See
+[M6.1 CI replay](docs/m6-ci-replay.md) for the report and trust boundary.
+
 ## Trust boundary
 
 AEH currently provides contracts, validators, evidence integrity, explicit
@@ -185,14 +203,14 @@ launcher, and credential-bound approvals. It does **not** provide:
 
 - public-key identity, non-repudiation, OIDC, enterprise IAM, or hardware key custody;
 - kernel, container, VM, filesystem, network, syscall, or process-tree isolation;
-- an unbypassable remote CI service for user repositories;
+- an unbypassable remote CI service or automatic required-check configuration;
 - multi-agent orchestration, RAG, mutation testing, impact analysis, or a Web UI;
 - automatic push, PR, merge, deployment, or release.
 
 M5 is deliberately bounded: HMAC proves possession of a configured shared
 credential, while the execution policy constrains launch semantics without
-claiming OS isolation. M6 addresses deep CI integration plus bounded
-multi-agent concurrency.
+claiming OS isolation. M6.1 supplies the read-only replay core; M6.2 SCM
+enforcement and M6.3 bounded Change concurrency remain planned.
 
 ## Current status
 
@@ -201,11 +219,12 @@ The current source version is `0.3.0.dev0`; the latest public release is
 SCM/AEW integration, and M4 governance are present on the current development
 line. PyPI is not published.
 
-The current baseline completed 331 tests: 327 passed and 4 expected Windows
+The current baseline completed 346 tests: 342 passed and 4 expected Windows
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 
-M1–M5 are merged. M6 remains planned. See the canonical
+M1–M5 are merged. M6.1 is an implementation candidate on this source branch;
+M6.2 and M6.3 remain planned. See the canonical
 [current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
 ## Documentation
@@ -216,6 +235,7 @@ M1–M5 are merged. M6 remains planned. See the canonical
 - [Current architecture](docs/architecture-current.md)
 - [Engineering guide](docs/engineering-guide.md)
 - [M5 security boundary](docs/m5-security.md)
+- [M6.1 CI replay](docs/m6-ci-replay.md)
 - [Research narrative](docs/research/README.md)
 - [Decisions and risks](docs/decisions.md)
 - [Contributing](CONTRIBUTING.md)

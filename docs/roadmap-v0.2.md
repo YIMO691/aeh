@@ -3,7 +3,7 @@
 > 文档类别：**CURRENT ROADMAP**。当前软件事实的简表见 [status.md](status.md)；
 > 本文负责依赖、进入/退出 Gate 与未来范围，不承担 Release 证据职责。
 >
-> 状态：**V02-0 + M1–M5 MERGED；M6 PLANNED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
+> 状态：**V02-0 + M1–M5 MERGED；M6.1 IMPLEMENTATION CANDIDATE；M6.2–M6.3 PLANNED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -192,15 +192,16 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
   HMAC-SHA256 凭据绑定 Change、Gate、actor、时间、TTL 与证据引用；撤销保留原
   签名并追加独立撤销签名。该能力不宣称 OS 隔离、非否认性、OIDC/IAM 或法律身份。
 
-### M6 规模化：CI 深集成 + 多代理编排
+### M6 规模化：CI 深集成 + 有界 Change 并发（进行中）
 
-- 目标：用户项目 PR/merge 触发 aeh 校验门；多代理并发 change 不串扰。
-- In：CI 模板/action；并发 change 隔离强化；编排协议（C-008 开工前复核）。
+- 目标：用户项目 PR/merge 触发 aeh 校验门；并发 Change 分配和写入不串扰。
+- In：M6.1 只读 replay core；M6.2 CI 模板/required-check 集成；M6.3 并发 Change 隔离强化。
 - Out：自动 merge/push/PR（Q-006 拒绝）；RAG/Web UI。
 - 进入：M3 退出 + M5 退出。
-- 退出：模板项目 PR 校验门 BLOCKED 且不可绕过；两代理并发 change 故障注入无串扰；回归 232+n。
+- 退出：受支持 SCM 配置下 required check 可验证、bypass 边界诚实；两执行者并发 Change 故障注入无串扰；回归 232+n。
 - 契约影响：Y（编排语义 → CD）。关联：KL#7、KL#9、C-003b、C-008。
-- 本地风险：① CI 校验门被伪造（跳过命令/改结果文件）——校验命令与报告必须可重放且摘要进 CI 日志；② 编排协议范围易膨胀——M6 SPEC 必须把「协议」冻结在最小子集。
+- 本地风险：① CI 校验门被伪造（跳过命令/改结果文件）——校验命令与报告必须可重放且摘要进 CI 日志；② 范围易膨胀——AEH 只强化 Change 并发，不实现通用 Agent scheduler。
+- M6.1 实现候选：`aeh ci verify` 已具备 repository/base/head/runtime/time/credential/input 绑定、确定性 report digest、目标仓库零写入和真实流程攻击回归；它不运行项目命令。M6.1 尚未合并，M6.2/M6.3 未实施。
 
 ### 依赖 DAG（已做拓扑校验：no cycle）
 
