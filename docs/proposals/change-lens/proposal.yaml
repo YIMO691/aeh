@@ -1,0 +1,217 @@
+schema_version: 1
+artifact_type: non_normative_feature_proposal
+proposal_id: AEH-CHANGE-LENS
+title: AEH Change Lens
+status: PROPOSAL_NOT_IMPLEMENTED_NOT_ROADMAP_COMMITTED
+authority: NON_NORMATIVE
+baseline:
+  repository: https://github.com/YIMO691/aeh
+  revision: 394f7f644c08ed33e967207cb5ec792ea9d7970b
+
+outcome:
+  statement: >-
+    Explain one AI-assisted code change as an evidence-linked transition from
+    the old logic path to the new logic path.
+  reviewer_questions:
+    - What behavior and code path existed before?
+    - What behavior and code path exists after?
+    - What nodes and relationships changed?
+    - Why was each material change made?
+    - What verifies the new path and what remains uncertain?
+
+scope:
+  included:
+    - one local Git repository
+    - one explicit AEH Change
+    - base revision versus worktree or target revision
+    - one Owner-selected language adapter
+    - changed symbols and a bounded local neighborhood
+    - calls, key branches, returns/errors, and recognized side effects
+    - syntax-aware add/delete/update/move mapping
+    - AEH REQ/AC/EV/TEST/CODE/VER linkage
+    - deterministic Explain Bundle
+    - local read-only Web view and static HTML export
+    - offline analysis by default
+  excluded:
+    - full-repository knowledge graph
+    - hidden chain-of-thought capture
+    - AEH Gate, approval, or machine-truth mutation
+    - multi-agent orchestration
+    - arbitrary cross-service reconstruction
+    - complete resolution of dynamic language/runtime behavior
+    - multiple languages in the first implementation increment
+    - cloud upload or telemetry by default
+
+entry_gate:
+  verdict: BLOCKED_BY_CONTRACT
+  start_requires_owner_decision: true
+  open_decisions:
+    - id: CL-DEC-001
+      topic: first_supported_language
+      recommended: C# for Unity/game code; otherwise Python
+    - id: CL-DEC-002
+      topic: delivery_topology
+      recommended: separate repository/package
+    - id: CL-DEC-003
+      topic: llm_policy
+      recommended: offline deterministic core with opt-in LLM explanation
+    - id: CL-DEC-004
+      topic: target_user
+      recommended: change author and code reviewer
+    - id: CL-DEC-005
+      topic: pilot_corpus
+      recommended: 10-20 manually annotated Changes
+
+confidence_levels:
+  - CONFIRMED_STATIC
+  - OBSERVED_RUNTIME
+  - STRUCTURAL
+  - INFERRED
+  - UNKNOWN
+
+acceptance_criteria:
+  p0:
+    - id: CL-AC-001
+      statement: Bundle binds revisions, source and AEH digests, analyzer versions, and configuration deterministically.
+    - id: CL-AC-002
+      statement: Any bound input change makes an existing bundle visibly STALE.
+    - id: CL-AC-003
+      statement: Every mapped node separates old location, new location, and change kind.
+    - id: CL-AC-004
+      statement: Every material node, edge, rationale, and verification has provenance and confidence.
+    - id: CL-AC-005
+      statement: The tool cannot write AEH normative truth or Gate state.
+    - id: CL-AC-006
+      statement: Explanations never claim to expose hidden model chain of thought.
+    - id: CL-AC-007
+      statement: Default graphs are bounded to the Change and configured local neighborhood.
+    - id: CL-AC-008
+      statement: Each material modified node is evidence-linked or visibly UNLINKED.
+    - id: CL-AC-009
+      statement: Missing, invalid, escaped, unsupported, and unresolved inputs fail closed or return an explicit partial result.
+    - id: CL-AC-010
+      statement: Pilot reviewers can identify behavior change, primary symbols, verification, and uncertainty from the report.
+  p1:
+    - id: CL-AC-011
+      statement: Compiler or SCIP semantic references are available for the selected language.
+    - id: CL-AC-012
+      statement: Approved runtime traces are visibly separated from static and inferred paths.
+    - id: CL-AC-013
+      statement: Core comparison is keyboard-operable and does not rely on color alone.
+    - id: CL-AC-014
+      statement: Representative Changes meet an Owner-approved local performance budget.
+    - id: CL-AC-015
+      statement: Static export preserves digest, provenance, uncertainty, and revision labels.
+
+invariants:
+  - id: CL-INV-001
+    statement: Projections never become AEH normative truth.
+  - id: CL-INV-002
+    statement: Old and new revisions remain separate.
+  - id: CL-INV-003
+    statement: Confidence cannot increase without a stronger source.
+  - id: CL-INV-004
+    statement: Absence of analysis is not evidence that no relationship exists.
+  - id: CL-INV-005
+    statement: LLM output cannot create confirmed facts or approval state.
+  - id: CL-INV-006
+    statement: Source locations are bound to revision and content digest.
+  - id: CL-INV-007
+    statement: The deterministic static MVP does not execute project code.
+  - id: CL-INV-008
+    statement: Runtime observation is opt-in, externally authorized, and visually distinct.
+  - id: CL-INV-009
+    statement: Local reads reject path and symlink/reparse escapes.
+  - id: CL-INV-010
+    statement: Reports follow an explicit source disclosure policy.
+
+work_packages:
+  - id: CL-WP-00
+    title: Contract freeze and pilot fixtures
+    depends_on: []
+    exit_gate: CL-GATE-00
+    required_acceptance: [CL-AC-001, CL-AC-004, CL-AC-005, CL-AC-006, CL-AC-009]
+  - id: CL-WP-01
+    title: Snapshot resolver
+    depends_on: [CL-WP-00]
+    exit_gate: CL-GATE-01
+    required_acceptance: [CL-AC-001, CL-AC-002, CL-AC-003, CL-AC-009]
+  - id: CL-WP-02
+    title: First language adapter
+    depends_on: [CL-WP-01]
+    exit_gate: CL-GATE-02
+    required_acceptance: [CL-AC-004, CL-AC-007, CL-AC-009]
+  - id: CL-WP-03
+    title: Semantic differ
+    depends_on: [CL-WP-02]
+    exit_gate: CL-GATE-03
+    required_acceptance: [CL-AC-003, CL-AC-004, CL-AC-009]
+  - id: CL-WP-04
+    title: AEH evidence linker and Explain Bundle
+    depends_on: [CL-WP-03]
+    exit_gate: CL-GATE-04
+    required_acceptance: [CL-AC-001, CL-AC-002, CL-AC-004, CL-AC-005, CL-AC-008, CL-AC-009]
+  - id: CL-WP-05
+    title: Evidence-constrained explanation
+    depends_on: [CL-WP-04]
+    exit_gate: CL-GATE-05
+    required_acceptance: [CL-AC-004, CL-AC-006, CL-AC-008, CL-AC-009]
+  - id: CL-WP-06
+    title: Local viewer and export
+    depends_on: [CL-WP-05]
+    exit_gate: CL-GATE-06
+    required_acceptance: [CL-AC-010, CL-AC-013, CL-AC-015]
+  - id: CL-WP-07
+    title: Pilot and adoption decision
+    depends_on: [CL-WP-06]
+    exit_gate: CL-GATE-07
+    required_acceptance: [CL-AC-010, CL-AC-014]
+
+risks:
+  - id: CL-RISK-001
+    name: false_certainty
+    mitigation: Per-edge provenance/confidence and uncertainty-first rendering.
+  - id: CL-RISK-002
+    name: graph_explosion
+    mitigation: Change-scoped slice, hop budgets, and collapsed context.
+  - id: CL-RISK-003
+    name: stale_explanation
+    mitigation: Digest binding and mandatory STALE verdict.
+  - id: CL-RISK-004
+    name: trusted_computing_base_expansion
+    mitigation: Separate package, read-only adapter, and protected-file manifest checks.
+  - id: CL-RISK-005
+    name: source_disclosure
+    mitigation: Offline default, explicit export policy, and bounded snippets.
+  - id: CL-RISK-006
+    name: prompt_injection
+    mitigation: Treat repository text as data and validate schema and references.
+  - id: CL-RISK-007
+    name: analyzer_mismatch
+    mitigation: Capability matrix and explicit partial or unknown results.
+  - id: CL-RISK-008
+    name: license_conflict
+    mitigation: WP-00 dependency review and adapter isolation for copyleft tools.
+  - id: CL-RISK-009
+    name: product_non_value
+    mitigation: Measured pilot and CONTINUE/REPOSITION/STOP Gate.
+
+drift_control:
+  implementation_pr_must:
+    - name exactly one primary CL-WP work package
+    - reference affected CL-AC, CL-INV, and CL-RISK IDs
+    - include raw evidence for the work-package exit Gate
+    - disclose scope, trust-boundary, data-flow, dependency, and confidence-semantic changes
+    - update proposal.yaml and README.md together for governed changes
+    - obtain an Owner decision before adding out-of-scope capability
+  decision_record_required_for:
+    - goal or target user
+    - scope boundary
+    - authority or mutation boundary
+    - confidence semantics
+    - P0 acceptance criteria or invariants
+    - work-package dependency order
+    - offline or privacy default
+    - first language or delivery topology
+
+release_decision: NOT_ASSESSED

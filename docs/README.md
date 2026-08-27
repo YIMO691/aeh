@@ -32,6 +32,14 @@ software truth from version-bound research and historical release evidence.
 4. [Roadmap](roadmap-v0.2.md)
 5. [Decision log](decisions.md)
 
+### I want to review proposed capabilities
+
+1. [Change Lens implementation proposal](proposals/change-lens/README.md)
+
+Proposals are non-normative and do not describe current AEH behavior or a
+committed roadmap milestone. Each proposal must state its entry decision,
+scope, acceptance criteria, and anti-drift rules before implementation begins.
+
 ## Document authority
 
 | Label | Meaning | Examples |
