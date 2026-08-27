@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import re
 import sys
-import tomllib
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -52,8 +51,20 @@ def load_yaml(path: Path) -> dict:
 
 
 def project_version() -> str:
-    with (ROOT / "pyproject.toml").open("rb") as stream:
-        return str(tomllib.load(stream)["project"]["version"])
+    """Read the bounded PEP 621 version without requiring Python 3.11 tomllib."""
+    in_project = False
+    for raw_line in (ROOT / "pyproject.toml").read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if line == "[project]":
+            in_project = True
+            continue
+        if in_project and line.startswith("["):
+            break
+        if in_project:
+            match = re.fullmatch(r'version\s*=\s*["\']([^"\']+)["\']', line)
+            if match:
+                return match.group(1)
+    raise ValueError("pyproject.toml is missing [project].version")
 
 
 def text(rel_path: str) -> str:
