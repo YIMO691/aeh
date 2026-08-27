@@ -19,15 +19,18 @@ Python 3.10+, PyYAML, jsonschema. Editable install:
 
 Every fix must ship with a regression test.
 
-## V0.1 feature freeze
+## Current development policy
 
-V0.1 accepts ONLY: release blockers (P0/P1), security fixes, install/CLI/
-cross-platform fixes, documentation corrections, obvious UX blockers. Each fix
-is recorded in docs/decisions.md as RELEASE-FIX-### with problem / root cause /
-fix / regression test / semantic-change flag. New features belong to the V0.2
-roadmap (repair, upgrade, CI integration, RAG, Web UI, mutation testing, impact
-analysis, multi-agent orchestration, new approval systems, new workflow levels).
-V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
+The current source line is `0.3.0.dev0`; the latest public release is `v0.2.0`;
+M1–M4 are merged, M5–M6 are planned, and PyPI is not published. Read
+`docs/status.md` before treating a roadmap or handbook statement as current.
+
+Keep released lines stable: v0.1/v0.2 release evidence is immutable, and fixes
+to released behavior require a regression test plus a decision or release-fix
+entry. New capabilities must follow the dependency order and entry Gates in
+`docs/roadmap-v0.2.md`. M5 or M6 work requires its own specification, threat
+model, plan, and Owner decision; it must not arrive as incidental scope in an
+unrelated change.
 
 ## Project anatomy
 
@@ -36,6 +39,9 @@ V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
 - bootstrap/ — discovery rules, interview questions, grounding rules (data-driven).
 - src/aeh/ — runtime (bootstrap pipeline, doctor, conflict/compiler, adapters, change runtime).
 - tests/ — contract + runtime suites; fixtures are synthetic and public-safe.
+- docs/architecture-current.md — current implemented architecture and boundary.
+- docs/architecture.md — version-bound Phase 0 architecture contract.
+- docs/documentation-contract.yaml — canonical public documentation claims.
 
 ## How to add a discovery rule
 
@@ -70,8 +76,9 @@ Contract changes are architecture decisions:
 ## Architecture decisions
 
 Record every machine-visible decision in docs/decisions.md as CD-### (contract
-decision) or RISK-### (deferred risk). docs/architecture.md is the canonical
-frozen architecture — superseded copies live only in docs/archive/.
+decision) or RISK-### (deferred risk). `docs/architecture.md` is the canonical
+version-bound Phase 0 contract; `docs/architecture-current.md` describes the
+implemented source boundary. Superseded copies live only in `docs/archive/`.
 
 ## Reporting security issues
 
@@ -85,3 +92,8 @@ only, never the private body).
 AEH is the Validator, not the Coding Agent. Runtime modules never write
 APPROVED; approval is recorded only by aeh change approve as honest human
 attestation. Approval can never override a technical failure.
+
+Source version, tag, GitHub Release, wheel publication, and PyPI publication are
+separate decisions. Documentation-only changes must run
+`python scripts/check_docs.py`. Do not rewrite `docs/releases/**` or
+`docs/archive/**` to describe later software.

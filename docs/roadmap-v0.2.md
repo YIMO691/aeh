@@ -1,5 +1,8 @@
 # AEH V0.2 Roadmap
 
+> 文档类别：**CURRENT ROADMAP**。当前软件事实的简表见 [status.md](status.md)；
+> 本文负责依赖、进入/退出 Gate 与未来范围，不承担 Release 证据职责。
+>
 > 状态：**V02-0 + M1–M4 MERGED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。

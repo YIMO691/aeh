@@ -1,5 +1,9 @@
 # Agent Engineering Workspace Integration
 
+> Status: **CURRENT** for the `0.3.0.dev0` source line. AEH owns Change
+> Assurance truth; AEW owns workspace coordination. See
+> [current architecture](../architecture-current.md) for the complete boundary.
+
 ## Purpose
 
 AEH is a Change Assurance system. An Agent Engineering Workspace (AEW) is an

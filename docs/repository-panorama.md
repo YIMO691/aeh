@@ -3,6 +3,11 @@
 > 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；M1–M4 已合并，v0.2.0
 > 已发布；当前源码为未发布的 `0.3.0.dev0` 开发线；PyPI 未发布
 >
+> 文档类别：**VERSION-BOUND**。本文主体冻结了 V0.1/V0.2 设计基线，包含
+> 当时的示例版本、候选状态和未来形态，不应逐段解释为当前实现。当前入口见
+> [README.md](README.md)，当前架构见 [architecture-current.md](architecture-current.md)，
+> 当前状态见 [status.md](status.md)。
+>
 > 注意：本文档描述 V0.2 目标形态；其中尚未在 V0.1 落地的目录与能力（如 policies/、
 > skills/、templates/、merge-rules、dotnet/unity 示例）不代表 V0.1 已存在。
 > V0.1 实际能力见 README §13 与 CHANGELOG.md。

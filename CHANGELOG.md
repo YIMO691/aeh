@@ -6,6 +6,12 @@ All notable changes to AEH are recorded here per phase.
 
 ### Added
 
+- A current documentation portal, product About, source-status page, implemented
+  architecture, engineering guide, and a current-state supplement for the
+  version-bound handbook.
+- A bounded documentation contract and regression checker that align public
+  version/release/milestone claims with package metadata, require current versus
+  version-bound labels, and validate maintained local Markdown links.
 - M4 governance hardening merged through PR #11: the dedicated
   `VERIFY_MANUAL` human gate, bounded approval TTL, explicit provenance-
   preserving revocation, and CLI support through `--ttl-seconds` / `REVOKED`.
@@ -23,6 +29,10 @@ All notable changes to AEH are recorded here per phase.
 
 ### Boundaries
 
+- The Handbook v0.2, Phase 0 architecture, Repository Panorama, release
+  evidence, and archive remain version-bound history. The alignment adds
+  navigation and explicit status labels rather than rewriting old evidence as
+  current truth.
 - Approval remains an honest human attestation rather than cryptographic
   identity. Missing expiry is accepted for backward compatibility and reported
   as a warning; strong identity belongs to M5.
@@ -37,6 +47,10 @@ All notable changes to AEH are recorded here per phase.
 
 ### Validation status
 
+- Documentation alignment adds one contract/link regression, bringing the
+  expected current Windows baseline to `316` discovered (`312` passed and `4`
+  expected symlink-permission skips); the final exact-commit result is recorded
+  by the review PR and CI.
 - M4 source and compatibility regression: `314` tests completed (`310` passed,
   `4` expected Windows symlink-permission skips).
 - PEP 517 wheel build and clean-room install smoke passed; the installed wheel

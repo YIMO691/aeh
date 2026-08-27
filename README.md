@@ -1,349 +1,239 @@
 # Adaptive Engineering Harness (AEH)
 
-Machine-enforced SDD + TDD harness for **Codex** and **Claude** coding agents.
-AEH does not write your code — it installs a contract layer into your repository,
-so that agents must work through evidence, spec, tests and verification, with
-independently enforced gates.
+[![AEH regression](https://github.com/YIMO691/aeh/actions/workflows/regression.yml/badge.svg?branch=main)](https://github.com/YIMO691/aeh/actions/workflows/regression.yml)
+[![Latest release](https://img.shields.io/github/v/release/YIMO691/aeh)](https://github.com/YIMO691/aeh/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> Status: **CURRENT**
+>
+> **Independent change assurance for AI-assisted software engineering.**
+> Current source: `0.3.0.dev0` (unreleased) · Latest public release: `v0.2.0` ·
+> M1–M4 merged · M5–M6 planned · PyPI not published
+
+Coding agents can produce an implementation and a persuasive explanation. AEH
+adds a separate acceptance layer: machine-enforced contracts, replayable
+evidence, risk-based workflow Gates, and explicit human decisions that can
+block a Change before it reaches `MERGE_READY`.
+
+**The agent does the work; AEH makes the change visible, reviewable,
+reproducible, and blockable when the evidence is weak.**
+
+## Why AEH
+
+A model reviewing its own output is not an independent acceptance authority.
+AEH separates implementation from acceptance:
+
+```text
+coding agent / developer -> proposes and implements
+contract                 -> defines what is legal
+validator                -> independently recomputes the decision
+evidence                 -> makes that decision replayable and reviewable
+```
+
+The wider design path is **black-box model -> Harness -> Workflow -> AEH ->
+AEW**. The Harness controls an agent session; Workflow structures engineering
+states; AEH assures one software Change; AEW coordinates projects, agents,
+tasks, memory, and operations at workspace scale.
+
+Read [About AEH](docs/about.md) for the full product thesis and
+[From Black Box to AEW](docs/research/01_From_Black_Box_to_AEW.md) for the
+research narrative.
+
+## What it does today
+
+- discovers a repository and installs a versioned `.aeh/` runtime snapshot;
+- diagnoses installation, contract, adapter, and Change health without writing;
+- classifies changes into five risk-based workflow levels;
+- governs grounding, specification, test design, RED/GREEN, refactor,
+  verification, approval, review, repair, and `MERGE_READY` transitions;
+- locks tests and verifies evidence hashes, scope, traceability, and required Gates;
+- plans and applies repair or explicit upgrade transactions with journals,
+  backups, rollback, and recovery;
+- supports manual verification, approval TTL/expiry, and
+  provenance-preserving revocation;
+- generates managed Codex and Claude adapter sections;
+- inspects bounded local Git/SVN boundaries and exports deterministic governance
+  envelopes for AEW.
+
+AEH is intended for selective assurance where failure has meaningful cost:
+security, money, identity, permissions, migrations, shared contracts,
+infrastructure, release, compliance, or high-autonomy agent work.
+
+## Install
+
+AEH requires Python 3.10 or newer. No AEH version is published to PyPI.
+
+For development or an explicitly trusted checkout:
+
+```bash
+git clone https://github.com/YIMO691/aeh.git
+cd aeh
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# POSIX:   source .venv/bin/activate
+python -m pip install -e .
+aeh --help
+```
+
+For a released version, prefer the wheel and recorded SHA-256 from the trusted
+[GitHub Release](https://github.com/YIMO691/aeh/releases/latest). Do not infer a
+PyPI package from the project name.
+
+## Five-minute start
+
+Use a disposable repository first.
+
+```bash
+# 1. Preview and install AEH into a target repository
+aeh bootstrap /path/to/project
+
+# 2. Confirm the installed runtime is healthy
+aeh doctor /path/to/project
+
+# 3. Start a Change
+cd /path/to/project
+aeh change new "fix duplicate claim side effect" --level STANDARD
+```
+
+Then move through the evidence-producing lifecycle:
 
-> V0.2.0 is the latest GitHub release. The current source is the unreleased
-> `0.3.0.dev0` development line: it retains the Controller-owned machine-truth
-> isolation fix and adds SCM/AEW integration plus merged M4 governance. No AEH
-> version is published to PyPI; install from a trusted GitHub release asset or
-> source checkout.
+```bash
+aeh change ground CHG-2026-0001
+aeh change spec CHG-2026-0001 --reqs reqs.yaml
+aeh change test-design CHG-2026-0001 --plan plan.yaml --test-src ./my-tests
+aeh change red CHG-2026-0001
 
----
+# Implement the production change with your coding agent or normal tools.
 
-## 1. What AEH is
+aeh change green CHG-2026-0001 --scope scope.yaml
+aeh change verify CHG-2026-0001
+aeh change approve CHG-2026-0001 \
+  --gate MERGE_GATE --status APPROVED --actor <your-name>
+aeh change review CHG-2026-0001
+```
 
-AEH turns a normal repository into a governed engineering workspace:
+The exact path depends on the Change classification and effective workflow.
+AEH stops at `MERGE_READY`; it does not push, open a PR, merge, deploy, or
+release on its own.
 
-- **LLM = reasoning** — Codex/Claude keep writing code.
-- **Contract = legality** — machine-readable YAML/JSON contracts define what is allowed and what state counts as done.
-- **Validator = independent enforcement** — AEH (not the agent) validates scope, hashes, test locks and gates.
-- **Evidence = reproducibility** — every claim lands in a change-scoped evidence directory.
+## Manual verification and approval lifecycle
 
-One core, two platforms: the same compiled profile renders enforcement instructions
-for Codex (AGENTS.md) and Claude (CLAUDE.md) without semantic drift.
+When a plan declares manual verification, record the separate Gate before
+verification:
 
-### Why this project exists
+```bash
+aeh change approve CHG-2026-0001 \
+  --gate VERIFY_MANUAL --status APPROVED --actor <reviewer> \
+  --ttl-seconds 86400 --evidence-ref <artifact-or-ticket>
+aeh change verify CHG-2026-0001
+```
 
-AEH is one step in a longer engineering argument: a probabilistic model begins
-as a partial black box; a Harness gives it context, tools and controlled
-execution; a Workflow makes required control deterministic; AEH separates
-implementation from independent Change acceptance; and AEW handles the
-long-lived Project/Task/Run environment without duplicating AEH truth.
+An approval can be revoked without erasing the original attestation:
 
-Read [From Black Box to AEW](docs/research/01_From_Black_Box_to_AEW.md) for the
-complete narrative, or start with the [research guide](docs/research/README.md)
-and its explicit evidence limits.
+```bash
+aeh change approve CHG-2026-0001 \
+  --gate VERIFY_MANUAL --status REVOKED --actor <revoker> \
+  --evidence-ref <decision-or-incident-id>
+```
 
-## 2. Why
+See [M4 governance](docs/m4-governance.md) for expiry, compatibility, and
+CRITICAL plan behavior.
 
-Coding agents are good at writing code and bad at being audited. AEH gives you:
+## Repair and upgrade
 
-- evidence-grounded specs (no trust-me requirements),
-- test-driven RED → GREEN with a machine-enforced test lock,
-- change-scoped isolation (parallel changes never share state),
-- risk-based workflow (LIGHTWEIGHT / STANDARD / CRITICAL with hard escalation),
-- traceability REQ → AC → TEST → CODE → VER, forward and backward,
-- honest human approval that can never override a technical failure.
+Both operations are plan-first. Omit `--apply` to inspect the plan.
 
-## 3. Supported agents
+```bash
+aeh repair /path/to/project
+aeh repair /path/to/project --apply
+aeh repair /path/to/project --rollback RPR-2026-0001
 
-| Platform | Surface | Status |
-| --- | --- | --- |
-| Codex | AGENTS.md managed section | RENDERED, tested |
-| Claude Code | CLAUDE.md managed section | RENDERED, tested |
+aeh upgrade /path/to/project --source-revision <trusted-revision>
+aeh upgrade /path/to/project --apply --source-revision <trusted-revision>
+aeh upgrade /path/to/project --rollback UPG-2026-0001
+```
 
-Capabilities a platform cannot enforce are reported honestly as
-unsupported_capabilities (GUIDANCE_ONLY) — never silently dropped, never relaxed.
+Upgrade is explicit and version-bound. It is not an automatic, network-driven,
+incremental, or arbitrary multi-version migration service.
 
-## 4. Installation
+## AEW integration
 
-Install AEH from a source checkout using the standard, non-editable wheel path:
+AEH and AEW remain separate systems. AEH can inspect local SCM boundaries and
+export a governance envelope without giving AEW authority to write AEH verdicts.
 
-    git clone <repo-url>
-    cd adaptive-engineering-harness
-    python -m venv .venv
-    .venv\Scripts\activate        # Windows；POSIX 用 source .venv/bin/activate
-    python -m pip install .
-    aeh --help
+```bash
+aeh integration inspect /path/to/project
+aeh integration export CHG-2026-0001 --workdir /path/to/project \
+  --project-id <external-project> --task-id <external-task> --run-id <external-run>
+```
 
-The build embeds the canonical `core/`, `schemas/`, `bootstrap/`, and `adapters/`
-resources in the wheel, so `aeh` can run from any working directory. AEH is not
-published to PyPI yet; install from a trusted checkout or an internally built wheel.
+See [AEW integration](docs/integrations/aew.md) for ownership, verdict mapping,
+privacy, and non-goals.
 
-For AEH development, use an editable install and run the full regression:
+## Trust boundary
 
-    python -m pip install -e .
-    python -m unittest discover -s tests -p "test_*.py"
+AEH currently provides contracts, validators, evidence integrity, explicit
+mutation boundaries, transaction rollback, approval expiry, and revocation. It
+does **not** yet provide:
 
-To reproduce the clean-room wheel gate locally:
+- cryptographic approval identity, OIDC, or IAM;
+- a general cross-platform command-execution sandbox;
+- an unbypassable remote CI service for user repositories;
+- multi-agent orchestration, RAG, mutation testing, impact analysis, or a Web UI;
+- automatic push, PR, merge, deployment, or release.
 
-    python -m pip wheel --no-deps . --wheel-dir dist
-    python scripts/cleanroom_smoke.py --wheel "dist/*.whl"
+M5 addresses sandboxing and strong approval identity. M6 depends on M5 and
+addresses deep CI integration plus bounded multi-agent concurrency.
 
-## 5. Quick Start
+## Current status
 
-    cd /path/to/your-project
-    aeh bootstrap .           # installs .aeh/ + managed agent sections (fail-safe defaults)
-    aeh doctor .              # health check — must say READY / PASS before work
+The current source version is `0.3.0.dev0`; the latest public release is
+`v0.2.0`. The frozen `v0.2.1` integrity candidate was never released. Its fix,
+SCM/AEW integration, and M4 governance are present on the current development
+line. PyPI is not published.
 
-    aeh change new "fix duplicate claim side effect" --level STANDARD
+The current baseline completed 316 tests: 312 passed and 4 expected Windows
+symlink-permission cases were skipped. The corresponding main workflow passed
+all 6 cross-platform regression and clean-room wheel jobs.
 
-Then open Codex or Claude Code in your project and work normally — the managed
-section tells the agent what AEH enforces. Drive the workflow yourself:
+M1–M4 are merged. M5–M6 remain planned. See the canonical
+[current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
-    aeh change ground CHG-2026-0001
-    aeh change spec   CHG-2026-0001 --reqs reqs.yaml
-    aeh change test-design CHG-2026-0001 --plan plan.yaml --test-src ./my-tests
-    aeh change red    CHG-2026-0001
-    aeh change green  CHG-2026-0001 --scope scope.yaml
-    aeh change verify CHG-2026-0001
-    aeh change approve CHG-2026-0001 --gate MERGE_GATE --status APPROVED --actor <your-name>
+## Documentation
 
-If the plan declares manual verification, record its separate, time-bounded
-attestation and rerun verify:
+- [Documentation portal](docs/README.md)
+- [About AEH](docs/about.md)
+- [Current status](docs/status.md)
+- [Current architecture](docs/architecture-current.md)
+- [Engineering guide](docs/engineering-guide.md)
+- [Research narrative](docs/research/README.md)
+- [Decisions and risks](docs/decisions.md)
+- [Contributing](CONTRIBUTING.md)
 
-    aeh change approve CHG-2026-0001 --gate VERIFY_MANUAL --status APPROVED \
-      --actor <reviewer> --ttl-seconds 3600
-    aeh change verify CHG-2026-0001
+Version-bound handbook, architecture, archive, and release evidence are kept for
+traceability and are clearly separated from current source truth.
 
-An existing approval can be explicitly revoked without erasing its original
-approver or decision timestamp:
+## Supported agent surfaces
 
-    aeh change approve CHG-2026-0001 --gate VERIFY_MANUAL --status REVOKED \
-      --actor <revoker> --evidence-ref <decision-or-incident-id>
+| Agent | Managed surface | Status |
+|---|---|---|
+| Codex | `AGENTS.md` managed section | Supported |
+| Claude Code | `CLAUDE.md` managed section | Supported |
+| Other agents | declarative adapter contract | Extensible; not implied supported |
 
-See [M4 manual verification and approval lifecycle](docs/m4-governance.md) for
-expiry, backward compatibility, rejection, and revocation semantics.
-
-Every command above was executed end-to-end in a clean-room environment
-(fresh venv + fresh repository) as part of the V0.1 release gate.
-
-### Answers (explicit policy)
-
-Without --answers, bootstrap applies fail-safe defaults and records their
-provenance as default_applied with confidence UNKNOWN — honest, but not your
-policy. For a real project, answer the interview explicitly:
-
-    aeh bootstrap . --answers answers.yaml
-
-answers.yaml follows schemas/answers.schema.json; copy examples/answers.yaml
-(a complete, usable example) and edit it for your project.
-
-## 6. Bootstrap
-
-aeh bootstrap <target> installs into the target repository:
-
-- .aeh/ — manifest, compiled profile, effective workflow, runtime contracts, per-change workspaces,
-- a managed section in AGENTS.md / CLAUDE.md (your original content is preserved),
-- a .gitignore entry for .aeh/private/.
-
-Bootstrap is deterministic: semantic outputs exclude timestamps; the install plan
-is validated before any write.
-
-## 7. Doctor
-
-aeh doctor <target> is read-only and reports BLOCKED / WARN / PASS checks
-(installation integrity, runtime contract digests, private-data hygiene, git state,
-staging residue). On a fresh repository it honestly reports
-install.aeh_exists: BLOCKED → run aeh bootstrap — it never pretends.
-
-### Repair and rollback (V0.2 M2 development baseline)
-
-Doctor never repairs automatically. Inspect the deterministic dry-run plan first,
-then opt in to the exact writes:
-
-    aeh repair .
-    aeh repair . --apply
-
-Each applied bootstrap or repair transaction has a persistent journal and byte-level
-backups under `.aeh/transactions/`. Rollback refuses to overwrite later edits:
-
-    aeh repair . --rollback RPR-2026-0001
-
-Repair covers canonical runtime restoration, bounded managed-section repair, atomic-write
-residue, and the `.aeh/private/` gitignore boundary. A runtime source/version mismatch is
-blocked and must use the explicit upgrade command or a matching older repair source.
-
-### Explicit upgrade (V0.2 M3 candidate)
-
-Upgrade is also plan-first. It validates that the installed runtime still matches its old
-manifest before showing the runtime/manifest diff:
-
-    aeh upgrade . --source-revision <trusted-revision>
-    aeh upgrade . --apply --source-revision <trusted-revision>
-
-Only `.aeh/runtime/core|schemas` and `.aeh/manifest.yaml` are eligible for writes.
-Profile, effective workflow, bootstrap answers, private data, changes/approvals, agent files,
-and `.gitignore` are preserved. Every applied upgrade has a `UPG-*` journal and can be rolled
-back while its after-state still matches:
-
-    aeh upgrade . --rollback UPG-2026-0001
-
-Downgrades, damaged source snapshots, and same-version/different-content collisions are blocked.
-Automatic/network upgrade, arbitrary historical migrations, and multi-version installs remain
-out of scope.
-
-## 8. First Change
-
-1. aeh change new "<title>" --level STANDARD — classification (hard-escalation
-   keywords like 奖励/领取/money escalate to CRITICAL; fail-safe by design).
-2. aeh change ground <id> — evidence scan; polyglot repos are handled
-   (multi-valued facts fold deterministically).
-3. aeh change spec <id> --reqs reqs.yaml — REQ/AC with stable IDs.
-4. aeh change test-design <id> --plan plan.yaml --test-src <dir> — test plan + test file install (test locations only).
-5. aeh change red <id> — tests must fail with a recognized signature (VALID_RED) and the test files get locked.
-6. Fix the production code (the agent's job), then aeh change green <id> --scope scope.yaml —
-   AEH verifies scope hashes, lock integrity and that RED tests now pass.
-7. aeh change refactor <id> --scope scope.yaml (optional, structural-equivalence refactor).
-8. aeh change verify <id> — verification + traceability; CRITICAL test-design
-   already requires a declared integration/contract verification entry and verify
-   requires human MERGE_GATE approval
-   (aeh change approve). RED/LOCK_TEST records a Controller checkpoint outside
-   the repository before coding starts; GREEN and VERIFY fail closed if any
-   change-scoped YAML/JSON was added, removed, or modified outside a Controller
-   command. Output: MERGE_READY /
-   READY_WITH_WARNINGS / BLOCKED.
-9. aeh change review <id> — projects review.md (narrative only; machine truth is YAML).
-
-**AEH stops at MERGE_READY.** Merge, push, PR and release remain external systems.
-
-## 9. Five workflow levels
-
-| Level | Shape | Gates |
-| --- | --- | --- |
-| DIRECT | trivial comment/typo | classification + basic verify |
-| LIGHTWEIGHT | small bug | ground → spec → RED → GREEN → VERIFY |
-| STANDARD | normal feature | + test-design gate, test lock |
-| CRITICAL | money/persistence/protocol/security… | hard escalation, deep grounding, integration/contract verification, human approval |
-| EXPLORE | spike | HYPOTHESIS → EXPERIMENT → EVIDENCE → DECISION (no forced TDD) |
-
-Hard escalation domains: money_economy, persistence, save_migration,
-protocol_compatibility, authentication_authorization, security_boundary,
-irreversible_migration, destructive_data_operation.
-
-## 10. SDD/TDD runtime overview
-
-- **SDD**: requirements come from evidence (or explicit user requirements), compiled into a spec with acceptance criteria.
-- **TDD**: each automated AC gets a test; RED proves the test fails for the right reason; GREEN proves the fix; a test lock guarantees nobody edits tests mid-cycle.
-- **Verification closes the loop**: target tests + regression + declared verification, risk-based depth, full REQ↔AC↔TEST↔CODE↔VER traceability, orphan detection.
-
-## 11. Extending AEH
-
-- Schemas in schemas/, frozen core contracts in core/, runtime modules in src/aeh/runtime/.
-- Discovery rules are data-driven (bootstrap/discovery/*.yaml).
-- Agent adapters are pure renderers (src/aeh/adapters/render.py) — adding a platform does not touch core semantics.
-
-### Agent Engineering Workspace integration
-
-AEH can expose Change Assurance truth to an external, provider-neutral
-engineering workspace without becoming that workspace's state or runtime
-system. Inspect local SCM boundaries first:
-
-    aeh integration inspect /path/to/project
-
-For an installed project and existing Change, export a deterministic envelope
-linked to the external canonical Task and Run:
-
-    aeh integration export CHG-2026-0001 \
-      --workdir /path/to/project \
-      --project-id PROJECT-1 --task-id TASK-1 --run-id RUN-1
-
-The export contains no artifact bodies: only AEH state, native and portable
-verdicts, SCM identity, relative evidence references, hashes, and the six
-cross-cutting metadata fields Scope, Ownership, Authority, Lifecycle,
-Provenance, and Cost. Both commands are local, read-only, and network-free.
-See `docs/integrations/aew.md` for ownership and verdict mappings.
-
-## 12. Security / Known limitations (V0.1)
-
-- **Command execution**: test commands run via argv (structured) with a
-  command-string compatibility path (shell=True); no OS sandbox. Trust the plan author.
-- **Human approval = attestation**, not strong identity: `aeh change approve
-  --actor <name>` records an honest human attestation. M4 adds optional bounded
-  TTL, expiry, and explicit revocation, but not OIDC/IAM/signatures.
-- **Controller checkpoint boundary**: at RED/LOCK_TEST, change-scoped YAML/JSON
-  hashes are stored outside the governed repository (override with
-  `AEH_CONTROLLER_STATE_DIR`, which must also remain outside it). This detects
-  agent-side machine-truth writes during implementation and later phases.
-  GREEN, repeated RED, and VERIFY re-check the checkpoint after every batch of
-  repository-controlled test commands and before Controller truth is written,
-  so test-time writes are not adopted by the next seal. The boundary still
-  assumes the Controller state is protected by an OS/filesystem boundary that
-  both the coding agent and executed repository code cannot write; AEH does not
-  provide an OS sandbox. An in-flight change created by an older AEH build has no
-  checkpoint and therefore fails closed until RED is replayed through a governed
-  repair path (or the change is restarted).
-- **Multi-file writes are journaled, not filesystem-wide atomic**: bootstrap and repair
-  use per-file atomic replace plus persistent backups and rollback; a whole transaction is
-  not one OS-level atomic operation.
-- **Some adapter capabilities are GUIDANCE_ONLY** (e.g., Codex git_push deny,
-  Claude web_access deny) — reported honestly, never silently dropped.
-- **Upgrade is deliberately bounded**: explicit full runtime snapshot upgrade only; no network
-  discovery, automatic upgrade, incremental patching, or multi-version coexistence.
-- No CI deep integration, no automatic merge/push,
-  no complex multi-agent orchestration. These are post-V0.1.
-- **SVN boundary**: `aeh integration inspect` recognizes an SVN root and nested
-  repositories, but bootstrap/change assurance remain primarily tested on Git
-  and plain local directories. SCM recognition is not a claim of full SVN
-  lifecycle certification.
-- **No PyPI release yet**: relocatable wheel installation is supported from a
-  trusted checkout or built artifact, but package-index publication is deferred.
-- **Manual verification is explicit human evidence** — a declared manual item
-  remains blocked until an effective `VERIFY_MANUAL` approval exists. It is
-  recorded as `approved`, never misreported as an automated test pass.
-- **Keyword hints are heuristics**: they escalate (fail-safe), they never
-  silently downgrade.
-
-## 13. Software version and development scope
-
-The package metadata in the current source is `0.3.0.dev0`; the latest
-published release remains `v0.2.0`. The frozen `v0.2.1` integrity-patch
-candidate was never tagged or released. Its fix, the SCM/AEW integration, and
-M4 governance are now merged to `main` on the explicit unreleased development
-line. PyPI publication remains out of scope.
-
-Phase 2 v1.10 completed 72 frozen runs and recommended `REPOSITION`: use AEH as
-selective independent assurance for genuinely high-risk changes, not as a
-mandatory unattended workflow for every coding task. The observed RUN-F055
-integrity escape is fixed in the V0.2.1 candidate. A bounded remediation rerun
-blocked machine-truth laundering in 3/3 attempts, and the A01–A08 suite was
-independently adjudicated BLOCKED in 8/8 attempts. This closes the observed
-escape but does not overturn the broader `REPOSITION` decision or prove general
-product effectiveness.
-
-In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycle
-(new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
-workflows, evidence model, test lock, traceability, risk-based verification, and
-Codex/Claude adapters, plus read-only SCM inspection and AEW governance export.
-Merged M4 adds a manual verification Gate, approval TTL/expiry and revocation,
-and earlier CRITICAL plan validation.
-
-Out of scope: automatic/network/incremental/multi-version upgrade, CI deep integration, RAG,
-Web UI, mutation testing, impact analysis, multi-agent orchestration, strong
-approval identity.
-V0.2 sequencing and priorities: see docs/roadmap-v0.2.md.
-
-Architecture and evidence baseline: see `docs/handbook/README.md`. The handbook
-remains an explicitly version-bound Phase 1.1 snapshot; the later Phase 2 v1.10
-result and remediation status are summarized above rather than retroactively
-rewritten into that frozen evidence baseline.
-
-Release evidence and accepted limitations: see
-`docs/releases/v0.2.0/RELEASE_CHECKLIST.md`, `RELEASE_TEST_REPORT.md`, and
-`KNOWN_LIMITATIONS.md`. V0.2.1 candidate evidence is under
-`docs/releases/v0.2.1/`.
+Bootstrap preserves user-owned content outside managed sections and fails safe
+on ambiguous conflicts.
 
 ## Development
 
-    python -m unittest discover -s tests -p "test_*.py"   # full regression
-    python tests/contract/test_contracts.py              # per-suite
+```bash
+python -m pip install -e .
+python -m unittest discover -s tests -p "test_*.py"
+python scripts/check_docs.py
+```
 
-See CONTRIBUTING.md, CHANGELOG.md, docs/architecture.md (frozen),
-docs/decisions.md (CD/RISK log), docs/pilots/ (V0.1 release evidence).
+See [CONTRIBUTING.md](CONTRIBUTING.md) before changing contracts or schemas.
 
 ## License
 
-MIT — see LICENSE.
+[MIT](LICENSE)

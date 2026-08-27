@@ -1,0 +1,49 @@
+schema_version: 1
+status: CURRENT
+updated_at: '2026-08-27'
+
+product:
+  name: Adaptive Engineering Harness
+  abbreviation: AEH
+  one_line: Independent change assurance for AI-assisted software engineering.
+
+release:
+  source_version: 0.3.0.dev0
+  latest_github_release: v0.2.0
+  pypi_published: false
+
+roadmap:
+  merged: [M1, M2, M3, M4]
+  planned: [M5, M6]
+
+validation:
+  local_tests_discovered: 316
+  local_tests_passed: 312
+  local_tests_skipped: 4
+  latest_main_ci_jobs_passed: 6
+
+canonical_documents:
+  landing: README.md
+  navigation: docs/README.md
+  purpose: docs/about.md
+  current_status: docs/status.md
+  current_architecture: docs/architecture-current.md
+  engineering: docs/engineering-guide.md
+  roadmap: docs/roadmap-v0.2.md
+  history: CHANGELOG.md
+
+version_bound_documents:
+  - docs/architecture.md
+  - docs/repository-panorama.md
+  - docs/handbook/README.md
+
+frozen_evidence_roots:
+  - docs/releases
+  - docs/archive
+
+current_claim_files:
+  - README.md
+  - docs/README.md
+  - docs/status.md
+  - docs/architecture-current.md
+  - docs/engineering-guide.md

@@ -1,6 +1,11 @@
 # AEH 架构契约（Architecture Freeze）
 
 > 状态：**PHASE_0_ARCHITECTURE_FROZEN**（Owner 批准，2026-08-14）
+>
+> 文档类别：**VERSION-BOUND**。本文保留 Phase 0 的批准契约和当时示例，
+> 不是 `0.3.0.dev0` 当前实现说明。当前架构请阅读
+> [architecture-current.md](architecture-current.md)，当前项目状态请阅读
+> [status.md](status.md)。
 > 本文档为 AEH V0.1 的正式冻结基线，后续阶段不得自行修改；变更必须走新的 Architecture Decision 流程。
 >
 > 本文档是 AEH V0.1 的**规范性冻结**：以下内容在 V0.1 内不可随意更改，变更必须走新的 Architecture Decision 流程。
