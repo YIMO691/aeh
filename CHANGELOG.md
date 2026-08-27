@@ -6,6 +6,16 @@ All notable changes to AEH are recorded here per phase.
 
 ### Added
 
+- M6.2a–c GitHub assurance candidate: exact PR/merge-group event and
+  authenticated run/check binding, one-fresh-Change diff closure, deterministic
+  full-SHA workflow rendering with immutable wheel verification, and read-only
+  enforcement audits that distinguish observed, repository-required, and
+  externally governed workflows.
+- Versioned enforcement policy, provider event/snapshot, workflow template and
+  audit report contracts plus adversarial regressions for zero/multiple/stale
+  Changes, undeclared paths, wrong run identity, missing credentials, bypasses,
+  and incomplete provider metadata.
+
 - M6.1 provider-neutral `aeh ci verify`: a target-read-only replay of committed
   Change Assurance evidence bound to canonical SCM repository identity, exact
   base/head, installed runtime, explicit observed time, externally held
@@ -50,6 +60,11 @@ All notable changes to AEH are recorded here per phase.
 
 ### Boundaries
 
+- M6.2a–c do not deploy a workflow or change GitHub settings. The default
+  enforcement policy lacks an artifact and expected workflow digest and fails
+  closed until M6.2d receives separate artifact, SCM-admin, and live-dogfood
+  authorization. Repository CI never receives protected approval HMAC keys.
+
 - M6.1 is an acceptance replay core, not a hosted or universally unbypassable
   CI service. SCM required checks, workflow/ruleset protection, bypass control,
   runner/time trust and merge enforcement remain M6.2; Change concurrency is
@@ -74,6 +89,11 @@ All notable changes to AEH are recorded here per phase.
   publication. The latest public release remains v0.2.0.
 
 ### Validation status
+
+- M6.2a–c raise the expected Windows baseline to `356` discovered (`352`
+  passed, `4` expected symlink-permission skips), including nine contract and focused
+  GitHub binding, diff closure, renderer, trust-level, bypass, and API-visibility
+  cases.
 
 - M6.1 raises the expected Windows baseline to `347` discovered (`343` passed,
   `4` expected symlink-permission skips), including real Change-flow replay,

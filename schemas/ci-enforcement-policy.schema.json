@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH SCM enforcement policy",
+  "type": "object",
+  "required": ["contract", "version", "provider", "required_trust_level", "required_events", "required_check", "workflow", "permissions", "governed_metadata"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "core.ci-enforcement-policy"},
+    "version": {"type": "integer", "const": 1},
+    "provider": {"const": "github"},
+    "required_trust_level": {"enum": ["OBSERVED_WORKFLOW", "REQUIRED_REPOSITORY_WORKFLOW", "EXTERNALLY_GOVERNED_WORKFLOW"]},
+    "required_events": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["pull_request", "merge_group"]}},
+    "required_check": {
+      "type": "object", "required": ["name", "app_id"], "additionalProperties": false,
+      "properties": {"name": {"type": "string", "minLength": 1}, "app_id": {"type": "integer", "minimum": 1}}
+    },
+    "workflow": {
+      "type": "object", "required": ["path", "expected_sha256", "actions", "artifact"], "additionalProperties": false,
+      "properties": {
+        "path": {"type": "string", "pattern": "^\\.github/workflows/[A-Za-z0-9._-]+\\.ya?ml$"},
+        "expected_sha256": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]},
+        "actions": {
+          "type": "object", "required": ["checkout", "setup_python"], "additionalProperties": false,
+          "properties": {"checkout": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "setup_python": {"type": "string", "pattern": "^[0-9a-f]{40}$"}}
+        },
+        "artifact": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "object", "required": ["url", "filename", "sha256"], "additionalProperties": false,
+             "properties": {"url": {"type": "string", "pattern": "^https://"}, "filename": {"type": "string", "pattern": "^[A-Za-z0-9_.]+-[A-Za-z0-9_.]+-py3-none-any\\.whl$"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}}
+          ]
+        }
+      }
+    },
+    "permissions": {
+      "type": "object", "required": ["contents", "actions", "checks"], "additionalProperties": false,
+      "properties": {"contents": {"const": "read"}, "actions": {"const": "read"}, "checks": {"const": "read"}}
+    },
+    "governed_metadata": {
+      "type": "object", "required": ["exact", "prefixes"], "additionalProperties": false,
+      "properties": {
+        "exact": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "prefixes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
 > 文档类别：**CURRENT ROADMAP**。当前软件事实的简表见 [status.md](status.md)；
 > 本文负责依赖、进入/退出 Gate 与未来范围，不承担 Release 证据职责。
 >
-> 状态：**V02-0 + M1–M5 MERGED；M6.1 IMPLEMENTATION CANDIDATE；M6.2–M6.3 PLANNED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
+> 状态：**V02-0 + M1–M5 + M6.1 MERGED；M6.2a–c IMPLEMENTATION CANDIDATE；M6.2d/M6.3 PLANNED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -201,7 +201,9 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 退出：受支持 SCM 配置下 required check 可验证、bypass 边界诚实；两执行者并发 Change 故障注入无串扰；回归 232+n。
 - 契约影响：Y（编排语义 → CD）。关联：KL#7、KL#9、C-003b、C-008。
 - 本地风险：① CI 校验门被伪造（跳过命令/改结果文件）——校验命令与报告必须可重放且摘要进 CI 日志；② 范围易膨胀——AEH 只强化 Change 并发，不实现通用 Agent scheduler。
-- M6.1 实现候选：`aeh ci verify` 已具备 repository/base/head/runtime/time/credential/input 绑定、确定性 report digest、目标仓库零写入和真实流程攻击回归；它不运行项目命令。M6.1 尚未合并，M6.2/M6.3 未实施。
+- M6.1 已合并：`aeh ci verify` 具备 repository/base/head/runtime/time/credential/input 绑定、确定性 report digest、目标仓库零写入和真实流程攻击回归；它不运行项目命令。
+- M6.2a–c 实现候选：GitHub PR/merge-group 事件与 authenticated run/check 绑定；一个 fresh Change + 完整 diff closure；固定 Action commit 与 wheel hash 的确定性 workflow renderer；区分 observed/required/externally governed 的只读 enforcement audit。默认 artifact/workflow digest 未配置，因此不宣称已部署。
+- M6.2d 仍待独立授权：不可变制品、仓库 workflow/required-check 配置和 live adversarial dogfood。M6.3 尚未实施。
 
 ### 依赖 DAG（已做拓扑校验：no cycle）
 

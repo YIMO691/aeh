@@ -134,6 +134,10 @@ def main(argv=None):
         ):
             if required_help not in ci_help:
                 raise RuntimeError("installed CI replay CLI is missing " + required_help)
+        github_help = run([aeh, "ci", "github", "--help"], cwd=root).stdout
+        for required_help in ("verify-event", "render-workflow", "audit", "snapshot-run"):
+            if required_help not in github_help:
+                raise RuntimeError("installed GitHub assurance CLI is missing " + required_help)
 
         target.mkdir()
         (target / "README.md").write_text("# AEH wheel smoke target\n", encoding="utf-8")
@@ -171,12 +175,21 @@ def main(argv=None):
         ci_report_schema = (
             target / ".aeh" / "runtime" / "schemas" / "ci-report.schema.json"
         ).read_text(encoding="utf-8")
+        enforcement_policy = (
+            target / ".aeh" / "runtime" / "core" / "ci-enforcement-policy.yaml"
+        ).read_text(encoding="utf-8")
+        enforcement_schema = (
+            target / ".aeh" / "runtime" / "schemas" / "ci-enforcement-report.schema.json"
+        ).read_text(encoding="utf-8")
         if "VERIFY_MANUAL" not in gates_text or "REVOKED" not in approvals_text:
             raise RuntimeError("installed wheel is missing M4 gate/schema resources")
         if "constrained_process" not in execution_policy or "shell" not in execution_schema:
             raise RuntimeError("installed wheel is missing M5 execution-policy resources")
         if "core.ci-policy" not in ci_policy or "ci.replay-report" not in ci_report_schema:
             raise RuntimeError("installed wheel is missing M6.1 CI replay resources")
+        if ("core.ci-enforcement-policy" not in enforcement_policy
+                or "ci.enforcement-report" not in enforcement_schema):
+            raise RuntimeError("installed wheel is missing M6.2 GitHub assurance resources")
 
         after = json_output(
             run([aeh, "doctor", target], cwd=root),

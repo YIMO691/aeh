@@ -38,6 +38,11 @@ FIXTURE_SCHEMA = {
     "scm-inspection": "scm-inspection.schema.json",
     "ci-policy": "ci-policy.schema.json",
     "ci-report": "ci-report.schema.json",
+    "ci-enforcement-policy": "ci-enforcement-policy.schema.json",
+    "ci-provider-event": "ci-provider-event.schema.json",
+    "ci-provider-snapshot": "ci-provider-snapshot.schema.json",
+    "ci-enforcement-report": "ci-enforcement-report.schema.json",
+    "ci-workflow-template": "ci-workflow-template.schema.json",
 }
 
 
@@ -67,6 +72,7 @@ class TestSchemas(unittest.TestCase):
         cls.evidence = load_core("evidence.yaml")
         cls.execution_policy = load_core("execution-policy.yaml")
         cls.ci_policy = load_core("ci-policy.yaml")
+        cls.ci_enforcement_policy = load_core("ci-enforcement-policy.yaml")
 
     def test_all_schemas_parse_and_use_draft07(self):
         for name in FIXTURE_SCHEMA.values():
@@ -107,6 +113,7 @@ class TestConsistency(unittest.TestCase):
         cls.classifications = load_core("classifications.yaml")
         cls.evidence = load_core("evidence.yaml")
         cls.ci_policy = load_core("ci-policy.yaml")
+        cls.ci_enforcement_policy = load_core("ci-enforcement-policy.yaml")
         cls.change_schema = load_schema("change.schema.json")
         cls.approvals_schema = load_schema("approvals.schema.json")
         cls.verification_schema = load_schema("verification.schema.json")
@@ -177,6 +184,20 @@ class TestConsistency(unittest.TestCase):
         self.assertEqual(self.ci_policy["critical_merge_gate"], "MERGE_GATE")
         self.assertEqual(self.ci_policy["manual_verification_gate"], "VERIFY_MANUAL")
         self.assertIn("verification.yaml", self.ci_policy["required_artifacts"])
+
+    def test_m6_2_policy_is_pinned_minimal_and_fail_closed(self):
+        jsonschema.validate(
+            self.ci_enforcement_policy,
+            load_schema("ci-enforcement-policy.schema.json"),
+        )
+        policy = self.ci_enforcement_policy
+        self.assertEqual(policy["required_events"], ["pull_request", "merge_group"])
+        self.assertEqual(policy["permissions"], {
+            "contents": "read", "actions": "read", "checks": "read"})
+        for revision in policy["workflow"]["actions"].values():
+            self.assertRegex(revision, r"^[0-9a-f]{40}$")
+        self.assertIsNone(policy["workflow"]["artifact"])
+        self.assertIsNone(policy["workflow"]["expected_sha256"])
 
     def test_m4_manual_gate_and_approval_lifecycle_contract(self):
         self.assertIn("VERIFY_MANUAL", self.gates["human_approval_gates"])

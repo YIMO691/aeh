@@ -94,13 +94,15 @@ Current limitations are equally important:
   identity, public-key non-repudiation, OIDC, IAM, or hardware custody;
 - constrained process launch is not kernel/container/VM/filesystem/network/
   syscall/process-tree isolation;
-- M6.1 produces deterministic read-only CI replay verdicts, but required-check
-  configuration, runner trust, bypass control, and merge enforcement remain external;
+- M6.1 produces deterministic read-only CI replay verdicts; M6.2a–c bind them
+  to GitHub metadata and audit required-check configuration, but configuration
+  mutation, runner isolation, bypass authority and merge enforcement remain external;
 - AEH stops at `MERGE_READY` and does not autonomously merge or release.
 
 M5 implements the bounded portable security layer. M6.1 adds the replay core;
-M6.2 and M6.3 remain responsible for protected-SCM integration and bounded
-Change concurrency respectively.
+M6.2a–c add a GitHub adapter/renderer/auditor without deploying it. M6.2d and
+M6.3 remain responsible for live protected-SCM validation and bounded Change
+concurrency respectively.
 
 ## CI replay boundary
 
@@ -114,6 +116,15 @@ runtime and every consumed repository input.
 The command does not establish a trusted clock or runner, configure a branch
 rule, prevent administrator bypass, merge, push, or write into the inspected
 repository. Those authority boundaries cannot be created by a local validator.
+
+## GitHub assurance boundary
+
+`aeh ci github verify-event` consumes authenticated run/check metadata and
+accepts only one fresh Change whose declared implementation, tests and governed
+metadata close the exact base/head diff. The renderer pins Action commits and
+an immutable wheel hash; the auditor distinguishes observed, repository-required
+and externally governed workflows. The default policy is intentionally
+unconfigured, so current source does not claim that this repository is protected.
 
 ## Compatibility and extension
 

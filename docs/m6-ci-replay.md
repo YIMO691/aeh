@@ -25,7 +25,11 @@ Production preimages and postimages are recovered from raw `base-sha` and
 byte materializations, preserving GREEN evidence across ordinary line-ending
 conversion without running checkout filters or modifying the target tree.
 
-`--observed-at` is an explicit replay input used to evaluate approval expiry. M6.1 records it but cannot prove that the caller supplied a trustworthy time. Protected CI configuration and SCM required-check enforcement are M6.2 concerns.
+`--observed-at` is an explicit replay input used to evaluate approval expiry.
+M6.1 records it but cannot prove that the caller supplied a trustworthy time.
+The M6.2 GitHub adapter can derive it from authenticated run metadata and audit
+required-check enforcement; deployment and live validation remain a separate
+rollout boundary. See [M6.2 GitHub assurance](m6-2-github-assurance.md).
 
 ## Security boundary
 

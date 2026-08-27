@@ -1,0 +1,23 @@
+contract: core.ci-enforcement-policy
+version: 1
+provider: github
+required_trust_level: REQUIRED_REPOSITORY_WORKFLOW
+required_events: [pull_request, merge_group]
+required_check:
+  name: AEH assurance / verify
+  app_id: 15368
+workflow:
+  path: .github/workflows/aeh-assurance.yml
+  expected_sha256: null
+  actions:
+    checkout: 3d3c42e5aac5ba805825da76410c181273ba90b1
+    setup_python: 5fda3b95a4ea91299a34e894583c3862153e4b97
+  artifact: null
+permissions:
+  contents: read
+  actions: read
+  checks: read
+governed_metadata:
+  exact:
+    - .github/workflows/aeh-assurance.yml
+  prefixes: []
