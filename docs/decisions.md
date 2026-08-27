@@ -629,3 +629,16 @@
   Change 与纵深防御。
 - **CD-134**: M4 的本地实施授权不包含版本选择、push、PR、merge、tag、Release 或
   PyPI。v0.2.1 候选的冻结边界不被此 feature branch 静默改写。
+
+## M4 Post-Merge Version Reconciliation（2026-08-27）
+
+- **CD-135**: M4 已通过 PR #11 合并到 `main`；其合并前 12/12 检查和合并后 6/6
+  `main` 作业均通过。此前“本地已验证、未合并”的表述不再是当前事实。
+- **CD-136**: M4 是向后兼容但用户可见的治理能力增量，因此进入新的 minor 开发线
+  `0.3.0.dev0`，不得静默塞入仅承载完整性修复的冻结 v0.2.1 patch candidate。
+- **CD-137**: `.dev0` 明确表示源码与 wheel 尚非最终 `v0.3.0` Release；最新公开版本
+  继续为 `v0.2.0`，tag、Release 与 PyPI 仍需独立 Owner 决策。
+- **CD-138**: 当前升级比较器只扩展到严格的 `X.Y.Z` 与 `X.Y.Z.devN`。排序冻结为
+  `0.2.1 < 0.3.0.dev0 < 0.3.0.dev1 < 0.3.0`；其他预发布格式继续 fail closed。
+- **CD-139**: `docs/releases/v0.2.1/` 与关联冻结证据保持版本绑定，不因后续 M4 合并
+  或版本线调整而回写。

@@ -22,7 +22,7 @@ from .. import paths as aeh_paths
 
 CONTRACT = "doctor.report"
 CONTRACT_VERSION = 1
-HARNESS_VERSION = "0.2.1"
+HARNESS_VERSION = "0.3.0.dev0"
 SCHEMA_VERSION = "1"
 MANAGED_BEGIN = "<!-- AEH:BEGIN MANAGED -->"
 MANAGED_END = "<!-- AEH:END MANAGED -->"

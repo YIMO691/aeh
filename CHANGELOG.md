@@ -2,11 +2,11 @@
 
 All notable changes to AEH are recorded here per phase.
 
-## [Unreleased]
+## [0.3.0.dev0] — Unreleased
 
 ### Added
 
-- M4 governance hardening on the feature branch: the dedicated
+- M4 governance hardening merged through PR #11: the dedicated
   `VERIFY_MANUAL` human gate, bounded approval TTL, explicit provenance-
   preserving revocation, and CLI support through `--ttl-seconds` / `REVOKED`.
 - TEST_DESIGN now rejects CRITICAL plans that omit declared integration or
@@ -26,13 +26,14 @@ All notable changes to AEH are recorded here per phase.
 - Approval remains an honest human attestation rather than cryptographic
   identity. Missing expiry is accepted for backward compatibility and reported
   as a warning; strong identity belongs to M5.
-- M4 implementation does not choose a release version and is not part of the
-  frozen v0.2.1 candidate without a separate Owner version/merge decision.
+- M4 is assigned to the new `0.3.0.dev0` source line rather than being silently
+  folded into the frozen v0.2.1 integrity-patch candidate.
 - The integration does not add an external workspace state store, memory,
   runtime, sandbox, or multi-agent orchestrator to AEH.
 - SCM inspection is local, bounded, read-only, and network-free. Recognizing
   an SVN working copy does not yet certify the full AEH lifecycle on SVN.
-- These changes do not change the v0.2.1 tag/release/PyPI status.
+- `0.3.0.dev0` is development metadata, not a tag, GitHub Release, or PyPI
+  publication. The latest public release remains v0.2.0.
 
 ### Validation status
 
@@ -41,6 +42,11 @@ All notable changes to AEH are recorded here per phase.
 - PEP 517 wheel build and clean-room install smoke passed; the installed wheel
   exposed `VERIFY_MANUAL`, `--ttl-seconds`, and `REVOKED`, and retained
   bootstrap/doctor/repair/upgrade/change/AEW-integration smoke coverage.
+- PR #11 passed 12/12 checks before merge; the resulting `main` merge commit
+  passed all six post-merge cross-platform regression and wheel jobs.
+- Post-merge version reconciliation completed `315` tests (`311` passed,
+  `4` expected Windows symlink-permission skips). The `0.3.0.dev0` wheel
+  metadata and clean-room lifecycle smoke passed.
 
 ## [0.2.1] — Unreleased
 

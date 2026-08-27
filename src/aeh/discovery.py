@@ -23,7 +23,7 @@ from . import paths as aeh_paths
 
 CONTRACT = "bootstrap.discovery"
 CONTRACT_VERSION = 2
-SCANNER_VERSION = "0.2.1"
+SCANNER_VERSION = "0.3.0.dev0"
 DOMAINS = ["repository", "testing", "ci", "git", "ai_rules", "architecture"]
 CONFIDENCE_LEVELS = ["DETECTED", "INFERRED", "USER_CONFIRMED", "UNKNOWN"]
 

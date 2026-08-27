@@ -1,16 +1,16 @@
 # AEH V0.2 仓库全景图（Repository Panorama）
 
-> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；M1–M3 已合并，v0.2.0
-> 已发布；当前源码为未发布的 v0.2.1 Controller 机器真值隔离补丁候选；PyPI 未发布
+> 状态：DESIGN BASELINE v0.2（V02-0，2026-08-19）；M1–M4 已合并，v0.2.0
+> 已发布；当前源码为未发布的 `0.3.0.dev0` 开发线；PyPI 未发布
 >
 > 注意：本文档描述 V0.2 目标形态；其中尚未在 V0.1 落地的目录与能力（如 policies/、
 > skills/、templates/、merge-rules、dotnet/unity 示例）不代表 V0.1 已存在。
 > V0.1 实际能力见 README §13 与 CHANGELOG.md。
 >
 > 证据边界：Handbook/Phase 1.1 的软件证据快照仍为 `v0.1.0 @ 6513102`；当前仓库
-> 最新发布版本为 `v0.2.0`，当前源码候选版本为 `v0.2.1`。Phase 2 v1.10 已完成
-> 72-run 并给出 `REPOSITION`；RUN-F055 完整性逃逸已修复，但尚未进行修复后模型复测，
-> 产品有效性仍为 `NOT_YET_PROVEN`。
+> 最新发布版本为 `v0.2.0`，当前源码版本为 `0.3.0.dev0`。Phase 2 v1.10 已完成
+> 72-run 并给出 `REPOSITION`；RUN-F055 完整性逃逸已修复，定向修复复测与攻击评估已
+> 阻断已知逃逸，但产品有效性仍为 `NOT_YET_PROVEN`。
 >
 > v0.2 统一边界：AEH 是独立 Change Assurance System；Generator 与 Acceptance
 > Authority 分离；Task Outcome 与 Assurance Outcome 分离；G3 Route B 是实验性
