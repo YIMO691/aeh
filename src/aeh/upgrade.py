@@ -15,7 +15,7 @@ from .doctor import doctor as doc
 
 CONTRACT = "upgrade.plan"
 CONTRACT_VERSION = 1
-_VERSION_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
+_VERSION_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)(?:\.dev(\d+))?$")
 
 
 class UpgradeError(RuntimeError):
@@ -43,7 +43,13 @@ def _version(value):
     match = _VERSION_RE.match(str(value))
     if not match:
         raise UpgradeError("BLOCKED_UPGRADE_UNSUPPORTED_VERSION: " + str(value))
-    return tuple(int(part) for part in match.groups())
+    major, minor, patch, dev = match.groups()
+    # Keep comparison deterministic without adding a packaging dependency.
+    # A development build precedes the matching final release:
+    # 0.2.1 < 0.3.0.dev0 < 0.3.0.dev1 < 0.3.0.
+    release_rank = 1 if dev is None else 0
+    dev_number = 0 if dev is None else int(dev)
+    return int(major), int(minor), int(patch), release_rank, dev_number
 
 
 def _endpoint(version, revision, digest):

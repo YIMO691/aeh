@@ -6,11 +6,10 @@ so that agents must work through evidence, spec, tests and verification, with
 independently enforced gates.
 
 > V0.2.0 is the latest GitHub release. The current source is the unreleased
-> V0.2.1 integrity-patch candidate, which adds Controller-owned machine-truth
-> isolation. Neither version is published to PyPI; install from a trusted
-> GitHub release asset or source checkout.
-> The local `feature/m4-governance` branch additionally contains verified M4
-> governance work; it has no assigned release version and is not merged.
+> `0.3.0.dev0` development line: it retains the Controller-owned machine-truth
+> isolation fix and adds SCM/AEW integration plus merged M4 governance. No AEH
+> version is published to PyPI; install from a trusted GitHub release asset or
+> source checkout.
 
 ---
 
@@ -300,12 +299,11 @@ See `docs/integrations/aew.md` for ownership and verdict mappings.
 
 ## 13. Software version and development scope
 
-The package metadata in the current source candidate is `0.2.1`; the latest
-published release remains `v0.2.0`. M1–M3 and the post-evaluation Controller
-machine-truth isolation fix are merged to `main`. M4 is locally implemented and
-verified on a feature branch but has no push, merge, or release decision.
-V0.2.1 has not been tagged or released, and PyPI publication remains out of
-scope.
+The package metadata in the current source is `0.3.0.dev0`; the latest
+published release remains `v0.2.0`. The frozen `v0.2.1` integrity-patch
+candidate was never tagged or released. Its fix, the SCM/AEW integration, and
+M4 governance are now merged to `main` on the explicit unreleased development
+line. PyPI publication remains out of scope.
 
 Phase 2 v1.10 completed 72 frozen runs and recommended `REPOSITION`: use AEH as
 selective independent assurance for genuinely high-risk changes, not as a
@@ -320,8 +318,8 @@ In scope: bootstrap, doctor, plan-first repair/upgrade/rollback, change lifecycl
 (new/ground/spec/test-design/red/green/refactor/verify/approve/review/repair), five-level
 workflows, evidence model, test lock, traceability, risk-based verification, and
 Codex/Claude adapters, plus read-only SCM inspection and AEW governance export.
-The local M4 branch adds a manual verification Gate, approval TTL/expiry and
-revocation, and earlier CRITICAL plan validation.
+Merged M4 adds a manual verification Gate, approval TTL/expiry and revocation,
+and earlier CRITICAL plan validation.
 
 Out of scope: automatic/network/incremental/multi-version upgrade, CI deep integration, RAG,
 Web UI, mutation testing, impact analysis, multi-agent orchestration, strong

@@ -1,6 +1,6 @@
 # AEH V0.2 Roadmap
 
-> 状态：**V02-0 + M1–M3 MERGED；M4 LOCAL VERIFIED / NOT MERGED；V0.2.0 GITHUB RELEASED；V0.2.1 INTEGRITY PATCH CANDIDATE；PYPI NOT PUBLISHED**（2026-08-26）
+> 状态：**V02-0 + M1–M4 MERGED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-27）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -13,12 +13,12 @@
 - 现状：V0.1.0 已发布（`docs/releases/v0.1.0/RELEASE_TEST_REPORT.md`：232/232）。
 - Phase 1.1：v1.6 冻结协议与 External Runner 最小机制已验证；在该基线冻结时 72-run
   尚未授权，后续 Phase 2 v1.10 已完成并给出 `REPOSITION`。
-- **M1–M3 已按依赖顺序审查并合并到 main；v0.2.0 已发布。Phase 2 暴露的
-  RUN-F055 机器真值逃逸已在 main 修复，当前软件包为未发布的 v0.2.1 candidate。**
+- **M1–M4 已按依赖顺序审查并合并到 main；v0.2.0 已发布。Phase 2 暴露的
+  RUN-F055 机器真值逃逸已在 main 修复，当前源码为未发布的 `0.3.0.dev0`。**
 - M1 提供 wheel/CI，M2 提供显式 repair/transaction，M3 提供 v0.1 snapshot 到当前
   candidate 的显式 upgrade。独立 Release Safety Review 已通过，Owner 已执行 v0.2.0
-  tag 与 GitHub Release；PyPI 未授权、未发布。v0.2.1 仅收口已观察完整性缺陷；M4 已在
-  独立授权、SPEC/PLAN 和本地 feature branch 下实施，尚未获得 push/merge/release 授权。
+  tag 与 GitHub Release；PyPI 未授权、未发布。冻结的 v0.2.1 候选仅收口已观察完整性
+  缺陷且从未发布；M4 已通过 PR #11 合并并进入新的 `0.3.0.dev0` 开发版本线。
 - 顺序总览：`V02-0 → M1 → M2 → M3 → M4 → M5 → M6`，一次只开一个 M。
 
 ## 2. 输入与约束
@@ -158,7 +158,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
   deterministic history、项目数据 preserve、失败/显式 rollback 与 clean-room upgrade smoke 已覆盖；
   完整回归 `273/273`（Windows 本地符号链接权限限制导致 1 项平台测试跳过，Linux CI 执行该项）。
 
-### M4 P2 收口 + 批准凭据最小强化（本地已验证，未合并）
+### M4 P2 收口 + 批准凭据最小强化（已合并）
 
 - 目标：manual 验证有独立批准 gate；CRITICAL plan 缺 integration/contract 直接拒绝；approval 有 TTL/撤销。
 - In：manual VER gate（gates/approvals 契约扩展）；test-design 强制校验；approve revoke + TTL。
@@ -170,8 +170,9 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 实现状态：新增 `VERIFY_MANUAL` 独立 Gate；批准支持可选 TTL、失效判断和保留原始
   证词的显式撤销；旧无 TTL 记录继续有效并 WARN；CRITICAL 的 integration/contract
   要求前移到 TEST_DESIGN，VERIFY 保留防御性复查。完整回归共执行 `314` 项（`310`
-  通过，Windows 符号链接权限限制跳过 `4` 项），wheel build 与 clean-room smoke 通过。当前仅为本地
-  feature branch，版本、push、merge、tag、Release 与 PyPI 均需独立 Owner 决策。
+  通过，Windows 符号链接权限限制跳过 `4` 项），wheel build 与 clean-room smoke 通过。
+  PR #11 合并前 12/12 检查及合并后 6/6 `main` 作业全绿；当前归入
+  `0.3.0.dev0` 未发布开发线，tag、Release 与 PyPI 仍需独立 Owner 决策。
 
 ### M5 安全边界：命令执行沙箱 + 强审批身份
 

@@ -21,7 +21,7 @@
       "type": "GIT",
       "identity": {"commit": null, "branch": null, "revision": null, "repository_uuid": null, "dirty": false}
     },
-    "harness_version": "0.2.1",
+    "harness_version": "0.3.0.dev0",
     "harness_source_revision": "fixture",
     "manifest_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
   },
