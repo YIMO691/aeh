@@ -19,9 +19,9 @@ authorization and is not an AEH roadmap or release claim.
 
 ## 0. Owner decision and handoff
 
-- first analyzed language: Python;
-- delivery: independent repository and Python package;
-- language policy: bilingual, Chinese first and authoritative;
+- first analyzed language: C#, focused on Unity/gameplay code;
+- delivery: independent repository with Python orchestration and a .NET/Roslyn analyzer worker;
+- language policy: Chinese launch product/UI; Chinese plan authoritative, English plan retained;
 - execution policy: deterministic and offline by default;
 - LLM explanation: explicit opt-in only;
 - primary users: change authors and reviewers;
@@ -179,12 +179,12 @@ The Owner resolved the following entry decisions on 2026-08-27:
 
 | ID | Decision | Recommended default | Why it matters |
 |---|---|---|---|
-| CL-DEC-001 | First supported language | Python | Fixes parser, compiler/indexer, fixtures, and oracle |
-| CL-DEC-002 | Delivery topology | Separate repository/package | Prevents experimental UI/analysis dependencies entering AEH's TCB |
+| CL-DEC-001 | First supported language | C# for Unity/gameplay code | Fixes parser, compiler/indexer, fixtures, and oracle |
+| CL-DEC-002 | Delivery topology | Separate repository; Python orchestration + .NET/Roslyn worker | Prevents experimental UI/analysis dependencies entering AEH's TCB |
 | CL-DEC-003 | LLM policy | Offline deterministic core; LLM explanation opt-in | Protects source confidentiality and repeatability |
 | CL-DEC-004 | Target user | Change author and code reviewer | Determines graph depth and explanation language |
 | CL-DEC-005 | Pilot corpus | 10-20 manually annotated Changes | Required to measure graph correctness and usefulness |
-| CL-DEC-006 | Language policy | Bilingual; Chinese first and authoritative | Prevents presentation order and translation authority from drifting |
+| CL-DEC-006 | Language policy | Chinese launch product/UI; Chinese plan authoritative, English plan retained | Prevents presentation order and translation authority from drifting |
 
 Technical prerequisites:
 

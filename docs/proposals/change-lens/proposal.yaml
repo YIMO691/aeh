@@ -50,10 +50,10 @@ entry_gate:
   resolved_decisions:
     - id: CL-DEC-001
       topic: first_supported_language
-      decision: Python
+      decision: CSharp for Unity/gameplay code
     - id: CL-DEC-002
       topic: delivery_topology
-      decision: separate repository/package
+      decision: separate repository with Python orchestration and a dotnet Roslyn analyzer worker
     - id: CL-DEC-003
       topic: llm_policy
       decision: offline deterministic core with opt-in LLM explanation
@@ -65,7 +65,7 @@ entry_gate:
       decision: 10-20 manually annotated Changes
     - id: CL-DEC-006
       topic: language_policy
-      decision: bilingual with Chinese first and authoritative
+      decision: Chinese launch product/UI; Chinese plan authoritative and English plan retained
 
 confidence_levels:
   - CONFIRMED_STATIC
