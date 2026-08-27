@@ -1,6 +1,7 @@
 # Owner / Architecture 决策记录
 
-> 本文件记录 Owner 裁决与已登记的延期需求；机器可验证的契约见 core/ 与 schemas/。
+> 文档类别：**CURRENT DECISION LOG**。本文件记录 Owner 裁决与已登记的延期需求；
+> 机器可验证的契约见 `core/` 与 `schemas/`，当前软件状态见 [status.md](status.md)。
 
 ## OWNER-CD-001（2026-08-14，APPROVED）
 
@@ -642,3 +643,19 @@
   `0.2.1 < 0.3.0.dev0 < 0.3.0.dev1 < 0.3.0`；其他预发布格式继续 fail closed。
 - **CD-139**: `docs/releases/v0.2.1/` 与关联冻结证据保持版本绑定，不因后续 M4 合并
   或版本线调整而回写。
+
+## Documentation Authority Alignment（2026-08-27）
+
+- **CD-140**: 公开文档分为 `CURRENT / VERSION-BOUND / RESEARCH / FROZEN RELEASE
+  EVIDENCE / ARCHIVED`。当前事实由 README、`docs/README.md`、`docs/status.md`、
+  当前架构与工程指南承载；历史手册、架构冻结、Release 与 Archive 不得伪装成当前状态。
+- **CD-141**: `docs/documentation-contract.yaml` 只约束公开文档中的版本、Release、
+  路线图、验证基线与导航声明；它不是 AEH Change 机器真值，也不得替代 `core/`、Schema、
+  Validator、测试或外部 SCM/CI 证据。
+- **CD-142**: Handbook v0.2 继续绑定 `v0.1.0 @ 6513102`。后续 Phase 2、M1–M4、
+  AEW 集成与 `0.3.0.dev0` 通过独立 Current Supplement 连接，不回写原状态文件或总稿为
+  虚假的“当时已完成”。
+- **CD-143**: GitHub About 从特定 Agent 的 “SDD+TDD harness” 收敛为 vendor-neutral
+  的 independent change-assurance harness；Codex/Claude 是当前适配面，不是产品定义。
+- **CD-144**: 文档检查只扫描维护中的当前入口及导航链接，明确不把冻结历史全文强制
+  改造成当前口径。新增或迁移当前入口时必须同步更新 contract 与回归测试。

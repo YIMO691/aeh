@@ -1,5 +1,10 @@
 # AEH Engineering & Architecture Handbook v0.2
 
+> **文档类别：VERSION-BOUND。** 本手册是绑定到 `v0.1.0 @ 6513102`、
+> 研究截点 2026-08-19 的设计与证据快照，不是 `0.3.0.dev0` 当前软件说明。
+> 请先阅读 [AEH 当前状态](../status.md) 和
+> [当前补充说明](CURRENT_SUPPLEMENT.md)。正文与机器状态文件保留原始证据口径。
+
 > **中文名**：《AEH 工程与架构手册》  
 > **研究截点**：2026-08-19  
 > **AEH 源码基线**：`YIMO691/aeh @ 6513102`  

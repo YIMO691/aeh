@@ -1,5 +1,9 @@
 # AEH / AEW Research Narrative
 
+> Document class: **RESEARCH**. For present software capabilities and release
+> state, use [AEH Current Status](../status.md). For the concise product
+> explanation, use [About AEH](../about.md).
+
 This section explains why AEH and AEW exist, how the ideas evolved, and where
 the evidence stops. It is a public-safe synthesis of the project research—not
 a dump of internal workspaces, session history, or raw research archives.

@@ -1,5 +1,8 @@
 # M4 Manual Verification and Approval Lifecycle
 
+> Status: **CURRENT** for the `0.3.0.dev0` source line. M4 is merged; strong
+> approval identity and execution sandboxing remain M5 scope.
+
 M4 closes three governance gaps without turning human approval into technical
 proof or strong identity.
 
