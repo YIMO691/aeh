@@ -82,8 +82,24 @@ class TestCiReplay(unittest.TestCase):
             pass
 
     def make_copy(self):
-        target = tempfile.mkdtemp(prefix="aeh-ci-case-")
-        shutil.copytree(self.seed, target, dirs_exist_ok=True)
+        parent = tempfile.mkdtemp(prefix="aeh-ci-case-")
+        self.addCleanup(shutil.rmtree, parent, ignore_errors=True)
+        target = os.path.join(parent, "repo")
+        result = subprocess.run(
+            ["git", "clone", "--quiet", "--no-local", self.seed, target],
+            capture_output=True, text=True, check=False,
+        )
+        if result.returncode:
+            raise AssertionError(result.stderr or result.stdout)
+        shutil.copytree(
+            self.seed, target, dirs_exist_ok=True,
+            ignore=shutil.ignore_patterns(".git"),
+        )
+        git(target, "add", "--renormalize", ".")
+        git(target, "remote", "set-url", "origin",
+            "https://example.invalid/example/project.git")
+        git(target, "config", "user.email", "aeh-test@example.invalid")
+        git(target, "config", "user.name", "AEH Test")
         return target
 
     def replay(self, target, **overrides):
