@@ -2,7 +2,7 @@
 
 > Status: **CURRENT**
 > Source line: `0.3.0.dev0`
-> Implementation state: M6.2a–c review candidate; repository dogfood is not enabled
+> Implementation state: M6.2a–c merged; M6.2d immutable-workflow dogfood candidate
 
 M6.2 connects the provider-neutral M6.1 replay core to GitHub without confusing
 three different claims:
@@ -65,14 +65,15 @@ must not receive the secret.
 
 ## Configuration and rollout boundary
 
-The canonical `core/ci-enforcement-policy.yaml` intentionally has
-`workflow.artifact: null` and `workflow.expected_sha256: null`. Therefore the
-source provides the renderer and auditor but does not claim an active protected
-workflow. Enabling it requires a separately authorized immutable AEH artifact,
-recording the rendered digest, installing the workflow, configuring GitHub
-branch/ruleset requirements, and performing live adversarial dogfood (M6.2d).
+The canonical `core/ci-enforcement-policy.yaml` binds the separately authorized
+`m6.2d-dogfood-1` wheel and the byte-exact rendered workflow. The repository also
+commits its self-hosting `.aeh` runtime snapshot so replay can validate the exact
+Change without bootstrapping or mutating the checkout during the assurance job.
+These source facts still do not claim active protection: only the authenticated
+live audit can establish the repository-required trust level.
 
-M6.2 does not modify branch protection/rulesets, merge, push, publish a wheel,
-create a Release, eliminate GitHub/admin authority, or provide OS runner
-isolation. Residual administrators, bypass actors, GitHub, installed Apps, and
-the runner remain explicit trust authorities.
+The AEH CLI does not modify branch protection/rulesets, merge, push, publish a
+wheel, eliminate GitHub/admin authority, or provide OS runner isolation. M6.2d
+uses separately authorized operator actions for rollout. Residual administrators,
+bypass actors, GitHub, installed Apps, and the runner remain explicit trust
+authorities.

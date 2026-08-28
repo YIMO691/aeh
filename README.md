@@ -209,10 +209,10 @@ launcher, and credential-bound approvals. It does **not** provide:
 
 M5 is deliberately bounded: HMAC proves possession of a configured shared
 credential, while the execution policy constrains launch semantics without
-claiming OS isolation. M6.1 supplies the merged read-only replay core. M6.2a–c
-now provide a GitHub event adapter, secure workflow renderer, and read-only
-enforcement audit as an implementation candidate; live repository rollout and
-adversarial dogfood remain M6.2d, and bounded Change concurrency remains M6.3.
+claiming OS isolation. M6.1 and M6.2a–c are merged. M6.2d adds the immutable
+dogfood wheel binding, configured repository workflow, self-hosting runtime
+snapshot, and live required-check evaluation; bounded Change concurrency remains
+M6.3. Source files alone never prove that external branch protection is active.
 
 ## Current status
 
@@ -225,8 +225,8 @@ The current branch baseline completes 356 tests: 352 passed and 4 expected Windo
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 
-M1–M5 and M6.1 are merged. M6.2a–c are an implementation candidate on this
-source branch; M6.2d and M6.3 remain planned. See the canonical
+M1–M5, M6.1, and M6.2a–c are merged. M6.2d is the current live dogfood
+candidate; M6.3 remains planned. See the canonical
 [current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
 ## Documentation

@@ -3,7 +3,7 @@
 > Status: **CURRENT**  
 > Source line: `0.3.0.dev0`  
 > Latest public release: `v0.2.0`  
-> Roadmap: M1–M5 + M6.1 merged; M6.2a–c implementation candidate; M6.2d/M6.3 planned; PyPI not published
+> Roadmap: M1–M5 + M6.1 + M6.2a–c merged; M6.2d live dogfood candidate; M6.3 planned; PyPI not published
 
 This is the canonical entry point for AEH documentation. It separates current
 software truth from version-bound research and historical release evidence.
