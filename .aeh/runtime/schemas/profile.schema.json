@@ -1,0 +1,243 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Project Profile Contract",
+  "type": "object",
+  "definitions": {
+    "provenance": {
+      "type": "object",
+      "required": [
+        "value",
+        "source",
+        "confidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {},
+        "source": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "system",
+                "organization_policy",
+                "project_policy",
+                "team_policy",
+                "task_rule",
+                "developer_preference",
+                "harness_default",
+                "repository_fact",
+                "user_answer",
+                "default_applied"
+              ]
+            },
+            "ref": {
+              "type": "string"
+            },
+            "hash": {
+              "type": "string"
+            }
+          }
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "DETECTED",
+            "INFERRED",
+            "USER_CONFIRMED",
+            "UNKNOWN"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "FACT",
+            "PREFERENCE",
+            "POLICY",
+            "PERMISSION"
+          ]
+        },
+        "shadowed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "ref"],
+            "additionalProperties": false,
+            "properties": {
+              "type": {"type": "string"},
+              "ref": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "profile_version",
+    "project",
+    "workflow"
+  ],
+  "properties": {
+    "profile_version": {
+      "type": "string"
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {"type": "string"},
+              {"$ref": "#/definitions/provenance"}
+            ]
+          }
+        },
+        "frameworks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "developer": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/provenance"
+      }
+    },
+    "organization": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "policies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "ref"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "DETECTED",
+                  "INFERRED",
+                  "USER_CONFIRMED",
+                  "UNKNOWN"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "required": [
+        "default_level"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "default_level": {
+          "type": "string",
+          "enum": [
+            "DIRECT",
+            "LIGHTWEIGHT",
+            "STANDARD",
+            "CRITICAL",
+            "EXPLORE"
+          ]
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "read_repository": {
+          "$ref": "#/definitions/provenance"
+        },
+        "modify_source": {
+          "$ref": "#/definitions/provenance"
+        },
+        "modify_tests": {
+          "$ref": "#/definitions/provenance"
+        },
+        "git_commit": {
+          "$ref": "#/definitions/provenance"
+        },
+        "git_push": {
+          "$ref": "#/definitions/provenance"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/provenance"
+      }
+    },
+    "testing": {
+      "type": "object",
+      "properties": {
+        "tdd": {
+          "$ref": "#/definitions/provenance"
+        },
+        "regression": {
+          "$ref": "#/definitions/provenance"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/provenance"
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "human_required_for": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {"type": "string"},
+              {"$ref": "#/definitions/provenance"}
+            ]
+          }
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "critical_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

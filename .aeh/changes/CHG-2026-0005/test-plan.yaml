@@ -1,0 +1,133 @@
+generated_at: '2026-08-28T04:51:58.438108+00:00'
+regression:
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/adapters -p test*.py -v
+  id: REG-001
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/bootstrap -p test*.py -v
+  id: REG-002
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/compiler -p test*.py -v
+  id: REG-003
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/contract -p test*.py -v
+  id: REG-004
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/discovery -p test*.py -v
+  id: REG-005
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/doctor -p test*.py -v
+  id: REG-006
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/documentation -p test*.py -v
+  id: REG-007
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/fixtures -p test*.py -v
+  id: REG-008
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/integrations -p test*.py -v
+  id: REG-009
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/interview -p test*.py -v
+  id: REG-010
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/packaging -p test*.py -v
+  id: REG-011
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/repair -p test*.py -v
+  id: REG-012
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/upgrade -p test*.py -v
+  id: REG-013
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_change.py -v
+  id: REG-014
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_ci_replay.py -v
+  id: REG-015
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_github_ci.py -v
+  id: REG-016
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_green.py -v
+  id: REG-017
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_grounding.py -v
+  id: REG-018
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_m4_governance.py -v
+  id: REG-019
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_m5_security.py -v
+  id: REG-020
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_m6_2d_dogfood.py -v
+  id: REG-021
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_ownership.py -v
+  id: REG-022
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_red.py -v
+  id: REG-023
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_specification.py -v
+  id: REG-024
+  timeout_seconds: 900
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_verify.py -v
+  id: REG-025
+  timeout_seconds: 900
+test_files:
+- dest: tests/runtime/test_m6_2d_dogfood.py
+  src: m6_2d_policy_test.py
+tests:
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_m6_2d_dogfood.py -v
+  expected_before_fix:
+    signature: M6_2D_POLICY_UNCONFIGURED
+    type: behavior_failure
+  id: TEST-001
+  intent: Fail unless source policy, installed runtime policy, and rendered workflow
+    are the exact authorized M6.2d configuration.
+  kind: contract
+  required: true
+  targets:
+  - core/ci-enforcement-policy.yaml
+  - .aeh/runtime/core/ci-enforcement-policy.yaml
+  - .github/workflows/aeh-assurance.yml
+  - src/aeh/runtime/ownership.py
+  verifies:
+  - AC-001-01
+  - AC-001-02
+verification:
+- command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_m6_2d_dogfood.py -v
+  id: CONTRACT-001
+  timeout_seconds: 300
+  type: contract
+  verifies:
+  - AC-001-01
+  - AC-001-02

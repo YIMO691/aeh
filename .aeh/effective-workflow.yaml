@@ -1,0 +1,103 @@
+default_level: STANDARD
+levels:
+  CRITICAL:
+    narrative_artifacts:
+    - evidence.md
+    - design.md
+    - decisions.md
+    - review.md
+    phases:
+    - INTAKE
+    - CLASSIFY
+    - GROUND
+    - SPEC
+    - HUMAN_SPEC_APPROVAL
+    - DESIGN
+    - TEST_DESIGN
+    - RED
+    - VALIDATE_RED
+    - LOCK_TEST
+    - HUMAN_CI_RED_GATE
+    - GREEN
+    - REFACTOR
+    - INTEGRATION
+    - RUNTIME_PLATFORM_VERIFY
+    - REGRESSION
+    - REVIEW
+    - DRIFT_CHECK
+    - HUMAN_MERGE_APPROVAL
+    - ARCHIVE
+    required_artifacts:
+    - change.yaml
+    - spec.yaml
+    - test-plan.yaml
+    - tasks.yaml
+    - traceability.yaml
+    - verification.yaml
+    - approvals.yaml
+  DIRECT:
+    narrative_artifacts: []
+    phases:
+    - INTAKE
+    - CLASSIFY
+    - IMPLEMENT
+    - BASIC_VERIFY
+    - DONE
+    required_artifacts:
+    - change.yaml
+  EXPLORE:
+    narrative_artifacts: []
+    phases:
+    - HYPOTHESIS
+    - EXPERIMENT
+    - EVIDENCE
+    - DECISION
+    required_artifacts: []
+    terminal_options:
+    - DISCARD
+    - PROMOTE_TO_STANDARD
+    - PROMOTE_TO_CRITICAL
+  LIGHTWEIGHT:
+    narrative_artifacts: []
+    phases:
+    - INTAKE
+    - CLASSIFY
+    - TARGETED_GROUND
+    - BUG_CONTRACT
+    - REGRESSION_TEST
+    - RED
+    - GREEN
+    - VERIFY
+    - DONE
+    required_artifacts:
+    - change.yaml
+    - bugfix.yaml
+    - test-plan.yaml
+    - verification.yaml
+  STANDARD:
+    narrative_artifacts:
+    - evidence.md
+    phases:
+    - INTAKE
+    - CLASSIFY
+    - GROUND
+    - SPEC
+    - TEST_DESIGN
+    - RED
+    - LOCK_TEST
+    - GREEN
+    - REFACTOR
+    - VERIFY
+    - REVIEW
+    - ARCHIVE
+    required_artifacts:
+    - change.yaml
+    - spec.yaml
+    - test-plan.yaml
+    - tasks.yaml
+    - traceability.yaml
+    - verification.yaml
+source:
+  core_revision: core.workflow:v1
+  profile_ref: .aeh/profile.yaml
+workflow_version: '1'

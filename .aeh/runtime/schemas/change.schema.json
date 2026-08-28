@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Change Contract",
+  "type": "object",
+  "required": [
+    "change_id",
+    "classification",
+    "state",
+    "gates"
+  ],
+  "properties": {
+    "change_id": {
+      "type": "string",
+      "pattern": "^CHG-[0-9]{4}-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "classification": {
+      "oneOf": [
+        {"type": "string", "enum": ["DIRECT", "LIGHTWEIGHT", "STANDARD", "CRITICAL", "EXPLORE"]},
+        {
+          "type": "object",
+          "required": ["level", "reasons"],
+          "additionalProperties": false,
+          "properties": {
+            "level": {"type": "string", "enum": ["DIRECT", "LIGHTWEIGHT", "STANDARD", "CRITICAL", "EXPLORE"]},
+            "reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "evidence": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {"type": "string"},
+                  {
+                    "type": "object",
+                    "required": ["kind", "domain"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {"type": "string", "enum": ["keyword_hint", "repository_evidence", "user_hint"]},
+                      "domain": {"type": "string"},
+                      "confidence": {"type": "string", "enum": ["heuristic", "direct", "indirect"]}
+                    }
+                  }
+                ]
+              }
+            },
+            "suggested_level": {"type": "string", "enum": ["DIRECT", "LIGHTWEIGHT", "STANDARD", "CRITICAL", "EXPLORE"]},
+            "escalated": {"type": "boolean"}
+          }
+        }
+      ]
+    },
+    "workflow": {
+      "type": "object",
+      "required": ["level", "phases"],
+      "additionalProperties": false,
+      "properties": {
+        "level": {"type": "string", "enum": ["DIRECT", "LIGHTWEIGHT", "STANDARD", "CRITICAL", "EXPLORE"]},
+        "phases": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "preflight_warnings": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "state": {
+      "type": "object",
+      "required": [
+        "current"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "current": {
+          "type": "string",
+          "enum": [
+            "INTAKE",
+            "CLASSIFY",
+            "IMPLEMENT",
+            "BASIC_VERIFY",
+            "DONE",
+            "TARGETED_GROUND",
+            "BUG_CONTRACT",
+            "REGRESSION_TEST",
+            "GROUND",
+            "SPEC",
+            "HUMAN_SPEC_APPROVAL",
+            "DESIGN",
+            "TEST_DESIGN",
+            "RED",
+            "VALIDATE_RED",
+            "LOCK_TEST",
+            "HUMAN_CI_RED_GATE",
+            "GREEN",
+            "REFACTOR",
+            "INTEGRATION",
+            "RUNTIME_PLATFORM_VERIFY",
+            "REGRESSION",
+            "VERIFY",
+            "REVIEW",
+            "DRIFT_CHECK",
+            "HUMAN_MERGE_APPROVAL",
+            "ARCHIVE",
+            "HYPOTHESIS",
+            "EXPERIMENT",
+            "EVIDENCE",
+            "DECISION",
+            "DISCARD",
+            "TEST_REPAIR",
+            "SPEC_REPAIR",
+            "TEST_SETUP",
+            "INVESTIGATE",
+            "BLOCKED_ENVIRONMENT"
+          ]
+        },
+        "previous": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/gateStatus"
+      },
+      "properties": {
+        "classification": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "grounding": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "spec": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "test_design": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "red": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "lock_test": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "verify": {
+          "$ref": "#/definitions/gateStatus"
+        },
+        "review": {
+          "$ref": "#/definitions/gateStatus"
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "score": {
+          "type": "number"
+        },
+        "escalated_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "definitions": {
+    "gateStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ACTIVE",
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "NOT_APPLICABLE"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

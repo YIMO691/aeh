@@ -1,0 +1,112 @@
+# core/states.yaml — AEH 状态机契约（P-01/P-15/P-16/P-18 机器化）
+# 定义全部合法状态、合法迁移（含条件）与冻结的非法迁移示例。
+# 普通 Runtime Agent 不得绕过状态机直接改写 change.yaml.state（P-21）。
+
+contract: core.states
+version: 1
+
+states:
+  - INTAKE
+  - CLASSIFY
+  - IMPLEMENT
+  - BASIC_VERIFY
+  - DONE
+  - TARGETED_GROUND
+  - BUG_CONTRACT
+  - REGRESSION_TEST
+  - GROUND
+  - SPEC
+  - HUMAN_SPEC_APPROVAL
+  - DESIGN
+  - TEST_DESIGN
+  - RED
+  - VALIDATE_RED
+  - LOCK_TEST
+  - HUMAN_CI_RED_GATE
+  - GREEN
+  - REFACTOR
+  - INTEGRATION
+  - RUNTIME_PLATFORM_VERIFY
+  - REGRESSION
+  - VERIFY
+  - REVIEW
+  - DRIFT_CHECK
+  - HUMAN_MERGE_APPROVAL
+  - ARCHIVE
+  - HYPOTHESIS
+  - EXPERIMENT
+  - EVIDENCE
+  - DECISION
+  - DISCARD
+  - TEST_REPAIR
+  - SPEC_REPAIR
+  - TEST_SETUP
+  - INVESTIGATE
+  - BLOCKED_ENVIRONMENT
+
+transitions:
+  # 主链（各工作流顺序推进）
+  - {from: INTAKE, to: CLASSIFY}
+  - {from: CLASSIFY, to: IMPLEMENT}
+  - {from: IMPLEMENT, to: BASIC_VERIFY}
+  - {from: BASIC_VERIFY, to: DONE}
+  - {from: CLASSIFY, to: TARGETED_GROUND}
+  - {from: TARGETED_GROUND, to: BUG_CONTRACT}
+  - {from: BUG_CONTRACT, to: REGRESSION_TEST}
+  - {from: REGRESSION_TEST, to: RED}
+  - {from: CLASSIFY, to: GROUND}
+  - {from: GROUND, to: SPEC}
+  - {from: SPEC, to: HUMAN_SPEC_APPROVAL}
+  - {from: HUMAN_SPEC_APPROVAL, to: DESIGN}
+  - {from: DESIGN, to: TEST_DESIGN}
+  - {from: SPEC, to: TEST_DESIGN}
+  - {from: TEST_DESIGN, to: RED}
+  - {from: RED, to: VALIDATE_RED}
+  - {from: VALIDATE_RED, to: LOCK_TEST}
+  - {from: LOCK_TEST, to: HUMAN_CI_RED_GATE}
+  - {from: LOCK_TEST, to: GREEN}
+  - {from: HUMAN_CI_RED_GATE, to: GREEN}
+  - {from: GREEN, to: REFACTOR}
+  - {from: REFACTOR, to: INTEGRATION}
+  - {from: INTEGRATION, to: RUNTIME_PLATFORM_VERIFY}
+  - {from: REFACTOR, to: VERIFY}
+  - {from: RUNTIME_PLATFORM_VERIFY, to: REGRESSION}
+  - {from: REGRESSION, to: REVIEW}
+  - {from: VERIFY, to: REVIEW}
+  - {from: REVIEW, to: DRIFT_CHECK}
+  - {from: REVIEW, to: ARCHIVE}
+  - {from: DRIFT_CHECK, to: HUMAN_MERGE_APPROVAL}
+  - {from: HUMAN_MERGE_APPROVAL, to: ARCHIVE}
+  - {from: RED, to: GREEN}                          # Lightweight：无 LOCK_TEST 的轻量链
+  - {from: GREEN, to: VERIFY}                        # Lightweight
+  - {from: VERIFY, to: DONE}                         # Lightweight / Direct 共用终态
+  - {from: HYPOTHESIS, to: EXPERIMENT}
+  - {from: EXPERIMENT, to: EVIDENCE}
+  - {from: EVIDENCE, to: DECISION}
+  - {from: DECISION, to: DISCARD}
+  - {from: DECISION, to: GROUND}                     # PROMOTE_TO_STANDARD
+  - {from: DECISION, to: SPEC}                       # PROMOTE_TO_CRITICAL 入口
+
+  # INVALID_RED 分类路由（P-16）
+  - {from: RED, to: TEST_DESIGN, condition: INVALID_RED_TEST_DEFECT}
+  - {from: RED, to: SPEC_REPAIR, condition: INVALID_RED_SPEC_MISMATCH}
+  - {from: RED, to: BLOCKED_ENVIRONMENT, condition: INVALID_RED_ENVIRONMENT}
+  - {from: RED, to: TEST_SETUP, condition: INVALID_RED_FIXTURE}
+  - {from: RED, to: INVESTIGATE, condition: INVALID_RED_UNEXPECTED_FAILURE}
+  - {from: RED, to: LOCK_TEST, condition: VALID_RED}
+
+  # Green 期间测试/规格被改：必须走 Repair 重新审批与 RED（P-15/P-18）
+  - {from: GREEN, to: TEST_REPAIR, condition: BLOCKED_TEST_CHANGED}
+  - {from: GREEN, to: SPEC_REPAIR, condition: SPEC_CHANGED_IN_GREEN}
+  - {from: TEST_REPAIR, to: TEST_DESIGN}
+  - {from: SPEC_REPAIR, to: SPEC}
+  - {from: INVESTIGATE, to: TEST_DESIGN}
+  - {from: TEST_SETUP, to: RED}
+  - {from: BLOCKED_ENVIRONMENT, to: RED}
+
+illegal_transitions:
+  - {from: GROUND, to: GREEN}          # 跳 SPEC/RED/LOCK_TEST
+  - {from: SPEC, to: DONE}             # 未经实现与验证
+  - {from: SPEC, to: IMPLEMENT}        # Critical：绕过 RED 直接实现（冻结红线）
+  - {from: TEST_DESIGN, to: GREEN}     # 未走 RED 与 LOCK_TEST（P-15）
+  - {from: RED, to: ARCHIVE}           # 未走 GREEN/VERIFY/REVIEW

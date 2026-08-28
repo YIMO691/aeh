@@ -1,0 +1,45 @@
+# core/workflow.yaml — AEH 五级工作流契约（P-01/P-10/P-15 机器化）
+# 本文件是 Normative Contract：定义各风险等级的阶段序列与工件要求。
+# 零公司/项目/用户硬编码（P-06）。用户项目生效版本为 .aeh/effective-workflow.yaml，二者禁止同名。
+
+contract: core.workflow
+version: 1
+
+levels:
+  - id: DIRECT
+    phases: [INTAKE, CLASSIFY, IMPLEMENT, BASIC_VERIFY, DONE]
+    required_artifacts: [change.yaml]
+    narrative_artifacts: []
+
+  - id: LIGHTWEIGHT
+    phases: [INTAKE, CLASSIFY, TARGETED_GROUND, BUG_CONTRACT, REGRESSION_TEST, RED, GREEN, VERIFY, DONE]
+    required_artifacts: [change.yaml, bugfix.yaml, test-plan.yaml, verification.yaml]
+    narrative_artifacts: []
+
+  - id: STANDARD
+    phases: [INTAKE, CLASSIFY, GROUND, SPEC, TEST_DESIGN, RED, LOCK_TEST, GREEN, REFACTOR, VERIFY, REVIEW, ARCHIVE]
+    required_artifacts: [change.yaml, spec.yaml, test-plan.yaml, tasks.yaml, traceability.yaml, verification.yaml]
+    narrative_artifacts: [evidence.md]
+
+  - id: CRITICAL
+    phases:
+      [INTAKE, CLASSIFY, GROUND, SPEC, HUMAN_SPEC_APPROVAL, DESIGN, TEST_DESIGN, RED,
+       VALIDATE_RED, LOCK_TEST, HUMAN_CI_RED_GATE, GREEN, REFACTOR, INTEGRATION,
+       RUNTIME_PLATFORM_VERIFY, REGRESSION, REVIEW, DRIFT_CHECK, HUMAN_MERGE_APPROVAL, ARCHIVE]
+    required_artifacts: [change.yaml, spec.yaml, test-plan.yaml, tasks.yaml, traceability.yaml, verification.yaml, approvals.yaml]
+    narrative_artifacts: [evidence.md, design.md, decisions.md, review.md]
+
+  - id: EXPLORE
+    phases: [HYPOTHESIS, EXPERIMENT, EVIDENCE, DECISION]
+    required_artifacts: []
+    narrative_artifacts: []
+    terminal_options: [DISCARD, PROMOTE_TO_STANDARD, PROMOTE_TO_CRITICAL]
+
+# 关键时序约束（P-15）：LOCK_TEST 必须先于 GREEN；RED 必须先于 LOCK_TEST
+sequence_constraints:
+  - name: RED_BEFORE_LOCK_TEST
+    check: index(RED) < index(LOCK_TEST)
+    applies_to: [STANDARD, CRITICAL]
+  - name: LOCK_TEST_BEFORE_GREEN
+    check: index(LOCK_TEST) < index(GREEN)
+    applies_to: [STANDARD, CRITICAL]

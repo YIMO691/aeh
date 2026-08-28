@@ -1,0 +1,16 @@
+
+test_cross_volume_controller_state_is_outside_target (test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_cross_volume_controller_state_is_outside_target) ... ok
+test_exact_policy_and_workflow_are_committed (test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed) ... FAIL
+
+======================================================================
+FAIL: test_exact_policy_and_workflow_are_committed (test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_m6_2d_dogfood.py", line 37, in test_exact_policy_and_workflow_are_committed
+    self.fail("M6_2D_POLICY_UNCONFIGURED")
+AssertionError: M6_2D_POLICY_UNCONFIGURED
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.005s
+
+FAILED (failures=1)

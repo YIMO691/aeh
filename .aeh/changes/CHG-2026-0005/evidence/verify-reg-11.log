@@ -1,0 +1,16 @@
+
+test_answered_skips_second_run (test_interview.TestInterview.test_answered_skips_second_run) ... ok
+test_custom_question_no_code_change (test_interview.TestInterview.test_custom_question_no_code_change) ... ok
+test_detected_fact_skipped (test_interview.TestInterview.test_detected_fact_skipped) ... ok
+test_deterministic_plan (test_interview.TestInterview.test_deterministic_plan) ... ok
+test_invalid_rule_rejected (test_interview.TestInterview.test_invalid_rule_rejected) ... ok
+test_reset_reasks_single_question (test_interview.TestInterview.test_reset_reasks_single_question) ... ok
+test_scanned_at_is_non_semantic (test_interview.TestInterview.test_scanned_at_is_non_semantic) ... ok
+test_types_saved_correctly (test_interview.TestInterview.test_types_saved_correctly) ... ok
+test_unknown_required_false_skips (test_interview.TestInterview.test_unknown_required_false_skips) ... ok
+test_unknown_required_true_asks (test_interview.TestInterview.test_unknown_required_true_asks) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.420s
+
+OK

@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Manifest Contract",
+  "type": "object",
+  "required": [
+    "harness",
+    "compiler",
+    "schema",
+    "installed_at",
+    "source_hashes"
+  ],
+  "properties": {
+    "harness": {
+      "type": "object",
+      "required": [
+        "name",
+        "version",
+        "source_revision"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "source_revision": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "compiler": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "schema": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "installed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recompiled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "upgrade_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to"],
+        "additionalProperties": false,
+        "properties": {
+          "from": {"$ref": "#/definitions/upgradeEndpoint"},
+          "to": {"$ref": "#/definitions/upgradeEndpoint"}
+        }
+      }
+    },
+    "source_hashes": {
+      "type": "object",
+      "required": [
+        "runtime",
+        "compiler",
+        "bootstrap_contract",
+        "adapters"
+      ],
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "compiler": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "bootstrap_contract": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "adapters": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        }
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-fA-F]{64}$"
+      }
+    }
+  },
+  "definitions": {
+    "upgradeEndpoint": {
+      "type": "object",
+      "required": ["harness_version", "source_revision", "runtime_digest"],
+      "additionalProperties": false,
+      "properties": {
+        "harness_version": {"type": "string"},
+        "source_revision": {"type": "string"},
+        "runtime_digest": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"}
+      }
+    }
+  },
+  "additionalProperties": true
+}

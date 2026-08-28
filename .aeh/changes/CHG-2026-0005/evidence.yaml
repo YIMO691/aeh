@@ -1,0 +1,1011 @@
+change_id: CHG-2026-0005
+contract: bootstrap.evidence-index
+evidence:
+- confidence: DIRECT
+  finding: 'keyword match: live in AGENTS.md:9'
+  id: EV-001
+  location:
+    line: 9
+    path: AGENTS.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 08be360cdca8fab09e1e3c540df98beb4ddbcbc3493e8c16fe29c79a4ebf5356
+    rel_path: AGENTS.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: m6 in CHANGELOG.md:9'
+  id: EV-002
+  location:
+    line: 9
+    path: CHANGELOG.md
+    symbol: m6
+  query:
+    pattern: m6
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in CHANGELOG.md:9'
+  id: EV-003
+  location:
+    line: 9
+    path: CHANGELOG.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in CHANGELOG.md:15'
+  id: EV-004
+  location:
+    line: 15
+    path: CHANGELOG.md
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: assurance in CHANGELOG.md:15'
+  id: EV-005
+  location:
+    line: 15
+    path: CHANGELOG.md
+    symbol: assurance
+  query:
+    pattern: assurance
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: case in CHANGELOG.md:102'
+  id: EV-006
+  location:
+    line: 102
+    path: CHANGELOG.md
+    symbol: case
+  query:
+    pattern: case
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in CHANGELOG.md:158'
+  id: EV-007
+  location:
+    line: 158
+    path: CHANGELOG.md
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: final in CHANGELOG.md:114'
+  id: EV-008
+  location:
+    line: 114
+    path: CHANGELOG.md
+    symbol: final
+  query:
+    pattern: final
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in CLAUDE.md:9'
+  id: EV-009
+  location:
+    line: 9
+    path: CLAUDE.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: ed217986247ebe00b48c236c6e45e5f439df2888573ca4391acc1712fac981f7
+    rel_path: CLAUDE.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: m6 in CONTRIBUTING.md:25'
+  id: EV-010
+  location:
+    line: 25
+    path: CONTRIBUTING.md
+    symbol: m6
+  query:
+    pattern: m6
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    rel_path: CONTRIBUTING.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in CONTRIBUTING.md:81'
+  id: EV-011
+  location:
+    line: 81
+    path: CONTRIBUTING.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    rel_path: CONTRIBUTING.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in CONTRIBUTING.md:96'
+  id: EV-012
+  location:
+    line: 96
+    path: CONTRIBUTING.md
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    rel_path: CONTRIBUTING.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in CONTRIBUTING.md:41'
+  id: EV-013
+  location:
+    line: 41
+    path: CONTRIBUTING.md
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    rel_path: CONTRIBUTING.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: m6 in README.md:11'
+  id: EV-014
+  location:
+    line: 11
+    path: README.md
+    symbol: m6
+  query:
+    pattern: m6
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in README.md:214'
+  id: EV-015
+  location:
+    line: 214
+    path: README.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in README.md:3'
+  id: EV-016
+  location:
+    line: 3
+    path: README.md
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: assurance in README.md:9'
+  id: EV-017
+  location:
+    line: 9
+    path: README.md
+    symbol: assurance
+  query:
+    pattern: assurance
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: case in README.md:225'
+  id: EV-018
+  location:
+    line: 225
+    path: README.md
+    symbol: case
+  query:
+    pattern: case
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in README.md:257'
+  id: EV-019
+  location:
+    line: 257
+    path: README.md
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in adapters\claude\CLAUDE.template.md:8'
+  id: EV-020
+  location:
+    line: 8
+    path: adapters\claude\CLAUDE.template.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: b2380d10b33d0ed3c99aa8bf8ba8d6e43887db72d04ae1903f1f45286779ddda
+    rel_path: adapters\claude\CLAUDE.template.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in adapters\codex\AGENTS.template.md:8'
+  id: EV-021
+  location:
+    line: 8
+    path: adapters\codex\AGENTS.template.md
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 5adafd99a39d331c807b79effbe4f36142e46950c863598f8ef692496241805d
+    rel_path: adapters\codex\AGENTS.template.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in bootstrap\discovery\ai-rules.yaml:12'
+  id: EV-022
+  location:
+    line: 12
+    path: bootstrap\discovery\ai-rules.yaml
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 8da3cee9d0f158ea02cb393de140648950084508332026a2b9213a03e5929fe0
+    rel_path: bootstrap\discovery\ai-rules.yaml
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in bootstrap\discovery\ci.yaml:8'
+  id: EV-023
+  location:
+    line: 8
+    path: bootstrap\discovery\ci.yaml
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 2e529848fb80796a167a7fa492dbf259878a67f315a5c7d45bae492ae896fb7a
+    rel_path: bootstrap\discovery\ci.yaml
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: assurance in build\lib\aeh\ci.py:1'
+  id: EV-024
+  location:
+    line: 1
+    path: build\lib\aeh\ci.py
+    symbol: assurance
+  query:
+    pattern: assurance
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 9408ccbfc5ffa5eccacd4158ed3d352ad2b4513c0ba866990750ca9696b978a0
+    rel_path: build\lib\aeh\ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in build\lib\aeh\ci.py:33'
+  id: EV-025
+  location:
+    line: 33
+    path: build\lib\aeh\ci.py
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 9408ccbfc5ffa5eccacd4158ed3d352ad2b4513c0ba866990750ca9696b978a0
+    rel_path: build\lib\aeh\ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: m6 in build\lib\aeh\cli.py:77'
+  id: EV-026
+  location:
+    line: 77
+    path: build\lib\aeh\cli.py
+    symbol: m6
+  query:
+    pattern: m6
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: a6248d3bea1fbf8e9483ef1ce90920e3ffe057f1874e73ee3bf8dcbb2b005151
+    rel_path: build\lib\aeh\cli.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: live in build\lib\aeh\cli.py:88'
+  id: EV-027
+  location:
+    line: 88
+    path: build\lib\aeh\cli.py
+    symbol: live
+  query:
+    pattern: live
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: a6248d3bea1fbf8e9483ef1ce90920e3ffe057f1874e73ee3bf8dcbb2b005151
+    rel_path: build\lib\aeh\cli.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in build\lib\aeh\cli.py:75'
+  id: EV-028
+  location:
+    line: 75
+    path: build\lib\aeh\cli.py
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: a6248d3bea1fbf8e9483ef1ce90920e3ffe057f1874e73ee3bf8dcbb2b005151
+    rel_path: build\lib\aeh\cli.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: assurance in build\lib\aeh\cli.py:1'
+  id: EV-029
+  location:
+    line: 1
+    path: build\lib\aeh\cli.py
+    symbol: assurance
+  query:
+    pattern: assurance
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: a6248d3bea1fbf8e9483ef1ce90920e3ffe057f1874e73ee3bf8dcbb2b005151
+    rel_path: build\lib\aeh\cli.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in build\lib\aeh\cli.py:10'
+  id: EV-030
+  location:
+    line: 10
+    path: build\lib\aeh\cli.py
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: a6248d3bea1fbf8e9483ef1ce90920e3ffe057f1874e73ee3bf8dcbb2b005151
+    rel_path: build\lib\aeh\cli.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in build\lib\aeh\conflict.py:33'
+  id: EV-031
+  location:
+    line: 33
+    path: build\lib\aeh\conflict.py
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 03509ceb36ecfe234f8738d4025d447b7ad2ff1f5f306b93de13ad386d5ff838
+    rel_path: build\lib\aeh\conflict.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in build\lib\aeh\discovery.py:67'
+  id: EV-032
+  location:
+    line: 67
+    path: build\lib\aeh\discovery.py
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 931e6425c5988c05521454135b1c775ff2153d560d99d12147f7f4d6655f2491
+    rel_path: build\lib\aeh\discovery.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: enable in build\lib\aeh\github_ci.py:381'
+  id: EV-033
+  location:
+    line: 381
+    path: build\lib\aeh\github_ci.py
+    symbol: enable
+  query:
+    pattern: enable
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: m6 in build\lib\aeh\github_ci.py:208'
+  id: EV-034
+  location:
+    line: 208
+    path: build\lib\aeh\github_ci.py
+    symbol: m6
+  query:
+    pattern: m6
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: github in build\lib\aeh\github_ci.py:1'
+  id: EV-035
+  location:
+    line: 1
+    path: build\lib\aeh\github_ci.py
+    symbol: github
+  query:
+    pattern: github
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: assurance in build\lib\aeh\github_ci.py:1'
+  id: EV-036
+  location:
+    line: 1
+    path: build\lib\aeh\github_ci.py
+    symbol: assurance
+  query:
+    pattern: assurance
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: case in build\lib\aeh\github_ci.py:350'
+  id: EV-037
+  location:
+    line: 350
+    path: build\lib\aeh\github_ci.py
+    symbol: case
+  query:
+    pattern: case
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in build\lib\aeh\github_ci.py:55'
+  id: EV-038
+  location:
+    line: 55
+    path: build\lib\aeh\github_ci.py
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: final in build\lib\aeh\github_ci.py:561'
+  id: EV-039
+  location:
+    line: 561
+    path: build\lib\aeh\github_ci.py
+    symbol: final
+  query:
+    pattern: final
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 1ceeb5ba03e77068a43a9082f5a14b6f31d6a686919869790ef6d2816a854ede
+    rel_path: build\lib\aeh\github_ci.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: safe in build\lib\aeh\interview.py:46'
+  id: EV-040
+  location:
+    line: 46
+    path: build\lib\aeh\interview.py
+    symbol: safe
+  query:
+    pattern: safe
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 827d783af3f68c1c0092c76868d764a711282741d8cb36aba3c8691906c8a943
+    rel_path: build\lib\aeh\interview.py
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'existing test file: tests\adapters\test_adapters.py'
+  id: EV-041
+  location:
+    line: 50
+    path: tests\adapters\test_adapters.py
+  relevance:
+    kind: existing_test_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 420a81e98272c72aafa7af549d4ff7e24a9f15a2c873d14cb4a5b18d2893d785
+    rel_path: tests\adapters\test_adapters.py
+  test_result: FOUND
+  type: TEST
+- confidence: DIRECT
+  finding: 'existing test file: tests\bootstrap\test_bootstrap.py'
+  id: EV-042
+  location:
+    line: 88
+    path: tests\bootstrap\test_bootstrap.py
+  relevance:
+    kind: existing_test_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 7abc57a77d38459f6438557c56a1a796182d65c610cb715a190cf17fc15bed7b
+    rel_path: tests\bootstrap\test_bootstrap.py
+  test_result: FOUND
+  type: TEST
+- confidence: DIRECT
+  finding: 'existing test file: tests\bootstrap\test_bootstrap.py'
+  id: EV-043
+  location:
+    line: 79
+    path: tests\bootstrap\test_bootstrap.py
+  relevance:
+    kind: existing_test_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 7abc57a77d38459f6438557c56a1a796182d65c610cb715a190cf17fc15bed7b
+    rel_path: tests\bootstrap\test_bootstrap.py
+  test_result: FOUND
+  type: TEST
+- confidence: DIRECT
+  finding: 'existing test file: tests\compiler\test_compiler.py'
+  id: EV-044
+  location:
+    line: 70
+    path: tests\compiler\test_compiler.py
+  relevance:
+    kind: existing_test_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: b667e1c7bda8b227542991317233085fefc8ab30214be5e0c600d548e7e89076
+    rel_path: tests\compiler\test_compiler.py
+  test_result: FOUND
+  type: TEST
+- confidence: DIRECT
+  finding: 'existing test file: tests\compiler\test_compiler.py'
+  id: EV-045
+  location:
+    line: 42
+    path: tests\compiler\test_compiler.py
+  relevance:
+    kind: existing_test_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: b667e1c7bda8b227542991317233085fefc8ab30214be5e0c600d548e7e89076
+    rel_path: tests\compiler\test_compiler.py
+  test_result: FOUND
+  type: TEST
+- confidence: INFERRED
+  finding: 'keyword co-occurrence across 201 files: AGENTS.md, CHANGELOG.md, CLAUDE.md,
+    CONTRIBUTING.md'
+  id: EV-046
+  limitations:
+  - call relation inferred from keyword co-occurrence; not symbolically verified
+  relevance:
+    detail: co-occurrence, not verified
+    kind: call_relation
+  type: CALL_PATH
+- confidence: DIRECT
+  finding: 'config file match: bootstrap\discovery\ai-rules.yaml:12'
+  id: EV-047
+  location:
+    line: 12
+    path: bootstrap\discovery\ai-rules.yaml
+  relevance:
+    kind: configuration_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 8da3cee9d0f158ea02cb393de140648950084508332026a2b9213a03e5929fe0
+    rel_path: bootstrap\discovery\ai-rules.yaml
+  type: CONFIG
+- confidence: DIRECT
+  finding: 'config file match: bootstrap\discovery\ci.yaml:8'
+  id: EV-048
+  location:
+    line: 8
+    path: bootstrap\discovery\ci.yaml
+  relevance:
+    kind: configuration_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 2e529848fb80796a167a7fa492dbf259878a67f315a5c7d45bae492ae896fb7a
+    rel_path: bootstrap\discovery\ci.yaml
+  type: CONFIG
+- confidence: DIRECT
+  finding: 'config file match: build\lib\aeh\data\bootstrap\discovery\ai-rules.yaml:12'
+  id: EV-049
+  location:
+    line: 12
+    path: build\lib\aeh\data\bootstrap\discovery\ai-rules.yaml
+  relevance:
+    kind: configuration_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 8da3cee9d0f158ea02cb393de140648950084508332026a2b9213a03e5929fe0
+    rel_path: build\lib\aeh\data\bootstrap\discovery\ai-rules.yaml
+  type: CONFIG
+- confidence: DIRECT
+  finding: 'config file match: build\lib\aeh\data\bootstrap\discovery\ci.yaml:8'
+  id: EV-050
+  location:
+    line: 8
+    path: build\lib\aeh\data\bootstrap\discovery\ci.yaml
+  relevance:
+    kind: configuration_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 2e529848fb80796a167a7fa492dbf259878a67f315a5c7d45bae492ae896fb7a
+    rel_path: build\lib\aeh\data\bootstrap\discovery\ci.yaml
+  type: CONFIG
+- confidence: DIRECT
+  finding: 'config file match: build\lib\aeh\data\core\ci-enforcement-policy.yaml:3'
+  id: EV-051
+  location:
+    line: 3
+    path: build\lib\aeh\data\core\ci-enforcement-policy.yaml
+  relevance:
+    kind: configuration_relation
+  source_state:
+    base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+    dirty: true
+    file_hash: 258c1ad4213419069ab33001c7b0e4ab4b972997909224f4a630ba206c3679ad
+    rel_path: build\lib\aeh\data\core\ci-enforcement-policy.yaml
+  type: CONFIG
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: authentication_authorization'
+  id: EV-052
+  query:
+    pattern: authentication_authorization
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: destructive_data_operation'
+  id: EV-053
+  query:
+    pattern: destructive_data_operation
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: irreversible_migration'
+  id: EV-054
+  query:
+    pattern: irreversible_migration
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: money_economy'
+  id: EV-055
+  query:
+    pattern: money_economy
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: persistence'
+  id: EV-056
+  query:
+    pattern: persistence
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: protocol_compatibility'
+  id: EV-057
+  query:
+    pattern: protocol_compatibility
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: save_migration'
+  id: EV-058
+  query:
+    pattern: save_migration
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'risk domain marker found in repository: security_boundary'
+  id: EV-059
+  query:
+    pattern: security_boundary
+    rule: risk_domain
+  relevance:
+    detail: risk domain grounding
+    kind: configuration_relation
+  type: SOURCE
+- confidence: INDIRECT
+  finding: architecture constraints not symbolically verified in Phase 9 scan
+  id: EV-060
+  limitations:
+  - no constraint extraction implemented; treat as unknown, not absent
+  type: UNKNOWN
+generated_at: '2026-08-28T04:51:56.777498+00:00'
+repository:
+  base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+  dirty: true
+  root: D:\AgentWorkspace\DSHW\adaptive-engineering-harness
+unknowns: []
+version: 1

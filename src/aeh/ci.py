@@ -116,7 +116,7 @@ def _remote_repository_id(remote):
         return ""
     if path.endswith(".git"):
         path = path[:-4]
-    return host + "/" + path if host and path else ""
+    return (host + "/" + path).lower() if host and path else ""
 
 
 def _safe_target_file(target, relative):

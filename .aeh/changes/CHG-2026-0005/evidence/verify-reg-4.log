@@ -1,0 +1,34 @@
+
+test_default_level_reflects_profile (test_compiler.TestCompileSemantics.test_default_level_reflects_profile) ... ok
+test_effective_workflow_schema_pass_and_core_untouched (test_compiler.TestCompileSemantics.test_effective_workflow_schema_pass_and_core_untouched) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\compiler\test_compiler.py:216: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\DSHW\\adaptive-engineering-harness\\core\\workflow.yaml'>
+  before = hashlib.sha256(open(CORE_WORKFLOW, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\compiler\test_compiler.py:223: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\DSHW\\adaptive-engineering-harness\\core\\workflow.yaml'>
+  after = hashlib.sha256(open(CORE_WORKFLOW, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_fact_not_compiled_as_policy (test_compiler.TestCompileSemantics.test_fact_not_compiled_as_policy) ... ok
+test_illegal_option_rejected (test_compiler.TestCompileSemantics.test_illegal_option_rejected) ... ok
+test_permission_compiled (test_compiler.TestCompileSemantics.test_permission_compiled) ... ok
+test_preference_enters_developer (test_compiler.TestCompileSemantics.test_preference_enters_developer) ... ok
+test_private_ref_only_no_body (test_compiler.TestCompileSemantics.test_private_ref_only_no_body) ... ok
+test_profile_schema_pass (test_compiler.TestCompileSemantics.test_profile_schema_pass) ... ok
+test_task_rule_not_in_profile (test_compiler.TestCompileSemantics.test_task_rule_not_in_profile) ... ok
+test_organization_overrides_developer (test_compiler.TestConflictPrecedence.test_organization_overrides_developer) ... ok
+test_project_overrides_team (test_compiler.TestConflictPrecedence.test_project_overrides_team) ... ok
+test_same_level_different_values_blocked (test_compiler.TestConflictPrecedence.test_same_level_different_values_blocked) ... ok
+test_same_level_same_value_no_conflict (test_compiler.TestConflictPrecedence.test_same_level_same_value_no_conflict) ... ok
+test_team_overrides_developer (test_compiler.TestConflictPrecedence.test_team_overrides_developer) ... ok
+test_answered_at_irrelevant (test_compiler.TestDeterminism.test_answered_at_irrelevant) ... ok
+test_input_order_independent (test_compiler.TestDeterminism.test_input_order_independent) ... ok
+test_scanned_at_irrelevant (test_compiler.TestDeterminism.test_scanned_at_irrelevant) ... ok
+test_higher_precedence_overrides_folded_facts (test_compiler.TestMultiFieldFold.test_higher_precedence_overrides_folded_facts) ... ok
+test_multi_language_facts_fold_to_list (test_compiler.TestMultiFieldFold.test_multi_language_facts_fold_to_list) ... ok
+test_multi_structure_facts_fold (test_compiler.TestMultiFieldFold.test_multi_structure_facts_fold) ... ok
+test_non_multi_field_conflict_still_blocked (test_compiler.TestMultiFieldFold.test_non_multi_field_conflict_still_blocked) ... ok
+test_rules_declare_multi_fields (test_compiler.TestMultiFieldFold.test_rules_declare_multi_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.533s
+
+OK

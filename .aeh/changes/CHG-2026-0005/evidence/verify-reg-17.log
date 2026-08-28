@@ -1,0 +1,15 @@
+
+test_one_fresh_declared_change_passes_deterministically (test_github_ci.TestExactDiffClosure.test_one_fresh_declared_change_passes_deterministically) ... ok
+test_unrelated_file_fails_closed (test_github_ci.TestExactDiffClosure.test_unrelated_file_fails_closed) ... ok
+test_zero_multiple_stale_and_unrelated_are_invalid (test_github_ci.TestExactDiffClosure.test_zero_multiple_stale_and_unrelated_are_invalid) ... ok
+test_event_binding_invokes_replay_with_exact_inputs (test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs) ... ok
+test_protected_credentials_require_external_channel (test_github_ci.TestGitHubBinding.test_protected_credentials_require_external_channel) ... ok
+test_repository_identity_is_case_insensitive (test_github_ci.TestGitHubBinding.test_repository_identity_is_case_insensitive) ... ok
+test_wrong_run_head_and_unconfigured_digest_fail_closed (test_github_ci.TestGitHubBinding.test_wrong_run_head_and_unconfigured_digest_fail_closed) ... ok
+test_audit_distinguishes_observed_required_external_and_api_unknown (test_github_ci.TestWorkflowAndAudit.test_audit_distinguishes_observed_required_external_and_api_unknown) ... ok
+test_renderer_is_deterministic_pinned_and_not_pr_installable (test_github_ci.TestWorkflowAndAudit.test_renderer_is_deterministic_pinned_and_not_pr_installable) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 7.015s
+
+OK

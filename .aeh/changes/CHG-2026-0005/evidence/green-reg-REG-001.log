@@ -1,0 +1,23 @@
+
+test_deterministic_output (test_adapters.TestDeterminism.test_deterministic_output) ... ok
+test_inputs_not_modified (test_adapters.TestDeterminism.test_inputs_not_modified) ... ok
+test_no_unclosed_template_file_handles (test_adapters.TestDeterminism.test_no_unclosed_template_file_handles)
+release-fix 004：模板读取必须关闭句柄（dogfood 发现并修复的真实 bug）。 ... ok
+test_timestamps_irrelevant (test_adapters.TestDeterminism.test_timestamps_irrelevant) ... ok
+test_malformed_markers_blocked (test_adapters.TestManagedMerge.test_malformed_markers_blocked) ... ok
+test_second_merge_idempotent (test_adapters.TestManagedMerge.test_second_merge_idempotent) ... ok
+test_user_content_preserved (test_adapters.TestManagedMerge.test_user_content_preserved) ... ok
+test_blocked_profile_rejected (test_adapters.TestRender.test_blocked_profile_rejected) ... ok
+test_claude_render_pass (test_adapters.TestRender.test_claude_render_pass) ... ok
+test_codex_render_pass (test_adapters.TestRender.test_codex_render_pass) ... ok
+test_human_review_required_not_degraded (test_adapters.TestRender.test_human_review_required_not_degraded) ... ok
+test_managed_section_is_thin (test_adapters.TestRender.test_managed_section_is_thin) ... ok
+test_private_policy_zero_leak (test_adapters.TestRender.test_private_policy_zero_leak) ... ok
+test_push_deny_not_relaxed (test_adapters.TestRender.test_push_deny_not_relaxed) ... ok
+test_semantic_equivalence_across_adapters (test_adapters.TestRender.test_semantic_equivalence_across_adapters) ... ok
+test_unsupported_capability_recorded (test_adapters.TestRender.test_unsupported_capability_recorded) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.379s
+
+OK

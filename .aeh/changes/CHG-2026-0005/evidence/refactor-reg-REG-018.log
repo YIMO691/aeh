@@ -1,0 +1,52 @@
+
+test_after_grounding_can_enter_spec (test_grounding.TestGrounding.test_after_grounding_can_enter_spec) ... ok
+test_classification_escalate_by_repo_evidence (test_grounding.TestGrounding.test_classification_escalate_by_repo_evidence) ... ok
+test_critical_requires_stronger_evidence (test_grounding.TestGrounding.test_critical_requires_stronger_evidence) ... ok
+test_ev_ids_unique_and_hashed (test_grounding.TestGrounding.test_ev_ids_unique_and_hashed) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:131: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-ht1ryq_4\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_evidence_schema_pass (test_grounding.TestGrounding.test_evidence_schema_pass) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:123: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-ib2i_z3i\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:124: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\DSHW\\adaptive-engineering-harness\\schemas\\evidence-index.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "evidence-index.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_grounding_read_only (test_grounding.TestGrounding.test_grounding_read_only) ... ok
+test_insufficient_evidence_gate_not_pass (test_grounding.TestGrounding.test_insufficient_evidence_gate_not_pass) ... ok
+test_integrity_blocked_no_grounding (test_grounding.TestGrounding.test_integrity_blocked_no_grounding) ... ok
+test_no_automatic_downgrade (test_grounding.TestGrounding.test_no_automatic_downgrade) ... ok
+test_no_sensitive_content (test_grounding.TestGrounding.test_no_sensitive_content) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:146: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-yaiil0cv\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  raw = open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_not_found_has_negative_search (test_grounding.TestGrounding.test_not_found_has_negative_search) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:165: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-mm32qp6m\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_parallel_changes_isolated (test_grounding.TestGrounding.test_parallel_changes_isolated) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:225: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-l7s68sx2\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev1 = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r1["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_resource_limit_records_limitation (test_grounding.TestGrounding.test_resource_limit_records_limitation) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:178: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-jonibt7b\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_stale_detection (test_grounding.TestGrounding.test_stale_detection) ... ok
+test_standard_grounding_success (test_grounding.TestGrounding.test_standard_grounding_success) ... ok
+test_test_evidence_rel_path_root_relative_no_stale (test_grounding.TestGrounding.test_test_evidence_rel_path_root_relative_no_stale)
+release-fix 003：TEST 证据 rel_path 相对仓库根，ground 后立即 spec 不误判 stale。 ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:246: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-6liugvis\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_test_found_with_evidence (test_grounding.TestGrounding.test_test_found_with_evidence) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_grounding.py:153: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-oyhgn2cl\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_writes_only_inside_change_dir (test_grounding.TestGrounding.test_writes_only_inside_change_dir) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 63.095s
+
+OK

@@ -1,0 +1,14 @@
+
+test_all_resource_domains_exist (test_paths.TestResourcePaths.test_all_resource_domains_exist) ... ok
+test_domain_escape_is_rejected (test_paths.TestResourcePaths.test_domain_escape_is_rejected) ... ok
+test_incomplete_packaged_bundle_is_not_hidden_by_source_fallback (test_paths.TestResourcePaths.test_incomplete_packaged_bundle_is_not_hidden_by_source_fallback) ... ok
+test_missing_package_and_source_raise_explicit_error (test_paths.TestResourcePaths.test_missing_package_and_source_raise_explicit_error) ... ok
+test_packaged_bundle_has_priority (test_paths.TestResourcePaths.test_packaged_bundle_has_priority) ... ok
+test_resolution_is_deterministic (test_paths.TestResourcePaths.test_resolution_is_deterministic) ... ok
+test_source_tree_root (test_paths.TestResourcePaths.test_source_tree_root) ... ok
+test_unknown_domain_is_rejected (test_paths.TestResourcePaths.test_unknown_domain_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.025s
+
+OK

@@ -1,0 +1,21 @@
+change_id: CHG-2026-0005
+contract: red.evidence
+tests:
+- actual_failure:
+    category: behavior
+    signature: M6_2D_POLICY_UNCONFIGURED
+  base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+  changed_files_hash: 18dcc0fe4a225e7520502dcbe7cea7f1c91d4a971f56c7b907414a58b70e907c
+  command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest discover -s tests/runtime -p test_m6_2d_dogfood.py -v
+  commit: null
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: M6_2D_POLICY_UNCONFIGURED
+  output_hash: dc3a66a726b163cdf039c6a893698a0aaff0228f76044d594ff1d41e1d4274be
+  output_ref: .aeh\changes\CHG-2026-0005\evidence\red-TEST-001.log
+  test_files_hash: 18dcc0fe4a225e7520502dcbe7cea7f1c91d4a971f56c7b907414a58b70e907c
+  test_id: TEST-001
+  verdict: VALID_RED
+version: 1

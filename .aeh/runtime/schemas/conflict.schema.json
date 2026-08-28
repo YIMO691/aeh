@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Conflict Record Contract",
+  "type": "object",
+  "required": [
+    "conflict_id",
+    "field",
+    "level",
+    "candidates",
+    "status"
+  ],
+  "properties": {
+    "conflict_id": {
+      "type": "string",
+      "pattern": "^CONF-[0-9]{3}$"
+    },
+    "field": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "system",
+        "organization",
+        "project",
+        "team",
+        "task",
+        "developer",
+        "default"
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "value",
+          "source"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "value": {},
+          "source": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "resolution": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "BLOCKED_POLICY_CONFLICT",
+        "USER_DECISION_REQUIRED",
+        "RESOLVED"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

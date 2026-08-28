@@ -1,0 +1,54 @@
+
+test_ac_coverage_missing_block (test_red.TestDesignTests.test_ac_coverage_missing_block) ... ok
+test_critical_invariant_uncovered_block (test_red.TestDesignTests.test_critical_invariant_uncovered_block) ... ok
+test_manual_ac_not_forced (test_red.TestDesignTests.test_manual_ac_not_forced) ... ok
+test_plan_schema_pass (test_red.TestDesignTests.test_plan_schema_pass) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:165: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-_i9oiz8x\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:166: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\DSHW\\adaptive-engineering-harness\\schemas\\test-plan.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "test-plan.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_spec_gate_block (test_red.TestDesignTests.test_spec_gate_block) ... ok
+test_stable_test_ids (test_red.TestDesignTests.test_stable_test_ids) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-_q2szm37\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_standard_test_design_pass (test_red.TestDesignTests.test_standard_test_design_pass) ... ok
+test_test_creation_not_modify_production (test_red.TestDesignTests.test_test_creation_not_modify_production) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:157: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-k6pfc3l5\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:159: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-k6pfc3l5\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_already_green (test_red.TestRed.test_already_green) ... ok
+test_crash_is_unexpected_failure (test_red.TestRed.test_crash_is_unexpected_failure) ... ok
+test_environment_route (test_red.TestRed.test_environment_route) ... ok
+test_fixture_route (test_red.TestRed.test_fixture_route) ... ok
+test_invalid_red_lock_unreachable (test_red.TestRed.test_invalid_red_lock_unreachable) ... ok
+test_parallel_changes_isolated (test_red.TestRed.test_parallel_changes_isolated) ... ok
+test_production_byte_for_byte (test_red.TestRed.test_production_byte_for_byte) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:278: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-iu_txv15\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:280: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-iu_txv15\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_repeated_red_cannot_adopt_machine_truth_tamper (test_red.TestRed.test_repeated_red_cannot_adopt_machine_truth_tamper) ... ok
+test_repeated_red_does_not_reseal_machine_truth_written_by_test (test_red.TestRed.test_repeated_red_does_not_reseal_machine_truth_written_by_test) ... ok
+test_spec_mismatch_route (test_red.TestRed.test_spec_mismatch_route) ... ok
+test_stale_blocks_red (test_red.TestRed.test_stale_blocks_red) ... ok
+test_test_defect_route (test_red.TestRed.test_test_defect_route) ... ok
+test_valid_red_and_lock (test_red.TestRed.test_valid_red_and_lock) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:189: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-w54o9z_3\\.aeh\\changes\\CHG-2026-0001\\red.yaml' mode='r' encoding='utf-8'>
+  red_rec = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "red.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_red.py:192: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-w54o9z_3\\.aeh\\changes\\CHG-2026-0001\\test-lock.yaml' mode='r' encoding='utf-8'>
+  lock = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-lock.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 100.033s
+
+OK

@@ -1,0 +1,15 @@
+change_id: CHG-2026-0005
+contract: test-lock
+files:
+- hash: 73b3b2c4147b7e0fece2519be6c1fd2b68a196fcd29c683974b6b358c723abc8
+  path: tests/runtime/test_m6_2d_dogfood.py
+locked_at: '2026-08-28T04:52:52.358930+00:00'
+protected:
+  .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
+  .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
+  evidence.yaml: e898fb64a0c1b94a3f329c2c442dad0c519bac07a8edb9ff95b0cc74839145aa
+  spec.yaml: b2934c04da953c5c6d692ab05970298d3440527342e55017261a22e4a5c7beb7
+repository:
+  base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+  dirty: null
+version: 1

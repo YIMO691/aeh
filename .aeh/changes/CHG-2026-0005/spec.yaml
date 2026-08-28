@@ -1,0 +1,19 @@
+generated_at: '2026-08-28T04:51:57.667790+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: The source policy and installed runtime policy bind the exact prerelease
+      wheel, the exact workflow digest, the exact check name, and GitHub Actions App
+      15368.
+    type: invariant
+  - id: AC-001-02
+    statement: The committed workflow bytes hash to the configured SHA-256 and contain
+      only the pinned actions and immutable wheel inputs.
+    type: automated
+  behavior: The AEH repository exposes one immutable, hash-bound GitHub assurance
+    workflow and the installed runtime uses the same enforcement policy.
+  id: REQ-001
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT

@@ -1,0 +1,14 @@
+compiler:
+  version: 0.1.0
+harness:
+  name: adaptive-engineering-harness
+  source_revision: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+  version: 0.3.0.dev0
+installed_at: '2026-08-28T02:14:31.031358+00:00'
+schema:
+  version: '1'
+source_hashes:
+  adapters: f6f0ab3508bf0fc5251701503e4f7aa46a28eb96ac1c76c7fba1eea87af32db9
+  bootstrap_contract: 9132ea6276f420a171fb8c13fbe8208ba029698d13ad981a5e1463bf2051d42a
+  compiler: eb4202ad81fe43aec538ae030af2bf3e26428db05d7d9cea5d49ca7903d0a81f
+  runtime: 724ecdb8e5f8ead967998f690682fa34c575a1b32cc65687589655f0a619f8c6

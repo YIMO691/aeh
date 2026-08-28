@@ -15,7 +15,7 @@ import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "src"))
 
-from aeh import github_ci
+from aeh import ci, github_ci
 
 
 def git(target, *args):
@@ -122,6 +122,11 @@ class TestGitHubBinding(GitRepositoryCase):
         policy["workflow"]["expected_sha256"] = "a" * 64
         return policy
 
+    def unconfigured_policy(self):
+        policy = json.loads(json.dumps(self.policy))
+        policy["workflow"]["expected_sha256"] = None
+        return policy
+
     def event_and_run(self, head):
         event = {"number": 7, "repository": {"id": 42, "full_name": "owner/repo"},
                  "pull_request": {"base": {"sha": self.base}, "head": {"sha": head}}}
@@ -154,9 +159,16 @@ class TestGitHubBinding(GitRepositoryCase):
         report = github_ci.verify_event(self.target, event, "pull_request", run, self.configured_policy())
         self.assertEqual(report["verdict"], "INVALID")
         event, run = self.event_and_run(head)
-        report = github_ci.verify_event(self.target, event, "pull_request", run, self.policy)
+        report = github_ci.verify_event(
+            self.target, event, "pull_request", run, self.unconfigured_policy())
         self.assertEqual(report["verdict"], "BLOCKED")
         self.assertEqual(report["checks"][-1]["id"], "run.workflow_digest")
+
+    def test_repository_identity_is_case_insensitive(self):
+        self.assertEqual(
+            ci._remote_repository_id("https://github.com/YIMO691/aeh.git"),
+            "github.com/yimo691/aeh",
+        )
 
     def test_protected_credentials_require_external_channel(self):
         self.add_change(); head = commit(self.target, "change")
@@ -185,8 +197,11 @@ class TestWorkflowAndAudit(unittest.TestCase):
         return value, rendered
 
     def test_renderer_is_deterministic_pinned_and_not_pr_installable(self):
+        unconfigured = json.loads(json.dumps(self.policy))
+        unconfigured["workflow"]["artifact"] = None
+        unconfigured["workflow"]["expected_sha256"] = None
         with self.assertRaises(github_ci.AssuranceFailure) as missing:
-            github_ci.render_workflow(self.policy)
+            github_ci.render_workflow(unconfigured)
         self.assertEqual(missing.exception.message, "IMMUTABLE_ARTIFACT_REQUIRED")
         policy, first = self.configured()
         second = github_ci.render_workflow(policy)

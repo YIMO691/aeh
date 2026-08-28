@@ -1,0 +1,46 @@
+
+test_blocked_without_grounding_gate (test_specification.TestSpec.test_blocked_without_grounding_gate) ... ok
+test_critical_requires_invariant_or_failure (test_specification.TestSpec.test_critical_requires_invariant_or_failure) ... ok
+test_critical_unknown_blocks (test_specification.TestSpec.test_critical_unknown_blocks) ... ok
+test_current_vs_desired_not_confused (test_specification.TestSpec.test_current_vs_desired_not_confused) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:149: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-5ba7lwnx\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-5ba7lwnx\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_deterministic_and_stable_ids (test_specification.TestSpec.test_deterministic_and_stable_ids) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:201: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-lqur2q84\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-lqur2q84\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_evidence_derived_needs_support (test_specification.TestSpec.test_evidence_derived_needs_support) ... ok
+test_gate_not_pass_rejects_test_design (test_specification.TestSpec.test_gate_not_pass_rejects_test_design) ... ok
+test_gate_pass_allows_test_design (test_specification.TestSpec.test_gate_pass_allows_test_design) ... ok
+test_invalid_ev_reference_blocked (test_specification.TestSpec.test_invalid_ev_reference_blocked) ... ok
+test_out_of_scope_blocked (test_specification.TestSpec.test_out_of_scope_blocked) ... ok
+test_parallel_specs_isolated (test_specification.TestSpec.test_parallel_specs_isolated) ... ok
+test_policy_constraint_ref_only (test_specification.TestSpec.test_policy_constraint_ref_only) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:170: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-cclunyz3\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  raw = open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_stale_evidence_blocked (test_specification.TestSpec.test_stale_evidence_blocked) ... ok
+test_standard_spec_success (test_specification.TestSpec.test_standard_spec_success) ... D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:110: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-g036iqyj\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-g036iqyj\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\DSHW\adaptive-engineering-harness\tests\runtime\test_specification.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\DSHW\\adaptive-engineering-harness\\schemas\\spec.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "spec.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_user_requirement_without_ev_ok (test_specification.TestSpec.test_user_requirement_without_ev_ok) ... ok
+test_writes_only_change_dir (test_specification.TestSpec.test_writes_only_change_dir) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 63.062s
+
+OK
