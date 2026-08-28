@@ -9,10 +9,10 @@ import yaml
 from aeh.runtime import ownership
 
 
-WHEEL_SHA256 = "9e827970a9b45e515a6101afbd26d5df3a50e158e4ac182bdcd5d9b9e4b03893"
-WORKFLOW_SHA256 = "a04b040ba43d469efb0cff7a4ee5870d41817560cce41ccc3449d9d89d91fb76"
+WHEEL_SHA256 = "1d0d5fe00f78ea07b20ddc006d213e0e5d6a56d2decce56128e29cf0e39ed9c1"
+WORKFLOW_SHA256 = "94ed6f9feccfbf7af4308a2e252ae3053ed5b86196997e513376ea41fe3c8a2f"
 WHEEL_URL = (
-    "https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-1/"
+    "https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-2/"
     "adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl"
 )
 
@@ -37,6 +37,12 @@ class TestM62dDogfoodPolicy(unittest.TestCase):
             self.fail("M6_2D_POLICY_UNCONFIGURED")
 
         if source != runtime:
+            self.fail("M6_2D_POLICY_UNCONFIGURED")
+        if (
+            source["workflow"].get("expected_sha256") != WORKFLOW_SHA256
+            or artifact.get("url") != WHEEL_URL
+            or artifact.get("sha256") != WHEEL_SHA256
+        ):
             self.fail("M6_2D_POLICY_UNCONFIGURED")
         self.assertEqual(source["required_check"], {
             "name": "AEH assurance / verify",
