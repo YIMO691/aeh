@@ -1,4 +1,4 @@
-"""GitHub adapter and read-only enforcement audit for AEH CI assurance.
+"""GitHub adapter, configured-policy transaction, and enforcement audit.
 
 The module separates three claims: a workflow was observed, repository rules
 require it, or an external organization/enterprise policy governs it.  It never
@@ -12,7 +12,7 @@ import os
 import re
 import subprocess
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 from urllib.request import Request, urlopen
 
 import jsonschema
@@ -20,6 +20,8 @@ import yaml
 
 from . import ci
 from . import paths as aeh_paths
+from . import transaction as tx
+from .bootstrap import pipeline as bootstrap_pipeline
 
 
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
@@ -310,15 +312,15 @@ jobs:
           AEH_WHEEL_SHA256: {artifact['sha256']}
         run: |
           python -c "import hashlib,os,urllib.request;p=os.path.join(os.environ['RUNNER_TEMP'],os.environ['AEH_WHEEL_FILENAME']);urllib.request.urlretrieve(os.environ['AEH_WHEEL_URL'],p);assert hashlib.sha256(open(p,'rb').read()).hexdigest()==os.environ['AEH_WHEEL_SHA256']"
-          python -m pip install --no-deps "$RUNNER_TEMP/$AEH_WHEEL_FILENAME"
+          python -m pip install "$RUNNER_TEMP/$AEH_WHEEL_FILENAME"
       - name: Capture authenticated run metadata
         env:
           GH_TOKEN: ${{{{ github.token }}}}
-        run: aeh ci github snapshot-run --output "$RUNNER_TEMP/aeh-run.json"
+        run: aeh ci github snapshot-run --policy core/ci-enforcement-policy.yaml --output "$RUNNER_TEMP/aeh-run.json"
       - name: Verify AEH assurance
         env:
           GITHUB_EVENT_NAME: ${{{{ github.event_name }}}}
-        run: aeh ci github verify-event --event "$GITHUB_EVENT_PATH" --run-snapshot "$RUNNER_TEMP/aeh-run.json" --workdir . --report "$RUNNER_TEMP/aeh-report.json"
+        run: aeh ci github verify-event --event "$GITHUB_EVENT_PATH" --run-snapshot "$RUNNER_TEMP/aeh-run.json" --workdir . --policy core/ci-enforcement-policy.yaml --report "$RUNNER_TEMP/aeh-report.json"
 """
     result = {"contract": "ci.workflow-template", "version": 1, "provider": "github",
               "path": policy["workflow"]["path"], "sha256": _digest(content.encode("utf-8")),
@@ -326,6 +328,96 @@ jobs:
     schema = _read_document(os.path.join(aeh_paths.ae_root(), "schemas", "ci-workflow-template.schema.json"))
     jsonschema.validate(result, schema)
     return result
+
+
+def _runtime_digest_with_policy(target, policy_content):
+    """Compute the installed runtime digest with one staged policy override."""
+    parts = []
+    for folder in ("core", "schemas"):
+        directory = os.path.join(target, ".aeh", "runtime", folder)
+        if not os.path.isdir(directory):
+            continue
+        for name in sorted(os.listdir(directory)):
+            path = os.path.join(directory, name)
+            if not os.path.isfile(path):
+                continue
+            relative = folder + "/" + name
+            if relative == "core/ci-enforcement-policy.yaml":
+                content = policy_content
+            else:
+                with open(path, "rb") as stream:
+                    content = stream.read()
+            parts.append(relative + "\0" + _digest(content))
+    return _digest(("\n".join(sorted(parts))).encode("utf-8"))
+
+
+def configure_repository(target, artifact_url, artifact_filename, artifact_sha256):
+    """Atomically configure policy, workflow, runtime snapshot, and manifest.
+
+    This is the trusted post-build path that avoids embedding a wheel's own
+    digest inside that wheel. It refuses to layer configuration on a runtime
+    whose current manifest binding is already invalid.
+    """
+    target = os.path.abspath(target)
+    parsed = urlsplit(str(artifact_url))
+    digest = str(artifact_sha256).strip().lower()
+    filename = str(artifact_filename).strip()
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise AssuranceFailure("configure.artifact_url", "INVALID", "artifact URL must be absolute HTTPS")
+    if not filename or os.path.basename(filename) != filename:
+        raise AssuranceFailure("configure.artifact_filename", "INVALID", "artifact filename must be a basename")
+    if not re.fullmatch(r"[0-9a-f]{64}", digest):
+        raise AssuranceFailure("configure.artifact_sha256", "INVALID", "artifact SHA-256 must be 64 lowercase hex characters")
+
+    actual_runtime, expected_runtime = bootstrap_pipeline.validate_runtime_integrity(target)
+    if actual_runtime != expected_runtime:
+        raise AssuranceFailure("configure.runtime", "BLOCKED", "installed runtime does not match manifest before configuration")
+
+    source_policy_path = os.path.join(target, "core", "ci-enforcement-policy.yaml")
+    policy = load_policy(source_policy_path)
+    policy["workflow"]["artifact"] = {
+        "url": str(artifact_url), "filename": filename, "sha256": digest,
+    }
+    rendered = render_workflow(policy)
+    policy["workflow"]["expected_sha256"] = rendered["sha256"]
+    rendered = render_workflow(policy)
+    policy_content = yaml.safe_dump(policy, sort_keys=False, allow_unicode=True).encode("utf-8")
+    runtime_digest = _runtime_digest_with_policy(target, policy_content)
+
+    manifest_path = os.path.join(target, ".aeh", "manifest.yaml")
+    manifest = _read_document(manifest_path)
+    manifest.setdefault("source_hashes", {})["runtime"] = runtime_digest
+    manifest_content = yaml.safe_dump(manifest, sort_keys=True, allow_unicode=True).encode("utf-8")
+    workflow_content = rendered["content"].encode("utf-8")
+    mutations = [
+        {"action": "CONFIGURE_POLICY", "path": "core/ci-enforcement-policy.yaml",
+         "kind": "file", "content": policy_content, "reason": "bind immutable assurance artifact"},
+        {"action": "CONFIGURE_RUNTIME_POLICY", "path": ".aeh/runtime/core/ci-enforcement-policy.yaml",
+         "kind": "file", "content": policy_content, "reason": "install configured policy snapshot"},
+        {"action": "RENDER_ASSURANCE_WORKFLOW", "path": ".github/workflows/aeh-assurance.yml",
+         "kind": "file", "content": workflow_content, "reason": "render deterministic assurance workflow"},
+        {"action": "BIND_RUNTIME_DIGEST", "path": ".aeh/manifest.yaml",
+         "kind": "file", "content": manifest_content, "reason": "bind configured runtime snapshot"},
+    ]
+    plan = {
+        "contract": "ci.github-configuration-plan", "version": 1,
+        "target": target, "artifact": policy["workflow"]["artifact"],
+        "workflow_sha256": rendered["sha256"], "runtime_digest": runtime_digest,
+        "paths": [item["path"] for item in mutations],
+    }
+    try:
+        journal = tx.apply_mutations(target, "repair", "RPR", mutations, plan)
+        bootstrap_pipeline.post_validate(target)
+    except Exception as exc:
+        if "journal" in locals() and journal:
+            tx.rollback_transaction(target, journal["transaction_id"])
+        raise AssuranceFailure("configure.transaction", "BLOCKED", str(exc)) from exc
+    return {
+        "verdict": "PASS", "status": "GITHUB_CONFIGURATION_APPLIED",
+        "transaction_id": journal["transaction_id"] if journal else None,
+        "workflow_sha256": rendered["sha256"], "runtime_digest": runtime_digest,
+        "artifact": policy["workflow"]["artifact"],
+    }
 
 
 def _check(status, check_id, good, passed, failed):

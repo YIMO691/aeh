@@ -94,6 +94,12 @@ def main(argv=None):
     ci_snapshot = ci_github_sub.add_parser("snapshot-run", help="capture authenticated current run metadata")
     ci_snapshot.add_argument("--output", required=True, help="output JSON path")
     ci_snapshot.add_argument("--policy", default=None, help="configured enforcement policy")
+    ci_configure = ci_github_sub.add_parser(
+        "configure", help="atomically bind an immutable artifact and render the repository workflow")
+    ci_configure.add_argument("--workdir", default=".", help="AEH target repository")
+    ci_configure.add_argument("--artifact-url", required=True)
+    ci_configure.add_argument("--artifact-filename", required=True)
+    ci_configure.add_argument("--artifact-sha256", required=True)
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -228,6 +234,12 @@ def main(argv=None):
         if args.ci_cmd == "github":
             from . import github_ci
             try:
+                if args.ci_github_cmd == "configure":
+                    report = github_ci.configure_repository(
+                        args.workdir, args.artifact_url, args.artifact_filename,
+                        args.artifact_sha256)
+                    _emit(report)
+                    return 0 if report.get("verdict") == "PASS" else 1
                 policy = github_ci.load_policy(args.policy)
                 if args.ci_github_cmd == "verify-event":
                     with open(args.event, "r", encoding="utf-8") as stream:

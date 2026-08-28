@@ -10,7 +10,7 @@ from aeh.runtime import ownership
 
 
 WHEEL_SHA256 = "9e827970a9b45e515a6101afbd26d5df3a50e158e4ac182bdcd5d9b9e4b03893"
-WORKFLOW_SHA256 = "35b9ec52e9d1874f7b58d23243e8522afbb6074550c2b8ee0b15c37639751ea5"
+WORKFLOW_SHA256 = "a04b040ba43d469efb0cff7a4ee5870d41817560cce41ccc3449d9d89d91fb76"
 WHEEL_URL = (
     "https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-1/"
     "adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl"
@@ -36,20 +36,27 @@ class TestM62dDogfoodPolicy(unittest.TestCase):
         if not artifact:
             self.fail("M6_2D_POLICY_UNCONFIGURED")
 
-        self.assertEqual(source, runtime)
+        if source != runtime:
+            self.fail("M6_2D_POLICY_UNCONFIGURED")
         self.assertEqual(source["required_check"], {
             "name": "AEH assurance / verify",
             "app_id": 15368,
         })
+        workflow = Path(".github/workflows/aeh-assurance.yml").read_bytes()
+        text = workflow.decode("utf-8")
+        if "pip install --no-deps" in text:
+            self.fail("M6_2D_DEPENDENCY_INSTALL_BYPASSED")
         self.assertEqual(source["workflow"]["expected_sha256"], WORKFLOW_SHA256)
         self.assertEqual(artifact["url"], WHEEL_URL)
         self.assertEqual(artifact["sha256"], WHEEL_SHA256)
-        workflow = Path(".github/workflows/aeh-assurance.yml").read_bytes()
         self.assertEqual(hashlib.sha256(workflow).hexdigest(), WORKFLOW_SHA256)
-        text = workflow.decode("utf-8")
         self.assertIn("actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1", text)
         self.assertIn("actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97", text)
         self.assertIn(WHEEL_SHA256, text)
+        self.assertIn('python -m pip install "$RUNNER_TEMP/$AEH_WHEEL_FILENAME"', text)
+        self.assertIn("snapshot-run --policy core/ci-enforcement-policy.yaml", text)
+        self.assertIn("verify-event --event", text)
+        self.assertIn("--policy core/ci-enforcement-policy.yaml --report", text)
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ required_check:
   app_id: 15368
 workflow:
   path: .github/workflows/aeh-assurance.yml
-  expected_sha256: 35b9ec52e9d1874f7b58d23243e8522afbb6074550c2b8ee0b15c37639751ea5
+  expected_sha256: a04b040ba43d469efb0cff7a4ee5870d41817560cce41ccc3449d9d89d91fb76
   actions:
     checkout: 3d3c42e5aac5ba805825da76410c181273ba90b1
     setup_python: 5fda3b95a4ea91299a34e894583c3862153e4b97

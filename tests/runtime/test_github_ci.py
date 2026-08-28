@@ -149,6 +149,7 @@ class TestGitHubBinding(GitRepositoryCase):
                 self.target, event, "pull_request", run, self.configured_policy())
         self.assertEqual(report["verdict"], "PASS", report)
         self.assertEqual(verify.call_args.args[1], "CHG-2026-0001")
+        self.assertEqual(verify.call_args.args[2], "github.com/owner/repo")
         self.assertEqual(verify.call_args.args[3:5], (self.base, head))
         self.assertEqual(verify.call_args.args[5], "2026-08-27T12:01:00Z")
 
@@ -212,8 +213,37 @@ class TestWorkflowAndAudit(unittest.TestCase):
         self.assertIn("persist-credentials: false", text)
         self.assertIn("fetch-depth: 0", text)
         self.assertNotIn("pip install -e", text)
+        self.assertNotIn("pip install --no-deps", text)
+        self.assertIn("snapshot-run --policy core/ci-enforcement-policy.yaml", text)
+        self.assertIn("--policy core/ci-enforcement-policy.yaml --report", text)
         self.assertNotIn("actions/checkout@v", text)
         self.assertEqual(first["sha256"], hashlib.sha256(text.encode()).hexdigest())
+
+    def test_configure_transaction_binds_policy_workflow_runtime_and_manifest(self):
+        target = tempfile.mkdtemp(prefix="aeh-github-configure-")
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        shutil.copytree(os.path.join(ROOT, "core"), os.path.join(target, "core"))
+        shutil.copytree(os.path.join(ROOT, ".aeh", "runtime"),
+                        os.path.join(target, ".aeh", "runtime"))
+        for relative in (".aeh/manifest.yaml", ".aeh/profile.yaml",
+                         ".aeh/effective-workflow.yaml", "AGENTS.md", "CLAUDE.md", ".gitignore"):
+            destination = os.path.join(target, *relative.split("/"))
+            os.makedirs(os.path.dirname(destination), exist_ok=True)
+            shutil.copy2(os.path.join(ROOT, *relative.split("/")), destination)
+        report = github_ci.configure_repository(
+            target,
+            "https://example.invalid/adaptive_engineering_harness-0.3.0.dev1-py3-none-any.whl",
+            "adaptive_engineering_harness-0.3.0.dev1-py3-none-any.whl",
+            "2" * 64,
+        )
+        self.assertEqual(report["verdict"], "PASS", report)
+        source = Path(target, "core", "ci-enforcement-policy.yaml").read_bytes()
+        runtime = Path(target, ".aeh", "runtime", "core", "ci-enforcement-policy.yaml").read_bytes()
+        workflow = Path(target, ".github", "workflows", "aeh-assurance.yml").read_bytes()
+        manifest = yaml.safe_load(Path(target, ".aeh", "manifest.yaml").read_text(encoding="utf-8"))
+        self.assertEqual(source, runtime)
+        self.assertEqual(hashlib.sha256(workflow).hexdigest(), report["workflow_sha256"])
+        self.assertEqual(manifest["source_hashes"]["runtime"], report["runtime_digest"])
 
     def snapshot(self, policy):
         return {
