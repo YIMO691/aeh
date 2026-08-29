@@ -55,13 +55,19 @@ The event adapter computes `git diff --name-only -z base..head`. PASS requires:
 
 Zero, multiple, stale/reused, non-canonical, or undeclared paths fail closed.
 
-## Credential boundary
+## Approval boundary
 
-The repository workflow receives no protected HMAC key. If M6.1 determines
-that `VERIFY_MANUAL` or CRITICAL `MERGE_GATE` needs such a credential, the
-adapter reports `TRUSTED_CREDENTIAL_CHANNEL_REQUIRED`. A future externally
-governed executor may supply that channel, but repository-controlled PR code
-must not receive the secret.
+The repository workflow receives no protected HMAC key. Strict HMAC approval
+therefore still reports `TRUSTED_CREDENTIAL_CHANNEL_REQUIRED`; repository-
+controlled PR code must never receive the secret.
+
+For a solo repository, policy may explicitly select
+`SCM_AUTHENTICATED_MERGE`. In that mode the GitHub adapter accepts only a
+`MERGE_GATE` attestation carrying the same trust marker and delegates final
+authority to GitHub's authenticated merge action. The provider-neutral replay
+API remains fail-closed unless the trusted adapter supplies that exact accepted
+trust mode. Reports retain the downgrade warning; manual verification never
+uses this channel.
 
 ## Configuration and rollout boundary
 

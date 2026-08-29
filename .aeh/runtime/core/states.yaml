@@ -98,6 +98,12 @@ transitions:
   # Green 期间测试/规格被改：必须走 Repair 重新审批与 RED（P-15/P-18）
   - {from: GREEN, to: TEST_REPAIR, condition: BLOCKED_TEST_CHANGED}
   - {from: GREEN, to: SPEC_REPAIR, condition: SPEC_CHANGED_IN_GREEN}
+  - {from: REFACTOR, to: TEST_REPAIR, condition: BLOCKED_TEST_CHANGED}
+  - {from: REFACTOR, to: SPEC_REPAIR, condition: SPEC_CHANGED_IN_GREEN}
+  - {from: REFACTOR, to: GROUND, condition: GROUNDING_STALE}
+  - {from: SPEC, to: GROUND, condition: GROUNDING_STALE}
+  - {from: TEST_DESIGN, to: GROUND, condition: GROUNDING_STALE}
+  - {from: LOCK_TEST, to: TEST_REPAIR, condition: BLOCKED_TEST_CHANGED}
   - {from: TEST_REPAIR, to: TEST_DESIGN}
   - {from: SPEC_REPAIR, to: SPEC}
   - {from: INVESTIGATE, to: TEST_DESIGN}

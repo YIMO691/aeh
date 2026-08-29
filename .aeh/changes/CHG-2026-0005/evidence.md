@@ -2,57 +2,57 @@
 
 machine truth in evidence.yaml
 
-- EV-001 [SOURCE] keyword match: live in AGENTS.md:9
-- EV-002 [SOURCE] keyword match: m6 in CHANGELOG.md:9
-- EV-003 [SOURCE] keyword match: live in CHANGELOG.md:9
-- EV-004 [SOURCE] keyword match: github in CHANGELOG.md:15
-- EV-005 [SOURCE] keyword match: assurance in CHANGELOG.md:15
-- EV-006 [SOURCE] keyword match: case in CHANGELOG.md:102
-- EV-007 [SOURCE] keyword match: safe in CHANGELOG.md:158
-- EV-008 [SOURCE] keyword match: final in CHANGELOG.md:114
-- EV-009 [SOURCE] keyword match: live in CLAUDE.md:9
-- EV-010 [SOURCE] keyword match: m6 in CONTRIBUTING.md:25
-- EV-011 [SOURCE] keyword match: live in CONTRIBUTING.md:81
-- EV-012 [SOURCE] keyword match: github in CONTRIBUTING.md:96
-- EV-013 [SOURCE] keyword match: safe in CONTRIBUTING.md:41
-- EV-014 [SOURCE] keyword match: m6 in README.md:11
-- EV-015 [SOURCE] keyword match: live in README.md:214
-- EV-016 [SOURCE] keyword match: github in README.md:3
-- EV-017 [SOURCE] keyword match: assurance in README.md:9
-- EV-018 [SOURCE] keyword match: case in README.md:225
-- EV-019 [SOURCE] keyword match: safe in README.md:257
-- EV-020 [SOURCE] keyword match: live in adapters\claude\CLAUDE.template.md:8
-- EV-021 [SOURCE] keyword match: live in adapters\codex\AGENTS.template.md:8
-- EV-022 [SOURCE] keyword match: github in bootstrap\discovery\ai-rules.yaml:12
-- EV-023 [SOURCE] keyword match: github in bootstrap\discovery\ci.yaml:8
-- EV-024 [SOURCE] keyword match: assurance in build\lib\aeh\ci.py:1
-- EV-025 [SOURCE] keyword match: safe in build\lib\aeh\ci.py:33
-- EV-026 [SOURCE] keyword match: m6 in build\lib\aeh\cli.py:77
-- EV-027 [SOURCE] keyword match: live in build\lib\aeh\cli.py:88
-- EV-028 [SOURCE] keyword match: github in build\lib\aeh\cli.py:75
-- EV-029 [SOURCE] keyword match: assurance in build\lib\aeh\cli.py:1
-- EV-030 [SOURCE] keyword match: safe in build\lib\aeh\cli.py:10
-- EV-031 [SOURCE] keyword match: safe in build\lib\aeh\conflict.py:33
-- EV-032 [SOURCE] keyword match: safe in build\lib\aeh\discovery.py:67
-- EV-033 [SOURCE] keyword match: enable in build\lib\aeh\github_ci.py:381
-- EV-034 [SOURCE] keyword match: m6 in build\lib\aeh\github_ci.py:208
-- EV-035 [SOURCE] keyword match: github in build\lib\aeh\github_ci.py:1
-- EV-036 [SOURCE] keyword match: assurance in build\lib\aeh\github_ci.py:1
-- EV-037 [SOURCE] keyword match: case in build\lib\aeh\github_ci.py:350
-- EV-038 [SOURCE] keyword match: safe in build\lib\aeh\github_ci.py:55
-- EV-039 [SOURCE] keyword match: final in build\lib\aeh\github_ci.py:561
-- EV-040 [SOURCE] keyword match: safe in build\lib\aeh\interview.py:46
+- EV-001 [SOURCE] keyword match: m6 in .git:1
+- EV-002 [SOURCE] keyword match: live in AGENTS.md:9
+- EV-003 [SOURCE] keyword match: m6 in CHANGELOG.md:17
+- EV-004 [SOURCE] keyword match: live in CHANGELOG.md:17
+- EV-005 [SOURCE] keyword match: github in CHANGELOG.md:23
+- EV-006 [SOURCE] keyword match: assurance in CHANGELOG.md:23
+- EV-007 [SOURCE] keyword match: case in CHANGELOG.md:110
+- EV-008 [SOURCE] keyword match: safe in CHANGELOG.md:166
+- EV-009 [SOURCE] keyword match: final in CHANGELOG.md:122
+- EV-010 [SOURCE] keyword match: live in CLAUDE.md:9
+- EV-011 [SOURCE] keyword match: m6 in CONTRIBUTING.md:25
+- EV-012 [SOURCE] keyword match: live in CONTRIBUTING.md:81
+- EV-013 [SOURCE] keyword match: github in CONTRIBUTING.md:96
+- EV-014 [SOURCE] keyword match: safe in CONTRIBUTING.md:41
+- EV-015 [SOURCE] keyword match: enable in README.md:140
+- EV-016 [SOURCE] keyword match: m6 in README.md:11
+- EV-017 [SOURCE] keyword match: live in README.md:231
+- EV-018 [SOURCE] keyword match: github in README.md:3
+- EV-019 [SOURCE] keyword match: assurance in README.md:9
+- EV-020 [SOURCE] keyword match: case in README.md:242
+- EV-021 [SOURCE] keyword match: safe in README.md:274
+- EV-022 [SOURCE] keyword match: final in README.md:125
+- EV-023 [SOURCE] keyword match: live in adapters\claude\CLAUDE.template.md:8
+- EV-024 [SOURCE] keyword match: live in adapters\codex\AGENTS.template.md:8
+- EV-025 [SOURCE] keyword match: github in bootstrap\discovery\ai-rules.yaml:12
+- EV-026 [SOURCE] keyword match: github in bootstrap\discovery\ci.yaml:8
+- EV-027 [SOURCE] keyword match: m6 in core\ci-enforcement-policy.yaml:18
+- EV-028 [SOURCE] keyword match: github in core\ci-enforcement-policy.yaml:3
+- EV-029 [SOURCE] keyword match: assurance in core\ci-enforcement-policy.yaml:9
+- EV-030 [SOURCE] keyword match: safe in core\classifications.yaml:34
+- EV-031 [SOURCE] keyword match: github in core\execution-policy.yaml:19
+- EV-032 [SOURCE] keyword match: m6 in docs\README.md:6
+- EV-033 [SOURCE] keyword match: live in docs\README.md:6
+- EV-034 [SOURCE] keyword match: github in docs\README.md:27
+- EV-035 [SOURCE] keyword match: assurance in docs\README.md:27
+- EV-036 [SOURCE] keyword match: m6 in docs\about.md:91
+- EV-037 [SOURCE] keyword match: live in docs\about.md:94
+- EV-038 [SOURCE] keyword match: github in docs\about.md:93
+- EV-039 [SOURCE] keyword match: assurance in docs\about.md:7
+- EV-040 [SOURCE] keyword match: m6 in docs\architecture-current.md:97
 - EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
 - EV-042 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
 - EV-043 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
 - EV-044 [TEST] existing test file: tests\compiler\test_compiler.py
 - EV-045 [TEST] existing test file: tests\compiler\test_compiler.py
-- EV-046 [CALL_PATH] keyword co-occurrence across 201 files: AGENTS.md, CHANGELOG.md, CLAUDE.md, CONTRIBUTING.md
+- EV-046 [CALL_PATH] keyword co-occurrence across 159 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
 - EV-047 [CONFIG] config file match: bootstrap\discovery\ai-rules.yaml:12
 - EV-048 [CONFIG] config file match: bootstrap\discovery\ci.yaml:8
-- EV-049 [CONFIG] config file match: build\lib\aeh\data\bootstrap\discovery\ai-rules.yaml:12
-- EV-050 [CONFIG] config file match: build\lib\aeh\data\bootstrap\discovery\ci.yaml:8
-- EV-051 [CONFIG] config file match: build\lib\aeh\data\core\ci-enforcement-policy.yaml:3
+- EV-049 [CONFIG] config file match: core\ci-enforcement-policy.yaml:18
+- EV-050 [CONFIG] config file match: core\ci-enforcement-policy.yaml:3
+- EV-051 [CONFIG] config file match: core\ci-enforcement-policy.yaml:9
 - EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
 - EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
 - EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration

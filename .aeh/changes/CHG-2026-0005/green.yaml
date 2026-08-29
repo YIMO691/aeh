@@ -1,11 +1,11 @@
-base_commit: 3db2e62712ba3b209c05e31f5f6bd34b49e7b065
+base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
 change_id: CHG-2026-0005
 changed_files:
 - after_hash: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-001
   path: .aeh/effective-workflow.yaml
-- after_hash: c8f43bdc0053640d9be3bcf62d26b04d213cc817831026cc28b1cb79917febc1
+- after_hash: 802c0118a9833c1fb22a8ad31678c1a7d49f4f018e6aca2d6192bffa770bce8f
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-002
   path: .aeh/manifest.yaml
@@ -13,7 +13,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-003
   path: .aeh/profile.yaml
-- after_hash: 67624d4bee7238ba42dabbfe640bf16e6cd17f0705a35dbc68d466c63c25d626
+- after_hash: f1e6cb337a0950501dedaab94d55c935463b1c883308f353ab61381df250f3cd
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-004
   path: .aeh/runtime/core/ci-enforcement-policy.yaml
@@ -41,7 +41,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-010
   path: .aeh/runtime/core/precedence.yaml
-- after_hash: bf482f41416649b231ee8faa5e1c7cc6426771728fc8e27fee63d7b8db348a0e
+- after_hash: e77a87932d5ab5df55c1e1436d114ab3333ef8b83098d669d88fd621912bb9f3
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-011
   path: .aeh/runtime/core/states.yaml
@@ -65,7 +65,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-016
   path: .aeh/runtime/schemas/answers.schema.json
-- after_hash: 14b4aeaba1044c79f119cc8d4c30d335f15bea6069c4cf5fc2b2820f87cbd9bb
+- after_hash: 65c8cbcd302ae9387828ac77934315c1b268177130bbf0818ff5af03996dc2df
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-017
   path: .aeh/runtime/schemas/approvals.schema.json
@@ -77,7 +77,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-019
   path: .aeh/runtime/schemas/change.schema.json
-- after_hash: fc8378eae9b382e06839a569c8863135f42b3033e6d262c73209884b38675acf
+- after_hash: 66959aa4034c4874230c8c4dd7200537a2248750dbd747df7e96fd19bba8924e
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-020
   path: .aeh/runtime/schemas/ci-enforcement-policy.schema.json
@@ -209,7 +209,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-052
   path: .gitattributes
-- after_hash: 35b9ec52e9d1874f7b58d23243e8522afbb6074550c2b8ee0b15c37639751ea5
+- after_hash: 94ed6f9feccfbf7af4308a2e252ae3053ed5b86196997e513376ea41fe3c8a2f
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-053
   path: .github/workflows/aeh-assurance.yml
@@ -221,7 +221,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-055
   path: AGENTS.md
-- after_hash: e9d6b02bcc0f3e350e41c713f5c226331c53238cbc3238c117b779f883c6d74b
+- after_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
   before_hash: 2c9c483ca62f92745f5e8c23f9eb242a0b25e2357714fa0708757f02d78a4a70
   code_id: CODE-056
   path: CHANGELOG.md
@@ -229,55 +229,99 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-057
   path: CLAUDE.md
-- after_hash: 4b0bcd488dbcd20f0400ac721896cd47618c52978b5f21434be80a3ec5b7e533
+- after_hash: d3531f0ec824295359377b3f17ef64e4c6fae08a064fb069a00425841db0d52d
   before_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
   code_id: CODE-058
   path: README.md
-- after_hash: d13d2382dc82848366cf2456bd148124f69e9f5dac271c03f964d058c4284a96
+- after_hash: f1e6cb337a0950501dedaab94d55c935463b1c883308f353ab61381df250f3cd
   before_hash: e11d96fc9fb8fee19ec828f3da064bd64636821d5d341667df6e6ffa00497107
   code_id: CODE-059
   path: core/ci-enforcement-policy.yaml
+- after_hash: e77a87932d5ab5df55c1e1436d114ab3333ef8b83098d669d88fd621912bb9f3
+  before_hash: bf482f41416649b231ee8faa5e1c7cc6426771728fc8e27fee63d7b8db348a0e
+  code_id: CODE-060
+  path: core/states.yaml
 - after_hash: 466dd33ab2d9da3758dc7d8a46d16f22f71895d5146d4400805551fd7cbe5555
   before_hash: ec57e2831179286c2234cfd638ee6658353f775fd69b48c4453b6a315c166757
-  code_id: CODE-060
-  path: docs/README.md
-- after_hash: bd2e5b6e085ea3ff02bf75189dd3f65e01ae1be7c468697ce0d0f9bd8aee3e7d
-  before_hash: 93c7787e7f450a093c866b7dba4dd51b7940397cc5da34f811444c070bc4bc1c
   code_id: CODE-061
+  path: docs/README.md
+- after_hash: 19321956f8210ba740413fb945366c91446404264f5f26251d4ac6beabf87324
+  before_hash: 0e0e876a59da0f16e3a17fe8bb13f273538f8f704afcd0ef848f1596523c595f
+  code_id: CODE-062
+  path: docs/decisions.md
+- after_hash: 9d856e40c88efa4d78fd4b6c7188d6f8e1804f321a60a4835b8a6b6596757349
+  before_hash: dd6133f89033b326c2f864f0acf657940a5d962dd15a6cba0f9096ef0867d952
+  code_id: CODE-063
+  path: docs/m5-security.md
+- after_hash: 54ced337e8f8f772a7633a3b1095b8afb1a23b0e5b2d13f774c7de983090fee4
+  before_hash: 93c7787e7f450a093c866b7dba4dd51b7940397cc5da34f811444c070bc4bc1c
+  code_id: CODE-064
   path: docs/m6-2-github-assurance.md
 - after_hash: 9ac46bc9ddc35e2b056e92c5cfe394cffbce5fc20f1b0aa9bff549d1e8e4b98a
   before_hash: 031bdb4d8b3038f4fa973810f5402c5b0f7924fe85e79bb7c7bf99503c8ce58f
-  code_id: CODE-062
+  code_id: CODE-065
   path: docs/roadmap-v0.2.md
-- after_hash: 8c3dabf088b590ddb8bd759682b205ec0444e5731f608ef8412fbce3a59a3fca
+- after_hash: 34c41374629ad5859808af341a7aa6ab56f9dccf47187065835faf0fe6cc25e6
   before_hash: 8b38684722a8ab677cf3c97faee8efe5b771e219aca31f047faa5a839fd3d06c
-  code_id: CODE-063
+  code_id: CODE-066
   path: docs/status.md
-- after_hash: 7f9dc3aa2c3657e56abf255e608a36694fd29813446f682b12d5224866a2ddec
+- after_hash: 65c8cbcd302ae9387828ac77934315c1b268177130bbf0818ff5af03996dc2df
+  before_hash: b169cafce572dbb57c1c29447ab39d60378350e647e124f9cdc23378d87a54a7
+  code_id: CODE-067
+  path: schemas/approvals.schema.json
+- after_hash: 66959aa4034c4874230c8c4dd7200537a2248750dbd747df7e96fd19bba8924e
+  before_hash: 5dd7ba42b862c32c99144bae94f65dc6804552c8ba651217d17b976504edb66b
+  code_id: CODE-068
+  path: schemas/ci-enforcement-policy.schema.json
+- after_hash: bf7f03b70ce705a23c861bd7a8a36bfa8689500c31f4e56e8fc9e30c217a6e65
   before_hash: afe4c1de42f880c82099921da3e565fa136918addc43cca1e63dd3b7c738bbe3
-  code_id: CODE-064
+  code_id: CODE-069
   path: src/aeh/ci.py
+- after_hash: 94468e570e1ba05bb9ffddf32c9225605974c6872abb1780ceb8a2249299c56b
+  before_hash: 5f0ca3115ac616063c543f789d463abd247bc9c48ae6bbe9a039db080d098308
+  code_id: CODE-070
+  path: src/aeh/cli.py
+- after_hash: 1e875adf1d4b328d67f9894d80761a436e13c45331d65072702dd234b7a0532b
+  before_hash: a2bbe23aa2c85f206499fec84f737eb6ffbbeba69ac0a3a186b8bfbecb70521b
+  code_id: CODE-071
+  path: src/aeh/github_ci.py
+- after_hash: 9a37246657331d40b3d94bc39b951311f10ada4f0a6a269fef10c54e2eecdc24
+  before_hash: aae158d717cdf8d1acec364100121c9e334bf61e6a2796993644f042cfdaff1b
+  code_id: CODE-072
+  path: src/aeh/runtime/approval.py
+- after_hash: e90d25a0eb73bcfa6b00e790ca41c6610b487e0ccfc2d8a7f6efba91a1da1c03
+  before_hash: b15a8556a6eff353fc1e66ba6412262dd4838fe14a2eb258c74c6039aaba8bae
+  code_id: CODE-073
+  path: src/aeh/runtime/change.py
 - after_hash: 4b1ec72b137916136bca9b1753dcf0c6ef58323690ef0e402412d2d3a8213bbb
   before_hash: a44fe70086c81e28683f6849a41b218f2171bf475d66967824f7bb2ee5d56d5d
-  code_id: CODE-065
+  code_id: CODE-074
   path: src/aeh/runtime/ownership.py
-- after_hash: 8129556fa2e22ce7a0bf4f2380644d9e2f83a86f982e0c2aa16626e12fb2efcf
-  before_hash: 9a028f4dcd20658add1f24d3c05fc78ad4426a7c207c3c5770db55da18731238
-  code_id: CODE-066
-  path: tests/contract/test_contracts.py
-- after_hash: 73ecc97981f13dbd039192b3a8bf3ccc7c7876fa634d3f866fe00fc98b6617a7
-  before_hash: 891b4775a6d4762387239bb00bfe8d8e92331f904c89face61da3b07b1d9de48
-  code_id: CODE-067
-  path: tests/runtime/test_github_ci.py
+- after_hash: bc6a75269048490ed2fac84b850bc75de5e7c9d4bfabfd3c3ab520b6f4fb69e6
+  before_hash: 915a95dd06f43287270b559dce194d76404be734f85a44050ae9436f707bf1a0
+  code_id: CODE-075
+  path: src/aeh/runtime/red.py
+- after_hash: 4dc1a250ab42870144dbfb5fa4b516de1cf3619c20fdd4feeb06473e59372125
+  before_hash: a94d1aa14e53f83b22fd9158b6fdde8ae214105d5186a21d69f662b7e5bf8537
+  code_id: CODE-076
+  path: src/aeh/runtime/test_design.py
+- after_hash: 2c02250b54c6d00f8a9443e5ea73e98ddd2defeaf428d3d33b44e80ec7992344
+  before_hash: 13ebe0c976c949afac8a1a4a1cc83ab6818a7b72e9f4a84b001544111c52fd58
+  code_id: CODE-077
+  path: src/aeh/runtime/verify.py
 contract: green.evidence
-production_after_hash: 5cc2a53cffce71be49daf694b3214165bd29a89539497b226729adf560ffdf6e
-production_before_hash: cf3fc648a27c2efe8e0b9f5e971221ac21ddb76d26c323c523864a9055812528
-test_lock_hash: 18dcc0fe4a225e7520502dcbe7cea7f1c91d4a971f56c7b907414a58b70e907c
+production_after_hash: fa1b7827ed0c4227c74f35764acd74878ba572857da5e1795f61222f943a4da7
+production_before_hash: 2a98d3b9de180726d3d9f30f641447e6d68ed9d232e5ac7ddcf2e261daf7bc94
+test_lock_hash: 1db29b3539ba92a984e8047790f96010fa1f823978eb95936bfc50bba6152eee
 tests:
 - command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
-    -m unittest discover -s tests/runtime -p test_m6_2d_dogfood.py -v
+    -m unittest tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
+    tests.runtime.test_ci_replay.TestCiReplay.test_scm_merge_delegation_is_provider_scoped
+    tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs
+    tests.runtime.test_change.TestStateMachine.test_repair_can_restart_from_refactor_evidence
+    tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
   exit_code: 0
-  output_hash: f11bfd6c2b1c1712b617b8f31e962fbe8590416968980332aaea4f8bba56297b
+  output_hash: 31687d42b3c19dee07bba593ea43e3dd62c5c709bc59c82460a1c3d68bf0a74d
   output_ref: .aeh\changes\CHG-2026-0005\evidence\green-TEST-001.log
   test_id: TEST-001
   verdict: PASS

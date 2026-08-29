@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add tiered `MERGE_GATE` trust: strict external HMAC remains the default, while
+  `SCM_AUTHENTICATED_MERGE` supports explicit, evidence-linked solo-repository
+  delegation without putting a secret in pull-request CI.
+- Keep provider-neutral replay fail-closed; only a configured trusted SCM
+  adapter may accept the delegated merge trust mode.
+
 All notable changes to AEH are recorded here per phase.
 
 ## [0.3.0.dev0] — Unreleased

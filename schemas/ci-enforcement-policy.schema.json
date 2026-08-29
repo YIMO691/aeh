@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AEH SCM enforcement policy",
   "type": "object",
-  "required": ["contract", "version", "provider", "required_trust_level", "required_events", "required_check", "workflow", "permissions", "governed_metadata"],
+  "required": ["contract", "version", "provider", "required_trust_level", "required_events", "required_check", "workflow", "approval", "permissions", "governed_metadata"],
   "additionalProperties": false,
   "properties": {
     "contract": {"const": "core.ci-enforcement-policy"},
@@ -31,6 +31,10 @@
           ]
         }
       }
+    },
+    "approval": {
+      "type": "object", "required": ["merge_gate"], "additionalProperties": false,
+      "properties": {"merge_gate": {"enum": ["HMAC_CREDENTIAL", "SCM_AUTHENTICATED_MERGE"]}}
     },
     "permissions": {
       "type": "object", "required": ["contents", "actions", "checks"], "additionalProperties": false,

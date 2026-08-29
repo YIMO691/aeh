@@ -159,17 +159,20 @@ def main(argv=None):
     cap.add_argument("--evidence-ref", default=None, help="optional reference (decision/artifact id)")
     cap.add_argument("--ttl-seconds", type=int, default=None,
                      help="optional APPROVED lifetime (1..2678400 seconds)")
-    cap.add_argument("--key-id", required=True,
+    cap.add_argument("--key-id", default=None,
                      help="approval credential identifier (secret is never stored in approvals.yaml)")
     cap.add_argument("--credential-file", default=None,
                      help="credential path; defaults to .aeh/private/approval-keys/<key-id>.key")
+    cap.add_argument("--trust-mode", default="HMAC_CREDENTIAL",
+                     choices=("HMAC_CREDENTIAL", "SCM_AUTHENTICATED_MERGE"),
+                     help="HMAC strict mode, or delegate MERGE_GATE to an authenticated SCM merge")
     cap.add_argument("--workdir", default=".", help="AEH target repository")
     crv = chsub.add_parser("review", help="project review.md from machine artifacts (Phase 13, read-only)")
     crv.add_argument("change_id")
     crv.add_argument("--workdir", default=".", help="AEH target repository")
     crp = chsub.add_parser("repair", help="enter TEST_REPAIR or SPEC_REPAIR through the state machine")
     crp.add_argument("change_id")
-    crp.add_argument("--kind", required=True, choices=("test", "spec"))
+    crp.add_argument("--kind", required=True, choices=("ground", "test", "spec"))
     crp.add_argument("--workdir", default=".", help="AEH target repository")
     args = parser.parse_args(argv)
 
@@ -376,6 +379,7 @@ def main(argv=None):
                 args.workdir, args.change_id, args.gate, args.status, args.actor,
                 evidence_ref=args.evidence_ref, ttl_seconds=args.ttl_seconds,
                 key_id=args.key_id, credential_file=args.credential_file,
+                trust_mode=args.trust_mode,
             )
             _emit(report)
             return 0 if report["status"] in ("APPROVAL_RECORDED", "APPROVAL_REVOKED") else 1

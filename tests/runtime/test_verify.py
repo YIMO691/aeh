@@ -436,6 +436,32 @@ class TestVerify(unittest.TestCase):
         self.assertEqual(body["approvals"][0]["actor"]["type"], "human")
         self.assertIn("decided_at", body["approvals"][0])
 
+    def test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded(self):
+        target = make_target(TDD_REPO)
+        cid = to_green(target, title="修复奖励领取逻辑", neutral=False,
+                       verification=[{"id": "INTEG-001", "type": "integration",
+                                      "verifies": ["AC-001-01"],
+                                      "command": "python tests/test_claim.py"}])
+        missing = amod.record_approval(
+            target, cid, "MERGE_GATE", "APPROVED", "owner",
+            trust_mode=amod.SCM_AUTHENTICATED_MERGE)
+        self.assertEqual(missing["status"], "BLOCKED_EVIDENCE_REQUIRED")
+        wrong_gate = amod.record_approval(
+            target, cid, "VERIFY_MANUAL", "APPROVED", "owner",
+            evidence_ref="owner-decision:T-1",
+            trust_mode=amod.SCM_AUTHENTICATED_MERGE)
+        self.assertEqual(wrong_gate["status"], "BLOCKED_TRUST_MODE_SCOPE")
+        approved = amod.record_approval(
+            target, cid, "MERGE_GATE", "APPROVED", "owner",
+            evidence_ref="owner-decision:T-1",
+            trust_mode=amod.SCM_AUTHENTICATED_MERGE)
+        self.assertEqual(approved["status"], "APPROVAL_RECORDED")
+        report = vmod.change_verify(target, cid)
+        self.assertEqual(report["status"], "VERIFY_COMPLETE", report)
+        self.assertEqual(report["overall"], "READY_WITH_WARNINGS")
+        self.assertTrue(any("authenticated SCM merge" in item
+                            for item in report["warnings"]))
+
     def test_review_projection(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)

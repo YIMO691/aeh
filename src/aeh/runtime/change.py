@@ -179,6 +179,7 @@ def change_status(target, change_id, ae_root=None):
 def change_repair(target, change_id, kind, ae_root=None):
     """Route GREEN into a frozen repair state without bypassing transition checks."""
     routes = {
+        "ground": ("GROUND", "GROUNDING_STALE"),
         "test": ("TEST_REPAIR", "BLOCKED_TEST_CHANGED"),
         "spec": ("SPEC_REPAIR", "SPEC_CHANGED_IN_GREEN"),
     }

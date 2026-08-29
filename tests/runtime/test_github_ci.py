@@ -152,6 +152,14 @@ class TestGitHubBinding(GitRepositoryCase):
         self.assertEqual(verify.call_args.args[2], "github.com/owner/repo")
         self.assertEqual(verify.call_args.args[3:5], (self.base, head))
         self.assertEqual(verify.call_args.args[5], "2026-08-27T12:01:00Z")
+        self.assertEqual(
+            verify.call_args.kwargs["accepted_approval_trust_modes"],
+            {"SCM_AUTHENTICATED_MERGE"},
+        )
+        self.assertEqual(report["safety"]["merge_approval_channel"],
+                         "SCM_AUTHENTICATED_MERGE")
+        self.assertTrue(any(item["id"] == "approval.channel"
+                            for item in report["checks"]))
 
     def test_wrong_run_head_and_unconfigured_digest_fail_closed(self):
         self.add_change(); head = commit(self.target, "change")

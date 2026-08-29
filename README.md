@@ -122,6 +122,23 @@ The exact path depends on the Change classification and effective workflow.
 AEH stops at `MERGE_READY`; it does not push, open a PR, merge, deploy, or
 release on its own.
 
+For a solo repository where the SCM account performing the final merge is the
+approval boundary, use the explicitly downgraded mode instead of managing an
+HMAC key:
+
+```bash
+aeh change approve CHG-2026-0001 \
+  --gate MERGE_GATE --status APPROVED --actor <your-name> \
+  --trust-mode SCM_AUTHENTICATED_MERGE \
+  --evidence-ref <owner-decision-or-ticket>
+```
+
+This produces `READY_WITH_WARNINGS`: it delegates final authority to the
+authenticated SCM merge action and makes no HMAC identity claim. HMAC remains
+the default for strict or multi-party governance. Provider-neutral CI replay
+does not accept the delegated mode unless a trusted provider adapter explicitly
+enables it.
+
 ## Manual verification and approval lifecycle
 
 When a plan declares manual verification, record the separate Gate before
@@ -143,7 +160,7 @@ aeh change approve CHG-2026-0001 \
   --evidence-ref <decision-or-incident-id> --key-id <revoker-key-id>
 ```
 
-Keys stay outside committed truth, normally under
+Strict-mode keys stay outside committed truth, normally under
 `.aeh/private/approval-keys/<key-id>.key`. See
 [M4 governance](docs/m4-governance.md) for lifecycle behavior and
 [M5 security](docs/m5-security.md) for credentials and command execution.

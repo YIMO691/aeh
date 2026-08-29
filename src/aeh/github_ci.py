@@ -22,6 +22,7 @@ from . import ci
 from . import paths as aeh_paths
 from . import transaction as tx
 from .bootstrap import pipeline as bootstrap_pipeline
+from .runtime import approval as approval_runtime
 
 
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
@@ -200,7 +201,11 @@ def _provider_report(binding, run, closure, replay, checks, verdict):
         "change": closure, "replay": replay, "verdict": verdict, "checks": checks,
         "inputs": {"event_digest": _digest(binding), "run_snapshot_digest": _digest(run)},
         "safety": {"read_only_target": True, "project_code_executed": False,
-                   "protected_credentials_available": False},
+                   "protected_credentials_available": False,
+                   "merge_approval_channel": "SCM_AUTHENTICATED_MERGE"
+                   if any(item.get("id") == "approval.channel" and
+                          "delegated" in item.get("message", "") for item in checks)
+                   else "HMAC_CREDENTIAL"},
     }
     report["canonical_digest"] = _digest(report)
     return report
@@ -211,6 +216,18 @@ def verify_event(target, event_payload, event_type, run_snapshot, policy=None):
     policy = policy or load_policy()
     checks = []
     try:
+        accepted_trust_modes = set()
+        merge_channel = policy["approval"]["merge_gate"]
+        if merge_channel == approval_runtime.SCM_AUTHENTICATED_MERGE:
+            accepted_trust_modes.add(approval_runtime.SCM_AUTHENTICATED_MERGE)
+            channel_message = (
+                "MERGE_GATE is delegated to the authenticated SCM merge action; "
+                "no HMAC identity claim is made"
+            )
+        else:
+            channel_message = "MERGE_GATE requires an external HMAC credential"
+        checks.append({"id": "approval.channel", "status": "PASS",
+                       "message": channel_message})
         binding = normalize_event(event_payload, event_type)
         expected = policy["required_check"]
         workflow = run_snapshot.get("workflow") or {}
@@ -247,6 +264,7 @@ def verify_event(target, event_payload, event_type, run_snapshot, policy=None):
         replay = ci.verify(
             target, closure["change_id"], "github.com/" + binding["repository"]["full_name"],
             binding["base_sha"], binding["head_sha"], observed_at, credential_files={},
+            accepted_approval_trust_modes=accepted_trust_modes,
         )
         if replay["verdict"] != "PASS":
             last = replay["checks"][-1]

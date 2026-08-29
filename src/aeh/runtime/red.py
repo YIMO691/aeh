@@ -122,6 +122,10 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
             if tr0["status"] != "TRANSITION_OK":
                 return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "transition": tr0}
             change = ch.load_change(target, change_id)
+            if had_checkpoint:
+                # The transition itself is a Controller-owned mutation. Advance
+                # the repair checkpoint before executing repository test code.
+                omod.record_checkpoint(target, change_id)
         before = _snapshot(target, os.path.join(".aeh", "changes", change_id))
         cdir = ch._change_dir(target, change_id)
         base_commit = _git_base(target)

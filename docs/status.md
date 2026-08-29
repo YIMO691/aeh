@@ -10,7 +10,7 @@
 | Source version | `0.3.0.dev0` |
 | Latest GitHub release | `v0.2.0` |
 | PyPI | Not published |
-| Roadmap | M1–M5 + M6.1 + M6.2a–c merged; M6.2d live dogfood candidate; M6.3 planned |
+| Roadmap | M1–M5 + M6.1 + M6.2a–c merged; M6.2d tiered-approval live dogfood in progress; M6.3 planned |
 | Current source test baseline | 356 discovered, 352 passed, 4 expected Windows symlink-permission skips |
 | Latest post-merge main CI | 6/6 jobs passed on Ubuntu/Windows and Python 3.10/3.11 |
 
@@ -45,6 +45,11 @@ committed Change in a clean external Git checkout without running project code.
 On this review branch it can also bind GitHub PR/merge-group runs to an exact
 new Change and declared diff, render a pinned immutable-artifact workflow, and
 audit required-check enforcement without changing GitHub settings.
+
+The M6.2d branch adds an explicit solo-repository approval option:
+`SCM_AUTHENTICATED_MERGE` delegates final `MERGE_GATE` authority to the SCM's
+authenticated merge action and emits warnings. Strict HMAC approval remains
+available and is still required for manual verification or stronger governance.
 
 AEH cannot provide public-key human identity, non-repudiation, a kernel-level
 execution sandbox, an unbypassable hosted CI service/SCM rule, or multi-agent

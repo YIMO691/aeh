@@ -1,23 +1,705 @@
 
-test_deterministic_output (test_adapters.TestDeterminism.test_deterministic_output) ... ok
-test_inputs_not_modified (test_adapters.TestDeterminism.test_inputs_not_modified) ... ok
-test_no_unclosed_template_file_handles (test_adapters.TestDeterminism.test_no_unclosed_template_file_handles)
-release-fix 004：模板读取必须关闭句柄（dogfood 发现并修复的真实 bug）。 ... ok
-test_timestamps_irrelevant (test_adapters.TestDeterminism.test_timestamps_irrelevant) ... ok
-test_malformed_markers_blocked (test_adapters.TestManagedMerge.test_malformed_markers_blocked) ... ok
-test_second_merge_idempotent (test_adapters.TestManagedMerge.test_second_merge_idempotent) ... ok
-test_user_content_preserved (test_adapters.TestManagedMerge.test_user_content_preserved) ... ok
-test_blocked_profile_rejected (test_adapters.TestRender.test_blocked_profile_rejected) ... ok
-test_claude_render_pass (test_adapters.TestRender.test_claude_render_pass) ... ok
-test_codex_render_pass (test_adapters.TestRender.test_codex_render_pass) ... ok
-test_human_review_required_not_degraded (test_adapters.TestRender.test_human_review_required_not_degraded) ... ok
-test_managed_section_is_thin (test_adapters.TestRender.test_managed_section_is_thin) ... ok
-test_private_policy_zero_leak (test_adapters.TestRender.test_private_policy_zero_leak) ... ok
-test_push_deny_not_relaxed (test_adapters.TestRender.test_push_deny_not_relaxed) ... ok
-test_semantic_equivalence_across_adapters (test_adapters.TestRender.test_semantic_equivalence_across_adapters) ... ok
-test_unsupported_capability_recorded (test_adapters.TestRender.test_unsupported_capability_recorded) ... ok
-
+..................D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-191urzxu\\.gitignore'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-191urzxu\\AGENTS.md'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-191urzxu\\CLAUDE.md'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:100: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\install-plan.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "install-plan.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:202: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-jb90by4b\\AGENTS.md' mode='r' encoding='utf-8'>
+  self.assertIn("User rule alpha.", open(os.path.join(target, "AGENTS.md"), encoding="utf-8").read())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:172: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-ww1o3695\\.gitignore' mode='r' encoding='utf-8'>
+  text = open(os.path.join(target, ".gitignore"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-u7ukmg3c\\AGENTS.md'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+....D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:151: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\manifest.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", name), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-r0o42pav\\.aeh\\manifest.yaml' mode='r' encoding='utf-8'>
+  data = yaml.safe_load(open(os.path.join(target, ".aeh", name.split(".")[0] + ".yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:151: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\profile.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", name), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-r0o42pav\\.aeh\\profile.yaml' mode='r' encoding='utf-8'>
+  data = yaml.safe_load(open(os.path.join(target, ".aeh", name.split(".")[0] + ".yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:151: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\effective-workflow.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", name), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-r0o42pav\\.aeh\\effective-workflow.yaml' mode='r' encoding='utf-8'>
+  data = yaml.safe_load(open(os.path.join(target, ".aeh", name.split(".")[0] + ".yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.gitignore'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\AGENTS.md'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\CLAUDE.md'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\effective-workflow.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\manifest.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\profile.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\bootstrap\\answers.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\bootstrap\\compiler-report.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\bootstrap\\conflicts.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\bootstrap\\discovery.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\ci-enforcement-policy.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\ci-policy.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\classifications.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\evidence.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\execution-policy.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\gates.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\precedence.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\states.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\core\\workflow.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\adapter-output.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\adapter.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\aew-governance-adapter.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\answers.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\approvals.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\bugfix.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\change.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-enforcement-policy.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-enforcement-report.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-policy.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-provider-event.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-provider-snapshot.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-report.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\ci-workflow-template.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\conflict.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\discovery-rule.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\discovery.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\doctor.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\effective-workflow.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\evidence-index.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\execution-policy.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\green.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\install-plan.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\interview.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\manifest.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\profile.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\red.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\repair-plan.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\repair-rule.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\scm-inspection.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\spec.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\tasks.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\test-lock.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\test-plan.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\traceability.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\transaction-journal.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\upgrade-plan.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\upgrade-policy.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\runtime\\schemas\\verification.schema.json'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\transactions\\BST-2026-0001\\journal.yaml'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\transactions\\BST-2026-0001\\backups\\0058.bin'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\transactions\\BST-2026-0001\\backups\\0059.bin'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\transactions\\BST-2026-0001\\backups\\0060.bin'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:41: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\src\\app.py'>
+  out[os.path.relpath(p, root)] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:180: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\manifest.yaml' mode='r' encoding='utf-8'>
+  manifest1 = yaml.safe_load(open(os.path.join(target, ".aeh", "manifest.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:185: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-vtg6ypj5\\.aeh\\manifest.yaml' mode='r' encoding='utf-8'>
+  manifest2 = yaml.safe_load(open(os.path.join(target, ".aeh", "manifest.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:166: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-92hekutc\\AGENTS.md' mode='r' encoding='utf-8'>
+  self.assertIn("User rule alpha.", open(os.path.join(target, "AGENTS.md"), encoding="utf-8").read())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:167: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-92hekutc\\CLAUDE.md' mode='r' encoding='utf-8'>
+  self.assertIn("Keep me.", open(os.path.join(target, "CLAUDE.md"), encoding="utf-8").read())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\bootstrap\test_bootstrap.py:168: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-target-92hekutc\\.gitignore' mode='r' encoding='utf-8'>
+  self.assertIn("__pycache__/", open(os.path.join(target, ".gitignore"), encoding="utf-8").read())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\compiler\test_compiler.py:216: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\core\\workflow.yaml'>
+  before = hashlib.sha256(open(CORE_WORKFLOW, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\compiler\test_compiler.py:223: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\core\\workflow.yaml'>
+  after = hashlib.sha256(open(CORE_WORKFLOW, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..................................................................D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\discovery\test_hardening.py:157: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\src\\aeh\\discovery.py' mode='r' encoding='utf-8'>
+  src = open(os.path.join(ROOT, "src", "aeh", "discovery.py"), "r", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\doctor\test_doctor.py:120: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-doc-target-bkay2jge\\.aeh\\profile.yaml' mode='r' encoding='utf-8'>
+  profile = yaml.safe_load(open(os.path.join(target, ".aeh", "profile.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\doctor\test_doctor.py:130: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-doc-target-t0au0imo\\.aeh\\profile.yaml' mode='r' encoding='utf-8'>
+  profile = yaml.safe_load(open(os.path.join(target, ".aeh", "profile.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+................s............................................D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_change.py:216: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ch-target-64d_51fw\\.aeh\\changes\\CHG-2026-0001\\change.yaml'>
+  before = hashlib.sha256(open(os.path.join(target, ".aeh", "changes", cid, "change.yaml"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_change.py:221: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ch-target-64d_51fw\\.aeh\\changes\\CHG-2026-0001\\change.yaml'>
+  after = hashlib.sha256(open(os.path.join(target, ".aeh", "changes", cid, "change.yaml"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_change.py:97: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\change.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "change.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..................D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-wuxk976k\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-wuxk976k\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...........................D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-j0ppp6do\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-j0ppp6do\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:119: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-j0ppp6do\\.aeh\\changes\\CHG-2026-0001\\green.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "green.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-6sqztgjt\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-6sqztgjt\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-mw32y3zq\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-mw32y3zq\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-vaw1orly\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-vaw1orly\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:220: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-vaw1orly\\.aeh\\changes\\CHG-2026-0001\\green.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "green.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-21t08qbp\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-21t08qbp\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:261: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-21t08qbp\\src\\reward.py'>
+  b2 = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:264: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-21t08qbp\\src\\reward.py'>
+  a2 = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-gixmtpr1\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-gixmtpr1\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-v1wbm48c\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-v1wbm48c\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-v3ofsvtr\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-v3ofsvtr\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:89: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-ip8eqs93\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_green.py:92: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g12-t-ip8eqs93\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.....D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:131: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-5_ebdtjs\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:123: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-hb45cy17\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:124: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\evidence-index.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "evidence-index.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.....D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:146: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-433gucq4\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  raw = open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:165: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-t262o77z\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:225: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-38fgn5tm\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev1 = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r1["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:178: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-uroq8u49\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:246: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-qcrm4hr9\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_grounding.py:153: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g-target-kqnci8if\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  index = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", r["change_id"], "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-_wbtevb6\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-_wbtevb6\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-osaemz7j\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-osaemz7j\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0x3i7t9v\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0x3i7t9v\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-8y3hpiqe\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-8y3hpiqe\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-rrfw1q0v\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-rrfw1q0v\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-emcm5axs\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-emcm5axs\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-tplz2d53\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-tplz2d53\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-zy2bv0gw\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-zy2bv0gw\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-16m5otsc\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-16m5otsc\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-5aypt8nt\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-5aypt8nt\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-yqqgzdyb\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-yqqgzdyb\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-7f_id7fd\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-7f_id7fd\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-t3qtdjyc\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-t3qtdjyc\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-qepazy0g\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-qepazy0g\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+................s.s......D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:165: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-b3kw_h9x\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:166: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\test-plan.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "test-plan.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-o622v3js\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:157: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-4dcej36u\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:159: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-4dcej36u\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:278: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-8al8rltp\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:280: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-8al8rltp\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+......D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:189: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-5n8zclqg\\.aeh\\changes\\CHG-2026-0001\\red.yaml' mode='r' encoding='utf-8'>
+  red_rec = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "red.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_red.py:192: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-r-target-5n8zclqg\\.aeh\\changes\\CHG-2026-0001\\test-lock.yaml' mode='r' encoding='utf-8'>
+  lock = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-lock.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+....D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:149: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-nnj5_qp0\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-nnj5_qp0\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:201: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-k7hzqrpo\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-k7hzqrpo\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:170: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-k_lqz6st\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  raw = open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:110: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-n_iandd4\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-s-target-n_iandd4\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_specification.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\schemas\\spec.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "spec.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-df8hew2i\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-df8hew2i\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-ov7y18ed\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-ov7y18ed\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-08xa8iua\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-08xa8iua\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:435: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-08xa8iua\\.aeh\\changes\\CHG-2026-0001\\approvals.yaml' mode='r' encoding='utf-8'>
+  body = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "approvals.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0heduoj9\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0heduoj9\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-86c9sylm\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-86c9sylm\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-bd7g0h13\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-bd7g0h13\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:216: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-bd7g0h13\\.aeh\\changes\\CHG-2026-0001\\change.yaml' mode='r' encoding='utf-8'>
+  forged = yaml.safe_load(open(cpath, encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-g7j0hcuw\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-g7j0hcuw\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-i9wn6fbj\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-i9wn6fbj\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-54nnwlff\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-54nnwlff\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-c7gccdlq\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-c7gccdlq\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:357: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-c7gccdlq\\.aeh\\changes\\CHG-2026-0001\\verification.yaml' mode='r' encoding='utf-8'>
+  ver = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "verification.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-6g4t53f_\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-6g4t53f_\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-nj7u7q74\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-nj7u7q74\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-5d9to77g\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-5d9to77g\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-ldaesi5r\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-ldaesi5r\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-zi4yx081\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-zi4yx081\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-uyu8e2iw\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-uyu8e2iw\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0ll_yxr8\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0ll_yxr8\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-svkqn8q5\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-svkqn8q5\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-gvanq_xl\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-gvanq_xl\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-qvgjwmnq\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-qvgjwmnq\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:406: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-qvgjwmnq\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(plan_path, encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-86nvl9lc\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-86nvl9lc\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-q6vi9vac\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-q6vi9vac\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-yp5wvcs5\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-yp5wvcs5\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-phtp8pk4\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-phtp8pk4\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-mlw9107n\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-mlw9107n\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0f471alp\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0f471alp\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:269: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-0f471alp\\.aeh\\changes\\CHG-2026-0001\\verification.yaml' mode='r' encoding='utf-8'>
+  ver = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "verification.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-r6hphcax\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-r6hphcax\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:168: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-r6hphcax\\.aeh\\changes\\CHG-2026-0001\\verification.yaml' mode='r' encoding='utf-8'>
+  ver = yaml.safe_load(open(os.path.join(cdir, "verification.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:173: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-r6hphcax\\.aeh\\changes\\CHG-2026-0001\\traceability.yaml' mode='r' encoding='utf-8'>
+  tr = yaml.safe_load(open(os.path.join(cdir, "traceability.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.............s...
 ----------------------------------------------------------------------
-Ran 16 tests in 0.379s
+Ran 365 tests in 830.679s
 
-OK
+OK (skipped=4)

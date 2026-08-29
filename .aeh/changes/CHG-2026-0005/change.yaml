@@ -48,13 +48,14 @@ gates:
   red: PASS
   spec: PASS
   test_design: PASS
+  verify: PASS
 preflight_warnings:
 - 'guidance-only deny fields for codex: permissions.git_push'
 - 'guidance-only deny fields for claude: permissions.web_access'
 - workflow not provided to preflight
 state:
-  current: REFACTOR
-  previous: GREEN
+  current: VERIFY
+  previous: REFACTOR
 title: Enable M6.2d live GitHub assurance (case-safe final)
 workflow:
   level: CRITICAL

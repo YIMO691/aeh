@@ -18,6 +18,8 @@ workflow:
     url: https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-2/adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl
     filename: adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl
     sha256: 1d0d5fe00f78ea07b20ddc006d213e0e5d6a56d2decce56128e29cf0e39ed9c1
+approval:
+  merge_gate: SCM_AUTHENTICATED_MERGE
 permissions:
   contents: read
   actions: read
