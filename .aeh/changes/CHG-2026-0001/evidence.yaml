@@ -2,65 +2,8 @@ change_id: CHG-2026-0001
 contract: bootstrap.evidence-index
 evidence:
 - confidence: DIRECT
-  finding: 'keyword match: m6 in .git:1'
-  id: EV-001
-  location:
-    line: 1
-    path: .git
-    symbol: m6
-  query:
-    pattern: m6
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 4e42728ae077ee55ca235eda09d94a268ac92a3ad1cbcf51b40c51ec05ae671f
-    rel_path: .git
-  type: SOURCE
-- confidence: DIRECT
-  finding: 'keyword match: and in .git:1'
-  id: EV-002
-  location:
-    line: 1
-    path: .git
-    symbol: and
-  query:
-    pattern: and
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 4e42728ae077ee55ca235eda09d94a268ac92a3ad1cbcf51b40c51ec05ae671f
-    rel_path: .git
-  type: SOURCE
-- confidence: DIRECT
-  finding: 'keyword match: candidate3 in .git:1'
-  id: EV-003
-  location:
-    line: 1
-    path: .git
-    symbol: candidate3
-  query:
-    pattern: candidate3
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 4e42728ae077ee55ca235eda09d94a268ac92a3ad1cbcf51b40c51ec05ae671f
-    rel_path: .git
-  type: SOURCE
-- confidence: DIRECT
   finding: 'keyword match: approval in AGENTS.md:30'
-  id: EV-004
+  id: EV-001
   location:
     line: 30
     path: AGENTS.md
@@ -74,12 +17,12 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 08be360cdca8fab09e1e3c540df98beb4ddbcbc3493e8c16fe29c79a4ebf5356
+    file_hash: e154cbead91cf5e027add9e3b6936f35c26bf63d04c4963a42e7626fce03956c
     rel_path: AGENTS.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in AGENTS.md:7'
-  id: EV-005
+  id: EV-002
   location:
     line: 7
     path: AGENTS.md
@@ -93,14 +36,14 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 08be360cdca8fab09e1e3c540df98beb4ddbcbc3493e8c16fe29c79a4ebf5356
+    file_hash: e154cbead91cf5e027add9e3b6936f35c26bf63d04c4963a42e7626fce03956c
     rel_path: AGENTS.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: m6 in CHANGELOG.md:17'
-  id: EV-006
+  finding: 'keyword match: m6 in CHANGELOG.md:9'
+  id: EV-003
   location:
-    line: 17
+    line: 9
     path: CHANGELOG.md
     symbol: m6
   query:
@@ -112,33 +55,14 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
+    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: tiered in CHANGELOG.md:5'
-  id: EV-007
+  finding: 'keyword match: approval in CHANGELOG.md:22'
+  id: EV-004
   location:
-    line: 5
-    path: CHANGELOG.md
-    symbol: tiered
-  query:
-    pattern: tiered
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
-    rel_path: CHANGELOG.md
-  type: SOURCE
-- confidence: DIRECT
-  finding: 'keyword match: approval in CHANGELOG.md:36'
-  id: EV-008
-  location:
-    line: 36
+    line: 22
     path: CHANGELOG.md
     symbol: approval
   query:
@@ -150,14 +74,14 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
+    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in CHANGELOG.md:17'
-  id: EV-009
+  finding: 'keyword match: and in CHANGELOG.md:9'
+  id: EV-005
   location:
-    line: 17
+    line: 9
     path: CHANGELOG.md
     symbol: and
   query:
@@ -169,14 +93,14 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
+    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: dogfood in CHANGELOG.md:17'
-  id: EV-010
+  finding: 'keyword match: dogfood in CHANGELOG.md:65'
+  id: EV-006
   location:
-    line: 17
+    line: 65
     path: CHANGELOG.md
     symbol: dogfood
   query:
@@ -188,12 +112,31 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
+    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
+    rel_path: CHANGELOG.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: evidence in CHANGELOG.md:20'
+  id: EV-007
+  location:
+    line: 20
+    path: CHANGELOG.md
+    symbol: evidence
+  query:
+    pattern: evidence
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: approval in CLAUDE.md:30'
-  id: EV-011
+  id: EV-008
   location:
     line: 30
     path: CLAUDE.md
@@ -207,12 +150,12 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: ed217986247ebe00b48c236c6e45e5f439df2888573ca4391acc1712fac981f7
+    file_hash: 48b62f1020a56c148b9c8ace46a43ff7d8bbe38ad7b6d0ea14de7f19e068a1d9
     rel_path: CLAUDE.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in CLAUDE.md:7'
-  id: EV-012
+  id: EV-009
   location:
     line: 7
     path: CLAUDE.md
@@ -226,12 +169,12 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: ed217986247ebe00b48c236c6e45e5f439df2888573ca4391acc1712fac981f7
+    file_hash: 48b62f1020a56c148b9c8ace46a43ff7d8bbe38ad7b6d0ea14de7f19e068a1d9
     rel_path: CLAUDE.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: m6 in CONTRIBUTING.md:25'
-  id: EV-013
+  id: EV-010
   location:
     line: 25
     path: CONTRIBUTING.md
@@ -250,7 +193,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: approval in CONTRIBUTING.md:93'
-  id: EV-014
+  id: EV-011
   location:
     line: 93
     path: CONTRIBUTING.md
@@ -269,7 +212,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in CONTRIBUTING.md:25'
-  id: EV-015
+  id: EV-012
   location:
     line: 25
     path: CONTRIBUTING.md
@@ -287,8 +230,27 @@ evidence:
     rel_path: CONTRIBUTING.md
   type: SOURCE
 - confidence: DIRECT
+  finding: 'keyword match: evidence in CONTRIBUTING.md:28'
+  id: EV-013
+  location:
+    line: 28
+    path: CONTRIBUTING.md
+    symbol: evidence
+  query:
+    pattern: evidence
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    rel_path: CONTRIBUTING.md
+  type: SOURCE
+- confidence: DIRECT
   finding: 'keyword match: and in LICENSE:6'
-  id: EV-016
+  id: EV-014
   location:
     line: 6
     path: LICENSE
@@ -307,7 +269,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: m6 in README.md:11'
-  id: EV-017
+  id: EV-015
   location:
     line: 11
     path: README.md
@@ -321,12 +283,12 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d3531f0ec824295359377b3f17ef64e4c6fae08a064fb069a00425841db0d52d
+    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: approval in README.md:48'
-  id: EV-018
+  id: EV-016
   location:
     line: 48
     path: README.md
@@ -340,12 +302,12 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d3531f0ec824295359377b3f17ef64e4c6fae08a064fb069a00425841db0d52d
+    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in README.md:13'
-  id: EV-019
+  id: EV-017
   location:
     line: 13
     path: README.md
@@ -359,14 +321,14 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d3531f0ec824295359377b3f17ef64e4c6fae08a064fb069a00425841db0d52d
+    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: dogfood in README.md:230'
-  id: EV-020
+  finding: 'keyword match: dogfood in README.md:215'
+  id: EV-018
   location:
-    line: 230
+    line: 215
     path: README.md
     symbol: dogfood
   query:
@@ -378,12 +340,31 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d3531f0ec824295359377b3f17ef64e4c6fae08a064fb069a00425841db0d52d
+    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
+    rel_path: README.md
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: evidence in README.md:15'
+  id: EV-019
+  location:
+    line: 15
+    path: README.md
+    symbol: evidence
+  query:
+    pattern: evidence
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in setup.py:6'
-  id: EV-021
+  id: EV-020
   location:
     line: 6
     path: setup.py
@@ -402,7 +383,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in adapters\claude\CLAUDE.template.md:6'
-  id: EV-022
+  id: EV-021
   location:
     line: 6
     path: adapters\claude\CLAUDE.template.md
@@ -421,7 +402,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: approval in adapters\claude\adapter.yaml:27'
-  id: EV-023
+  id: EV-022
   location:
     line: 27
     path: adapters\claude\adapter.yaml
@@ -440,7 +421,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in adapters\codex\AGENTS.template.md:6'
-  id: EV-024
+  id: EV-023
   location:
     line: 6
     path: adapters\codex\AGENTS.template.md
@@ -459,7 +440,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: approval in adapters\codex\adapter.yaml:13'
-  id: EV-025
+  id: EV-024
   location:
     line: 13
     path: adapters\codex\adapter.yaml
@@ -478,7 +459,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in adapters\codex\adapter.yaml:12'
-  id: EV-026
+  id: EV-025
   location:
     line: 12
     path: adapters\codex\adapter.yaml
@@ -497,13 +478,32 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in bootstrap\grounding.yaml:25'
-  id: EV-027
+  id: EV-026
   location:
     line: 25
     path: bootstrap\grounding.yaml
     symbol: and
   query:
     pattern: and
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
+    rel_path: bootstrap\grounding.yaml
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: evidence in bootstrap\grounding.yaml:19'
+  id: EV-027
+  location:
+    line: 19
+    path: bootstrap\grounding.yaml
+    symbol: evidence
+  query:
+    pattern: evidence
     rule: title_keyword
   relevance:
     detail: title token matched
@@ -534,65 +534,8 @@ evidence:
     rel_path: bootstrap\interview\core.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: m6 in core\ci-enforcement-policy.yaml:18'
-  id: EV-029
-  location:
-    line: 18
-    path: core\ci-enforcement-policy.yaml
-    symbol: m6
-  query:
-    pattern: m6
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
-    rel_path: core\ci-enforcement-policy.yaml
-  type: SOURCE
-- confidence: DIRECT
-  finding: 'keyword match: approval in core\ci-enforcement-policy.yaml:21'
-  id: EV-030
-  location:
-    line: 21
-    path: core\ci-enforcement-policy.yaml
-    symbol: approval
-  query:
-    pattern: approval
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
-    rel_path: core\ci-enforcement-policy.yaml
-  type: SOURCE
-- confidence: DIRECT
-  finding: 'keyword match: dogfood in core\ci-enforcement-policy.yaml:18'
-  id: EV-031
-  location:
-    line: 18
-    path: core\ci-enforcement-policy.yaml
-    symbol: dogfood
-  query:
-    pattern: dogfood
-    rule: title_keyword
-  relevance:
-    detail: title token matched
-    kind: task_keyword
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
-    rel_path: core\ci-enforcement-policy.yaml
-  type: SOURCE
-- confidence: DIRECT
   finding: 'keyword match: approval in core\ci-policy.yaml:15'
-  id: EV-032
+  id: EV-029
   location:
     line: 15
     path: core\ci-policy.yaml
@@ -610,8 +553,27 @@ evidence:
     rel_path: core\ci-policy.yaml
   type: SOURCE
 - confidence: DIRECT
+  finding: 'keyword match: evidence in core\ci-policy.yaml:8'
+  id: EV-030
+  location:
+    line: 8
+    path: core\ci-policy.yaml
+    symbol: evidence
+  query:
+    pattern: evidence
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: d9faf8d0ca9e52e667fb5ff4559c0367c5ab7ca0188a92641fb885a0a25356f5
+    rel_path: core\ci-policy.yaml
+  type: SOURCE
+- confidence: DIRECT
   finding: 'keyword match: and in core\classifications.yaml:7'
-  id: EV-033
+  id: EV-031
   location:
     line: 7
     path: core\classifications.yaml
@@ -630,7 +592,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in core\evidence.yaml:2'
-  id: EV-034
+  id: EV-032
   location:
     line: 2
     path: core\evidence.yaml
@@ -648,8 +610,27 @@ evidence:
     rel_path: core\evidence.yaml
   type: SOURCE
 - confidence: DIRECT
+  finding: 'keyword match: evidence in core\evidence.yaml:1'
+  id: EV-033
+  location:
+    line: 1
+    path: core\evidence.yaml
+    symbol: evidence
+  query:
+    pattern: evidence
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: 202f92b6ea29d0581410de49560c33564979b29bd8846792c8218ae94bc9bd4e
+    rel_path: core\evidence.yaml
+  type: SOURCE
+- confidence: DIRECT
   finding: 'keyword match: approval in core\gates.yaml:3'
-  id: EV-035
+  id: EV-034
   location:
     line: 3
     path: core\gates.yaml
@@ -668,7 +649,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in core\gates.yaml:14'
-  id: EV-036
+  id: EV-035
   location:
     line: 14
     path: core\gates.yaml
@@ -687,7 +668,7 @@ evidence:
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: approval in core\states.yaml:19'
-  id: EV-037
+  id: EV-036
   location:
     line: 19
     path: core\states.yaml
@@ -701,12 +682,12 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e77a87932d5ab5df55c1e1436d114ab3333ef8b83098d669d88fd621912bb9f3
+    file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
     rel_path: core\states.yaml
   type: SOURCE
 - confidence: DIRECT
   finding: 'keyword match: and in core\states.yaml:87'
-  id: EV-038
+  id: EV-037
   location:
     line: 87
     path: core\states.yaml
@@ -720,7 +701,26 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e77a87932d5ab5df55c1e1436d114ab3333ef8b83098d669d88fd621912bb9f3
+    file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
+    rel_path: core\states.yaml
+  type: SOURCE
+- confidence: DIRECT
+  finding: 'keyword match: evidence in core\states.yaml:38'
+  id: EV-038
+  location:
+    line: 38
+    path: core\states.yaml
+    symbol: evidence
+  query:
+    pattern: evidence
+    rule: title_keyword
+  relevance:
+    detail: title token matched
+    kind: task_keyword
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
     rel_path: core\states.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -792,8 +792,23 @@ evidence:
   test_result: FOUND
   type: TEST
 - confidence: DIRECT
-  finding: 'existing test file: tests\bootstrap\test_bootstrap.py'
+  finding: 'existing test file: tests\adapters\test_adapters.py'
   id: EV-043
+  location:
+    line: 123
+    path: tests\adapters\test_adapters.py
+  relevance:
+    kind: existing_test_relation
+  source_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    dirty: true
+    file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
+    rel_path: tests\adapters\test_adapters.py
+  test_result: FOUND
+  type: TEST
+- confidence: DIRECT
+  finding: 'existing test file: tests\bootstrap\test_bootstrap.py'
+  id: EV-044
   location:
     line: 155
     path: tests\bootstrap\test_bootstrap.py
@@ -808,7 +823,7 @@ evidence:
   type: TEST
 - confidence: DIRECT
   finding: 'existing test file: tests\compiler\test_compiler.py'
-  id: EV-044
+  id: EV-045
   location:
     line: 215
     path: tests\compiler\test_compiler.py
@@ -821,24 +836,9 @@ evidence:
     rel_path: tests\compiler\test_compiler.py
   test_result: FOUND
   type: TEST
-- confidence: DIRECT
-  finding: 'existing test file: tests\contract\test_contracts.py'
-  id: EV-045
-  location:
-    line: 180
-    path: tests\contract\test_contracts.py
-  relevance:
-    kind: existing_test_relation
-  source_state:
-    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    dirty: true
-    file_hash: 8129556fa2e22ce7a0bf4f2380644d9e2f83a86f982e0c2aa16626e12fb2efcf
-    rel_path: tests\contract\test_contracts.py
-  test_result: FOUND
-  type: TEST
 - confidence: INFERRED
-  finding: 'keyword co-occurrence across 195 files: .git, AGENTS.md, CHANGELOG.md,
-    CLAUDE.md'
+  finding: 'keyword co-occurrence across 195 files: AGENTS.md, CHANGELOG.md, CLAUDE.md,
+    CONTRIBUTING.md'
   id: EV-046
   limitations:
   - call relation inferred from keyword co-occurrence; not symbolically verified
@@ -903,18 +903,18 @@ evidence:
     rel_path: bootstrap\grounding.yaml
   type: CONFIG
 - confidence: DIRECT
-  finding: 'config file match: bootstrap\interview\core.yaml:54'
+  finding: 'config file match: bootstrap\grounding.yaml:19'
   id: EV-051
   location:
-    line: 54
-    path: bootstrap\interview\core.yaml
+    line: 19
+    path: bootstrap\grounding.yaml
   relevance:
     kind: configuration_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: c553a4207a6a7f720cec674fb820d107af6bd97abc2ac6a0da674e2ec2c66183
-    rel_path: bootstrap\interview\core.yaml
+    file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
+    rel_path: bootstrap\grounding.yaml
   type: CONFIG
 - confidence: DIRECT
   finding: 'risk domain marker found in repository: authentication_authorization'
@@ -1002,7 +1002,7 @@ evidence:
   limitations:
   - no constraint extraction implemented; treat as unknown, not absent
   type: UNKNOWN
-generated_at: '2026-08-29T15:33:53.191078+00:00'
+generated_at: '2026-08-30T03:17:04.374451+00:00'
 repository:
   base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
   dirty: true

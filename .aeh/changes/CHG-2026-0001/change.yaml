@@ -7,7 +7,7 @@ classification:
   reasons:
   - 'suggested_level: CRITICAL'
   suggested_level: CRITICAL
-created_at: '2026-08-29T15:30:57.912130+00:00'
+created_at: '2026-08-30T03:17:00.767057+00:00'
 gates:
   classification: PASS
   green: PASS
@@ -24,7 +24,7 @@ preflight_warnings:
 state:
   current: VERIFY
   previous: REFACTOR
-title: Finalize M6.2d tiered approval and candidate3 dogfood
+title: Finalize M6.2d tiered approval and candidate3 dogfood evidence
 workflow:
   level: CRITICAL
   phases:

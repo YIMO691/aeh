@@ -245,11 +245,11 @@ changed_files:
   before_hash: ec57e2831179286c2234cfd638ee6658353f775fd69b48c4453b6a315c166757
   code_id: CODE-061
   path: docs/README.md
-- after_hash: 19321956f8210ba740413fb945366c91446404264f5f26251d4ac6beabf87324
+- after_hash: 9b751a215ab76bdaea71496d221ed8518da69e47d1cc06a7c9c2004c7b52b606
   before_hash: 0e0e876a59da0f16e3a17fe8bb13f273538f8f704afcd0ef848f1596523c595f
   code_id: CODE-062
   path: docs/decisions.md
-- after_hash: 9d856e40c88efa4d78fd4b6c7188d6f8e1804f321a60a4835b8a6b6596757349
+- after_hash: b2851db89a77ae668c00e21634745a5b3457211c97c40616ec014f1fe5aad0cc
   before_hash: dd6133f89033b326c2f864f0acf657940a5d962dd15a6cba0f9096ef0867d952
   code_id: CODE-063
   path: docs/m5-security.md
@@ -265,31 +265,31 @@ changed_files:
   before_hash: 8b38684722a8ab677cf3c97faee8efe5b771e219aca31f047faa5a839fd3d06c
   code_id: CODE-066
   path: docs/status.md
-- after_hash: 65c8cbcd302ae9387828ac77934315c1b268177130bbf0818ff5af03996dc2df
+- after_hash: cd9b84a72f406a7e802a4929cce1967cb47778690c7088c83d7a9b0b704a3548
   before_hash: b169cafce572dbb57c1c29447ab39d60378350e647e124f9cdc23378d87a54a7
   code_id: CODE-067
   path: schemas/approvals.schema.json
-- after_hash: 66959aa4034c4874230c8c4dd7200537a2248750dbd747df7e96fd19bba8924e
+- after_hash: 8f5224d014747df9e50b0c166959b9f2b47bf72c7165f4ec9e33f8a4bb569ea4
   before_hash: 5dd7ba42b862c32c99144bae94f65dc6804552c8ba651217d17b976504edb66b
   code_id: CODE-068
   path: schemas/ci-enforcement-policy.schema.json
-- after_hash: bf7f03b70ce705a23c861bd7a8a36bfa8689500c31f4e56e8fc9e30c217a6e65
+- after_hash: f529beee958317bc12099e69b2e8f5a96b85a30bb82b8d04526c22a9cd9bb350
   before_hash: afe4c1de42f880c82099921da3e565fa136918addc43cca1e63dd3b7c738bbe3
   code_id: CODE-069
   path: src/aeh/ci.py
-- after_hash: 94468e570e1ba05bb9ffddf32c9225605974c6872abb1780ceb8a2249299c56b
+- after_hash: 12782dc2c93281165784689b61c29b02f26bab308593bf1ef98af4900c54f541
   before_hash: 5f0ca3115ac616063c543f789d463abd247bc9c48ae6bbe9a039db080d098308
   code_id: CODE-070
   path: src/aeh/cli.py
-- after_hash: 1e875adf1d4b328d67f9894d80761a436e13c45331d65072702dd234b7a0532b
+- after_hash: 77f9cc9fa5b213218e1f0f127bb075fade9cca4f48b3e9e02f8d985b585d4912
   before_hash: a2bbe23aa2c85f206499fec84f737eb6ffbbeba69ac0a3a186b8bfbecb70521b
   code_id: CODE-071
   path: src/aeh/github_ci.py
-- after_hash: 9a37246657331d40b3d94bc39b951311f10ada4f0a6a269fef10c54e2eecdc24
+- after_hash: b8adb0263ebf05f47931ffea0d4f798f8088b40c368aca56ca294eee72bd6f3e
   before_hash: aae158d717cdf8d1acec364100121c9e334bf61e6a2796993644f042cfdaff1b
   code_id: CODE-072
   path: src/aeh/runtime/approval.py
-- after_hash: e90d25a0eb73bcfa6b00e790ca41c6610b487e0ccfc2d8a7f6efba91a1da1c03
+- after_hash: 253ff2bdb49d98af60467e4eca47e50a7fde9dc818daebdbabac8dd4606e2f9e
   before_hash: b15a8556a6eff353fc1e66ba6412262dd4838fe14a2eb258c74c6039aaba8bae
   code_id: CODE-073
   path: src/aeh/runtime/change.py
@@ -297,22 +297,22 @@ changed_files:
   before_hash: a44fe70086c81e28683f6849a41b218f2171bf475d66967824f7bb2ee5d56d5d
   code_id: CODE-074
   path: src/aeh/runtime/ownership.py
-- after_hash: bc6a75269048490ed2fac84b850bc75de5e7c9d4bfabfd3c3ab520b6f4fb69e6
+- after_hash: fc49f44ce33449ea8a105e0317c816dc50c4ca2160f397dddb6679660f11aec6
   before_hash: 915a95dd06f43287270b559dce194d76404be734f85a44050ae9436f707bf1a0
   code_id: CODE-075
   path: src/aeh/runtime/red.py
-- after_hash: 4dc1a250ab42870144dbfb5fa4b516de1cf3619c20fdd4feeb06473e59372125
+- after_hash: 77dcc66f4fc290127f9e8b7b3b952cf0280417bd92143272802412f92a22b518
   before_hash: a94d1aa14e53f83b22fd9158b6fdde8ae214105d5186a21d69f662b7e5bf8537
   code_id: CODE-076
   path: src/aeh/runtime/test_design.py
-- after_hash: 2c02250b54c6d00f8a9443e5ea73e98ddd2defeaf428d3d33b44e80ec7992344
+- after_hash: cba9b79793e6fb46718c89c4befc50482f5186f0bea2d60a1b6c9bba78df311a
   before_hash: 13ebe0c976c949afac8a1a4a1cc83ab6818a7b72e9f4a84b001544111c52fd58
   code_id: CODE-077
   path: src/aeh/runtime/verify.py
 contract: green.evidence
-production_after_hash: b05e6142d855f357f65cbe0d4aba108aa7fa3a80d55ab554f84c205014404183
+production_after_hash: 1d636c04e195f7043b8ee62fdcdb3acb2cd68fcd6ffda3f8471ee5eb4a199cea
 production_before_hash: 2a98d3b9de180726d3d9f30f641447e6d68ed9d232e5ac7ddcf2e261daf7bc94
-test_lock_hash: 3eb3a5065f8262bb8b21a252a26604e02f9b0112b5d451acfcd2c0ee4ce685bf
+test_lock_hash: 6e63cb5b5610a326339929be2159fabd802d035740fc443c05ddc17ad7e41357
 tests:
 - command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
     -m unittest tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
@@ -322,7 +322,7 @@ tests:
     tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
     tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed
   exit_code: 0
-  output_hash: 57e9a6b8f7f45874a5527a43e2b771dc7e67a5426bf127a2b445c8dd9cb2a773
+  output_hash: 3806ed84240c7181773570b58eef82426107588d37aa83509318c08232d1e5d8
   output_ref: .aeh\changes\CHG-2026-0001\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

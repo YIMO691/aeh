@@ -14,19 +14,19 @@ red:
   expected_failure:
     category: behavior
     signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
-  output_hash: 0648b1c205e0ce0dc62bfa1356ab75deaf4c3eda00a3ebed273458eb34030ddc
+  output_hash: 82161b6f338b99753a6c04d81fde6db1a150533caae932f356256fcfe6881df0
   output_ref: .aeh\changes\CHG-2026-0001\evidence\red-TEST-001.log
   repository_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-    changed_files_hash: 6429d04892247c93aba17cef5fe19ff9f1005e1d68b0ef422642a7444a28ad1a
-    test_files_hash: 6429d04892247c93aba17cef5fe19ff9f1005e1d68b0ef422642a7444a28ad1a
+    changed_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
+    test_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
   test_id: TEST-001
   verdict: VALID_RED
 results:
 - exit_code: 0
   id: VER-001
   method: automated_test
-  output_hash: 6bf8b147dc4b28126b9cfbb53eab31a834559b30af6217ecb5d4dba6bddcaefc
+  output_hash: a4f9c4d995bb7e4d50d8efa51c271e821b58384f10dc13181e920f43c7ece7c9
   output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-1.log
   status: pass
   type: target_test
@@ -47,7 +47,7 @@ results:
 - exit_code: 0
   id: VER-002
   method: automated_test
-  output_hash: b5d136807f287951ecd46f99cf417a4afc65802c2aa98d63c0e3f60d5f537da5
+  output_hash: 3b524a989573285f7b36df0f27fb8c6603df74da2006065ab0e76c8aa9e9e937
   output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-reg-2.log
   status: pass
   type: regression
@@ -56,7 +56,7 @@ results:
 - exit_code: 0
   id: VER-003
   method: automated_test
-  output_hash: d220a5181509aedc5df0e771b2a8439cfefd1bb4218adca32e7270cd53eb477f
+  output_hash: 2270f44f2a69c11c86ec3cce8c1d55065e139277fa8d90309c30955e7ec07a87
   output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-v-3.log
   status: pass
   type: contract
@@ -74,7 +74,7 @@ results:
   - AC-004-02
   - AC-005-01
   - AC-005-02
-verified_at: '2026-08-29T16:21:15.667535+00:00'
+verified_at: '2026-08-30T04:03:32.959239+00:00'
 warnings:
 - MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
   claim is made

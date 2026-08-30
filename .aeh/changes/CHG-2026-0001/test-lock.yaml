@@ -1,11 +1,11 @@
 change_id: CHG-2026-0001
 contract: test-lock
 files:
-- hash: 031ba0ac4fc953fce866f485c487301c6c6ea4c5a005f2db7eb6de14129be9b6
+- hash: 18c6b26a412d03818ec0a9ed9fd6b3723d64139c7812783652774262fc577acb
   path: tests/runtime/test_verify.py
-- hash: dc26d8d33dc08e0630b7e7e9e6583d27081088451425f813be912a0d1d622554
+- hash: 0b3ac79fd464e572a816dfbe1395fd0a14f8663a67e066e4d9c5a8c43ef260ab
   path: tests/runtime/test_ci_replay.py
-- hash: e970ea310c0a7b9b8d074616e107f98243403c0f4d1768f5d36805e9fdf61b84
+- hash: 1579425f252521e141e1276d5cf97af44969760fa6afe6791d96807f1cc7474a
   path: tests/runtime/test_github_ci.py
 - hash: ee5e8fac1d7c63baa5bc24a6f50f350e2f1ec295a8fa0cafe1753f273fcbf10e
   path: tests/runtime/test_change.py
@@ -13,16 +13,16 @@ files:
   path: tests/contract/fixtures/legal/ci-enforcement-policy.ok.json
 - hash: 268f9c04bc1ac3e3feb4f4ec30731eea340f4a8d34bd89dfef479ce119d06d05
   path: tests/contract/fixtures/illegal/ci-enforcement-policy.bad.mutable-action.json
-- hash: 8129556fa2e22ce7a0bf4f2380644d9e2f83a86f982e0c2aa16626e12fb2efcf
+- hash: db341ef02c9848d11894adb3d711f5e6ae394a88e4873852419a8a7230f08003
   path: tests/contract/test_contracts.py
 - hash: c1a4bb54394e48e93edfd9a94b9a5abc5fc5de46cbb71c27c8c84e2653c73a8d
   path: tests/runtime/test_m6_2d_dogfood.py
-locked_at: '2026-08-29T15:34:16.452437+00:00'
+locked_at: '2026-08-30T03:17:44.795292+00:00'
 protected:
   .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
-  evidence.yaml: 7e5db37cfcc96ff74bfbbe60d1b98f6c5d1c36c6da96fb7c1343068523be1c43
-  spec.yaml: 7b0ccf980be2201526405e724bc98af5138ba3bc80d624231dec76da8435bf76
+  evidence.yaml: 3dedfcf6e8e83ec3db2e88f985f1b46b13fddb5b9e1413fd7abef28fc951f9ab
+  spec.yaml: 00ec9edaf16e3c66b051e69a3bd729c38b743905ae15dbc01fb5d25ce285b71c
 repository:
   base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
   dirty: null

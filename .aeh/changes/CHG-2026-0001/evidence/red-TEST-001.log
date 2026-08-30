@@ -1,44 +1,38 @@
 
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence-standalone-4\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
   fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-l92s7ln0\\src\\reward.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-h41ht76k\\src\\reward.py'>
   before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-l92s7ln0\\src\\reward.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-h41ht76k\\src\\reward.py'>
   after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-ED:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+ED:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence-standalone-4\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
   fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-el3ww20j\\src\\order.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-az5jktk7\\src\\order.py'>
   before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-el3ww20j\\src\\order.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-az5jktk7\\src\\order.py'>
   after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-EE...
+EEFFFF
 ======================================================================
 ERROR: test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded (tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py", line 447, in test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py", line 447, in test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
     trust_mode=amod.SCM_AUTHENTICATED_MERGE)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATED_MERGE'
 
 ======================================================================
-ERROR: setUpClass (tests.runtime.test_ci_replay.TestCiReplay)
+ERROR: test_scm_merge_delegation_is_provider_scoped (tests.runtime.test_ci_replay.TestCiReplay.test_scm_merge_delegation_is_provider_scoped)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_ci_replay.py", line 68, in setUpClass
-    assert vmod.change_verify(cls.seed, cls.change_id)["status"] == "VERIFY_COMPLETE"
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\src\aeh\runtime\verify.py", line 361, in change_verify
-    return _verify_core(
-           ^^^^^^^^^^^^^
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\src\aeh\runtime\verify.py", line 258, in _verify_core
-    accepted_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_ci_replay.py", line 184, in test_scm_merge_delegation_is_provider_scoped
+    entry["trust_mode"] = amod.SCM_AUTHENTICATED_MERGE
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATED_MERGE'
 
@@ -46,15 +40,53 @@ AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATE
 ERROR: test_event_binding_invokes_replay_with_exact_inputs (tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_github_ci.py", line 148, in test_event_binding_invokes_replay_with_exact_inputs
-    report = github_ci.verify_event(
-             ^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\src\aeh\github_ci.py", line 221, in verify_event
-    if merge_channel == approval_runtime.SCM_AUTHENTICATED_MERGE:
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATED_MERGE'
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_github_ci.py", line 156, in test_event_binding_invokes_replay_with_exact_inputs
+    verify.call_args.kwargs["accepted_approval_trust_modes"],
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'accepted_approval_trust_modes'
+
+======================================================================
+FAIL: test_repair_can_restart_from_refactor_evidence (tests.runtime.test_change.TestStateMachine.test_repair_can_restart_from_refactor_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_change.py", line 180, in test_repair_can_restart_from_refactor_evidence
+    self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
+AssertionError: 'BLOCKED_ILLEGAL_STATE_TRANSITION' != 'TRANSITION_OK'
+- BLOCKED_ILLEGAL_STATE_TRANSITION
++ TRANSITION_OK
+ : {'status': 'BLOCKED_ILLEGAL_STATE_TRANSITION', 'change_id': 'CHG-2026-0001', 'from': 'REFACTOR', 'to': 'SPEC_REPAIR'}
+
+======================================================================
+FAIL: test_stale_grounding_can_restart_without_manual_state_edit (tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit) (current='SPEC')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_change.py", line 192, in test_stale_grounding_can_restart_without_manual_state_edit
+    self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
+AssertionError: 'CHANGE_FAILED' != 'TRANSITION_OK'
+- CHANGE_FAILED
++ TRANSITION_OK
+ : {'status': 'CHANGE_FAILED', 'change_id': 'CHG-2026-0001', 'error': 'unknown repair kind: ground'}
+
+======================================================================
+FAIL: test_stale_grounding_can_restart_without_manual_state_edit (tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit) (current='TEST_DESIGN')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_change.py", line 192, in test_stale_grounding_can_restart_without_manual_state_edit
+    self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
+AssertionError: 'CHANGE_FAILED' != 'TRANSITION_OK'
+- CHANGE_FAILED
++ TRANSITION_OK
+ : {'status': 'CHANGE_FAILED', 'change_id': 'CHG-2026-0001', 'error': 'unknown repair kind: ground'}
+
+======================================================================
+FAIL: test_exact_policy_and_workflow_are_committed (tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_m6_2d_dogfood.py", line 37, in test_exact_policy_and_workflow_are_committed
+    self.fail("M6_2D_POLICY_UNCONFIGURED")
+AssertionError: M6_2D_POLICY_UNCONFIGURED
 
 ----------------------------------------------------------------------
-Ran 5 tests in 20.176s
+Ran 6 tests in 22.493s
 
-FAILED (errors=3)
+FAILED (failures=4, errors=3)

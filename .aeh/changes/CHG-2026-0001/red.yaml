@@ -5,7 +5,7 @@ tests:
     category: behavior
     signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
   base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-  changed_files_hash: 6429d04892247c93aba17cef5fe19ff9f1005e1d68b0ef422642a7444a28ad1a
+  changed_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
   command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
     -m unittest tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
     tests.runtime.test_ci_replay.TestCiReplay.test_scm_merge_delegation_is_provider_scoped
@@ -18,9 +18,9 @@ tests:
   expected_failure:
     category: behavior
     signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
-  output_hash: 0648b1c205e0ce0dc62bfa1356ab75deaf4c3eda00a3ebed273458eb34030ddc
+  output_hash: 82161b6f338b99753a6c04d81fde6db1a150533caae932f356256fcfe6881df0
   output_ref: .aeh\changes\CHG-2026-0001\evidence\red-TEST-001.log
-  test_files_hash: 6429d04892247c93aba17cef5fe19ff9f1005e1d68b0ef422642a7444a28ad1a
+  test_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
   test_id: TEST-001
   verdict: VALID_RED
 version: 1
