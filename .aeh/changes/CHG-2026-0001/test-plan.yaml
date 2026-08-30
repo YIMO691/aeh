@@ -1,4 +1,4 @@
-generated_at: '2026-08-29T04:35:13.448383+00:00'
+generated_at: '2026-08-29T15:33:54.640414+00:00'
 regression:
 - command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
     -m unittest discover -s tests
@@ -28,12 +28,13 @@ tests:
     tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs
     tests.runtime.test_change.TestStateMachine.test_repair_can_restart_from_refactor_evidence
     tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
+    tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed
   expected_before_fix:
     signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
     type: behavior_failure
   id: TEST-001
   intent: Fail until tiered MERGE_GATE trust, provider scoping, visible downgrade
-    reporting, and REFACTOR repair are implemented together.
+    reporting, REFACTOR repair, and the exact candidate3 pin are implemented together.
   kind: contract
   required: true
   targets:
@@ -125,6 +126,8 @@ tests:
   - AC-003-03
   - AC-004-01
   - AC-004-02
+  - AC-005-01
+  - AC-005-02
 verification:
 - command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
     -m unittest tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
@@ -132,6 +135,7 @@ verification:
     tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs
     tests.runtime.test_change.TestStateMachine.test_repair_can_restart_from_refactor_evidence
     tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
+    tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed
   id: CONTRACT-001
   timeout_seconds: 600
   type: contract
@@ -146,3 +150,5 @@ verification:
   - AC-003-03
   - AC-004-01
   - AC-004-02
+  - AC-005-01
+  - AC-005-02

@@ -16,3 +16,6 @@ machine truth in spec.yaml
 ## REQ-004 [DESIRED] The GitHub adapter makes the trust downgrade visible and delegates final authority to the authenticated SCM merge action.
 - AC-004-01 (automated) Configured GitHub replay passes only the declared trust mode and reports merge_approval_channel plus an approval.channel check.
 - AC-004-02 (invariant) The reported approval channel always matches the configured provider policy.
+## REQ-005 [DESIRED] The live GitHub workflow is pinned to the exact authorized candidate3 artifact.
+- AC-005-01 (automated) Source policy, installed runtime policy, committed workflow, and dogfood contract test agree on the candidate3 URL, SHA-256, and workflow digest.
+- AC-005-02 (invariant) The published candidate3 wheel redownloads to SHA-256 59f45274c9b21234edf8349f2aae3be3c60f32128e7866b4bef888953c82f57b and no mutable artifact reference is accepted.

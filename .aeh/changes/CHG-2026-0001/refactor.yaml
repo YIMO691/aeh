@@ -1,11 +1,11 @@
 base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
-change_id: CHG-2026-0005
+change_id: CHG-2026-0001
 changed_files:
 - after_hash: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-001
   path: .aeh/effective-workflow.yaml
-- after_hash: 802c0118a9833c1fb22a8ad31678c1a7d49f4f018e6aca2d6192bffa770bce8f
+- after_hash: d6f1837270064b2228cb6993b9d37e2392b87bec500fc542431e71c21591834d
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-002
   path: .aeh/manifest.yaml
@@ -13,7 +13,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-003
   path: .aeh/profile.yaml
-- after_hash: f1e6cb337a0950501dedaab94d55c935463b1c883308f353ab61381df250f3cd
+- after_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-004
   path: .aeh/runtime/core/ci-enforcement-policy.yaml
@@ -209,7 +209,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-052
   path: .gitattributes
-- after_hash: 94ed6f9feccfbf7af4308a2e252ae3053ed5b86196997e513376ea41fe3c8a2f
+- after_hash: 4180fd0538d5267059536f33c2bb73ee400fef3968096dd92ae237872cf32330
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-053
   path: .github/workflows/aeh-assurance.yml
@@ -233,7 +233,7 @@ changed_files:
   before_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
   code_id: CODE-058
   path: README.md
-- after_hash: f1e6cb337a0950501dedaab94d55c935463b1c883308f353ab61381df250f3cd
+- after_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
   before_hash: e11d96fc9fb8fee19ec828f3da064bd64636821d5d341667df6e6ffa00497107
   code_id: CODE-059
   path: core/ci-enforcement-policy.yaml
@@ -310,9 +310,9 @@ changed_files:
   code_id: CODE-077
   path: src/aeh/runtime/verify.py
 contract: green.evidence
-production_after_hash: fa1b7827ed0c4227c74f35764acd74878ba572857da5e1795f61222f943a4da7
+production_after_hash: b05e6142d855f357f65cbe0d4aba108aa7fa3a80d55ab554f84c205014404183
 production_before_hash: 2a98d3b9de180726d3d9f30f641447e6d68ed9d232e5ac7ddcf2e261daf7bc94
-test_lock_hash: 1db29b3539ba92a984e8047790f96010fa1f823978eb95936bfc50bba6152eee
+test_lock_hash: 3eb3a5065f8262bb8b21a252a26604e02f9b0112b5d451acfcd2c0ee4ce685bf
 tests:
 - command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
     -m unittest tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
@@ -320,9 +320,10 @@ tests:
     tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs
     tests.runtime.test_change.TestStateMachine.test_repair_can_restart_from_refactor_evidence
     tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
+    tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed
   exit_code: 0
-  output_hash: 1c123367c6b3f40fd442b91e2317926a9bd4016939387fa14c3ae12aa718f5da
-  output_ref: .aeh\changes\CHG-2026-0005\evidence\refactor-TEST-001.log
+  output_hash: 57e9a6b8f7f45874a5527a43e2b771dc7e67a5426bf127a2b445c8dd9cb2a773
+  output_ref: .aeh\changes\CHG-2026-0001\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS
 verdict: REFACTOR_PASS

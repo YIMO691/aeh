@@ -1,28 +1,28 @@
 
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
   fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-69cl4cy_\\src\\reward.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-l92s7ln0\\src\\reward.py'>
   before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-69cl4cy_\\src\\reward.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-l92s7ln0\\src\\reward.py'>
   after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-ED:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-tiered-worktree\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+ED:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
   fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-f7_0cjhl\\src\\order.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-el3ww20j\\src\\order.py'>
   before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-f7_0cjhl\\src\\order.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-el3ww20j\\src\\order.py'>
   after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-EE..
+EE...
 ======================================================================
 ERROR: test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded (tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_verify.py", line 447, in test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_verify.py", line 447, in test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
     trust_mode=amod.SCM_AUTHENTICATED_MERGE)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATED_MERGE'
@@ -31,13 +31,13 @@ AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATE
 ERROR: setUpClass (tests.runtime.test_ci_replay.TestCiReplay)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_ci_replay.py", line 68, in setUpClass
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_ci_replay.py", line 68, in setUpClass
     assert vmod.change_verify(cls.seed, cls.change_id)["status"] == "VERIFY_COMPLETE"
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\src\aeh\runtime\verify.py", line 361, in change_verify
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\src\aeh\runtime\verify.py", line 361, in change_verify
     return _verify_core(
            ^^^^^^^^^^^^^
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\src\aeh\runtime\verify.py", line 258, in _verify_core
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\src\aeh\runtime\verify.py", line 258, in _verify_core
     accepted_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATED_MERGE'
@@ -46,15 +46,15 @@ AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATE
 ERROR: test_event_binding_invokes_replay_with_exact_inputs (tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\tests\runtime\test_github_ci.py", line 148, in test_event_binding_invokes_replay_with_exact_inputs
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\tests\runtime\test_github_ci.py", line 148, in test_event_binding_invokes_replay_with_exact_inputs
     report = github_ci.verify_event(
              ^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-tiered-worktree\src\aeh\github_ci.py", line 221, in verify_event
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence\src\aeh\github_ci.py", line 221, in verify_event
     if merge_channel == approval_runtime.SCM_AUTHENTICATED_MERGE:
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: module 'aeh.runtime.approval' has no attribute 'SCM_AUTHENTICATED_MERGE'
 
 ----------------------------------------------------------------------
-Ran 4 tests in 22.104s
+Ran 5 tests in 20.176s
 
 FAILED (errors=3)

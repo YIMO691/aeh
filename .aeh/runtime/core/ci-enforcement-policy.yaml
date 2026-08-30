@@ -10,14 +10,14 @@ required_check:
   app_id: 15368
 workflow:
   path: .github/workflows/aeh-assurance.yml
-  expected_sha256: 94ed6f9feccfbf7af4308a2e252ae3053ed5b86196997e513376ea41fe3c8a2f
+  expected_sha256: 4180fd0538d5267059536f33c2bb73ee400fef3968096dd92ae237872cf32330
   actions:
     checkout: 3d3c42e5aac5ba805825da76410c181273ba90b1
     setup_python: 5fda3b95a4ea91299a34e894583c3862153e4b97
   artifact:
-    url: https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-2/adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl
+    url: https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-3/adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl
     filename: adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl
-    sha256: 1d0d5fe00f78ea07b20ddc006d213e0e5d6a56d2decce56128e29cf0e39ed9c1
+    sha256: 59f45274c9b21234edf8349f2aae3be3c60f32128e7866b4bef888953c82f57b
 approval:
   merge_gate: SCM_AUTHENTICATED_MERGE
 permissions:

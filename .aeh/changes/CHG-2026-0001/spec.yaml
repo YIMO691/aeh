@@ -1,4 +1,4 @@
-generated_at: '2026-08-29T04:35:12.604241+00:00'
+generated_at: '2026-08-29T15:33:53.849019+00:00'
 requirements:
 - acceptance:
   - id: AC-001-01
@@ -68,6 +68,22 @@ requirements:
   behavior: The GitHub adapter makes the trust downgrade visible and delegates final
     authority to the authenticated SCM merge action.
   id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: Source policy, installed runtime policy, committed workflow, and dogfood
+      contract test agree on the candidate3 URL, SHA-256, and workflow digest.
+    type: automated
+  - id: AC-005-02
+    statement: The published candidate3 wheel redownloads to SHA-256 59f45274c9b21234edf8349f2aae3be3c60f32128e7866b4bef888953c82f57b
+      and no mutable artifact reference is accepted.
+    type: invariant
+  behavior: The live GitHub workflow is pinned to the exact authorized candidate3
+    artifact.
+  id: REQ-005
   kind: DESIRED
   source:
     refs: []

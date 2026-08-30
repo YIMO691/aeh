@@ -1,4 +1,4 @@
-change_id: CHG-2026-0005
+change_id: CHG-2026-0001
 contract: test-lock
 files:
 - hash: 031ba0ac4fc953fce866f485c487301c6c6ea4c5a005f2db7eb6de14129be9b6
@@ -15,14 +15,14 @@ files:
   path: tests/contract/fixtures/illegal/ci-enforcement-policy.bad.mutable-action.json
 - hash: 8129556fa2e22ce7a0bf4f2380644d9e2f83a86f982e0c2aa16626e12fb2efcf
   path: tests/contract/test_contracts.py
-- hash: b89573170298f099bfdd6bd5786ba2d652720186d98b633b7d9ccc9ab7fa9de4
+- hash: c1a4bb54394e48e93edfd9a94b9a5abc5fc5de46cbb71c27c8c84e2653c73a8d
   path: tests/runtime/test_m6_2d_dogfood.py
-locked_at: '2026-08-29T04:35:37.290258+00:00'
+locked_at: '2026-08-29T15:34:16.452437+00:00'
 protected:
   .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
-  evidence.yaml: 2a667cf7c49b65cb22e6c423e4cb3dad73d086ee8d2113d371b0c8c7e62fd81f
-  spec.yaml: 4ac0cb381de4434d303d92a893d3878745c2646447b763006a6205ed7e8d540c
+  evidence.yaml: 7e5db37cfcc96ff74bfbbe60d1b98f6c5d1c36c6da96fb7c1343068523be1c43
+  spec.yaml: 7b0ccf980be2201526405e724bc98af5138ba3bc80d624231dec76da8435bf76
 repository:
   base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
   dirty: null

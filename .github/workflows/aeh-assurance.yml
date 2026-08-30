@@ -26,9 +26,9 @@ jobs:
           python-version: '3.12'
       - name: Install immutable AEH wheel
         env:
-          AEH_WHEEL_URL: "https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-2/adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl"
+          AEH_WHEEL_URL: "https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-3/adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl"
           AEH_WHEEL_FILENAME: adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl
-          AEH_WHEEL_SHA256: 1d0d5fe00f78ea07b20ddc006d213e0e5d6a56d2decce56128e29cf0e39ed9c1
+          AEH_WHEEL_SHA256: 59f45274c9b21234edf8349f2aae3be3c60f32128e7866b4bef888953c82f57b
         run: |
           python -c "import hashlib,os,urllib.request;p=os.path.join(os.environ['RUNNER_TEMP'],os.environ['AEH_WHEEL_FILENAME']);urllib.request.urlretrieve(os.environ['AEH_WHEEL_URL'],p);assert hashlib.sha256(open(p,'rb').read()).hexdigest()==os.environ['AEH_WHEEL_SHA256']"
           python -m pip install "$RUNNER_TEMP/$AEH_WHEEL_FILENAME"
