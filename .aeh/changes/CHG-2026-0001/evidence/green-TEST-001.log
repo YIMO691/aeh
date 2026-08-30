@@ -1,24 +1,24 @@
 
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence-standalone-4\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-5\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence-standalone-5\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
   fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-py3aqucz\\src\\reward.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-5\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-1pyl0qqn\\src\\reward.py'>
   before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-py3aqucz\\src\\reward.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-5\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-g13-t-1pyl0qqn\\src\\reward.py'>
   after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence-standalone-4\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+.D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-5\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\m6-2d-candidate3-evidence-standalone-5\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
   fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-ngvn4tqm\\src\\order.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-5\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-gn0ajwt2\\src\\order.py'>
   before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-4\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-ngvn4tqm\\src\\order.py'>
+D:\AgentWorkspace\Ares\50_OPERATIONS\m6-2d-candidate3-evidence-standalone-5\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\Yimo\\AppData\\Local\\Temp\\aeh-ci-seed-gn0ajwt2\\src\\order.py'>
   after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 .....
 ----------------------------------------------------------------------
-Ran 6 tests in 28.772s
+Ran 6 tests in 28.801s
 
 OK

@@ -382,11 +382,11 @@ evidence:
     rel_path: setup.py
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in adapters\claude\CLAUDE.template.md:6'
+  finding: 'keyword match: and in adapters/claude/CLAUDE.template.md:6'
   id: EV-021
   location:
     line: 6
-    path: adapters\claude\CLAUDE.template.md
+    path: adapters/claude/CLAUDE.template.md
     symbol: and
   query:
     pattern: and
@@ -398,14 +398,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 1ea6311fca907ccde2e7cd1afae37ad4fdd338338915df1f05e2cdec19d518b8
-    rel_path: adapters\claude\CLAUDE.template.md
+    rel_path: adapters/claude/CLAUDE.template.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: approval in adapters\claude\adapter.yaml:27'
+  finding: 'keyword match: approval in adapters/claude/adapter.yaml:27'
   id: EV-022
   location:
     line: 27
-    path: adapters\claude\adapter.yaml
+    path: adapters/claude/adapter.yaml
     symbol: approval
   query:
     pattern: approval
@@ -417,14 +417,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: b1df6b55e49e2d0c1f8e2ae1c1499491a5d67c830a0e98853f9bec53a30d1719
-    rel_path: adapters\claude\adapter.yaml
+    rel_path: adapters/claude/adapter.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in adapters\codex\AGENTS.template.md:6'
+  finding: 'keyword match: and in adapters/codex/AGENTS.template.md:6'
   id: EV-023
   location:
     line: 6
-    path: adapters\codex\AGENTS.template.md
+    path: adapters/codex/AGENTS.template.md
     symbol: and
   query:
     pattern: and
@@ -436,14 +436,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 22ba00f4c9b1a09516d053ba3a65e323962f209b59e3b6ea0cafe396ac204bed
-    rel_path: adapters\codex\AGENTS.template.md
+    rel_path: adapters/codex/AGENTS.template.md
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: approval in adapters\codex\adapter.yaml:13'
+  finding: 'keyword match: approval in adapters/codex/adapter.yaml:13'
   id: EV-024
   location:
     line: 13
-    path: adapters\codex\adapter.yaml
+    path: adapters/codex/adapter.yaml
     symbol: approval
   query:
     pattern: approval
@@ -455,14 +455,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
-    rel_path: adapters\codex\adapter.yaml
+    rel_path: adapters/codex/adapter.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in adapters\codex\adapter.yaml:12'
+  finding: 'keyword match: and in adapters/codex/adapter.yaml:12'
   id: EV-025
   location:
     line: 12
-    path: adapters\codex\adapter.yaml
+    path: adapters/codex/adapter.yaml
     symbol: and
   query:
     pattern: and
@@ -474,14 +474,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
-    rel_path: adapters\codex\adapter.yaml
+    rel_path: adapters/codex/adapter.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in bootstrap\grounding.yaml:25'
+  finding: 'keyword match: and in bootstrap/grounding.yaml:25'
   id: EV-026
   location:
     line: 25
-    path: bootstrap\grounding.yaml
+    path: bootstrap/grounding.yaml
     symbol: and
   query:
     pattern: and
@@ -493,14 +493,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
-    rel_path: bootstrap\grounding.yaml
+    rel_path: bootstrap/grounding.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: evidence in bootstrap\grounding.yaml:19'
+  finding: 'keyword match: evidence in bootstrap/grounding.yaml:19'
   id: EV-027
   location:
     line: 19
-    path: bootstrap\grounding.yaml
+    path: bootstrap/grounding.yaml
     symbol: evidence
   query:
     pattern: evidence
@@ -512,14 +512,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
-    rel_path: bootstrap\grounding.yaml
+    rel_path: bootstrap/grounding.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in bootstrap\interview\core.yaml:54'
+  finding: 'keyword match: and in bootstrap/interview/core.yaml:54'
   id: EV-028
   location:
     line: 54
-    path: bootstrap\interview\core.yaml
+    path: bootstrap/interview/core.yaml
     symbol: and
   query:
     pattern: and
@@ -531,14 +531,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: c553a4207a6a7f720cec674fb820d107af6bd97abc2ac6a0da674e2ec2c66183
-    rel_path: bootstrap\interview\core.yaml
+    rel_path: bootstrap/interview/core.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: approval in core\ci-policy.yaml:15'
+  finding: 'keyword match: approval in core/ci-policy.yaml:15'
   id: EV-029
   location:
     line: 15
-    path: core\ci-policy.yaml
+    path: core/ci-policy.yaml
     symbol: approval
   query:
     pattern: approval
@@ -550,14 +550,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: d9faf8d0ca9e52e667fb5ff4559c0367c5ab7ca0188a92641fb885a0a25356f5
-    rel_path: core\ci-policy.yaml
+    rel_path: core/ci-policy.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: evidence in core\ci-policy.yaml:8'
+  finding: 'keyword match: evidence in core/ci-policy.yaml:8'
   id: EV-030
   location:
     line: 8
-    path: core\ci-policy.yaml
+    path: core/ci-policy.yaml
     symbol: evidence
   query:
     pattern: evidence
@@ -569,14 +569,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: d9faf8d0ca9e52e667fb5ff4559c0367c5ab7ca0188a92641fb885a0a25356f5
-    rel_path: core\ci-policy.yaml
+    rel_path: core/ci-policy.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in core\classifications.yaml:7'
+  finding: 'keyword match: and in core/classifications.yaml:7'
   id: EV-031
   location:
     line: 7
-    path: core\classifications.yaml
+    path: core/classifications.yaml
     symbol: and
   query:
     pattern: and
@@ -588,14 +588,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: efb5fb588a39bd0b6d074c8c0bf28a9dc2e47a7139720bb999f589ae14f62b6b
-    rel_path: core\classifications.yaml
+    rel_path: core/classifications.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in core\evidence.yaml:2'
+  finding: 'keyword match: and in core/evidence.yaml:2'
   id: EV-032
   location:
     line: 2
-    path: core\evidence.yaml
+    path: core/evidence.yaml
     symbol: and
   query:
     pattern: and
@@ -607,14 +607,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 202f92b6ea29d0581410de49560c33564979b29bd8846792c8218ae94bc9bd4e
-    rel_path: core\evidence.yaml
+    rel_path: core/evidence.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: evidence in core\evidence.yaml:1'
+  finding: 'keyword match: evidence in core/evidence.yaml:1'
   id: EV-033
   location:
     line: 1
-    path: core\evidence.yaml
+    path: core/evidence.yaml
     symbol: evidence
   query:
     pattern: evidence
@@ -626,14 +626,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 202f92b6ea29d0581410de49560c33564979b29bd8846792c8218ae94bc9bd4e
-    rel_path: core\evidence.yaml
+    rel_path: core/evidence.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: approval in core\gates.yaml:3'
+  finding: 'keyword match: approval in core/gates.yaml:3'
   id: EV-034
   location:
     line: 3
-    path: core\gates.yaml
+    path: core/gates.yaml
     symbol: approval
   query:
     pattern: approval
@@ -645,14 +645,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 644909794ba90f02b61fbe3ebc674a5d29dafeea0a594010c95e748416f432fd
-    rel_path: core\gates.yaml
+    rel_path: core/gates.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in core\gates.yaml:14'
+  finding: 'keyword match: and in core/gates.yaml:14'
   id: EV-035
   location:
     line: 14
-    path: core\gates.yaml
+    path: core/gates.yaml
     symbol: and
   query:
     pattern: and
@@ -664,14 +664,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 644909794ba90f02b61fbe3ebc674a5d29dafeea0a594010c95e748416f432fd
-    rel_path: core\gates.yaml
+    rel_path: core/gates.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: approval in core\states.yaml:19'
+  finding: 'keyword match: approval in core/states.yaml:19'
   id: EV-036
   location:
     line: 19
-    path: core\states.yaml
+    path: core/states.yaml
     symbol: approval
   query:
     pattern: approval
@@ -683,14 +683,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
-    rel_path: core\states.yaml
+    rel_path: core/states.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in core\states.yaml:87'
+  finding: 'keyword match: and in core/states.yaml:87'
   id: EV-037
   location:
     line: 87
-    path: core\states.yaml
+    path: core/states.yaml
     symbol: and
   query:
     pattern: and
@@ -702,14 +702,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
-    rel_path: core\states.yaml
+    rel_path: core/states.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: evidence in core\states.yaml:38'
+  finding: 'keyword match: evidence in core/states.yaml:38'
   id: EV-038
   location:
     line: 38
-    path: core\states.yaml
+    path: core/states.yaml
     symbol: evidence
   query:
     pattern: evidence
@@ -721,14 +721,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
-    rel_path: core\states.yaml
+    rel_path: core/states.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: approval in core\workflow.yaml:26'
+  finding: 'keyword match: approval in core/workflow.yaml:26'
   id: EV-039
   location:
     line: 26
-    path: core\workflow.yaml
+    path: core/workflow.yaml
     symbol: approval
   query:
     pattern: approval
@@ -740,14 +740,14 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 0731720cb42c620599b45ffc25e1241c69cad14724e039526dabc55cf611cde2
-    rel_path: core\workflow.yaml
+    rel_path: core/workflow.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'keyword match: and in core\workflow.yaml:19'
+  finding: 'keyword match: and in core/workflow.yaml:19'
   id: EV-040
   location:
     line: 19
-    path: core\workflow.yaml
+    path: core/workflow.yaml
     symbol: and
   query:
     pattern: and
@@ -759,81 +759,81 @@ evidence:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 0731720cb42c620599b45ffc25e1241c69cad14724e039526dabc55cf611cde2
-    rel_path: core\workflow.yaml
+    rel_path: core/workflow.yaml
   type: SOURCE
 - confidence: DIRECT
-  finding: 'existing test file: tests\adapters\test_adapters.py'
+  finding: 'existing test file: tests/adapters/test_adapters.py'
   id: EV-041
   location:
     line: 25
-    path: tests\adapters\test_adapters.py
+    path: tests/adapters/test_adapters.py
   relevance:
     kind: existing_test_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
-    rel_path: tests\adapters\test_adapters.py
+    rel_path: tests/adapters/test_adapters.py
   test_result: FOUND
   type: TEST
 - confidence: DIRECT
-  finding: 'existing test file: tests\adapters\test_adapters.py'
+  finding: 'existing test file: tests/adapters/test_adapters.py'
   id: EV-042
   location:
     line: 188
-    path: tests\adapters\test_adapters.py
+    path: tests/adapters/test_adapters.py
   relevance:
     kind: existing_test_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
-    rel_path: tests\adapters\test_adapters.py
+    rel_path: tests/adapters/test_adapters.py
   test_result: FOUND
   type: TEST
 - confidence: DIRECT
-  finding: 'existing test file: tests\adapters\test_adapters.py'
+  finding: 'existing test file: tests/adapters/test_adapters.py'
   id: EV-043
   location:
     line: 123
-    path: tests\adapters\test_adapters.py
+    path: tests/adapters/test_adapters.py
   relevance:
     kind: existing_test_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
-    rel_path: tests\adapters\test_adapters.py
+    rel_path: tests/adapters/test_adapters.py
   test_result: FOUND
   type: TEST
 - confidence: DIRECT
-  finding: 'existing test file: tests\bootstrap\test_bootstrap.py'
+  finding: 'existing test file: tests/bootstrap/test_bootstrap.py'
   id: EV-044
   location:
     line: 155
-    path: tests\bootstrap\test_bootstrap.py
+    path: tests/bootstrap/test_bootstrap.py
   relevance:
     kind: existing_test_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 37bcc54d239f874a6eb0a1b1cd57a77bee2867d3596b7191740883fd80dc8ada
-    rel_path: tests\bootstrap\test_bootstrap.py
+    rel_path: tests/bootstrap/test_bootstrap.py
   test_result: FOUND
   type: TEST
 - confidence: DIRECT
-  finding: 'existing test file: tests\compiler\test_compiler.py'
+  finding: 'existing test file: tests/compiler/test_compiler.py'
   id: EV-045
   location:
     line: 215
-    path: tests\compiler\test_compiler.py
+    path: tests/compiler/test_compiler.py
   relevance:
     kind: existing_test_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: 2dd0cca8b43c154c23894c21d96bd82781222d4715633790c1e21382589f43dd
-    rel_path: tests\compiler\test_compiler.py
+    rel_path: tests/compiler/test_compiler.py
   test_result: FOUND
   type: TEST
 - confidence: INFERRED
@@ -847,74 +847,74 @@ evidence:
     kind: call_relation
   type: CALL_PATH
 - confidence: DIRECT
-  finding: 'config file match: adapters\claude\adapter.yaml:27'
+  finding: 'config file match: adapters/claude/adapter.yaml:27'
   id: EV-047
   location:
     line: 27
-    path: adapters\claude\adapter.yaml
+    path: adapters/claude/adapter.yaml
   relevance:
     kind: configuration_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: b1df6b55e49e2d0c1f8e2ae1c1499491a5d67c830a0e98853f9bec53a30d1719
-    rel_path: adapters\claude\adapter.yaml
+    rel_path: adapters/claude/adapter.yaml
   type: CONFIG
 - confidence: DIRECT
-  finding: 'config file match: adapters\codex\adapter.yaml:13'
+  finding: 'config file match: adapters/codex/adapter.yaml:13'
   id: EV-048
   location:
     line: 13
-    path: adapters\codex\adapter.yaml
+    path: adapters/codex/adapter.yaml
   relevance:
     kind: configuration_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
-    rel_path: adapters\codex\adapter.yaml
+    rel_path: adapters/codex/adapter.yaml
   type: CONFIG
 - confidence: DIRECT
-  finding: 'config file match: adapters\codex\adapter.yaml:12'
+  finding: 'config file match: adapters/codex/adapter.yaml:12'
   id: EV-049
   location:
     line: 12
-    path: adapters\codex\adapter.yaml
+    path: adapters/codex/adapter.yaml
   relevance:
     kind: configuration_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
-    rel_path: adapters\codex\adapter.yaml
+    rel_path: adapters/codex/adapter.yaml
   type: CONFIG
 - confidence: DIRECT
-  finding: 'config file match: bootstrap\grounding.yaml:25'
+  finding: 'config file match: bootstrap/grounding.yaml:25'
   id: EV-050
   location:
     line: 25
-    path: bootstrap\grounding.yaml
+    path: bootstrap/grounding.yaml
   relevance:
     kind: configuration_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
-    rel_path: bootstrap\grounding.yaml
+    rel_path: bootstrap/grounding.yaml
   type: CONFIG
 - confidence: DIRECT
-  finding: 'config file match: bootstrap\grounding.yaml:19'
+  finding: 'config file match: bootstrap/grounding.yaml:19'
   id: EV-051
   location:
     line: 19
-    path: bootstrap\grounding.yaml
+    path: bootstrap/grounding.yaml
   relevance:
     kind: configuration_relation
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
     file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
-    rel_path: bootstrap\grounding.yaml
+    rel_path: bootstrap/grounding.yaml
   type: CONFIG
 - confidence: DIRECT
   finding: 'risk domain marker found in repository: authentication_authorization'
@@ -1002,7 +1002,7 @@ evidence:
   limitations:
   - no constraint extraction implemented; treat as unknown, not absent
   type: UNKNOWN
-generated_at: '2026-08-30T03:17:04.374451+00:00'
+generated_at: '2026-08-30T04:52:14.432905+00:00'
 repository:
   base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
   dirty: true

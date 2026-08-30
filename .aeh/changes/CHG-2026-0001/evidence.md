@@ -22,37 +22,37 @@ machine truth in evidence.yaml
 - EV-018 [SOURCE] keyword match: dogfood in README.md:215
 - EV-019 [SOURCE] keyword match: evidence in README.md:15
 - EV-020 [SOURCE] keyword match: and in setup.py:6
-- EV-021 [SOURCE] keyword match: and in adapters\claude\CLAUDE.template.md:6
-- EV-022 [SOURCE] keyword match: approval in adapters\claude\adapter.yaml:27
-- EV-023 [SOURCE] keyword match: and in adapters\codex\AGENTS.template.md:6
-- EV-024 [SOURCE] keyword match: approval in adapters\codex\adapter.yaml:13
-- EV-025 [SOURCE] keyword match: and in adapters\codex\adapter.yaml:12
-- EV-026 [SOURCE] keyword match: and in bootstrap\grounding.yaml:25
-- EV-027 [SOURCE] keyword match: evidence in bootstrap\grounding.yaml:19
-- EV-028 [SOURCE] keyword match: and in bootstrap\interview\core.yaml:54
-- EV-029 [SOURCE] keyword match: approval in core\ci-policy.yaml:15
-- EV-030 [SOURCE] keyword match: evidence in core\ci-policy.yaml:8
-- EV-031 [SOURCE] keyword match: and in core\classifications.yaml:7
-- EV-032 [SOURCE] keyword match: and in core\evidence.yaml:2
-- EV-033 [SOURCE] keyword match: evidence in core\evidence.yaml:1
-- EV-034 [SOURCE] keyword match: approval in core\gates.yaml:3
-- EV-035 [SOURCE] keyword match: and in core\gates.yaml:14
-- EV-036 [SOURCE] keyword match: approval in core\states.yaml:19
-- EV-037 [SOURCE] keyword match: and in core\states.yaml:87
-- EV-038 [SOURCE] keyword match: evidence in core\states.yaml:38
-- EV-039 [SOURCE] keyword match: approval in core\workflow.yaml:26
-- EV-040 [SOURCE] keyword match: and in core\workflow.yaml:19
-- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
-- EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
-- EV-043 [TEST] existing test file: tests\adapters\test_adapters.py
-- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
-- EV-045 [TEST] existing test file: tests\compiler\test_compiler.py
+- EV-021 [SOURCE] keyword match: and in adapters/claude/CLAUDE.template.md:6
+- EV-022 [SOURCE] keyword match: approval in adapters/claude/adapter.yaml:27
+- EV-023 [SOURCE] keyword match: and in adapters/codex/AGENTS.template.md:6
+- EV-024 [SOURCE] keyword match: approval in adapters/codex/adapter.yaml:13
+- EV-025 [SOURCE] keyword match: and in adapters/codex/adapter.yaml:12
+- EV-026 [SOURCE] keyword match: and in bootstrap/grounding.yaml:25
+- EV-027 [SOURCE] keyword match: evidence in bootstrap/grounding.yaml:19
+- EV-028 [SOURCE] keyword match: and in bootstrap/interview/core.yaml:54
+- EV-029 [SOURCE] keyword match: approval in core/ci-policy.yaml:15
+- EV-030 [SOURCE] keyword match: evidence in core/ci-policy.yaml:8
+- EV-031 [SOURCE] keyword match: and in core/classifications.yaml:7
+- EV-032 [SOURCE] keyword match: and in core/evidence.yaml:2
+- EV-033 [SOURCE] keyword match: evidence in core/evidence.yaml:1
+- EV-034 [SOURCE] keyword match: approval in core/gates.yaml:3
+- EV-035 [SOURCE] keyword match: and in core/gates.yaml:14
+- EV-036 [SOURCE] keyword match: approval in core/states.yaml:19
+- EV-037 [SOURCE] keyword match: and in core/states.yaml:87
+- EV-038 [SOURCE] keyword match: evidence in core/states.yaml:38
+- EV-039 [SOURCE] keyword match: approval in core/workflow.yaml:26
+- EV-040 [SOURCE] keyword match: and in core/workflow.yaml:19
+- EV-041 [TEST] existing test file: tests/adapters/test_adapters.py
+- EV-042 [TEST] existing test file: tests/adapters/test_adapters.py
+- EV-043 [TEST] existing test file: tests/adapters/test_adapters.py
+- EV-044 [TEST] existing test file: tests/bootstrap/test_bootstrap.py
+- EV-045 [TEST] existing test file: tests/compiler/test_compiler.py
 - EV-046 [CALL_PATH] keyword co-occurrence across 195 files: AGENTS.md, CHANGELOG.md, CLAUDE.md, CONTRIBUTING.md
-- EV-047 [CONFIG] config file match: adapters\claude\adapter.yaml:27
-- EV-048 [CONFIG] config file match: adapters\codex\adapter.yaml:13
-- EV-049 [CONFIG] config file match: adapters\codex\adapter.yaml:12
-- EV-050 [CONFIG] config file match: bootstrap\grounding.yaml:25
-- EV-051 [CONFIG] config file match: bootstrap\grounding.yaml:19
+- EV-047 [CONFIG] config file match: adapters/claude/adapter.yaml:27
+- EV-048 [CONFIG] config file match: adapters/codex/adapter.yaml:13
+- EV-049 [CONFIG] config file match: adapters/codex/adapter.yaml:12
+- EV-050 [CONFIG] config file match: bootstrap/grounding.yaml:25
+- EV-051 [CONFIG] config file match: bootstrap/grounding.yaml:19
 - EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
 - EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
 - EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration

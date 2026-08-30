@@ -322,7 +322,7 @@ tests:
     tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
     tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed
   exit_code: 0
-  output_hash: a4db2cf0395597b2bda2f5d64f37207b62aefe61c6946f1cafed4abba9950683
+  output_hash: bfc2a86370e62f6d905e2a053383c94888f822db7c2af6e3276a86b7b56c5eef
   output_ref: .aeh\changes\CHG-2026-0001\evidence\green-TEST-001.log
   test_id: TEST-001
   verdict: PASS

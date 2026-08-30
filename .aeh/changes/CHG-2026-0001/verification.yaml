@@ -14,7 +14,7 @@ red:
   expected_failure:
     category: behavior
     signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
-  output_hash: 82161b6f338b99753a6c04d81fde6db1a150533caae932f356256fcfe6881df0
+  output_hash: 187d8f3872d988a3eafba69744bd54ea0db9a43507d3799beab7c7a982034bae
   output_ref: .aeh\changes\CHG-2026-0001\evidence\red-TEST-001.log
   repository_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
@@ -26,7 +26,7 @@ results:
 - exit_code: 0
   id: VER-001
   method: automated_test
-  output_hash: a4f9c4d995bb7e4d50d8efa51c271e821b58384f10dc13181e920f43c7ece7c9
+  output_hash: 34d2eff8cf47ad06261f35d7c1bb5fc13de1dc5a94b3f8273933f5c15cff9cf9
   output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-1.log
   status: pass
   type: target_test
@@ -47,7 +47,7 @@ results:
 - exit_code: 0
   id: VER-002
   method: automated_test
-  output_hash: 3b524a989573285f7b36df0f27fb8c6603df74da2006065ab0e76c8aa9e9e937
+  output_hash: 66671251b02d25348042e87f0b6dd784399d2b90b3777d0a2ae77d3bb9684c0e
   output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-reg-2.log
   status: pass
   type: regression
@@ -56,7 +56,7 @@ results:
 - exit_code: 0
   id: VER-003
   method: automated_test
-  output_hash: 2270f44f2a69c11c86ec3cce8c1d55065e139277fa8d90309c30955e7ec07a87
+  output_hash: 4ce9f263a0f93902f2ed10240b6049360f8059a51017ccc910f061502239b6f0
   output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-v-3.log
   status: pass
   type: contract
@@ -74,7 +74,7 @@ results:
   - AC-004-02
   - AC-005-01
   - AC-005-02
-verified_at: '2026-08-30T04:03:32.959239+00:00'
+verified_at: '2026-08-30T05:39:53.894663+00:00'
 warnings:
 - MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
   claim is made

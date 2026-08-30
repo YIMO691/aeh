@@ -18,7 +18,7 @@ tests:
   expected_failure:
     category: behavior
     signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
-  output_hash: 82161b6f338b99753a6c04d81fde6db1a150533caae932f356256fcfe6881df0
+  output_hash: 187d8f3872d988a3eafba69744bd54ea0db9a43507d3799beab7c7a982034bae
   output_ref: .aeh\changes\CHG-2026-0001\evidence\red-TEST-001.log
   test_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
   test_id: TEST-001

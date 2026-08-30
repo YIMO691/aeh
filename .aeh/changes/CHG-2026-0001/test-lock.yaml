@@ -17,12 +17,12 @@ files:
   path: tests/contract/test_contracts.py
 - hash: c1a4bb54394e48e93edfd9a94b9a5abc5fc5de46cbb71c27c8c84e2653c73a8d
   path: tests/runtime/test_m6_2d_dogfood.py
-locked_at: '2026-08-30T03:17:44.795292+00:00'
+locked_at: '2026-08-30T04:53:16.099978+00:00'
 protected:
   .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
-  evidence.yaml: 3dedfcf6e8e83ec3db2e88f985f1b46b13fddb5b9e1413fd7abef28fc951f9ab
-  spec.yaml: 00ec9edaf16e3c66b051e69a3bd729c38b743905ae15dbc01fb5d25ce285b71c
+  evidence.yaml: ec1a6d0b8b7a3b45f9ed64bd88f6d510773e342786366bf9af3cac250a8f68d5
+  spec.yaml: a431e4adbfe4f7aafaa0c8c1d9d21fe270dd59d2c814f2a76dc1ec4242d8b3f1
 repository:
   base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
   dirty: null
