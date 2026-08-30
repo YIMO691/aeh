@@ -69,6 +69,26 @@ identity, hardware custody, enterprise IAM, or public-key non-repudiation.
 Historical unsigned approvals remain readable, but they cannot unlock M5
 protected manual or CRITICAL merge Gates.
 
+### Tiered merge approval
+
+`MERGE_GATE` also supports `SCM_AUTHENTICATED_MERGE` for deliberately simpler
+solo-repository operation. The approval still requires a human actor and an
+evidence reference, but no local HMAC key:
+
+```bash
+aeh change approve CHG-2026-0001 \
+  --gate MERGE_GATE --status APPROVED --actor owner \
+  --trust-mode SCM_AUTHENTICATED_MERGE \
+  --evidence-ref owner-decision:TASK-123
+```
+
+The resulting verification is `READY_WITH_WARNINGS`. This mode proves only
+that AEH recorded an attributed decision and that final authority is delegated
+to an authenticated SCM merge action. It does not prove key possession,
+non-repudiation, or independent review. It cannot approve `VERIFY_MANUAL`, and
+provider-neutral CI replay rejects it unless a trusted provider adapter opts in.
+Use HMAC for shared repositories, regulated work, or independent approvers.
+
 ## Threat-model summary
 
 M5 blocks accidental or injected shell syntax on the default path, hidden plan

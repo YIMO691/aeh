@@ -1,0 +1,198 @@
+conflicts: []
+developer:
+  plan_before_code:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-plan-before-code
+      type: default_applied
+    source:
+      ref: q-plan-before-code
+      type: user_answer
+    type: PREFERENCE
+    value: risk_based
+  preferred_report:
+    confidence: UNKNOWN
+    source:
+      ref: default:q-report-preference
+      type: default_applied
+    type: PREFERENCE
+    value: concise
+facts:
+  architecture.structure:
+    confidence: DETECTED
+    source:
+      ref: merged:F-001,F-002
+      type: repository_fact
+    type: FACT
+    value:
+    - arch_docs
+    - src_tests_separated
+  ci.platform:
+    confidence: DETECTED
+    source:
+      ref: F-003
+      type: repository_fact
+    type: FACT
+    value: github_actions
+  git.git_root:
+    confidence: DETECTED
+    source:
+      ref: F-004
+      type: repository_fact
+    type: FACT
+    value: detected
+  git.gitignore:
+    confidence: DETECTED
+    source:
+      ref: F-005
+      type: repository_fact
+    type: FACT
+    value: present
+  repository.documentation:
+    confidence: DETECTED
+    source:
+      ref: merged:F-009,F-010
+      type: repository_fact
+    type: FACT
+    value:
+    - docs_dir
+    - readme
+organization:
+  policies_exist:
+    confidence: UNKNOWN
+    source:
+      ref: default:q-org-policies-exist
+      type: default_applied
+    type: FACT
+    value: 'no'
+  security_review_required:
+    confidence: UNKNOWN
+    source:
+      ref: default:q-org-security-review
+      type: default_applied
+    type: POLICY
+    value: 'yes'
+permissions:
+  git_commit:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-git-commit
+      type: default_applied
+    source:
+      ref: q-git-commit
+      type: user_answer
+    type: PERMISSION
+    value: ask
+  git_push:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-git-push
+      type: default_applied
+    source:
+      ref: q-git-push
+      type: user_answer
+    type: PERMISSION
+    value: deny
+  modify_source:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-modify-source
+      type: default_applied
+    source:
+      ref: q-modify-source
+      type: user_answer
+    type: PERMISSION
+    value: allow
+  shell:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-shell-access
+      type: default_applied
+    source:
+      ref: q-shell-access
+      type: user_answer
+    type: PERMISSION
+    value: ask
+  web_access:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-web-access
+      type: default_applied
+    source:
+      ref: q-web-access
+      type: user_answer
+    type: PERMISSION
+    value: deny
+profile_version: '1.0'
+project:
+  languages:
+  - confidence: DETECTED
+    source:
+      ref: merged:F-006,F-007,F-008
+      type: repository_fact
+    type: FACT
+    value:
+    - csharp
+    - javascript
+    - python
+  name: adaptive-engineering-harness
+review:
+  human_required_for:
+  - confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-human-review
+      type: default_applied
+    source:
+      ref: q-human-review
+      type: user_answer
+    type: POLICY
+    value: critical
+sources:
+  interview:
+    answers_count: 9
+  repository_discovery:
+    root: .
+    ruleset_digest: 5d567da212d03b735af38505b848477ee24c51cfbcc0352575f59b41c862d761
+    scanner_version: 0.3.0.dev0
+status: COMPILED
+team:
+  code_review_policy:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-team-review-policy
+      type: default_applied
+    source:
+      ref: q-team-review-policy
+      type: user_answer
+    type: POLICY
+    value: major
+testing:
+  framework:
+    confidence: INFERRED
+    source:
+      ref: F-013
+      type: repository_fact
+    type: FACT
+    value: pytest
+  tdd:
+    confidence: USER_CONFIRMED
+    shadowed:
+    - ref: default:q-testing-policy
+      type: default_applied
+    source:
+      ref: q-testing-policy
+      type: user_answer
+    type: POLICY
+    value: risk_based
+  testing:
+    confidence: DETECTED
+    shadowed:
+    - ref: F-012
+      type: repository_fact
+    source:
+      ref: F-011
+      type: repository_fact
+    type: FACT
+    value: detected
+workflow:
+  default_level: STANDARD

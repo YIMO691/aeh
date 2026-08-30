@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Human Approval Contract",
+  "type": "object",
+  "required": [
+    "approvals"
+  ],
+  "properties": {
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "gate",
+          "status",
+          "actor",
+          "decided_at"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "gate": {
+            "type": "string",
+            "enum": [
+              "SPEC_REVIEW",
+              "RED_GATE",
+              "VERIFY_MANUAL",
+              "MERGE_GATE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "APPROVED",
+              "REJECTED",
+              "REVOKED",
+              "PENDING"
+            ]
+          },
+          "actor": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "human",
+                  "system"
+                ]
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          },
+          "decided_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "revoked_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "revoked_by": {
+            "type": "object",
+            "required": [
+              "type",
+              "id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "human"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "revocation_evidence_ref": {
+            "type": "string"
+          },
+          "evidence_ref": {
+            "type": "string"
+          },
+          "trust_mode": {
+            "type": "string",
+            "enum": [
+              "HMAC_CREDENTIAL",
+              "SCM_AUTHENTICATED_MERGE"
+            ]
+          },
+          "credential": {
+            "$ref": "#/definitions/credential"
+          },
+          "revocation_credential": {
+            "$ref": "#/definitions/credential"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "APPROVED"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "actor": {
+                  "properties": {
+                    "type": {
+                      "const": "human"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "actor"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "REVOKED"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "actor": {
+                  "properties": {
+                    "type": {
+                      "const": "human"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "revoked_at",
+                "revoked_by"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "credential": {
+      "type": "object",
+      "required": [
+        "scheme",
+        "key_id",
+        "key_fingerprint",
+        "payload_hash",
+        "signature"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "const": "hmac-sha256-v1"
+        },
+        "key_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$"
+        },
+        "key_fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "payload_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

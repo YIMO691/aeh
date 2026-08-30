@@ -24,6 +24,9 @@ class ApprovalError(ValueError):
 ALLOWED_GATES = ("SPEC_REVIEW", "RED_GATE", "VERIFY_MANUAL", "MERGE_GATE")
 DECISION_STATUSES = ("APPROVED", "REJECTED", "REVOKED")
 MAX_TTL_SECONDS = 31 * 24 * 60 * 60
+HMAC_CREDENTIAL = "HMAC_CREDENTIAL"
+SCM_AUTHENTICATED_MERGE = "SCM_AUTHENTICATED_MERGE"
+TRUST_MODES = (HMAC_CREDENTIAL, SCM_AUTHENTICATED_MERGE)
 
 
 def _load_yaml(path):
@@ -53,7 +56,8 @@ def _parse_datetime(value):
 
 
 def assess_approval(entry, now=None, target=None, change_id=None,
-                    credential_files=None, require_credential=False):
+                    credential_files=None, require_credential=False,
+                    accepted_trust_modes=None):
     """Return effective state and compatibility warnings for one approval."""
     if not entry:
         return "MISSING", []
@@ -73,10 +77,19 @@ def assess_approval(entry, now=None, target=None, change_id=None,
     if status != "APPROVED":
         return status or "INVALID", []
     credential = entry.get("credential")
+    trust_mode = entry.get("trust_mode") or HMAC_CREDENTIAL
+    accepted = set(accepted_trust_modes or ())
     if not credential:
-        if require_credential:
+        if (trust_mode == SCM_AUTHENTICATED_MERGE and
+                entry.get("gate") == "MERGE_GATE" and trust_mode in accepted):
+            credential_warnings = [
+                "MERGE_GATE is delegated to the authenticated SCM merge action; "
+                "no HMAC identity claim is made"
+            ]
+        elif require_credential:
             return "UNVERIFIED", ["approval has no credential"]
-        credential_warnings = ["legacy approval has no credential"]
+        else:
+            credential_warnings = ["legacy approval has no credential"]
     elif not target or not change_id:
         return "UNVERIFIED", ["approval credential could not be resolved"]
     else:
@@ -112,7 +125,7 @@ def load_approvals(target, change_id):
 
 def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None,
                     ttl_seconds=None, ae_root=None, now=None, key_id=None,
-                    credential_file=None):
+                    credential_file=None, trust_mode=HMAC_CREDENTIAL):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
         if gate not in ALLOWED_GATES:
@@ -122,7 +135,17 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
         if not actor_id or not isinstance(actor_id, str) or not actor_id.strip():
             return {"status": "BLOCKED_MISSING_ACTOR", "change_id": change_id,
                     "error": "trusted human approval requires actor identity (honest attestation)"}
-        if not key_id:
+        if trust_mode not in TRUST_MODES:
+            return {"status": "BLOCKED_BAD_TRUST_MODE", "change_id": change_id,
+                    "error": "unsupported approval trust mode"}
+        if trust_mode == SCM_AUTHENTICATED_MERGE and (
+                gate != "MERGE_GATE" or status != "APPROVED"):
+            return {"status": "BLOCKED_TRUST_MODE_SCOPE", "change_id": change_id,
+                    "error": "SCM_AUTHENTICATED_MERGE is valid only for an APPROVED MERGE_GATE"}
+        if trust_mode == SCM_AUTHENTICATED_MERGE and not evidence_ref:
+            return {"status": "BLOCKED_EVIDENCE_REQUIRED", "change_id": change_id,
+                    "error": "SCM-authenticated merge delegation requires --evidence-ref"}
+        if trust_mode == HMAC_CREDENTIAL and not key_id:
             return {"status": "BLOCKED_CREDENTIAL_REQUIRED", "change_id": change_id,
                     "error": "M5 approval decisions require --key-id and an external credential"}
         if ttl_seconds is not None and status != "APPROVED":
@@ -176,9 +199,12 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
                 entry["expires_at"] = (decided_at + timedelta(seconds=ttl_seconds)).isoformat()
             if evidence_ref:
                 entry["evidence_ref"] = evidence_ref
-            entry["credential"] = credmod.sign(
-                target, key_id, entry, change_id, status,
-                key_file=credential_file)
+            if trust_mode == SCM_AUTHENTICATED_MERGE:
+                entry["trust_mode"] = trust_mode
+            else:
+                entry["credential"] = credmod.sign(
+                    target, key_id, entry, change_id, status,
+                    key_file=credential_file)
             result_status = "APPROVAL_RECORDED"
         body["approvals"] = others + [entry]
         schema = _load_yaml(os.path.join(ae_root, "schemas", "approvals.schema.json"))
@@ -188,7 +214,8 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
         if omod.checkpoint_exists(target, change_id):
             omod.record_checkpoint(target, change_id)
         return {"status": result_status, "change_id": change_id, "gate": gate,
-                "decision": status, "actor_id": actor_id.strip(), "key_id": key_id}
+                "decision": status, "actor_id": actor_id.strip(), "key_id": key_id,
+                "trust_mode": trust_mode}
     except (ApprovalError, credmod.CredentialError, omod.OwnershipError,
             ch.ChangeError, jsonschema.ValidationError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "APPROVAL_FAILED"

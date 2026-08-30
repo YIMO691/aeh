@@ -13,3 +13,5 @@ dist/
 .idea/
 .vscode/
 Thumbs.db
+
+.aeh/private/

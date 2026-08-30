@@ -1,0 +1,50 @@
+# core/gates.yaml — AEH Gate 契约（P-02/P-17 机器化）
+# Gate 定义合法性条件；判定由 Enforcement Engine 独立执行（P-02）。
+# human_approval_gates 对应 approvals.yaml 的 gate 取值域（P-17）。
+
+contract: core.gates
+version: 2
+
+statuses: [PENDING, ACTIVE, PASS, FAIL, BLOCKED, NOT_APPLICABLE]
+
+gates:
+  - id: CLASSIFICATION
+    phase: GROUND
+    purpose: 任务风险分类完成且未被错误降级
+    required_for: [DIRECT, LIGHTWEIGHT, STANDARD, CRITICAL]
+  - id: GROUNDING
+    phase: SPEC
+    purpose: 仓库事实证据（EV-*）已建立且带置信度
+    required_for: [LIGHTWEIGHT, STANDARD, CRITICAL]
+  - id: SPEC
+    phase: TEST_DESIGN
+    purpose: spec.yaml 通过 Schema 且 REQ/AC 均有稳定 ID
+    required_for: [LIGHTWEIGHT, STANDARD, CRITICAL]
+  - id: TEST_DESIGN
+    phase: RED
+    purpose: test-plan.yaml 已建立且每个 automated AC 有对应 Test
+    required_for: [STANDARD, CRITICAL]
+  - id: RED
+    phase: LOCK_TEST
+    purpose: RED 证据完整且 verdict 判定为 VALID_RED
+    required_for: [LIGHTWEIGHT, STANDARD, CRITICAL]
+  - id: LOCK_TEST
+    phase: GREEN
+    purpose: 测试文件哈希已快照锁定（先于 GREEN，P-15）
+    required_for: [STANDARD, CRITICAL]
+  - id: VERIFY
+    phase: REVIEW
+    purpose: verification.yaml 完成且 traceability 通过
+    required_for: [DIRECT, LIGHTWEIGHT, STANDARD, CRITICAL]
+  - id: REVIEW
+    phase: ARCHIVE
+    purpose: 独立审查完成（Standard/Critical）
+    required_for: [STANDARD, CRITICAL]
+
+# 人工批准 Gate（Critical）：只有 trusted human approval path 可写 APPROVED（P-17/ADR-006）
+human_approval_gates: [SPEC_REVIEW, RED_GATE, VERIFY_MANUAL, MERGE_GATE]
+human_gate_phase_map:
+  SPEC_REVIEW: HUMAN_SPEC_APPROVAL
+  RED_GATE: HUMAN_CI_RED_GATE
+  VERIFY_MANUAL: HUMAN_MANUAL_VERIFICATION
+  MERGE_GATE: HUMAN_MERGE_APPROVAL

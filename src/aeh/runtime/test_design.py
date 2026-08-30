@@ -19,6 +19,7 @@ from ..discovery import _resolve_within
 from ..doctor import doctor as doc
 from . import change as ch
 from . import grounding as gr
+from . import ownership as omod
 
 
 class TestDesignError(ValueError):
@@ -171,7 +172,12 @@ def change_test_design(target, change_id, plan_path, test_src=None, ae_root=None
             if tr["status"] != "TRANSITION_OK":
                 return {"status": "TEST_DESIGN_COMPLETE_BUT_TRANSITION_FAILED", "change_id": change_id,
                         "transition": tr}
+        # TEST_DESIGN is a Controller-owned write. Seal its exact machine truth
+        # so a repaired RED can distinguish this authorized rewrite from an
+        # agent-side evidence edit.
+        omod.record_checkpoint(target, change_id)
         return {"status": "TEST_DESIGN_COMPLETE", "change_id": change_id,
                 "test_count": len(plan["tests"]), "gate": "PASS", "state": "TEST_DESIGN"}
-    except (TestDesignError, ch.ChangeError, jsonschema.ValidationError) as e:
+    except (TestDesignError, omod.OwnershipError, ch.ChangeError,
+            jsonschema.ValidationError) as e:
         return {"status": "TEST_DESIGN_FAILED", "change_id": change_id, "error": str(e)}

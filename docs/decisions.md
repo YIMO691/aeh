@@ -716,3 +716,18 @@
   metadata 缺失为 INCONCLUSIVE，不得推断 PASS。
 - **CD-161**: M6.2a–c 权限止于一个可评测 PR。immutable artifact 发布、workflow 安装、
   branch protection/ruleset 修改、live dogfood、merge、M6.3 均属于后续独立 Owner Gate。
+
+## M6.2d Tiered Merge Trust（2026-08-28）
+
+- **CD-162**: `MERGE_GATE` 支持两个显式信任级别。`HMAC_CREDENTIAL` 继续作为严格默认；
+  `SCM_AUTHENTICATED_MERGE` 仅允许 APPROVED MERGE_GATE，必须绑定 human actor 与
+  evidence reference，并以 `READY_WITH_WARNINGS` 明示其不证明密钥持有或独立审查。
+- **CD-163**: `SCM_AUTHENTICATED_MERGE` 将最终权力交给 SCM 的认证合并动作，适合单人
+  仓库 dogfood。它不得用于 `VERIFY_MANUAL`，不得覆盖技术失败，也不得被 provider-neutral
+  replay 默认接受；只有显式配置的可信 Provider adapter 可以开启该通道。
+- **CD-164**: CD-154/CD-159 对 HMAC 严格模式与所有 manual verification 继续有效；分级
+  模式不是静默降级。报告、verification warning、policy digest 和最终 SCM merge actor
+  共同保留可见的信任边界。
+- **CD-165**: 已有 Change 的 grounding 失效必须通过 `change repair --kind ground` 显式
+  回到 GROUND；允许 REFACTOR/SPEC 在 `GROUNDING_STALE` 条件下重启，禁止人工改写状态或
+  复用旧 evidence 伪造 freshness。

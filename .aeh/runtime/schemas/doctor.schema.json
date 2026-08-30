@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Doctor Report Contract",
+  "type": "object",
+  "required": [
+    "contract",
+    "version",
+    "target",
+    "overall",
+    "checks"
+  ],
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "doctor.report"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "target": {
+      "type": "string"
+    },
+    "scanned_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "overall": {
+      "type": "string",
+      "enum": [
+        "READY",
+        "READY_WITH_WARNINGS",
+        "BLOCKED"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "domain",
+          "status",
+          "message"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "check_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "WARN",
+              "BLOCKED"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "remediation": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -185,7 +185,7 @@ class TestConsistency(unittest.TestCase):
         self.assertEqual(self.ci_policy["manual_verification_gate"], "VERIFY_MANUAL")
         self.assertIn("verification.yaml", self.ci_policy["required_artifacts"])
 
-    def test_m6_2_policy_is_pinned_minimal_and_fail_closed(self):
+    def test_m6_2_policy_is_pinned_minimal_and_configured(self):
         jsonschema.validate(
             self.ci_enforcement_policy,
             load_schema("ci-enforcement-policy.schema.json"),
@@ -196,8 +196,12 @@ class TestConsistency(unittest.TestCase):
             "contents": "read", "actions": "read", "checks": "read"})
         for revision in policy["workflow"]["actions"].values():
             self.assertRegex(revision, r"^[0-9a-f]{40}$")
-        self.assertIsNone(policy["workflow"]["artifact"])
-        self.assertIsNone(policy["workflow"]["expected_sha256"])
+        artifact = policy["workflow"]["artifact"]
+        self.assertIsNotNone(artifact)
+        self.assertRegex(policy["workflow"]["expected_sha256"], r"^[0-9a-f]{64}$")
+        self.assertRegex(artifact["sha256"], r"^[0-9a-f]{64}$")
+        self.assertTrue(artifact["url"].startswith("https://"))
+        self.assertEqual(artifact["filename"], artifact["url"].rsplit("/", 1)[-1])
 
     def test_m4_manual_gate_and_approval_lifecycle_contract(self):
         self.assertIn("VERIFY_MANUAL", self.gates["human_approval_gates"])

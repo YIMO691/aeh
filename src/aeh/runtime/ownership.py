@@ -57,8 +57,10 @@ def state_root(target):
     governed = _canonical(target)
     try:
         inside_target = os.path.commonpath([root, governed]) == governed
-    except ValueError as exc:
-        raise OwnershipError("BLOCKED_CONTROLLER_STATE_PATH: " + root) from exc
+    except ValueError:
+        # Windows raises for paths on different volumes. Different volumes
+        # cannot place the Controller state inside the governed repository.
+        inside_target = False
     if inside_target:
         raise OwnershipError(
             "BLOCKED_CONTROLLER_STATE_INSIDE_TARGET: " + root

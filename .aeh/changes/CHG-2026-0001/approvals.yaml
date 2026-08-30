@@ -1,0 +1,9 @@
+approvals:
+- actor:
+    id: YIMO691
+    type: human
+  decided_at: '2026-08-30T05:24:21.078035+00:00'
+  evidence_ref: owner-decision:TASK-20260828-aeh-m6-2d-dogfood-gate:candidate3
+  gate: MERGE_GATE
+  status: APPROVED
+  trust_mode: SCM_AUTHENTICATED_MERGE

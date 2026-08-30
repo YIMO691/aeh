@@ -94,6 +94,12 @@ def main(argv=None):
     ci_snapshot = ci_github_sub.add_parser("snapshot-run", help="capture authenticated current run metadata")
     ci_snapshot.add_argument("--output", required=True, help="output JSON path")
     ci_snapshot.add_argument("--policy", default=None, help="configured enforcement policy")
+    ci_configure = ci_github_sub.add_parser(
+        "configure", help="atomically bind an immutable artifact and render the repository workflow")
+    ci_configure.add_argument("--workdir", default=".", help="AEH target repository")
+    ci_configure.add_argument("--artifact-url", required=True)
+    ci_configure.add_argument("--artifact-filename", required=True)
+    ci_configure.add_argument("--artifact-sha256", required=True)
     ch = sub.add_parser("change", help="change workspace shell (Phase 8)")
     chsub = ch.add_subparsers(dest="change_cmd", required=True)
     cn = chsub.add_parser("new", help="create a change workspace")
@@ -153,17 +159,20 @@ def main(argv=None):
     cap.add_argument("--evidence-ref", default=None, help="optional reference (decision/artifact id)")
     cap.add_argument("--ttl-seconds", type=int, default=None,
                      help="optional APPROVED lifetime (1..2678400 seconds)")
-    cap.add_argument("--key-id", required=True,
+    cap.add_argument("--key-id", default=None,
                      help="approval credential identifier (secret is never stored in approvals.yaml)")
     cap.add_argument("--credential-file", default=None,
                      help="credential path; defaults to .aeh/private/approval-keys/<key-id>.key")
+    cap.add_argument("--trust-mode", default="HMAC_CREDENTIAL",
+                     choices=("HMAC_CREDENTIAL", "SCM_AUTHENTICATED_MERGE"),
+                     help="HMAC strict mode, or delegate MERGE_GATE to an authenticated SCM merge")
     cap.add_argument("--workdir", default=".", help="AEH target repository")
     crv = chsub.add_parser("review", help="project review.md from machine artifacts (Phase 13, read-only)")
     crv.add_argument("change_id")
     crv.add_argument("--workdir", default=".", help="AEH target repository")
     crp = chsub.add_parser("repair", help="enter TEST_REPAIR or SPEC_REPAIR through the state machine")
     crp.add_argument("change_id")
-    crp.add_argument("--kind", required=True, choices=("test", "spec"))
+    crp.add_argument("--kind", required=True, choices=("ground", "test", "spec"))
     crp.add_argument("--workdir", default=".", help="AEH target repository")
     args = parser.parse_args(argv)
 
@@ -228,6 +237,12 @@ def main(argv=None):
         if args.ci_cmd == "github":
             from . import github_ci
             try:
+                if args.ci_github_cmd == "configure":
+                    report = github_ci.configure_repository(
+                        args.workdir, args.artifact_url, args.artifact_filename,
+                        args.artifact_sha256)
+                    _emit(report)
+                    return 0 if report.get("verdict") == "PASS" else 1
                 policy = github_ci.load_policy(args.policy)
                 if args.ci_github_cmd == "verify-event":
                     with open(args.event, "r", encoding="utf-8") as stream:
@@ -364,6 +379,7 @@ def main(argv=None):
                 args.workdir, args.change_id, args.gate, args.status, args.actor,
                 evidence_ref=args.evidence_ref, ttl_seconds=args.ttl_seconds,
                 key_id=args.key_id, credential_file=args.credential_file,
+                trust_mode=args.trust_mode,
             )
             _emit(report)
             return 0 if report["status"] in ("APPROVAL_RECORDED", "APPROVAL_REVOKED") else 1

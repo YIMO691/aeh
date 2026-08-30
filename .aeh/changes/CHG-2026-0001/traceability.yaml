@@ -1,0 +1,828 @@
+requirements:
+- acceptance:
+  - AC-001-01
+  - AC-001-02
+  - AC-001-03
+  code:
+  - code_id: CODE-001
+    path: .aeh/effective-workflow.yaml
+  - code_id: CODE-002
+    path: .aeh/manifest.yaml
+  - code_id: CODE-003
+    path: .aeh/profile.yaml
+  - code_id: CODE-004
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-005
+    path: .aeh/runtime/core/ci-policy.yaml
+  - code_id: CODE-006
+    path: .aeh/runtime/core/classifications.yaml
+  - code_id: CODE-007
+    path: .aeh/runtime/core/evidence.yaml
+  - code_id: CODE-008
+    path: .aeh/runtime/core/execution-policy.yaml
+  - code_id: CODE-009
+    path: .aeh/runtime/core/gates.yaml
+  - code_id: CODE-010
+    path: .aeh/runtime/core/precedence.yaml
+  - code_id: CODE-011
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-012
+    path: .aeh/runtime/core/workflow.yaml
+  - code_id: CODE-013
+    path: .aeh/runtime/schemas/adapter-output.schema.json
+  - code_id: CODE-014
+    path: .aeh/runtime/schemas/adapter.schema.json
+  - code_id: CODE-015
+    path: .aeh/runtime/schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-016
+    path: .aeh/runtime/schemas/answers.schema.json
+  - code_id: CODE-017
+    path: .aeh/runtime/schemas/approvals.schema.json
+  - code_id: CODE-018
+    path: .aeh/runtime/schemas/bugfix.schema.json
+  - code_id: CODE-019
+    path: .aeh/runtime/schemas/change.schema.json
+  - code_id: CODE-020
+    path: .aeh/runtime/schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-021
+    path: .aeh/runtime/schemas/ci-enforcement-report.schema.json
+  - code_id: CODE-022
+    path: .aeh/runtime/schemas/ci-policy.schema.json
+  - code_id: CODE-023
+    path: .aeh/runtime/schemas/ci-provider-event.schema.json
+  - code_id: CODE-024
+    path: .aeh/runtime/schemas/ci-provider-snapshot.schema.json
+  - code_id: CODE-025
+    path: .aeh/runtime/schemas/ci-report.schema.json
+  - code_id: CODE-026
+    path: .aeh/runtime/schemas/ci-workflow-template.schema.json
+  - code_id: CODE-027
+    path: .aeh/runtime/schemas/conflict.schema.json
+  - code_id: CODE-028
+    path: .aeh/runtime/schemas/discovery-rule.schema.json
+  - code_id: CODE-029
+    path: .aeh/runtime/schemas/discovery.schema.json
+  - code_id: CODE-030
+    path: .aeh/runtime/schemas/doctor.schema.json
+  - code_id: CODE-031
+    path: .aeh/runtime/schemas/effective-workflow.schema.json
+  - code_id: CODE-032
+    path: .aeh/runtime/schemas/evidence-index.schema.json
+  - code_id: CODE-033
+    path: .aeh/runtime/schemas/execution-policy.schema.json
+  - code_id: CODE-034
+    path: .aeh/runtime/schemas/green.schema.json
+  - code_id: CODE-035
+    path: .aeh/runtime/schemas/install-plan.schema.json
+  - code_id: CODE-036
+    path: .aeh/runtime/schemas/interview.schema.json
+  - code_id: CODE-037
+    path: .aeh/runtime/schemas/manifest.schema.json
+  - code_id: CODE-038
+    path: .aeh/runtime/schemas/profile.schema.json
+  - code_id: CODE-039
+    path: .aeh/runtime/schemas/red.schema.json
+  - code_id: CODE-040
+    path: .aeh/runtime/schemas/repair-plan.schema.json
+  - code_id: CODE-041
+    path: .aeh/runtime/schemas/repair-rule.schema.json
+  - code_id: CODE-042
+    path: .aeh/runtime/schemas/scm-inspection.schema.json
+  - code_id: CODE-043
+    path: .aeh/runtime/schemas/spec.schema.json
+  - code_id: CODE-044
+    path: .aeh/runtime/schemas/tasks.schema.json
+  - code_id: CODE-045
+    path: .aeh/runtime/schemas/test-lock.schema.json
+  - code_id: CODE-046
+    path: .aeh/runtime/schemas/test-plan.schema.json
+  - code_id: CODE-047
+    path: .aeh/runtime/schemas/traceability.schema.json
+  - code_id: CODE-048
+    path: .aeh/runtime/schemas/transaction-journal.schema.json
+  - code_id: CODE-049
+    path: .aeh/runtime/schemas/upgrade-plan.schema.json
+  - code_id: CODE-050
+    path: .aeh/runtime/schemas/upgrade-policy.schema.json
+  - code_id: CODE-051
+    path: .aeh/runtime/schemas/verification.schema.json
+  - code_id: CODE-052
+    path: .gitattributes
+  - code_id: CODE-053
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-054
+    path: .gitignore
+  - code_id: CODE-055
+    path: AGENTS.md
+  - code_id: CODE-056
+    path: CHANGELOG.md
+  - code_id: CODE-057
+    path: CLAUDE.md
+  - code_id: CODE-058
+    path: README.md
+  - code_id: CODE-059
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-060
+    path: core/states.yaml
+  - code_id: CODE-061
+    path: docs/README.md
+  - code_id: CODE-062
+    path: docs/decisions.md
+  - code_id: CODE-063
+    path: docs/m5-security.md
+  - code_id: CODE-064
+    path: docs/m6-2-github-assurance.md
+  - code_id: CODE-065
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-066
+    path: docs/status.md
+  - code_id: CODE-067
+    path: schemas/approvals.schema.json
+  - code_id: CODE-068
+    path: schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-069
+    path: src/aeh/ci.py
+  - code_id: CODE-070
+    path: src/aeh/cli.py
+  - code_id: CODE-071
+    path: src/aeh/github_ci.py
+  - code_id: CODE-072
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-073
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-074
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-075
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-076
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-077
+    path: src/aeh/runtime/verify.py
+  id: REQ-001
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-002-01
+  - AC-002-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/effective-workflow.yaml
+  - code_id: CODE-002
+    path: .aeh/manifest.yaml
+  - code_id: CODE-003
+    path: .aeh/profile.yaml
+  - code_id: CODE-004
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-005
+    path: .aeh/runtime/core/ci-policy.yaml
+  - code_id: CODE-006
+    path: .aeh/runtime/core/classifications.yaml
+  - code_id: CODE-007
+    path: .aeh/runtime/core/evidence.yaml
+  - code_id: CODE-008
+    path: .aeh/runtime/core/execution-policy.yaml
+  - code_id: CODE-009
+    path: .aeh/runtime/core/gates.yaml
+  - code_id: CODE-010
+    path: .aeh/runtime/core/precedence.yaml
+  - code_id: CODE-011
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-012
+    path: .aeh/runtime/core/workflow.yaml
+  - code_id: CODE-013
+    path: .aeh/runtime/schemas/adapter-output.schema.json
+  - code_id: CODE-014
+    path: .aeh/runtime/schemas/adapter.schema.json
+  - code_id: CODE-015
+    path: .aeh/runtime/schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-016
+    path: .aeh/runtime/schemas/answers.schema.json
+  - code_id: CODE-017
+    path: .aeh/runtime/schemas/approvals.schema.json
+  - code_id: CODE-018
+    path: .aeh/runtime/schemas/bugfix.schema.json
+  - code_id: CODE-019
+    path: .aeh/runtime/schemas/change.schema.json
+  - code_id: CODE-020
+    path: .aeh/runtime/schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-021
+    path: .aeh/runtime/schemas/ci-enforcement-report.schema.json
+  - code_id: CODE-022
+    path: .aeh/runtime/schemas/ci-policy.schema.json
+  - code_id: CODE-023
+    path: .aeh/runtime/schemas/ci-provider-event.schema.json
+  - code_id: CODE-024
+    path: .aeh/runtime/schemas/ci-provider-snapshot.schema.json
+  - code_id: CODE-025
+    path: .aeh/runtime/schemas/ci-report.schema.json
+  - code_id: CODE-026
+    path: .aeh/runtime/schemas/ci-workflow-template.schema.json
+  - code_id: CODE-027
+    path: .aeh/runtime/schemas/conflict.schema.json
+  - code_id: CODE-028
+    path: .aeh/runtime/schemas/discovery-rule.schema.json
+  - code_id: CODE-029
+    path: .aeh/runtime/schemas/discovery.schema.json
+  - code_id: CODE-030
+    path: .aeh/runtime/schemas/doctor.schema.json
+  - code_id: CODE-031
+    path: .aeh/runtime/schemas/effective-workflow.schema.json
+  - code_id: CODE-032
+    path: .aeh/runtime/schemas/evidence-index.schema.json
+  - code_id: CODE-033
+    path: .aeh/runtime/schemas/execution-policy.schema.json
+  - code_id: CODE-034
+    path: .aeh/runtime/schemas/green.schema.json
+  - code_id: CODE-035
+    path: .aeh/runtime/schemas/install-plan.schema.json
+  - code_id: CODE-036
+    path: .aeh/runtime/schemas/interview.schema.json
+  - code_id: CODE-037
+    path: .aeh/runtime/schemas/manifest.schema.json
+  - code_id: CODE-038
+    path: .aeh/runtime/schemas/profile.schema.json
+  - code_id: CODE-039
+    path: .aeh/runtime/schemas/red.schema.json
+  - code_id: CODE-040
+    path: .aeh/runtime/schemas/repair-plan.schema.json
+  - code_id: CODE-041
+    path: .aeh/runtime/schemas/repair-rule.schema.json
+  - code_id: CODE-042
+    path: .aeh/runtime/schemas/scm-inspection.schema.json
+  - code_id: CODE-043
+    path: .aeh/runtime/schemas/spec.schema.json
+  - code_id: CODE-044
+    path: .aeh/runtime/schemas/tasks.schema.json
+  - code_id: CODE-045
+    path: .aeh/runtime/schemas/test-lock.schema.json
+  - code_id: CODE-046
+    path: .aeh/runtime/schemas/test-plan.schema.json
+  - code_id: CODE-047
+    path: .aeh/runtime/schemas/traceability.schema.json
+  - code_id: CODE-048
+    path: .aeh/runtime/schemas/transaction-journal.schema.json
+  - code_id: CODE-049
+    path: .aeh/runtime/schemas/upgrade-plan.schema.json
+  - code_id: CODE-050
+    path: .aeh/runtime/schemas/upgrade-policy.schema.json
+  - code_id: CODE-051
+    path: .aeh/runtime/schemas/verification.schema.json
+  - code_id: CODE-052
+    path: .gitattributes
+  - code_id: CODE-053
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-054
+    path: .gitignore
+  - code_id: CODE-055
+    path: AGENTS.md
+  - code_id: CODE-056
+    path: CHANGELOG.md
+  - code_id: CODE-057
+    path: CLAUDE.md
+  - code_id: CODE-058
+    path: README.md
+  - code_id: CODE-059
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-060
+    path: core/states.yaml
+  - code_id: CODE-061
+    path: docs/README.md
+  - code_id: CODE-062
+    path: docs/decisions.md
+  - code_id: CODE-063
+    path: docs/m5-security.md
+  - code_id: CODE-064
+    path: docs/m6-2-github-assurance.md
+  - code_id: CODE-065
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-066
+    path: docs/status.md
+  - code_id: CODE-067
+    path: schemas/approvals.schema.json
+  - code_id: CODE-068
+    path: schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-069
+    path: src/aeh/ci.py
+  - code_id: CODE-070
+    path: src/aeh/cli.py
+  - code_id: CODE-071
+    path: src/aeh/github_ci.py
+  - code_id: CODE-072
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-073
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-074
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-075
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-076
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-077
+    path: src/aeh/runtime/verify.py
+  id: REQ-002
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-003-01
+  - AC-003-02
+  - AC-003-03
+  code:
+  - code_id: CODE-001
+    path: .aeh/effective-workflow.yaml
+  - code_id: CODE-002
+    path: .aeh/manifest.yaml
+  - code_id: CODE-003
+    path: .aeh/profile.yaml
+  - code_id: CODE-004
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-005
+    path: .aeh/runtime/core/ci-policy.yaml
+  - code_id: CODE-006
+    path: .aeh/runtime/core/classifications.yaml
+  - code_id: CODE-007
+    path: .aeh/runtime/core/evidence.yaml
+  - code_id: CODE-008
+    path: .aeh/runtime/core/execution-policy.yaml
+  - code_id: CODE-009
+    path: .aeh/runtime/core/gates.yaml
+  - code_id: CODE-010
+    path: .aeh/runtime/core/precedence.yaml
+  - code_id: CODE-011
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-012
+    path: .aeh/runtime/core/workflow.yaml
+  - code_id: CODE-013
+    path: .aeh/runtime/schemas/adapter-output.schema.json
+  - code_id: CODE-014
+    path: .aeh/runtime/schemas/adapter.schema.json
+  - code_id: CODE-015
+    path: .aeh/runtime/schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-016
+    path: .aeh/runtime/schemas/answers.schema.json
+  - code_id: CODE-017
+    path: .aeh/runtime/schemas/approvals.schema.json
+  - code_id: CODE-018
+    path: .aeh/runtime/schemas/bugfix.schema.json
+  - code_id: CODE-019
+    path: .aeh/runtime/schemas/change.schema.json
+  - code_id: CODE-020
+    path: .aeh/runtime/schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-021
+    path: .aeh/runtime/schemas/ci-enforcement-report.schema.json
+  - code_id: CODE-022
+    path: .aeh/runtime/schemas/ci-policy.schema.json
+  - code_id: CODE-023
+    path: .aeh/runtime/schemas/ci-provider-event.schema.json
+  - code_id: CODE-024
+    path: .aeh/runtime/schemas/ci-provider-snapshot.schema.json
+  - code_id: CODE-025
+    path: .aeh/runtime/schemas/ci-report.schema.json
+  - code_id: CODE-026
+    path: .aeh/runtime/schemas/ci-workflow-template.schema.json
+  - code_id: CODE-027
+    path: .aeh/runtime/schemas/conflict.schema.json
+  - code_id: CODE-028
+    path: .aeh/runtime/schemas/discovery-rule.schema.json
+  - code_id: CODE-029
+    path: .aeh/runtime/schemas/discovery.schema.json
+  - code_id: CODE-030
+    path: .aeh/runtime/schemas/doctor.schema.json
+  - code_id: CODE-031
+    path: .aeh/runtime/schemas/effective-workflow.schema.json
+  - code_id: CODE-032
+    path: .aeh/runtime/schemas/evidence-index.schema.json
+  - code_id: CODE-033
+    path: .aeh/runtime/schemas/execution-policy.schema.json
+  - code_id: CODE-034
+    path: .aeh/runtime/schemas/green.schema.json
+  - code_id: CODE-035
+    path: .aeh/runtime/schemas/install-plan.schema.json
+  - code_id: CODE-036
+    path: .aeh/runtime/schemas/interview.schema.json
+  - code_id: CODE-037
+    path: .aeh/runtime/schemas/manifest.schema.json
+  - code_id: CODE-038
+    path: .aeh/runtime/schemas/profile.schema.json
+  - code_id: CODE-039
+    path: .aeh/runtime/schemas/red.schema.json
+  - code_id: CODE-040
+    path: .aeh/runtime/schemas/repair-plan.schema.json
+  - code_id: CODE-041
+    path: .aeh/runtime/schemas/repair-rule.schema.json
+  - code_id: CODE-042
+    path: .aeh/runtime/schemas/scm-inspection.schema.json
+  - code_id: CODE-043
+    path: .aeh/runtime/schemas/spec.schema.json
+  - code_id: CODE-044
+    path: .aeh/runtime/schemas/tasks.schema.json
+  - code_id: CODE-045
+    path: .aeh/runtime/schemas/test-lock.schema.json
+  - code_id: CODE-046
+    path: .aeh/runtime/schemas/test-plan.schema.json
+  - code_id: CODE-047
+    path: .aeh/runtime/schemas/traceability.schema.json
+  - code_id: CODE-048
+    path: .aeh/runtime/schemas/transaction-journal.schema.json
+  - code_id: CODE-049
+    path: .aeh/runtime/schemas/upgrade-plan.schema.json
+  - code_id: CODE-050
+    path: .aeh/runtime/schemas/upgrade-policy.schema.json
+  - code_id: CODE-051
+    path: .aeh/runtime/schemas/verification.schema.json
+  - code_id: CODE-052
+    path: .gitattributes
+  - code_id: CODE-053
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-054
+    path: .gitignore
+  - code_id: CODE-055
+    path: AGENTS.md
+  - code_id: CODE-056
+    path: CHANGELOG.md
+  - code_id: CODE-057
+    path: CLAUDE.md
+  - code_id: CODE-058
+    path: README.md
+  - code_id: CODE-059
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-060
+    path: core/states.yaml
+  - code_id: CODE-061
+    path: docs/README.md
+  - code_id: CODE-062
+    path: docs/decisions.md
+  - code_id: CODE-063
+    path: docs/m5-security.md
+  - code_id: CODE-064
+    path: docs/m6-2-github-assurance.md
+  - code_id: CODE-065
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-066
+    path: docs/status.md
+  - code_id: CODE-067
+    path: schemas/approvals.schema.json
+  - code_id: CODE-068
+    path: schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-069
+    path: src/aeh/ci.py
+  - code_id: CODE-070
+    path: src/aeh/cli.py
+  - code_id: CODE-071
+    path: src/aeh/github_ci.py
+  - code_id: CODE-072
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-073
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-074
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-075
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-076
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-077
+    path: src/aeh/runtime/verify.py
+  id: REQ-003
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-004-01
+  - AC-004-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/effective-workflow.yaml
+  - code_id: CODE-002
+    path: .aeh/manifest.yaml
+  - code_id: CODE-003
+    path: .aeh/profile.yaml
+  - code_id: CODE-004
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-005
+    path: .aeh/runtime/core/ci-policy.yaml
+  - code_id: CODE-006
+    path: .aeh/runtime/core/classifications.yaml
+  - code_id: CODE-007
+    path: .aeh/runtime/core/evidence.yaml
+  - code_id: CODE-008
+    path: .aeh/runtime/core/execution-policy.yaml
+  - code_id: CODE-009
+    path: .aeh/runtime/core/gates.yaml
+  - code_id: CODE-010
+    path: .aeh/runtime/core/precedence.yaml
+  - code_id: CODE-011
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-012
+    path: .aeh/runtime/core/workflow.yaml
+  - code_id: CODE-013
+    path: .aeh/runtime/schemas/adapter-output.schema.json
+  - code_id: CODE-014
+    path: .aeh/runtime/schemas/adapter.schema.json
+  - code_id: CODE-015
+    path: .aeh/runtime/schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-016
+    path: .aeh/runtime/schemas/answers.schema.json
+  - code_id: CODE-017
+    path: .aeh/runtime/schemas/approvals.schema.json
+  - code_id: CODE-018
+    path: .aeh/runtime/schemas/bugfix.schema.json
+  - code_id: CODE-019
+    path: .aeh/runtime/schemas/change.schema.json
+  - code_id: CODE-020
+    path: .aeh/runtime/schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-021
+    path: .aeh/runtime/schemas/ci-enforcement-report.schema.json
+  - code_id: CODE-022
+    path: .aeh/runtime/schemas/ci-policy.schema.json
+  - code_id: CODE-023
+    path: .aeh/runtime/schemas/ci-provider-event.schema.json
+  - code_id: CODE-024
+    path: .aeh/runtime/schemas/ci-provider-snapshot.schema.json
+  - code_id: CODE-025
+    path: .aeh/runtime/schemas/ci-report.schema.json
+  - code_id: CODE-026
+    path: .aeh/runtime/schemas/ci-workflow-template.schema.json
+  - code_id: CODE-027
+    path: .aeh/runtime/schemas/conflict.schema.json
+  - code_id: CODE-028
+    path: .aeh/runtime/schemas/discovery-rule.schema.json
+  - code_id: CODE-029
+    path: .aeh/runtime/schemas/discovery.schema.json
+  - code_id: CODE-030
+    path: .aeh/runtime/schemas/doctor.schema.json
+  - code_id: CODE-031
+    path: .aeh/runtime/schemas/effective-workflow.schema.json
+  - code_id: CODE-032
+    path: .aeh/runtime/schemas/evidence-index.schema.json
+  - code_id: CODE-033
+    path: .aeh/runtime/schemas/execution-policy.schema.json
+  - code_id: CODE-034
+    path: .aeh/runtime/schemas/green.schema.json
+  - code_id: CODE-035
+    path: .aeh/runtime/schemas/install-plan.schema.json
+  - code_id: CODE-036
+    path: .aeh/runtime/schemas/interview.schema.json
+  - code_id: CODE-037
+    path: .aeh/runtime/schemas/manifest.schema.json
+  - code_id: CODE-038
+    path: .aeh/runtime/schemas/profile.schema.json
+  - code_id: CODE-039
+    path: .aeh/runtime/schemas/red.schema.json
+  - code_id: CODE-040
+    path: .aeh/runtime/schemas/repair-plan.schema.json
+  - code_id: CODE-041
+    path: .aeh/runtime/schemas/repair-rule.schema.json
+  - code_id: CODE-042
+    path: .aeh/runtime/schemas/scm-inspection.schema.json
+  - code_id: CODE-043
+    path: .aeh/runtime/schemas/spec.schema.json
+  - code_id: CODE-044
+    path: .aeh/runtime/schemas/tasks.schema.json
+  - code_id: CODE-045
+    path: .aeh/runtime/schemas/test-lock.schema.json
+  - code_id: CODE-046
+    path: .aeh/runtime/schemas/test-plan.schema.json
+  - code_id: CODE-047
+    path: .aeh/runtime/schemas/traceability.schema.json
+  - code_id: CODE-048
+    path: .aeh/runtime/schemas/transaction-journal.schema.json
+  - code_id: CODE-049
+    path: .aeh/runtime/schemas/upgrade-plan.schema.json
+  - code_id: CODE-050
+    path: .aeh/runtime/schemas/upgrade-policy.schema.json
+  - code_id: CODE-051
+    path: .aeh/runtime/schemas/verification.schema.json
+  - code_id: CODE-052
+    path: .gitattributes
+  - code_id: CODE-053
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-054
+    path: .gitignore
+  - code_id: CODE-055
+    path: AGENTS.md
+  - code_id: CODE-056
+    path: CHANGELOG.md
+  - code_id: CODE-057
+    path: CLAUDE.md
+  - code_id: CODE-058
+    path: README.md
+  - code_id: CODE-059
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-060
+    path: core/states.yaml
+  - code_id: CODE-061
+    path: docs/README.md
+  - code_id: CODE-062
+    path: docs/decisions.md
+  - code_id: CODE-063
+    path: docs/m5-security.md
+  - code_id: CODE-064
+    path: docs/m6-2-github-assurance.md
+  - code_id: CODE-065
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-066
+    path: docs/status.md
+  - code_id: CODE-067
+    path: schemas/approvals.schema.json
+  - code_id: CODE-068
+    path: schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-069
+    path: src/aeh/ci.py
+  - code_id: CODE-070
+    path: src/aeh/cli.py
+  - code_id: CODE-071
+    path: src/aeh/github_ci.py
+  - code_id: CODE-072
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-073
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-074
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-075
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-076
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-077
+    path: src/aeh/runtime/verify.py
+  id: REQ-004
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-005-01
+  - AC-005-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/effective-workflow.yaml
+  - code_id: CODE-002
+    path: .aeh/manifest.yaml
+  - code_id: CODE-003
+    path: .aeh/profile.yaml
+  - code_id: CODE-004
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-005
+    path: .aeh/runtime/core/ci-policy.yaml
+  - code_id: CODE-006
+    path: .aeh/runtime/core/classifications.yaml
+  - code_id: CODE-007
+    path: .aeh/runtime/core/evidence.yaml
+  - code_id: CODE-008
+    path: .aeh/runtime/core/execution-policy.yaml
+  - code_id: CODE-009
+    path: .aeh/runtime/core/gates.yaml
+  - code_id: CODE-010
+    path: .aeh/runtime/core/precedence.yaml
+  - code_id: CODE-011
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-012
+    path: .aeh/runtime/core/workflow.yaml
+  - code_id: CODE-013
+    path: .aeh/runtime/schemas/adapter-output.schema.json
+  - code_id: CODE-014
+    path: .aeh/runtime/schemas/adapter.schema.json
+  - code_id: CODE-015
+    path: .aeh/runtime/schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-016
+    path: .aeh/runtime/schemas/answers.schema.json
+  - code_id: CODE-017
+    path: .aeh/runtime/schemas/approvals.schema.json
+  - code_id: CODE-018
+    path: .aeh/runtime/schemas/bugfix.schema.json
+  - code_id: CODE-019
+    path: .aeh/runtime/schemas/change.schema.json
+  - code_id: CODE-020
+    path: .aeh/runtime/schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-021
+    path: .aeh/runtime/schemas/ci-enforcement-report.schema.json
+  - code_id: CODE-022
+    path: .aeh/runtime/schemas/ci-policy.schema.json
+  - code_id: CODE-023
+    path: .aeh/runtime/schemas/ci-provider-event.schema.json
+  - code_id: CODE-024
+    path: .aeh/runtime/schemas/ci-provider-snapshot.schema.json
+  - code_id: CODE-025
+    path: .aeh/runtime/schemas/ci-report.schema.json
+  - code_id: CODE-026
+    path: .aeh/runtime/schemas/ci-workflow-template.schema.json
+  - code_id: CODE-027
+    path: .aeh/runtime/schemas/conflict.schema.json
+  - code_id: CODE-028
+    path: .aeh/runtime/schemas/discovery-rule.schema.json
+  - code_id: CODE-029
+    path: .aeh/runtime/schemas/discovery.schema.json
+  - code_id: CODE-030
+    path: .aeh/runtime/schemas/doctor.schema.json
+  - code_id: CODE-031
+    path: .aeh/runtime/schemas/effective-workflow.schema.json
+  - code_id: CODE-032
+    path: .aeh/runtime/schemas/evidence-index.schema.json
+  - code_id: CODE-033
+    path: .aeh/runtime/schemas/execution-policy.schema.json
+  - code_id: CODE-034
+    path: .aeh/runtime/schemas/green.schema.json
+  - code_id: CODE-035
+    path: .aeh/runtime/schemas/install-plan.schema.json
+  - code_id: CODE-036
+    path: .aeh/runtime/schemas/interview.schema.json
+  - code_id: CODE-037
+    path: .aeh/runtime/schemas/manifest.schema.json
+  - code_id: CODE-038
+    path: .aeh/runtime/schemas/profile.schema.json
+  - code_id: CODE-039
+    path: .aeh/runtime/schemas/red.schema.json
+  - code_id: CODE-040
+    path: .aeh/runtime/schemas/repair-plan.schema.json
+  - code_id: CODE-041
+    path: .aeh/runtime/schemas/repair-rule.schema.json
+  - code_id: CODE-042
+    path: .aeh/runtime/schemas/scm-inspection.schema.json
+  - code_id: CODE-043
+    path: .aeh/runtime/schemas/spec.schema.json
+  - code_id: CODE-044
+    path: .aeh/runtime/schemas/tasks.schema.json
+  - code_id: CODE-045
+    path: .aeh/runtime/schemas/test-lock.schema.json
+  - code_id: CODE-046
+    path: .aeh/runtime/schemas/test-plan.schema.json
+  - code_id: CODE-047
+    path: .aeh/runtime/schemas/traceability.schema.json
+  - code_id: CODE-048
+    path: .aeh/runtime/schemas/transaction-journal.schema.json
+  - code_id: CODE-049
+    path: .aeh/runtime/schemas/upgrade-plan.schema.json
+  - code_id: CODE-050
+    path: .aeh/runtime/schemas/upgrade-policy.schema.json
+  - code_id: CODE-051
+    path: .aeh/runtime/schemas/verification.schema.json
+  - code_id: CODE-052
+    path: .gitattributes
+  - code_id: CODE-053
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-054
+    path: .gitignore
+  - code_id: CODE-055
+    path: AGENTS.md
+  - code_id: CODE-056
+    path: CHANGELOG.md
+  - code_id: CODE-057
+    path: CLAUDE.md
+  - code_id: CODE-058
+    path: README.md
+  - code_id: CODE-059
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-060
+    path: core/states.yaml
+  - code_id: CODE-061
+    path: docs/README.md
+  - code_id: CODE-062
+    path: docs/decisions.md
+  - code_id: CODE-063
+    path: docs/m5-security.md
+  - code_id: CODE-064
+    path: docs/m6-2-github-assurance.md
+  - code_id: CODE-065
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-066
+    path: docs/status.md
+  - code_id: CODE-067
+    path: schemas/approvals.schema.json
+  - code_id: CODE-068
+    path: schemas/ci-enforcement-policy.schema.json
+  - code_id: CODE-069
+    path: src/aeh/ci.py
+  - code_id: CODE-070
+    path: src/aeh/cli.py
+  - code_id: CODE-071
+    path: src/aeh/github_ci.py
+  - code_id: CODE-072
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-073
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-074
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-075
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-076
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-077
+    path: src/aeh/runtime/verify.py
+  id: REQ-005
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003

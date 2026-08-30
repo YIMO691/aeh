@@ -1,0 +1,28 @@
+# core/precedence.yaml — 规则优先级契约（P-07/P-08 机器化）
+# 同一级别冲突：BLOCKED_POLICY_CONFLICT，禁止 Agent 静默选择；
+# 只有有权裁决该层级的 authorized policy authority 可处理，否则输出 USER_DECISION_REQUIRED（P-08）。
+
+contract: core.precedence
+version: 1
+
+order:
+  - system
+  - organization
+  - project
+  - team
+  - task
+  - developer
+  - default
+
+same_level_conflict:
+  verdict: BLOCKED_POLICY_CONFLICT
+  resolution:
+    - authorized_policy_authority
+    - user_decision_required
+  forbidden:
+    - agent_silent_choice
+    - developer_override_of_organization
+
+# Task Rules 属于单个 CHG-* 生命周期，不得写回项目级 Profile 或 effective-workflow（P-10）
+scope_rules:
+  task_rules_back_propagation: forbidden

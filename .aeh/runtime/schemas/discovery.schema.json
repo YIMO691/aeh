@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Repository Discovery Output Contract",
+  "type": "object",
+  "required": [
+    "contract",
+    "version",
+    "scanner_version",
+    "ruleset_digest",
+    "repository_root",
+    "repository",
+    "facts"
+  ],
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "bootstrap.discovery"
+    },
+    "version": {
+      "type": "integer",
+      "const": 2
+    },
+    "scanner_version": {
+      "type": "string"
+    },
+    "ruleset_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "repository_root": {
+      "type": "string"
+    },
+    "repository": {
+      "type": "object",
+      "required": [
+        "root",
+        "base_commit",
+        "dirty"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "root": {
+          "type": "string"
+        },
+        "base_commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dirty": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "scanned_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "domain",
+          "field",
+          "value",
+          "confidence",
+          "evidence"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^F-[0-9]{3}$"
+          },
+          "domain": {
+            "type": "string",
+            "enum": [
+              "repository",
+              "testing",
+              "ci",
+              "git",
+              "ai_rules",
+              "architecture"
+            ]
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {},
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "DETECTED",
+              "INFERRED",
+              "USER_CONFIRMED",
+              "UNKNOWN"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "path"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "file",
+                    "dir",
+                    "glob",
+                    "content"
+                  ]
+                },
+                "path": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "rule_id": {
+                  "type": "string"
+                },
+                "marker_index": {
+                  "type": "integer"
+                },
+                "match_line": {
+                  "type": "integer"
+                },
+                "file_hash": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{64}$"
+                }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "confidence": {
+                  "const": "DETECTED"
+                }
+              },
+              "required": [
+                "confidence"
+              ]
+            },
+            "then": {
+              "properties": {
+                "evidence": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "confidence": {
+                  "const": "DETECTED"
+                }
+              },
+              "required": [
+                "confidence"
+              ]
+            },
+            "then": {
+              "properties": {
+                "evidence": {
+                  "items": {
+                    "required": [
+                      "type",
+                      "path"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "domain",
+          "field",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "domain": {
+            "type": "string",
+            "enum": [
+              "repository",
+              "testing",
+              "ci",
+              "git",
+              "ai_rules",
+              "architecture"
+            ]
+          },
+          "field": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "const": "no_markers_matched"
+          }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "detail"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "resource_limit"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

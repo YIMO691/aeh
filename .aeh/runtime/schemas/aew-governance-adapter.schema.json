@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH to Agent Engineering Workspace Governance Adapter",
+  "type": "object",
+  "required": ["status", "contract", "version", "read_only", "network_used", "external_refs", "governance", "source", "artifacts", "metadata"],
+  "additionalProperties": false,
+  "properties": {
+    "status": {"const": "EXPORT_COMPLETE"},
+    "contract": {"const": "aeh.aew-governance-adapter"},
+    "version": {"const": 1},
+    "read_only": {"const": true},
+    "network_used": {"const": false},
+    "external_refs": {
+      "type": "object",
+      "required": ["task_id", "run_id"],
+      "additionalProperties": false,
+      "properties": {
+        "project_id": {"type": "string", "minLength": 1},
+        "task_id": {"type": "string", "minLength": 1},
+        "run_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "governance": {
+      "type": "object",
+      "required": ["provider", "change_id", "classification", "workflow_level", "phase", "gates", "native_verdict", "portable_verdict"],
+      "additionalProperties": false,
+      "properties": {
+        "provider": {"const": "AEH"},
+        "change_id": {"type": "string", "pattern": "^CHG-[0-9]{4}-[0-9]{4}$"},
+        "classification": {"type": ["string", "null"]},
+        "workflow_level": {"type": ["string", "null"]},
+        "phase": {"type": ["string", "null"]},
+        "gates": {"type": "object"},
+        "native_verdict": {"type": "string", "enum": ["NOT_AVAILABLE", "MERGE_READY", "READY_WITH_WARNINGS", "BLOCKED"]},
+        "portable_verdict": {"type": "string", "enum": ["VERIFIED", "FAILED", "INCONCLUSIVE", "NOT_VERIFIED"]}
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["repository_ref", "source_control", "harness_version", "harness_source_revision", "manifest_sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "repository_ref": {"const": "."},
+        "source_control": {
+          "type": "object",
+          "required": ["type", "identity"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {"type": "string", "enum": ["GIT", "SVN", "NONE"]},
+            "identity": {"$ref": "#/definitions/identity"}
+          }
+        },
+        "harness_version": {"type": ["string", "null"]},
+        "harness_source_revision": {"type": ["string", "null"]},
+        "manifest_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "path", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["scope", "ownership", "authority", "lifecycle", "provenance", "cost"],
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "type": "object",
+          "required": ["kind", "ref"],
+          "additionalProperties": false,
+          "properties": {"kind": {"const": "CHANGE"}, "ref": {"type": "string"}}
+        },
+        "ownership": {
+          "type": "object",
+          "required": ["operational_task_run", "engineering_change", "repository"],
+          "additionalProperties": false,
+          "properties": {
+            "operational_task_run": {"const": "AEW_OR_EXTERNAL_OWNER"},
+            "engineering_change": {"const": "AEH"},
+            "repository": {"const": "SCM_OR_PROJECT"}
+          }
+        },
+        "authority": {"const": "ENGINEERING_CHANGE_ASSURANCE"},
+        "lifecycle": {"const": "DERIVED_READ_ONLY_SNAPSHOT"},
+        "provenance": {
+          "type": "object",
+          "required": ["change_contract_sha256", "artifact_count"],
+          "additionalProperties": false,
+          "properties": {
+            "change_contract_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "artifact_count": {"type": "integer", "minimum": 0}
+          }
+        },
+        "cost": {
+          "type": "object",
+          "required": ["class", "writes", "network"],
+          "additionalProperties": false,
+          "properties": {
+            "class": {"const": "BOUNDED_LOCAL_READ"},
+            "writes": {"const": false},
+            "network": {"const": false}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "identity": {
+      "type": "object",
+      "required": ["commit", "branch", "revision", "repository_uuid", "dirty"],
+      "additionalProperties": false,
+      "properties": {
+        "commit": {"type": ["string", "null"]},
+        "branch": {"type": ["string", "null"]},
+        "revision": {"type": ["string", "null"]},
+        "repository_uuid": {"type": ["string", "null"]},
+        "dirty": {"type": ["boolean", "null"]}
+      }
+    }
+  }
+}

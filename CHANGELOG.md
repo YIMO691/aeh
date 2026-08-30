@@ -1,10 +1,24 @@
 # Changelog
 
+## Unreleased
+
+- Add tiered `MERGE_GATE` trust: strict external HMAC remains the default, while
+  `SCM_AUTHENTICATED_MERGE` supports explicit, evidence-linked solo-repository
+  delegation without putting a secret in pull-request CI.
+- Keep provider-neutral replay fail-closed; only a configured trusted SCM
+  adapter may accept the delegated merge trust mode.
+
 All notable changes to AEH are recorded here per phase.
 
 ## [0.3.0.dev0] — Unreleased
 
 ### Added
+
+- M6.2d live dogfood candidate: an exact prerelease wheel/hash binding,
+  byte-stable repository workflow, committed self-hosting AEH runtime snapshot,
+  and a contract regression for the configured source/runtime policy.
+- Windows Controller state now treats a different-volume state directory as
+  outside the governed repository instead of failing on `commonpath`.
 
 - M6.2a–c GitHub assurance candidate: exact PR/merge-group event and
   authenticated run/check binding, one-fresh-Change diff closure, deterministic
@@ -60,10 +74,10 @@ All notable changes to AEH are recorded here per phase.
 
 ### Boundaries
 
-- M6.2a–c do not deploy a workflow or change GitHub settings. The default
-  enforcement policy lacks an artifact and expected workflow digest and fails
-  closed until M6.2d receives separate artifact, SCM-admin, and live-dogfood
-  authorization. Repository CI never receives protected approval HMAC keys.
+- A configured workflow is still not proof of live merge enforcement. M6.2d
+  branch protection and adversarial checks are separately authorized external
+  operations and must be confirmed by the authenticated audit. Repository CI
+  never receives protected approval HMAC keys.
 
 - M6.1 is an acceptance replay core, not a hosted or universally unbypassable
   CI service. SCM required checks, workflow/ruleset protection, bypass control,

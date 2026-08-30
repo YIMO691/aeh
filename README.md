@@ -122,6 +122,23 @@ The exact path depends on the Change classification and effective workflow.
 AEH stops at `MERGE_READY`; it does not push, open a PR, merge, deploy, or
 release on its own.
 
+For a solo repository where the SCM account performing the final merge is the
+approval boundary, use the explicitly downgraded mode instead of managing an
+HMAC key:
+
+```bash
+aeh change approve CHG-2026-0001 \
+  --gate MERGE_GATE --status APPROVED --actor <your-name> \
+  --trust-mode SCM_AUTHENTICATED_MERGE \
+  --evidence-ref <owner-decision-or-ticket>
+```
+
+This produces `READY_WITH_WARNINGS`: it delegates final authority to the
+authenticated SCM merge action and makes no HMAC identity claim. HMAC remains
+the default for strict or multi-party governance. Provider-neutral CI replay
+does not accept the delegated mode unless a trusted provider adapter explicitly
+enables it.
+
 ## Manual verification and approval lifecycle
 
 When a plan declares manual verification, record the separate Gate before
@@ -143,7 +160,7 @@ aeh change approve CHG-2026-0001 \
   --evidence-ref <decision-or-incident-id> --key-id <revoker-key-id>
 ```
 
-Keys stay outside committed truth, normally under
+Strict-mode keys stay outside committed truth, normally under
 `.aeh/private/approval-keys/<key-id>.key`. See
 [M4 governance](docs/m4-governance.md) for lifecycle behavior and
 [M5 security](docs/m5-security.md) for credentials and command execution.
@@ -209,10 +226,10 @@ launcher, and credential-bound approvals. It does **not** provide:
 
 M5 is deliberately bounded: HMAC proves possession of a configured shared
 credential, while the execution policy constrains launch semantics without
-claiming OS isolation. M6.1 supplies the merged read-only replay core. M6.2a–c
-now provide a GitHub event adapter, secure workflow renderer, and read-only
-enforcement audit as an implementation candidate; live repository rollout and
-adversarial dogfood remain M6.2d, and bounded Change concurrency remains M6.3.
+claiming OS isolation. M6.1 and M6.2a–c are merged. M6.2d adds the immutable
+dogfood wheel binding, configured repository workflow, self-hosting runtime
+snapshot, and live required-check evaluation; bounded Change concurrency remains
+M6.3. Source files alone never prove that external branch protection is active.
 
 ## Current status
 
@@ -225,8 +242,8 @@ The current branch baseline completes 356 tests: 352 passed and 4 expected Windo
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 
-M1–M5 and M6.1 are merged. M6.2a–c are an implementation candidate on this
-source branch; M6.2d and M6.3 remain planned. See the canonical
+M1–M5, M6.1, and M6.2a–c are merged. M6.2d is the current live dogfood
+candidate; M6.3 remains planned. See the canonical
 [current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
 ## Documentation

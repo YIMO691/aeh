@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Constrained Process Execution Policy",
+  "type": "object",
+  "required": ["contract", "version", "mode", "shell", "limits", "environment"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "execution.policy"},
+    "version": {"const": 1},
+    "mode": {"const": "constrained_process"},
+    "shell": {
+      "type": "object",
+      "required": ["default", "require_plan_declaration", "require_invocation_authorization"],
+      "additionalProperties": false,
+      "properties": {
+        "default": {"const": "deny"},
+        "require_plan_declaration": {"const": true},
+        "require_invocation_authorization": {"const": true}
+      }
+    },
+    "limits": {
+      "type": "object",
+      "required": ["default_timeout_seconds", "max_timeout_seconds", "max_arguments", "max_argument_length"],
+      "additionalProperties": false,
+      "properties": {
+        "default_timeout_seconds": {"type": "integer", "minimum": 1},
+        "max_timeout_seconds": {"type": "integer", "minimum": 1},
+        "max_arguments": {"type": "integer", "minimum": 1},
+        "max_argument_length": {"type": "integer", "minimum": 1}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": ["inherit_allowlist"],
+      "additionalProperties": false,
+      "properties": {
+        "inherit_allowlist": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"}
+        }
+      }
+    }
+  }
+}
+

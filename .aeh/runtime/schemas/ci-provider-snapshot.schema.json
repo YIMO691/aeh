@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH authenticated GitHub assurance snapshot",
+  "type": "object",
+  "required": ["contract", "version", "repository", "branch", "head_sha", "branch_protection", "rulesets", "workflow", "check_runs", "external_governance", "api_errors"],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "ci.provider-snapshot"}, "version": {"const": 1},
+    "repository": {"type": "object", "required": ["id", "full_name"], "additionalProperties": true,
+      "properties": {"id": {"oneOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]}, "full_name": {"type": "string", "pattern": "^[^/]+/[^/]+$"}, "default_branch": {"type": ["string", "null"]}}},
+    "branch": {"type": "string", "minLength": 1}, "head_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "branch_protection": {"type": ["object", "null"]}, "rulesets": {"type": "array"},
+    "workflow": {"oneOf": [{"type": "null"}, {"type": "object", "required": ["path", "sha256", "events"], "additionalProperties": false,
+      "properties": {"path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "events": {"type": "array", "uniqueItems": true, "items": {"enum": ["pull_request", "merge_group"]}}}}]},
+    "check_runs": {"type": "array"},
+    "external_governance": {"type": "object"}, "api_errors": {"type": "array", "items": {"type": "string"}}
+  }
+}

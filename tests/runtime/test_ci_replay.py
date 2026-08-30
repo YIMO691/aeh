@@ -175,6 +175,24 @@ class TestCiReplay(unittest.TestCase):
         self.assertEqual(report["verdict"], "BLOCKED", report)
         self.assertEqual(report["checks"][-1]["id"], "approvals.credentials")
 
+    def test_scm_merge_delegation_is_provider_scoped(self):
+        target = self.make_copy()
+        path = Path(target, ".aeh", "changes", self.change_id, "approvals.yaml")
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        entry = next(item for item in body["approvals"] if item["gate"] == "MERGE_GATE")
+        entry.pop("credential", None)
+        entry["trust_mode"] = amod.SCM_AUTHENTICATED_MERGE
+        entry["evidence_ref"] = "owner-decision:T-1"
+        path.write_text(yaml.safe_dump(body, sort_keys=True, allow_unicode=True), encoding="utf-8")
+        head = commit_all(target, "delegate merge approval to SCM")
+        blocked = self.replay(target, head_sha=head, credential_files={})
+        self.assertEqual(blocked["verdict"], "BLOCKED", blocked)
+        self.assertEqual(blocked["checks"][-1]["id"], "approvals.credentials")
+        accepted = self.replay(
+            target, head_sha=head, credential_files={},
+            accepted_approval_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
+        self.assertEqual(accepted["verdict"], "PASS", accepted)
+
     def test_committed_forged_output_hash_is_invalid(self):
         target = self.make_copy()
         path = Path(target, ".aeh", "changes", self.change_id, "verification.yaml")

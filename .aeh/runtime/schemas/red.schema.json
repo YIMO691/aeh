@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH RED Evidence Record Contract",
+  "type": "object",
+  "required": [
+    "contract",
+    "version",
+    "change_id",
+    "tests"
+  ],
+  "properties": {
+    "contract": {
+      "type": "string",
+      "const": "red.evidence"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "change_id": {
+      "type": "string",
+      "pattern": "^CHG-[0-9]{4}-[0-9]{4}$"
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "test_id",
+          "command",
+          "exit_code",
+          "output_ref",
+          "output_hash",
+          "expected_failure",
+          "actual_failure",
+          "base_commit",
+          "changed_files_hash",
+          "test_files_hash",
+          "commit",
+          "verdict"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "test_id": {
+            "type": "string",
+            "pattern": "^TEST-[0-9]{3}$"
+          },
+          "command": {
+            "type": "string"
+          },
+          "exit_code": {
+            "type": "integer"
+          },
+          "output_ref": {
+            "type": "string"
+          },
+          "output_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$"
+          },
+          "expected_failure": {
+            "type": "object",
+            "required": [
+              "category",
+              "signature"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "signature": {
+                "type": "string"
+              }
+            }
+          },
+          "actual_failure": {
+            "type": "object",
+            "required": [
+              "category",
+              "signature"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "signature": {
+                "type": "string"
+              }
+            }
+          },
+          "base_commit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "changed_files_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$"
+          },
+          "test_files_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$"
+          },
+          "commit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "VALID_RED",
+              "INVALID_RED_TEST_DEFECT",
+              "INVALID_RED_SPEC_MISMATCH",
+              "INVALID_RED_ENVIRONMENT",
+              "INVALID_RED_FIXTURE",
+              "INVALID_RED_UNEXPECTED_FAILURE",
+              "NO_RED_ALREADY_GREEN"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

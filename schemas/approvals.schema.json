@@ -90,6 +90,13 @@
           "evidence_ref": {
             "type": "string"
           },
+          "trust_mode": {
+            "type": "string",
+            "enum": [
+              "HMAC_CREDENTIAL",
+              "SCM_AUTHENTICATED_MERGE"
+            ]
+          },
           "credential": {
             "$ref": "#/definitions/credential"
           },

@@ -1,0 +1,82 @@
+overall: READY_WITH_WARNINGS
+red:
+  actual_failure:
+    category: behavior
+    signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
+  command: C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    -m unittest tests.runtime.test_verify.TestVerify.test_scm_authenticated_merge_needs_no_hmac_but_is_explicitly_downgraded
+    tests.runtime.test_ci_replay.TestCiReplay.test_scm_merge_delegation_is_provider_scoped
+    tests.runtime.test_github_ci.TestGitHubBinding.test_event_binding_invokes_replay_with_exact_inputs
+    tests.runtime.test_change.TestStateMachine.test_repair_can_restart_from_refactor_evidence
+    tests.runtime.test_change.TestStateMachine.test_stale_grounding_can_restart_without_manual_state_edit
+    tests.runtime.test_m6_2d_dogfood.TestM62dDogfoodPolicy.test_exact_policy_and_workflow_are_committed
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: has no attribute 'SCM_AUTHENTICATED_MERGE'
+  output_hash: 187d8f3872d988a3eafba69744bd54ea0db9a43507d3799beab7c7a982034bae
+  output_ref: .aeh\changes\CHG-2026-0001\evidence\red-TEST-001.log
+  repository_state:
+    base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+    changed_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
+    test_files_hash: 7d00673549e234aad3d83a7093110f3412d91d628595df1d6096db537152b489
+  test_id: TEST-001
+  verdict: VALID_RED
+results:
+- exit_code: 0
+  id: VER-001
+  method: automated_test
+  output_hash: 34d2eff8cf47ad06261f35d7c1bb5fc13de1dc5a94b3f8273933f5c15cff9cf9
+  output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-1.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-001-01
+  - AC-001-02
+  - AC-001-03
+  - AC-002-01
+  - AC-002-02
+  - AC-003-01
+  - AC-003-02
+  - AC-003-03
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+- exit_code: 0
+  id: VER-002
+  method: automated_test
+  output_hash: 66671251b02d25348042e87f0b6dd784399d2b90b3777d0a2ae77d3bb9684c0e
+  output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-reg-2.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- exit_code: 0
+  id: VER-003
+  method: automated_test
+  output_hash: 4ce9f263a0f93902f2ed10240b6049360f8059a51017ccc910f061502239b6f0
+  output_ref: .aeh\changes\CHG-2026-0001\evidence\verify-v-3.log
+  status: pass
+  type: contract
+  verdict: pass
+  verifies:
+  - AC-001-01
+  - AC-001-02
+  - AC-001-03
+  - AC-002-01
+  - AC-002-02
+  - AC-003-01
+  - AC-003-02
+  - AC-003-03
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+verified_at: '2026-08-30T05:39:53.894663+00:00'
+warnings:
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
+  claim is made
+- MERGE_GATE approval has no expiry
+- CRITICAL MERGE_GATE approved by YIMO691

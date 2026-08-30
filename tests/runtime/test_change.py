@@ -170,6 +170,38 @@ class TestStateMachine(unittest.TestCase):
         rep = ch.change_transition(target, r["change_id"], "CLASSIFY")
         self.assertEqual(rep["status"], "BLOCKED_DOCTOR")
 
+    def test_repair_can_restart_from_refactor_evidence(self):
+        target = make_healthy()
+        report = ch.change_new(target, "功能开发", suggested_level="STANDARD")
+        change = ch.load_change(target, report["change_id"])
+        change["state"] = {"current": "REFACTOR", "previous": "GREEN"}
+        ch.save_change(target, change)
+        repaired = ch.change_repair(target, report["change_id"], "spec")
+        self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
+        self.assertEqual(repaired["to"], "SPEC_REPAIR")
+
+    def test_stale_grounding_can_restart_without_manual_state_edit(self):
+        for current in ("SPEC", "TEST_DESIGN"):
+            with self.subTest(current=current):
+                target = make_healthy()
+                report = ch.change_new(target, "功能开发", suggested_level="STANDARD")
+                change = ch.load_change(target, report["change_id"])
+                change["state"] = {"current": current, "previous": "GROUND"}
+                ch.save_change(target, change)
+                repaired = ch.change_repair(target, report["change_id"], "ground")
+                self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
+                self.assertEqual(repaired["to"], "GROUND")
+
+    def test_locked_tests_can_reenter_test_design_explicitly(self):
+        target = make_healthy()
+        report = ch.change_new(target, "功能开发", suggested_level="STANDARD")
+        change = ch.load_change(target, report["change_id"])
+        change["state"] = {"current": "LOCK_TEST", "previous": "RED"}
+        ch.save_change(target, change)
+        repaired = ch.change_repair(target, report["change_id"], "test")
+        self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
+        self.assertEqual(repaired["to"], "TEST_REPAIR")
+
 
 class TestCLI(unittest.TestCase):
     def test_cli_new_status_transition(self):

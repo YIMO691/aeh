@@ -1,0 +1,254 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Verification Contract",
+  "type": "object",
+  "required": [
+    "results"
+  ],
+  "properties": {
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^VER-[0-9]{3}$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "target_test",
+              "regression",
+              "integration",
+              "contract",
+              "runtime",
+              "platform",
+              "manual"
+            ]
+          },
+          "verifies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "static_review",
+              "build",
+              "automated_test",
+              "breakpoint",
+              "log",
+              "manual_runtime",
+              "visual_review",
+              "relogin",
+              "persistence_check"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "pending",
+              "blocked",
+              "not_run",
+              "not_applicable"
+            ]
+          },
+          "test_ref": {
+            "type": "string",
+            "pattern": "^TEST-[0-9]{3}$"
+          },
+          "command_ref": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "argv": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exit_code": {
+            "type": "integer"
+          },
+          "output_ref": {
+            "type": "string"
+          },
+          "output_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "kind"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^EV-[0-9]{3}$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "direct",
+                    "indirect",
+                    "inferred"
+                  ]
+                },
+                "path": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "pending",
+              "approved",
+              "rejected",
+              "not_applicable"
+            ]
+          }
+        }
+      }
+    },
+    "red": {
+      "type": "object",
+      "required": [
+        "test_id",
+        "command",
+        "exit_code",
+        "output_ref",
+        "output_hash",
+        "expected_failure",
+        "actual_failure",
+        "repository_state",
+        "verdict"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "test_id": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "output_ref": {
+          "type": "string"
+        },
+        "output_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "expected_failure": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "signature": {
+              "type": "string"
+            }
+          }
+        },
+        "actual_failure": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "signature": {
+              "type": "string"
+            }
+          }
+        },
+        "repository_state": {
+          "type": "object",
+          "required": [
+            "base_commit",
+            "changed_files_hash",
+            "test_files_hash"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "base_commit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "changed_files_hash": {
+              "type": "string"
+            },
+            "test_files_hash": {
+              "type": "string"
+            }
+          }
+        },
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "VALID_RED",
+            "INVALID_RED_TEST_DEFECT",
+            "INVALID_RED_SPEC_MISMATCH",
+            "INVALID_RED_ENVIRONMENT",
+            "INVALID_RED_FIXTURE",
+            "INVALID_RED_UNEXPECTED_FAILURE"
+          ]
+        }
+      }
+    },
+    "overall": {
+      "type": "string",
+      "enum": [
+        "MERGE_READY",
+        "READY_WITH_WARNINGS",
+        "BLOCKED"
+      ]
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

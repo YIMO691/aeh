@@ -15,7 +15,7 @@ import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "src"))
 
-from aeh import github_ci
+from aeh import ci, github_ci
 
 
 def git(target, *args):
@@ -122,6 +122,11 @@ class TestGitHubBinding(GitRepositoryCase):
         policy["workflow"]["expected_sha256"] = "a" * 64
         return policy
 
+    def unconfigured_policy(self):
+        policy = json.loads(json.dumps(self.policy))
+        policy["workflow"]["expected_sha256"] = None
+        return policy
+
     def event_and_run(self, head):
         event = {"number": 7, "repository": {"id": 42, "full_name": "owner/repo"},
                  "pull_request": {"base": {"sha": self.base}, "head": {"sha": head}}}
@@ -144,8 +149,17 @@ class TestGitHubBinding(GitRepositoryCase):
                 self.target, event, "pull_request", run, self.configured_policy())
         self.assertEqual(report["verdict"], "PASS", report)
         self.assertEqual(verify.call_args.args[1], "CHG-2026-0001")
+        self.assertEqual(verify.call_args.args[2], "github.com/owner/repo")
         self.assertEqual(verify.call_args.args[3:5], (self.base, head))
         self.assertEqual(verify.call_args.args[5], "2026-08-27T12:01:00Z")
+        self.assertEqual(
+            verify.call_args.kwargs["accepted_approval_trust_modes"],
+            {"SCM_AUTHENTICATED_MERGE"},
+        )
+        self.assertEqual(report["safety"]["merge_approval_channel"],
+                         "SCM_AUTHENTICATED_MERGE")
+        self.assertTrue(any(item["id"] == "approval.channel"
+                            for item in report["checks"]))
 
     def test_wrong_run_head_and_unconfigured_digest_fail_closed(self):
         self.add_change(); head = commit(self.target, "change")
@@ -154,9 +168,16 @@ class TestGitHubBinding(GitRepositoryCase):
         report = github_ci.verify_event(self.target, event, "pull_request", run, self.configured_policy())
         self.assertEqual(report["verdict"], "INVALID")
         event, run = self.event_and_run(head)
-        report = github_ci.verify_event(self.target, event, "pull_request", run, self.policy)
+        report = github_ci.verify_event(
+            self.target, event, "pull_request", run, self.unconfigured_policy())
         self.assertEqual(report["verdict"], "BLOCKED")
         self.assertEqual(report["checks"][-1]["id"], "run.workflow_digest")
+
+    def test_repository_identity_is_case_insensitive(self):
+        self.assertEqual(
+            ci._remote_repository_id("https://github.com/YIMO691/aeh.git"),
+            "github.com/yimo691/aeh",
+        )
 
     def test_protected_credentials_require_external_channel(self):
         self.add_change(); head = commit(self.target, "change")
@@ -185,8 +206,11 @@ class TestWorkflowAndAudit(unittest.TestCase):
         return value, rendered
 
     def test_renderer_is_deterministic_pinned_and_not_pr_installable(self):
+        unconfigured = json.loads(json.dumps(self.policy))
+        unconfigured["workflow"]["artifact"] = None
+        unconfigured["workflow"]["expected_sha256"] = None
         with self.assertRaises(github_ci.AssuranceFailure) as missing:
-            github_ci.render_workflow(self.policy)
+            github_ci.render_workflow(unconfigured)
         self.assertEqual(missing.exception.message, "IMMUTABLE_ARTIFACT_REQUIRED")
         policy, first = self.configured()
         second = github_ci.render_workflow(policy)
@@ -197,8 +221,37 @@ class TestWorkflowAndAudit(unittest.TestCase):
         self.assertIn("persist-credentials: false", text)
         self.assertIn("fetch-depth: 0", text)
         self.assertNotIn("pip install -e", text)
+        self.assertNotIn("pip install --no-deps", text)
+        self.assertIn("snapshot-run --policy core/ci-enforcement-policy.yaml", text)
+        self.assertIn("--policy core/ci-enforcement-policy.yaml --report", text)
         self.assertNotIn("actions/checkout@v", text)
         self.assertEqual(first["sha256"], hashlib.sha256(text.encode()).hexdigest())
+
+    def test_configure_transaction_binds_policy_workflow_runtime_and_manifest(self):
+        target = tempfile.mkdtemp(prefix="aeh-github-configure-")
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        shutil.copytree(os.path.join(ROOT, "core"), os.path.join(target, "core"))
+        shutil.copytree(os.path.join(ROOT, ".aeh", "runtime"),
+                        os.path.join(target, ".aeh", "runtime"))
+        for relative in (".aeh/manifest.yaml", ".aeh/profile.yaml",
+                         ".aeh/effective-workflow.yaml", "AGENTS.md", "CLAUDE.md", ".gitignore"):
+            destination = os.path.join(target, *relative.split("/"))
+            os.makedirs(os.path.dirname(destination), exist_ok=True)
+            shutil.copy2(os.path.join(ROOT, *relative.split("/")), destination)
+        report = github_ci.configure_repository(
+            target,
+            "https://example.invalid/adaptive_engineering_harness-0.3.0.dev1-py3-none-any.whl",
+            "adaptive_engineering_harness-0.3.0.dev1-py3-none-any.whl",
+            "2" * 64,
+        )
+        self.assertEqual(report["verdict"], "PASS", report)
+        source = Path(target, "core", "ci-enforcement-policy.yaml").read_bytes()
+        runtime = Path(target, ".aeh", "runtime", "core", "ci-enforcement-policy.yaml").read_bytes()
+        workflow = Path(target, ".github", "workflows", "aeh-assurance.yml").read_bytes()
+        manifest = yaml.safe_load(Path(target, ".aeh", "manifest.yaml").read_text(encoding="utf-8"))
+        self.assertEqual(source, runtime)
+        self.assertEqual(hashlib.sha256(workflow).hexdigest(), report["workflow_sha256"])
+        self.assertEqual(manifest["source_hashes"]["runtime"], report["runtime_digest"])
 
     def snapshot(self, policy):
         return {

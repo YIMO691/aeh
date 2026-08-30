@@ -254,7 +254,8 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     merge_state, merge_warnings = amod.assess_approval(
         merge, target=target, change_id=change_id,
         credential_files=credential_files,
-        require_credential=(level == "CRITICAL"))
+        require_credential=(level == "CRITICAL"),
+        accepted_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
     if merge_state == "REJECTED":
         _record_blocked(target, cdir, change_id, "human MERGE_GATE approval REJECTED", results, red_block, ae_root)
         return {"status": "BLOCKED_HUMAN_MERGE_REJECTED", "change_id": change_id}
