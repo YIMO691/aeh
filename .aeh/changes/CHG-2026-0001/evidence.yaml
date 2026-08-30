@@ -17,7 +17,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e154cbead91cf5e027add9e3b6936f35c26bf63d04c4963a42e7626fce03956c
+    file_hash: 08be360cdca8fab09e1e3c540df98beb4ddbcbc3493e8c16fe29c79a4ebf5356
     rel_path: AGENTS.md
   type: SOURCE
 - confidence: DIRECT
@@ -36,7 +36,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e154cbead91cf5e027add9e3b6936f35c26bf63d04c4963a42e7626fce03956c
+    file_hash: 08be360cdca8fab09e1e3c540df98beb4ddbcbc3493e8c16fe29c79a4ebf5356
     rel_path: AGENTS.md
   type: SOURCE
 - confidence: DIRECT
@@ -55,7 +55,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
+    file_hash: 2c9c483ca62f92745f5e8c23f9eb242a0b25e2357714fa0708757f02d78a4a70
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
@@ -74,7 +74,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
+    file_hash: 2c9c483ca62f92745f5e8c23f9eb242a0b25e2357714fa0708757f02d78a4a70
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
@@ -93,7 +93,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
+    file_hash: 2c9c483ca62f92745f5e8c23f9eb242a0b25e2357714fa0708757f02d78a4a70
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
@@ -112,7 +112,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
+    file_hash: 2c9c483ca62f92745f5e8c23f9eb242a0b25e2357714fa0708757f02d78a4a70
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
@@ -131,7 +131,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 49e085a84b22d206a8c07bc8803e23485d68ce6eda92c15aced4966b0b327f30
+    file_hash: 2c9c483ca62f92745f5e8c23f9eb242a0b25e2357714fa0708757f02d78a4a70
     rel_path: CHANGELOG.md
   type: SOURCE
 - confidence: DIRECT
@@ -150,7 +150,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 48b62f1020a56c148b9c8ace46a43ff7d8bbe38ad7b6d0ea14de7f19e068a1d9
+    file_hash: ed217986247ebe00b48c236c6e45e5f439df2888573ca4391acc1712fac981f7
     rel_path: CLAUDE.md
   type: SOURCE
 - confidence: DIRECT
@@ -169,7 +169,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 48b62f1020a56c148b9c8ace46a43ff7d8bbe38ad7b6d0ea14de7f19e068a1d9
+    file_hash: ed217986247ebe00b48c236c6e45e5f439df2888573ca4391acc1712fac981f7
     rel_path: CLAUDE.md
   type: SOURCE
 - confidence: DIRECT
@@ -188,7 +188,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    file_hash: 9593c03fe52b2acc72851e2ef2a612734228c3c6af324faf4b58cf9b09ad8480
     rel_path: CONTRIBUTING.md
   type: SOURCE
 - confidence: DIRECT
@@ -207,7 +207,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    file_hash: 9593c03fe52b2acc72851e2ef2a612734228c3c6af324faf4b58cf9b09ad8480
     rel_path: CONTRIBUTING.md
   type: SOURCE
 - confidence: DIRECT
@@ -226,7 +226,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    file_hash: 9593c03fe52b2acc72851e2ef2a612734228c3c6af324faf4b58cf9b09ad8480
     rel_path: CONTRIBUTING.md
   type: SOURCE
 - confidence: DIRECT
@@ -245,7 +245,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 9dea649aca5749caf9ebba2efbf4a9f8747d8e497b8b3d3624699264430ff1df
+    file_hash: 9593c03fe52b2acc72851e2ef2a612734228c3c6af324faf4b58cf9b09ad8480
     rel_path: CONTRIBUTING.md
   type: SOURCE
 - confidence: DIRECT
@@ -264,7 +264,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 62f8daf80054489540521b1d765616d3f25ec29a046191c9cb54b647f34f74a1
+    file_hash: bfb28a3e1b161a6207dcbb7b2aabcc34a5b28d54c73d515cd7b24c96aa2f40a2
     rel_path: LICENSE
   type: SOURCE
 - confidence: DIRECT
@@ -283,7 +283,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
+    file_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
@@ -302,7 +302,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
+    file_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
@@ -321,7 +321,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
+    file_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
@@ -340,7 +340,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
+    file_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
@@ -359,7 +359,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b0045b4cac8fc96797f26ada3321adf0b6d55e83254b21854528a5118dfd9465
+    file_hash: 0b2af82435c77b16139a0e5f15e56f73c0056b5e5f4cc20c18eca0c12e10356b
     rel_path: README.md
   type: SOURCE
 - confidence: DIRECT
@@ -378,7 +378,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 80b2d677a6d3312942f65fbeab9151599f94506e4d91e9e8d25e989e62f4aee3
+    file_hash: dd372587294c2474b2d0ae4ff3140fc63c05c4d828892081b922ea79e578c23b
     rel_path: setup.py
   type: SOURCE
 - confidence: DIRECT
@@ -397,7 +397,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 1ea6311fca907ccde2e7cd1afae37ad4fdd338338915df1f05e2cdec19d518b8
+    file_hash: b2380d10b33d0ed3c99aa8bf8ba8d6e43887db72d04ae1903f1f45286779ddda
     rel_path: adapters/claude/CLAUDE.template.md
   type: SOURCE
 - confidence: DIRECT
@@ -416,7 +416,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b1df6b55e49e2d0c1f8e2ae1c1499491a5d67c830a0e98853f9bec53a30d1719
+    file_hash: 445bf7efb3e5744bc944357b9224ecba747e109f687585292d09e473984fc03a
     rel_path: adapters/claude/adapter.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -435,7 +435,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 22ba00f4c9b1a09516d053ba3a65e323962f209b59e3b6ea0cafe396ac204bed
+    file_hash: 5adafd99a39d331c807b79effbe4f36142e46950c863598f8ef692496241805d
     rel_path: adapters/codex/AGENTS.template.md
   type: SOURCE
 - confidence: DIRECT
@@ -454,7 +454,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
+    file_hash: e1c09ca0ea077c8854977435e662a8225f3f17da1a846a6c08743710fdca0d0b
     rel_path: adapters/codex/adapter.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -473,7 +473,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
+    file_hash: e1c09ca0ea077c8854977435e662a8225f3f17da1a846a6c08743710fdca0d0b
     rel_path: adapters/codex/adapter.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -492,7 +492,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
+    file_hash: 5e512b4d5e0dac0e05a841d81942dc68f5ccb21b4035e017ea659de8101d7a1e
     rel_path: bootstrap/grounding.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -511,7 +511,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
+    file_hash: 5e512b4d5e0dac0e05a841d81942dc68f5ccb21b4035e017ea659de8101d7a1e
     rel_path: bootstrap/grounding.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -530,7 +530,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: c553a4207a6a7f720cec674fb820d107af6bd97abc2ac6a0da674e2ec2c66183
+    file_hash: 4a0b824e8c7ced1361506b4c1c0cec2bc280fcd8e4617db4a7ffe2f9dfe48e41
     rel_path: bootstrap/interview/core.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -549,7 +549,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d9faf8d0ca9e52e667fb5ff4559c0367c5ab7ca0188a92641fb885a0a25356f5
+    file_hash: 68955bca5585bb6028c7fd96844c1ec6968e09fd2b5bc2cf86c47909a33f9d1e
     rel_path: core/ci-policy.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -568,7 +568,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: d9faf8d0ca9e52e667fb5ff4559c0367c5ab7ca0188a92641fb885a0a25356f5
+    file_hash: 68955bca5585bb6028c7fd96844c1ec6968e09fd2b5bc2cf86c47909a33f9d1e
     rel_path: core/ci-policy.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -587,7 +587,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: efb5fb588a39bd0b6d074c8c0bf28a9dc2e47a7139720bb999f589ae14f62b6b
+    file_hash: 260756eb9e675338449251e5067e0fd8dd113a51a392afcbe0cf7988f57cfa49
     rel_path: core/classifications.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -606,7 +606,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 202f92b6ea29d0581410de49560c33564979b29bd8846792c8218ae94bc9bd4e
+    file_hash: 96146e55a7f304a3f735fb89bb10cbf93416bd61d67611bd4e78f6b2f3218e70
     rel_path: core/evidence.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -625,7 +625,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 202f92b6ea29d0581410de49560c33564979b29bd8846792c8218ae94bc9bd4e
+    file_hash: 96146e55a7f304a3f735fb89bb10cbf93416bd61d67611bd4e78f6b2f3218e70
     rel_path: core/evidence.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -644,7 +644,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 644909794ba90f02b61fbe3ebc674a5d29dafeea0a594010c95e748416f432fd
+    file_hash: ec8b1dfbabbced501b9ad362892e6ed21b3d0d728ef6ec7056b980c82076ed02
     rel_path: core/gates.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -663,7 +663,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 644909794ba90f02b61fbe3ebc674a5d29dafeea0a594010c95e748416f432fd
+    file_hash: ec8b1dfbabbced501b9ad362892e6ed21b3d0d728ef6ec7056b980c82076ed02
     rel_path: core/gates.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -682,7 +682,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
+    file_hash: bf482f41416649b231ee8faa5e1c7cc6426771728fc8e27fee63d7b8db348a0e
     rel_path: core/states.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -701,7 +701,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
+    file_hash: bf482f41416649b231ee8faa5e1c7cc6426771728fc8e27fee63d7b8db348a0e
     rel_path: core/states.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -720,7 +720,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 61acd1215168ebee923aa9686d2fda4db8931db2022fe741c0fea69fb05443f8
+    file_hash: bf482f41416649b231ee8faa5e1c7cc6426771728fc8e27fee63d7b8db348a0e
     rel_path: core/states.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -739,7 +739,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 0731720cb42c620599b45ffc25e1241c69cad14724e039526dabc55cf611cde2
+    file_hash: 3b95d338bbd78e604d578a5d8ada95827107bd407b16a0237d07d5481a724a66
     rel_path: core/workflow.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -758,7 +758,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 0731720cb42c620599b45ffc25e1241c69cad14724e039526dabc55cf611cde2
+    file_hash: 3b95d338bbd78e604d578a5d8ada95827107bd407b16a0237d07d5481a724a66
     rel_path: core/workflow.yaml
   type: SOURCE
 - confidence: DIRECT
@@ -772,7 +772,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
+    file_hash: 420a81e98272c72aafa7af549d4ff7e24a9f15a2c873d14cb4a5b18d2893d785
     rel_path: tests/adapters/test_adapters.py
   test_result: FOUND
   type: TEST
@@ -787,7 +787,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
+    file_hash: 420a81e98272c72aafa7af549d4ff7e24a9f15a2c873d14cb4a5b18d2893d785
     rel_path: tests/adapters/test_adapters.py
   test_result: FOUND
   type: TEST
@@ -802,7 +802,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 218fb1cc09d83b9a3d949969730fe7538477e1724dedd2784970faa29bd8a118
+    file_hash: 420a81e98272c72aafa7af549d4ff7e24a9f15a2c873d14cb4a5b18d2893d785
     rel_path: tests/adapters/test_adapters.py
   test_result: FOUND
   type: TEST
@@ -817,7 +817,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 37bcc54d239f874a6eb0a1b1cd57a77bee2867d3596b7191740883fd80dc8ada
+    file_hash: 7abc57a77d38459f6438557c56a1a796182d65c610cb715a190cf17fc15bed7b
     rel_path: tests/bootstrap/test_bootstrap.py
   test_result: FOUND
   type: TEST
@@ -832,7 +832,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: 2dd0cca8b43c154c23894c21d96bd82781222d4715633790c1e21382589f43dd
+    file_hash: b667e1c7bda8b227542991317233085fefc8ab30214be5e0c600d548e7e89076
     rel_path: tests/compiler/test_compiler.py
   test_result: FOUND
   type: TEST
@@ -857,7 +857,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: b1df6b55e49e2d0c1f8e2ae1c1499491a5d67c830a0e98853f9bec53a30d1719
+    file_hash: 445bf7efb3e5744bc944357b9224ecba747e109f687585292d09e473984fc03a
     rel_path: adapters/claude/adapter.yaml
   type: CONFIG
 - confidence: DIRECT
@@ -871,7 +871,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
+    file_hash: e1c09ca0ea077c8854977435e662a8225f3f17da1a846a6c08743710fdca0d0b
     rel_path: adapters/codex/adapter.yaml
   type: CONFIG
 - confidence: DIRECT
@@ -885,7 +885,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: e722942f8ecf0955feb8e2dccffd29406f72cebb2ef6f301892ac9cdd757ed16
+    file_hash: e1c09ca0ea077c8854977435e662a8225f3f17da1a846a6c08743710fdca0d0b
     rel_path: adapters/codex/adapter.yaml
   type: CONFIG
 - confidence: DIRECT
@@ -899,7 +899,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
+    file_hash: 5e512b4d5e0dac0e05a841d81942dc68f5ccb21b4035e017ea659de8101d7a1e
     rel_path: bootstrap/grounding.yaml
   type: CONFIG
 - confidence: DIRECT
@@ -913,7 +913,7 @@ evidence:
   source_state:
     base_commit: 8e993ce5a42355dd872fd4eacfcc5474d7429037
     dirty: true
-    file_hash: bb6371f104459304beacea78ea37de4e629139ffe720ecebc85d8654c1d33e35
+    file_hash: 5e512b4d5e0dac0e05a841d81942dc68f5ccb21b4035e017ea659de8101d7a1e
     rel_path: bootstrap/grounding.yaml
   type: CONFIG
 - confidence: DIRECT
