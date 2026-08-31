@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import green as gmod
 from . import approval as amod
 from . import traceability as tmod
@@ -39,8 +40,7 @@ def _level_of(change):
 def _log_result(cdir, change_id, prefix, rid, output):
     out_path = os.path.join(cdir, "evidence", prefix + "-" + str(rid) + ".log")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(output)
+    coord.atomic_write_text(out_path, output)
     with open(out_path, "rb") as f:
         h = hashlib.sha256(f.read()).hexdigest()
     return os.path.join(".aeh", "changes", change_id, "evidence", prefix + "-" + str(rid) + ".log"), h
@@ -78,8 +78,8 @@ def _record_blocked(target, cdir, change_id, reason, results, red_block, ae_root
     if red_block:
         body["red"] = red_block
     jsonschema.validate(body, _load_yaml(os.path.join(ae_root, "schemas", "verification.schema.json")))
-    with open(os.path.join(cdir, "verification.yaml"), "w", encoding="utf-8") as f:
-        f.write(_dump_yaml(body))
+    coord.atomic_write_text(
+        os.path.join(cdir, "verification.yaml"), _dump_yaml(body))
     omod.record_checkpoint(target, change_id)
 
 
@@ -289,8 +289,8 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     if red_block:
         body["red"] = red_block
     jsonschema.validate(body, _load_yaml(os.path.join(ae_root, "schemas", "verification.schema.json")))
-    with open(os.path.join(cdir, "verification.yaml"), "w", encoding="utf-8") as f:
-        f.write(_dump_yaml(body))
+    coord.atomic_write_text(
+        os.path.join(cdir, "verification.yaml"), _dump_yaml(body))
 
     # 可追溯性（必须先有 verification.yaml 才能建 VER 链）
     tr = tmod.build_traceability(target, change_id, ae_root)
@@ -358,10 +358,11 @@ def _write_review_md(cdir, change_id, level, results, overall, warnings, traceab
     lines.append("HMAC proves configured credential possession, not legal identity or non-repudiation.")
     lines.append("Approval can never override a technical failure.")
     lines.append("")
-    with open(os.path.join(cdir, "review.md"), "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
+    coord.atomic_write_text(
+        os.path.join(cdir, "review.md"), "\n".join(lines) + "\n")
 
 
+@coord.coordinated_change_mutator("CHANGE_VERIFY")
 def change_verify(target, change_id, ae_root=None, allow_shell=False,
                   credential_files=None):
     try:
@@ -372,6 +373,7 @@ def change_verify(target, change_id, ae_root=None, allow_shell=False,
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "VERIFY_FAILED"
         return {"status": code, "change_id": change_id, "error": str(e)}
 
+@coord.coordinated_change_mutator("CHANGE_REVIEW")
 def change_review(target, change_id, ae_root=None):
     """只读投影：从 machine artifacts 重建 review.md。绝不写 APPROVED。"""
     ae_root = ae_root or aeh_paths.ae_root()

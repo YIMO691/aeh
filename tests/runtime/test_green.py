@@ -142,6 +142,19 @@ class TestGreen(unittest.TestCase):
         self.assertEqual(ev["verdict"], "GREEN_PASS")
         self.assertGreater(len(ev["changed_files"]), 0)
         self.assertTrue(ev["changed_files"][0]["code_id"].startswith("CODE-"))
+        # A failed post-test handoff may leave the Change in GREEN before a
+        # Controller retries the gate.  The retry must reseal evidence without
+        # requiring an illegal GREEN -> GREEN transition.
+        rerun = gmod.change_green(
+            target, cid,
+            scope_path=scope_manifest(
+                tempfile.mkdtemp(),
+                [{"path": "src/reward.py", "before_hash": before,
+                  "after_hash": after}],
+            ),
+        )
+        self.assertEqual(rerun["status"], "GREEN_COMPLETE", rerun)
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "GREEN")
 
     def test_precondition_blocked_without_lock(self):
         target = make_target()

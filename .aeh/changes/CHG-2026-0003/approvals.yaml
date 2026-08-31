@@ -1,0 +1,41 @@
+approvals:
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: ff3f7961243e40695ab27613c236f28eb991f6bfe6907ad996f05421cfa6e58e
+    key_id: task-m6-3b-spec
+    payload_hash: edc945239ee5597af6a7305c2101e1665b21ab5517d1aede4b587e29c0b32445
+    scheme: hmac-sha256-v1
+    signature: 9a46a6512b019db4f88aaa83313bfb8eb459546c087849df6ad421764a1874e8
+  decided_at: '2026-08-31T13:12:41.058684+00:00'
+  evidence_ref: OWNER_CHAT_APPROVAL_2026-08-31_M6_3B_SPEC_REVIEW
+  gate: SPEC_REVIEW
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 9d3698f523fd955304729515ae10013427f7b75a1c028aaff482ebf8b6045ff9
+    key_id: task-m6-3b-red
+    payload_hash: 91a455b4451b26d4ce5548b5ba2ab0dd09c5a815809cc061923e0be86764abaa
+    scheme: hmac-sha256-v1
+    signature: 9a8c78ebecc2fbd063b8ebba0681d6050260b6fee080ae6e7452a69e0e1ceac4
+  decided_at: '2026-08-31T14:02:43.998979+00:00'
+  evidence_ref: OWNER_CHAT_APPROVAL_2026-08-31_M6_3B_RED_GATE
+  gate: RED_GATE
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 731aa6f1a024deaae74302098a26a910f29f264c12b68598aeef768d246b464d
+    key_id: task-m6-3b-merge
+    payload_hash: a6a07026e4eaed28a0a30a5ae3fe401b8f4f8b3e5b073cfc39e1a74335ba8e7c
+    scheme: hmac-sha256-v1
+    signature: ad63094b17c2b3e84f1fa08c8b1fcbf496f8a3fd312fca89a0f373a92f965287
+  decided_at: '2026-08-31T17:13:43.850371+00:00'
+  evidence_ref: OWNER_AUTHORIZATION:M6_3B_MERGE_GATE
+  expires_at: '2026-09-01T17:13:43.850371+00:00'
+  gate: MERGE_GATE
+  status: APPROVED

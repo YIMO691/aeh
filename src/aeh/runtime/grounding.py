@@ -21,6 +21,7 @@ from .. import paths as aeh_paths
 from ..discovery import _resolve_within, _is_binary
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 
 CONTRACT = "bootstrap.evidence-index"
 CONTRACT_VERSION = 1
@@ -284,6 +285,7 @@ def check_stale(target, change_id):
     return {"change_id": change_id, "stale": stale}
 
 
+@coord.coordinated_change_mutator("CHANGE_GROUND")
 def change_ground(target, change_id, ae_root=None, limits=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
@@ -309,13 +311,13 @@ def change_ground(target, change_id, ae_root=None, limits=None):
         known = domains_of(change.get("classification", {}))
         satisfied, missing = gate_sufficient(level, index, grounded_domains, known, rules)
         cdir = ch._change_dir(target, change_id)
-        with open(os.path.join(cdir, "evidence.yaml"), "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(index))
+        coord.atomic_write_text(
+            os.path.join(cdir, "evidence.yaml"), _dump_yaml(index))
         md_lines = ["# Grounding Evidence", "", "machine truth in evidence.yaml", ""]
         for e in index["evidence"]:
             md_lines.append("- " + e["id"] + " [" + e["type"] + "] " + e["finding"])
-        with open(os.path.join(cdir, "evidence.md"), "w", encoding="utf-8") as f:
-            f.write("\n".join(md_lines) + "\n")
+        coord.atomic_write_text(
+            os.path.join(cdir, "evidence.md"), "\n".join(md_lines) + "\n")
         new_domains = sorted(set(grounded_domains) - set(known))
         escalated = False
         if new_domains and level != "CRITICAL":

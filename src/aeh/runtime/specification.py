@@ -14,6 +14,7 @@ import yaml
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import grounding as gr
 
 
@@ -141,6 +142,7 @@ def validate_spec(requirements, evidence_ids, level, scope, unknowns):
             return "SPEC_INCOMPLETE", ["critical unknown: " + u["field"] for u in critical_unknowns]
     return None, []
 
+@coord.coordinated_change_mutator("CHANGE_SPEC")
 def build_spec(target, change_id, reqs_path=None, ae_root=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
@@ -186,15 +188,15 @@ def build_spec(target, change_id, reqs_path=None, ae_root=None):
         schema = _load_yaml(os.path.join(ae_root, "schemas", "spec.schema.json"))
         jsonschema.validate(spec, schema)
         cdir = ch._change_dir(target, change_id)
-        with open(os.path.join(cdir, "spec.yaml"), "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(spec))
+        coord.atomic_write_text(
+            os.path.join(cdir, "spec.yaml"), _dump_yaml(spec))
         md_lines = ["# Spec", "", "machine truth in spec.yaml", ""]
         for r in requirements:
             md_lines.append("## " + r["id"] + " [" + r.get("kind", "?") + "] " + r["behavior"])
             for a in r.get("acceptance", []):
                 md_lines.append("- " + a["id"] + " (" + a["type"] + ") " + a["statement"])
-        with open(os.path.join(cdir, "spec.md"), "w", encoding="utf-8") as f:
-            f.write("\n".join(md_lines) + "\n")
+        coord.atomic_write_text(
+            os.path.join(cdir, "spec.md"), "\n".join(md_lines) + "\n")
         change["gates"] = dict(change.get("gates") or {})
         change["gates"]["spec"] = "PASS"
         ch.save_change(target, change)

@@ -182,20 +182,24 @@ class CoordinationCase(unittest.TestCase):
                 timeout_seconds=1.0, create=True):
             pass
 
-    def test_cli_exposes_status_only_and_does_not_activate(self):
+    def test_cli_exposes_lifecycle_and_status_does_not_activate(self):
         old = os.environ.get("AEH_CONTROLLER_STATE_DIR")
         os.environ["AEH_CONTROLLER_STATE_DIR"] = str(self.state)
         try:
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
-                code = cli.main(["coordination", "status", str(self.target)])
+                code = cli.main([
+                    "coordination", "status", "--workdir", str(self.target)])
             self.assertEqual(code, 0)
             self.assertEqual(json.loads(output.getvalue())["status"], "NOT_ACTIVATED")
             self.assertFalse(self.state.exists())
             help_output = io.StringIO()
             with contextlib.redirect_stdout(help_output):
-                with self.assertRaises(SystemExit):
-                    cli.main(["coordination", "acquire", str(self.target)])
+                with self.assertRaises(SystemExit) as shown:
+                    cli.main(["coordination", "acquire", "--help"])
+            self.assertEqual(shown.exception.code, 0)
+            self.assertIn("--holder-ref", help_output.getvalue())
+            self.assertIn("--token-file", help_output.getvalue())
             self.assertFalse(self.state.exists())
         finally:
             if old is None:
@@ -223,7 +227,7 @@ class CoordinationCase(unittest.TestCase):
         self.assertNotIn("portalocker", setup_text.lower())
         for name in (
                 "coordination-store", "change-lease", "workspace-binding",
-                "coordination-receipt"):
+                "coordination-receipt", "change-reservation"):
             schema = json.loads((root / "schemas" / (name + ".schema.json")).read_text(encoding="utf-8"))
             self.assertEqual(schema["$schema"], "http://json-schema.org/draft-07/schema#")
 

@@ -12,6 +12,7 @@ import yaml
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import grounding as gr
 from . import red as rmod
 from . import ownership as omod
@@ -156,8 +157,7 @@ def _run_required(target, plan, cdir, prefix, change_id, allow_shell=False, ae_r
             target, spec, allow_shell=allow_shell, ae_root=ae_root)
         out_path = os.path.join(cdir, "evidence", prefix + "-" + tid + ".log")
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(output)
+        coord.atomic_write_text(out_path, output)
         with open(out_path, "rb") as f:
             output_hash = hashlib.sha256(f.read()).hexdigest()
         rec = {"test_id": tid, "command": t.get("command"),
@@ -183,8 +183,7 @@ def _run_regression(target, plan, cdir, prefix, change_id, allow_shell=False, ae
         rid = rg.get("id") or ("REG-%02d" % (i + 1))
         out_path = os.path.join(cdir, "evidence", prefix + "-" + rid + ".log")
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(output)
+        coord.atomic_write_text(out_path, output)
         with open(out_path, "rb") as f:
             output_hash = hashlib.sha256(f.read()).hexdigest()
         reg_records.append({"test_id": rid, "exit_code": exit_code,
@@ -274,15 +273,19 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     schema_g = _load_yaml(os.path.join(ae_root, "schemas", "green.schema.json"))
     jsonschema.validate(evidence, schema_g)
     fname = "green.yaml" if verdict_kind == "GREEN_PASS" else "refactor.yaml"
-    with open(os.path.join(cdir, fname), "w", encoding="utf-8") as f:
-        f.write(_dump_yaml(evidence))
+    coord.atomic_write_text(os.path.join(cdir, fname), _dump_yaml(evidence))
     change = ch.load_change(target, change_id)
     change["gates"] = dict(change.get("gates") or {})
     if verdict_kind == "GREEN_PASS":
         change["gates"]["lock_test"] = "PASS"
         change["gates"]["green"] = "PASS"
         ch.save_change(target, change)
-        tr = ch.change_transition(target, change_id, "GREEN")
+        if change["state"]["current"] == "GREEN":
+            tr = {"status": "TRANSITION_OK", "change_id": change_id,
+                  "from": "GREEN", "to": "GREEN",
+                  "state": change["state"], "idempotent": True}
+        else:
+            tr = ch.change_transition(target, change_id, "GREEN")
     else:
         ch.save_change(target, change)
         if change["state"]["current"] == "REFACTOR":
@@ -299,6 +302,7 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
             "state": "GREEN" if verdict_kind == "GREEN_PASS" else "REFACTOR"}
 
 
+@coord.coordinated_change_mutator("CHANGE_GREEN")
 def change_green(target, change_id, scope_path=None, ae_root=None, allow_shell=False):
     try:
         return _green_core(
@@ -309,6 +313,7 @@ def change_green(target, change_id, scope_path=None, ae_root=None, allow_shell=F
         return {"status": code, "change_id": change_id, "error": str(e)}
 
 
+@coord.coordinated_change_mutator("CHANGE_REFACTOR")
 def change_refactor(target, change_id, scope_path=None, ae_root=None, allow_shell=False):
     try:
         return _green_core(

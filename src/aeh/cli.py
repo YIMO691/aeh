@@ -23,6 +23,34 @@ def _approval_key_map(values):
     return result
 
 
+def _add_change_lease_arguments(parser):
+    parser.add_argument("--lease-token-file", default=None,
+                        help="external WRITE lease token file")
+    parser.add_argument("--expected-lease-revision", type=int, default=None,
+                        help="exact active lease revision")
+    parser.add_argument("--repository-id", default=None,
+                        help="optional opaque repository identity")
+    parser.add_argument("--workspace-ref", default=None,
+                        help="optional opaque workspace binding reference")
+
+
+def _change_lease_kwargs(args):
+    return {
+        "lease_token_file": args.lease_token_file,
+        "expected_lease_revision": args.expected_lease_revision,
+        "repository_id": args.repository_id,
+        "workspace_ref": args.workspace_ref,
+    }
+
+
+def _invoke_change(function, *args, **kwargs):
+    from .runtime.coordination import CoordinationError
+    try:
+        return function(*args, **kwargs)
+    except CoordinationError as exc:
+        return {"status": str(exc)}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="aeh")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -34,14 +62,48 @@ def main(argv=None):
     d = sub.add_parser("doctor", help="observe/validate/diagnose an AEH installation (read-only)")
     d.add_argument("target")
     coordination = sub.add_parser(
-        "coordination", help="read-only single-host coordination inspection")
+        "coordination", help="single-host coordination lifecycle")
     coordination_sub = coordination.add_subparsers(
         dest="coordination_cmd", required=True)
     coordination_status = coordination_sub.add_parser(
         "status", help="inspect external coordination state without activating it")
-    coordination_status.add_argument("target")
-    coordination_status.add_argument("--change-id", default=None)
+    coordination_status.add_argument("change_id", nargs="?", default=None)
+    coordination_status.add_argument("--workdir", default=".")
     coordination_status.add_argument("--repository-id", default=None)
+    coordination_status.add_argument("--all", action="store_true")
+    coordination_acquire = coordination_sub.add_parser(
+        "acquire", help="acquire a Change WRITE lease")
+    coordination_acquire.add_argument("change_id")
+    coordination_acquire.add_argument("--workdir", default=".")
+    coordination_acquire.add_argument("--holder-ref", required=True)
+    coordination_acquire.add_argument("--token-file", required=True)
+    coordination_acquire.add_argument("--ttl-seconds", type=int, default=900)
+    coordination_acquire.add_argument("--repository-id", default=None)
+    coordination_acquire.add_argument("--workspace-ref", default=None)
+    coordination_renew = coordination_sub.add_parser(
+        "renew", help="renew a live Change WRITE lease")
+    coordination_renew.add_argument("change_id")
+    coordination_renew.add_argument("--workdir", default=".")
+    coordination_renew.add_argument("--token-file", required=True)
+    coordination_renew.add_argument("--expected-revision", type=int, required=True)
+    coordination_renew.add_argument("--ttl-seconds", type=int, default=900)
+    coordination_renew.add_argument("--repository-id", default=None)
+    coordination_release = coordination_sub.add_parser(
+        "release", help="release a live Change WRITE lease")
+    coordination_release.add_argument("change_id")
+    coordination_release.add_argument("--workdir", default=".")
+    coordination_release.add_argument("--token-file", required=True)
+    coordination_release.add_argument("--expected-revision", type=int, required=True)
+    coordination_release.add_argument("--repository-id", default=None)
+    coordination_recover = coordination_sub.add_parser(
+        "recover", help="recover an expired lease")
+    coordination_recover.add_argument("change_id")
+    coordination_recover.add_argument("--resource", choices=("lease", "reservation"),
+                                      required=True)
+    coordination_recover.add_argument("--workdir", default=".")
+    coordination_recover.add_argument("--expected-revision", type=int, required=True)
+    coordination_recover.add_argument("--expected-truth-hash", required=True)
+    coordination_recover.add_argument("--repository-id", default=None)
     rp = sub.add_parser("repair", help="plan, apply, or roll back installation repair")
     rp.add_argument("target")
     repair_mode = rp.add_mutually_exclusive_group()
@@ -123,35 +185,42 @@ def main(argv=None):
     ctr.add_argument("--to", required=True)
     ctr.add_argument("--condition", default=None)
     ctr.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(ctr)
     cg = chsub.add_parser("ground", help="run change-scoped repository grounding")
     cg.add_argument("change_id")
     cg.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(cg)
     csp = chsub.add_parser("spec", help="compile machine spec (Phase 10)")
     csp.add_argument("change_id")
     csp.add_argument("--reqs", default=None, help="user requirements yaml")
     csp.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(csp)
     ctd = chsub.add_parser("test-design", help="compile test plan and install tests (Phase 11)")
     ctd.add_argument("change_id")
     ctd.add_argument("--plan", required=True, help="test plan yaml")
     ctd.add_argument("--test-src", default=None, help="test source directory")
     ctd.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(ctd)
     crd = chsub.add_parser("red", help="execute RED tests (Phase 11)")
     crd.add_argument("change_id")
     crd.add_argument("--workdir", default=".", help="AEH target repository")
     crd.add_argument("--allow-shell", action="store_true",
                      help="authorize plan-declared shell execution for this invocation")
+    _add_change_lease_arguments(crd)
     cgn = chsub.add_parser("green", help="validate GREEN (Phase 12)")
     cgn.add_argument("change_id")
     cgn.add_argument("--scope", default=None, help="production scope manifest yaml")
     cgn.add_argument("--workdir", default=".", help="AEH target repository")
     cgn.add_argument("--allow-shell", action="store_true",
                      help="authorize plan-declared shell execution for this invocation")
+    _add_change_lease_arguments(cgn)
     crf = chsub.add_parser("refactor", help="validate REFACTOR (Phase 12)")
     crf.add_argument("change_id")
     crf.add_argument("--scope", default=None, help="production scope manifest yaml")
     crf.add_argument("--workdir", default=".", help="AEH target repository")
     crf.add_argument("--allow-shell", action="store_true",
                      help="authorize plan-declared shell execution for this invocation")
+    _add_change_lease_arguments(crf)
     cvf = chsub.add_parser("verify", help="run risk-based verification + traceability (Phase 13)")
     cvf.add_argument("change_id")
     cvf.add_argument("--workdir", default=".", help="AEH target repository")
@@ -159,6 +228,7 @@ def main(argv=None):
                      help="authorize plan-declared shell execution for this invocation")
     cvf.add_argument("--approval-key", action="append", default=[], metavar="KEY_ID=PATH",
                      help="external approval credential; repeat for multiple signer keys")
+    _add_change_lease_arguments(cvf)
     cap = chsub.add_parser("approve", help="record trusted human approval (Phase 13)")
     cap.add_argument("change_id")
     cap.add_argument("--gate", required=True,
@@ -176,13 +246,16 @@ def main(argv=None):
                      choices=("HMAC_CREDENTIAL", "SCM_AUTHENTICATED_MERGE"),
                      help="HMAC strict mode, or delegate MERGE_GATE to an authenticated SCM merge")
     cap.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(cap)
     crv = chsub.add_parser("review", help="project review.md from machine artifacts (Phase 13, read-only)")
     crv.add_argument("change_id")
     crv.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(crv)
     crp = chsub.add_parser("repair", help="enter TEST_REPAIR or SPEC_REPAIR through the state machine")
     crp.add_argument("change_id")
     crp.add_argument("--kind", required=True, choices=("ground", "test", "spec"))
     crp.add_argument("--workdir", default=".", help="AEH target repository")
+    _add_change_lease_arguments(crp)
     args = parser.parse_args(argv)
 
     if args.cmd == "bootstrap":
@@ -203,11 +276,41 @@ def main(argv=None):
     if args.cmd == "coordination":
         from .runtime import coordination as coordination_module
         try:
-            report = coordination_module.coordination_status(
-                args.target,
-                change_id=args.change_id,
-                repository_id=args.repository_id,
-            )
+            if args.coordination_cmd == "status":
+                report = coordination_module.coordination_status(
+                    args.workdir, change_id=args.change_id,
+                    repository_id=args.repository_id,
+                    all_changes=args.all)
+            elif args.coordination_cmd == "acquire":
+                report = coordination_module.acquire_lease(
+                    args.workdir, args.change_id, holder_ref=args.holder_ref,
+                    token_file=args.token_file, ttl_seconds=args.ttl_seconds,
+                    repository_id=args.repository_id,
+                    workspace_ref=args.workspace_ref)
+            elif args.coordination_cmd == "renew":
+                report = coordination_module.renew_lease(
+                    args.workdir, args.change_id, token_file=args.token_file,
+                    expected_revision=args.expected_revision,
+                    ttl_seconds=args.ttl_seconds,
+                    repository_id=args.repository_id)
+            elif args.coordination_cmd == "release":
+                report = coordination_module.release_lease(
+                    args.workdir, args.change_id, token_file=args.token_file,
+                    expected_revision=args.expected_revision,
+                    repository_id=args.repository_id)
+            else:
+                if args.resource == "lease":
+                    report = coordination_module.recover_lease(
+                        args.workdir, args.change_id,
+                        expected_revision=args.expected_revision,
+                        expected_truth_hash=args.expected_truth_hash,
+                        repository_id=args.repository_id)
+                else:
+                    report = coordination_module.recover_reservation(
+                        args.workdir, args.change_id,
+                        expected_revision=args.expected_revision,
+                        expected_truth_hash=args.expected_truth_hash,
+                        repository_id=args.repository_id)
             _emit(report)
             return 0
         except coordination_module.CoordinationError as exc:
@@ -345,42 +448,54 @@ def main(argv=None):
             _emit(report)
             return 0
         if args.change_cmd == "transition":
-            report = chmod.change_transition(args.workdir, args.change_id, args.to, condition=args.condition)
+            report = _invoke_change(
+                chmod.change_transition, args.workdir, args.change_id, args.to,
+                condition=args.condition, **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "TRANSITION_OK" else 1
         if args.change_cmd == "ground":
             from .runtime import grounding as gmod
-            report = gmod.change_ground(args.workdir, args.change_id)
+            report = _invoke_change(
+                gmod.change_ground, args.workdir, args.change_id,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "GROUNDING_COMPLETE" else 1
         if args.change_cmd == "spec":
             from .runtime import specification as smod
-            report = smod.build_spec(args.workdir, args.change_id, reqs_path=args.reqs)
+            report = _invoke_change(
+                smod.build_spec, args.workdir, args.change_id,
+                reqs_path=args.reqs, **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "SPEC_COMPLETE" else 1
         if args.change_cmd == "test-design":
             from .runtime import test_design as tdmod
-            report = tdmod.change_test_design(args.workdir, args.change_id, args.plan, test_src=args.test_src)
+            report = _invoke_change(
+                tdmod.change_test_design, args.workdir, args.change_id,
+                args.plan, test_src=args.test_src,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "TEST_DESIGN_COMPLETE" else 1
         if args.change_cmd == "red":
             from .runtime import red as rmod
-            report = rmod.change_red(
-                args.workdir, args.change_id, allow_shell=args.allow_shell)
+            report = _invoke_change(
+                rmod.change_red, args.workdir, args.change_id,
+                allow_shell=args.allow_shell, **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "RED_COMPLETE" else 1
         if args.change_cmd == "green":
             from .runtime import green as gmod
-            report = gmod.change_green(
-                args.workdir, args.change_id, scope_path=args.scope,
-                allow_shell=args.allow_shell)
+            report = _invoke_change(
+                gmod.change_green, args.workdir, args.change_id,
+                scope_path=args.scope, allow_shell=args.allow_shell,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "GREEN_COMPLETE" else 1
         if args.change_cmd == "refactor":
             from .runtime import green as gmod2
-            report = gmod2.change_refactor(
-                args.workdir, args.change_id, scope_path=args.scope,
-                allow_shell=args.allow_shell)
+            report = _invoke_change(
+                gmod2.change_refactor, args.workdir, args.change_id,
+                scope_path=args.scope, allow_shell=args.allow_shell,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "REFACTOR_COMPLETE" else 1
         if args.change_cmd == "verify":
@@ -390,28 +505,35 @@ def main(argv=None):
             except ValueError as exc:
                 _emit({"status": "BLOCKED_BAD_APPROVAL_KEY", "error": str(exc)})
                 return 1
-            report = vmod.change_verify(
-                args.workdir, args.change_id, allow_shell=args.allow_shell,
-                credential_files=approval_keys)
+            report = _invoke_change(
+                vmod.change_verify, args.workdir, args.change_id,
+                allow_shell=args.allow_shell, credential_files=approval_keys,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "VERIFY_COMPLETE" else 1
         if args.change_cmd == "approve":
             from .runtime import approval as apmod
-            report = apmod.record_approval(
+            report = _invoke_change(
+                apmod.record_approval,
                 args.workdir, args.change_id, args.gate, args.status, args.actor,
                 evidence_ref=args.evidence_ref, ttl_seconds=args.ttl_seconds,
                 key_id=args.key_id, credential_file=args.credential_file,
                 trust_mode=args.trust_mode,
+                **_change_lease_kwargs(args),
             )
             _emit(report)
             return 0 if report["status"] in ("APPROVAL_RECORDED", "APPROVAL_REVOKED") else 1
         if args.change_cmd == "review":
             from .runtime import verify as vmod2
-            report = vmod2.change_review(args.workdir, args.change_id)
+            report = _invoke_change(
+                vmod2.change_review, args.workdir, args.change_id,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "REVIEW_READY" else 1
         if args.change_cmd == "repair":
-            report = chmod.change_repair(args.workdir, args.change_id, args.kind)
+            report = _invoke_change(
+                chmod.change_repair, args.workdir, args.change_id, args.kind,
+                **_change_lease_kwargs(args))
             _emit(report)
             return 0 if report["status"] == "TRANSITION_OK" else 1
     return 2

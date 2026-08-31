@@ -1,0 +1,20 @@
+change_id: CHG-2026-0003
+contract: red.evidence
+tests:
+- actual_failure:
+    category: behavior
+    signature: M6_3B_COORDINATION_WRITERS_REQUIRED
+  base_commit: 8c937cb83c3f8e4a5ee85067b208069b4d0dcd12
+  changed_files_hash: 40da49a176b34487e6f58a7a134d51a328c392c5a1a9b94642fae9b79efbdedc
+  command: python -B -m unittest tests.runtime.test_coordination_writers
+  commit: null
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: M6_3B_COORDINATION_WRITERS_REQUIRED
+  output_hash: 971ea113b0225ee8df691cbd9b142f8a91cd324340cdbfac0199fec2d0a9c121
+  output_ref: .aeh\changes\CHG-2026-0003\evidence\red-TEST-001.log
+  test_files_hash: 40da49a176b34487e6f58a7a134d51a328c392c5a1a9b94642fae9b79efbdedc
+  test_id: TEST-001
+  verdict: VALID_RED
+version: 1

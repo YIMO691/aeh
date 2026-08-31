@@ -116,17 +116,27 @@ def _machine_truth_snapshot(target, change_id):
 def _write_json_atomic(path, body):
     parent = os.path.dirname(path)
     os.makedirs(parent, mode=0o700, exist_ok=True)
-    tmp = path + ".aeh-tmp"
-    with open(tmp, "w", encoding="utf-8", newline="\n") as stream:
-        json.dump(body, stream, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-        stream.write("\n")
-        stream.flush()
-        os.fsync(stream.fileno())
+    descriptor, tmp = tempfile.mkstemp(
+        prefix="." + os.path.basename(path) + "-", suffix=".aeh-tmp",
+        dir=parent)
     try:
-        os.chmod(tmp, 0o600)
-    except OSError:
-        pass
-    os.replace(tmp, path)
+        with os.fdopen(descriptor, "w", encoding="utf-8", newline="\n") as stream:
+            json.dump(body, stream, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        try:
+            os.chmod(tmp, 0o600)
+        except OSError:
+            pass
+        os.replace(tmp, path)
+        tmp = None
+    finally:
+        if tmp and os.path.isfile(tmp):
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
 
 
 def ensure_state_available(target, change_id):
@@ -156,6 +166,11 @@ def ensure_state_available(target, change_id):
 
 def record_checkpoint(target, change_id):
     """Seal the current Controller-produced change truth outside ``target``."""
+    # Preserve the ownership boundary's specific validation/error contract
+    # before consulting the coordination store that shares the same root.
+    _checkpoint_path(target, change_id)
+    from . import coordination as coord
+    coord.assert_change_write_allowed(target, change_id)
     path = ensure_state_available(target, change_id)
     try:
         body = {

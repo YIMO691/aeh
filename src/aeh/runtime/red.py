@@ -14,6 +14,7 @@ import yaml
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import grounding as gr
 from . import ownership as omod
 from . import execution as xmod
@@ -94,6 +95,7 @@ def classify_red(exit_code, output, t):
             return "INVALID_RED_ENVIRONMENT", {"category": "environment", "signature": s}
     return "INVALID_RED_UNEXPECTED_FAILURE", {"category": "unexpected", "signature": "unmatched"}
 
+@coord.coordinated_change_mutator("CHANGE_RED")
 def change_red(target, change_id, ae_root=None, allow_shell=False):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
@@ -152,8 +154,7 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
             verdict, actual = classify_red(exit_code, output, t)
             out_path = os.path.join(cdir, "evidence", "red-" + t["id"] + ".log")
             os.makedirs(os.path.dirname(out_path), exist_ok=True)
-            with open(out_path, "w", encoding="utf-8") as f:
-                f.write(output)
+            coord.atomic_write_text(out_path, output)
             with open(out_path, "rb") as f:
                 output_hash = hashlib.sha256(f.read()).hexdigest()
             results.append({"test_id": t["id"], "command": cmd, "exit_code": exit_code,
@@ -175,8 +176,8 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
         red_record = {"contract": "red.evidence", "version": 1, "change_id": change_id, "tests": results}
         schema_red = _load_yaml(os.path.join(ae_root, "schemas", "red.schema.json"))
         jsonschema.validate(red_record, schema_red)
-        with open(os.path.join(cdir, "red.yaml"), "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(red_record))
+        coord.atomic_write_text(
+            os.path.join(cdir, "red.yaml"), _dump_yaml(red_record))
         verdicts = [r["verdict"] for r in results]
         if any(v == "NO_RED_ALREADY_GREEN" for v in verdicts):
             return {"status": "NO_RED_ALREADY_GREEN", "change_id": change_id, "verdicts": verdicts,
@@ -208,11 +209,12 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
                 "locked_at": datetime.now(timezone.utc).isoformat()}
         schema_lock = _load_yaml(os.path.join(ae_root, "schemas", "test-lock.schema.json"))
         jsonschema.validate(lock, schema_lock)
-        with open(os.path.join(cdir, "test-lock.yaml"), "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(lock))
+        coord.atomic_write_text(
+            os.path.join(cdir, "test-lock.yaml"), _dump_yaml(lock))
         change = ch.load_change(target, change_id)
         change["gates"] = dict(change.get("gates") or {})
         change["gates"]["red"] = "PASS"
+        change["gates"]["lock_test"] = "PASS"
         ch.save_change(target, change)
         tr1 = ch.change_transition(target, change_id, "LOCK_TEST", condition="VALID_RED")
         if tr1["status"] != "TRANSITION_OK":

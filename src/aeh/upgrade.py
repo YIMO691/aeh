@@ -249,6 +249,8 @@ def run_upgrade(target, apply=False, source_revision="dev", ae_root=None, _fail_
                     "doctor": doc.run_doctor(target, ae_root)}
         if not apply:
             return {"status": "UPGRADE_PLAN_READY", "target": target, "plan": plan}
+        from .runtime import coordination as coord
+        coord.assert_workspace_maintenance_allowed(target)
         journal = tx.apply_mutations(target, "upgrade", "UPG", mutations, plan, ae_root,
                                      fail_after=_fail_after)
         after = doc.run_doctor(target, ae_root)
@@ -264,6 +266,11 @@ def run_upgrade(target, apply=False, source_revision="dev", ae_root=None, _fail_
 def rollback(target, transaction_id, ae_root=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
+        from .runtime import coordination as coord
+        drain = coord.coordination_drain_status(target)
+        if drain["status"] != "COORDINATION_DRAINED":
+            raise coord.CoordinationError(drain["status"])
+        coord.assert_workspace_maintenance_allowed(target)
         journal = tx.rollback_transaction(target, transaction_id, ae_root)
         return {"status": "UPGRADE_ROLLED_BACK", "target": target,
                 "transaction_id": transaction_id, "journal": journal,

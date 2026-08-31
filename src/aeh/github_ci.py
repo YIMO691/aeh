@@ -377,6 +377,8 @@ def configure_repository(target, artifact_url, artifact_filename, artifact_sha25
     whose current manifest binding is already invalid.
     """
     target = os.path.abspath(target)
+    from .runtime import coordination as coordination_module
+    coordination_module.assert_workspace_maintenance_allowed(target)
     parsed = urlsplit(str(artifact_url))
     digest = str(artifact_sha256).strip().lower()
     filename = str(artifact_filename).strip()

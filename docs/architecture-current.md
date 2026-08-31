@@ -67,6 +67,28 @@ Bootstrap is plan-first and fail-safe. Doctor is read-only. Repair and upgrade
 use explicit plans, transaction journals, byte backups, and rollback rather
 than silent overwrite.
 
+## Bounded local coordination
+
+M6.3B coordinates Change writers on one host and a local filesystem. A
+repository-scoped external store serializes monotonic Change-ID reservations,
+WRITE leases, workspace bindings, fencing revisions, active operations, and
+non-secret receipt digests. Lease tokens are created only at an explicit path
+outside both the target and coordination store; committed state contains only
+their SHA-256 digest.
+
+After a Change first acquires a lease, public Change writers require the token
+file and exact lease revision. One begin/execute/finalize transaction compares
+Change truth before and after the write; nested runtime calls reuse that active
+operation. Abort succeeds only when truth is unchanged. Expired authority and
+unresolved operations remain fail-closed until eligible recovery. Bootstrap,
+repair, upgrade, rollback, and GitHub configuration also refuse workspace
+maintenance while conflicting writer authority exists, and upgrade rollback
+requires a repository-wide drain.
+
+The assurance boundary is deliberately narrow: local OS file locking and
+atomic replacement do not establish correctness across hosts or network
+filesystems. Stable coordinated readers and AEW v2 provenance remain M6.3C.
+
 ## Change Assurance lifecycle
 
 The principal path is:
@@ -94,15 +116,15 @@ Current limitations are equally important:
   identity, public-key non-repudiation, OIDC, IAM, or hardware custody;
 - constrained process launch is not kernel/container/VM/filesystem/network/
   syscall/process-tree isolation;
-- M6.1 produces deterministic read-only CI replay verdicts; M6.2a–c bind them
-  to GitHub metadata and audit required-check configuration, but configuration
-  mutation, runner isolation, bypass authority and merge enforcement remain external;
+- M6.1 produces deterministic read-only CI replay verdicts; M6.2 binds them
+  to GitHub metadata and the configured required-check workflow, while runner
+  isolation, bypass authority and merge enforcement remain external;
 - AEH stops at `MERGE_READY` and does not autonomously merge or release.
 
 M5 implements the bounded portable security layer. M6.1 adds the replay core;
-M6.2a–c add a GitHub adapter/renderer/auditor without deploying it. M6.2d and
-M6.3 remain responsible for live protected-SCM validation and bounded Change
-concurrency respectively.
+M6.2 adds the GitHub adapter and live dogfood required-check path. M6.3A/B add
+the bounded local coordination substrate and writer protocol; M6.3C remains
+responsible for coordinated readers, AEW v2 provenance, and extended faults.
 
 ## CI replay boundary
 

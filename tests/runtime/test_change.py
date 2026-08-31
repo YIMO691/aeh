@@ -22,6 +22,7 @@ from aeh.bootstrap import pipeline as bp
 from aeh.doctor import doctor as doc
 from aeh.runtime import change as ch
 from aeh.runtime import classify as cls
+from aeh.runtime import coordination as coord
 
 
 def answers_path():
@@ -72,8 +73,8 @@ class TestChangeCreate(unittest.TestCase):
         target = make_healthy()
         r1 = ch.change_new(target, "任务A", suggested_level="DIRECT")
         r2 = ch.change_new(target, "任务B", suggested_level="DIRECT")
-        self.assertEqual(r1["change_id"], "CHG-2026-0001")
-        self.assertEqual(r2["change_id"], "CHG-2026-0002")
+        self.assertEqual(r1["change_id"], "CHG-2026-0003")
+        self.assertEqual(r2["change_id"], "CHG-2026-0004")
         os.makedirs(os.path.join(target, ".aeh", "changes", "CHG-2026-0009"), exist_ok=True)
         r3 = ch.change_new(target, "任务C", suggested_level="DIRECT")
         self.assertEqual(r3["change_id"], "CHG-2026-0010")
@@ -129,6 +130,25 @@ class TestClassification(unittest.TestCase):
 
 
 class TestStateMachine(unittest.TestCase):
+    def test_activated_change_requires_lease_for_direct_transition(self):
+        target = make_healthy()
+        report = ch.change_new(target, "普通文案修改", suggested_level="DIRECT")
+        token_root = tempfile.mkdtemp(prefix="aeh-ch-token-")
+        token = os.path.join(token_root, "worker.token")
+        acquired = coord.acquire_lease(
+            target, report["change_id"], holder_ref="test-worker",
+            token_file=token, ttl_seconds=900)
+        with self.assertRaises(coord.CoordinationError) as blocked:
+            ch.change_transition(target, report["change_id"], "CLASSIFY")
+        self.assertIn("BLOCKED_WRITE_LEASE_REQUIRED", str(blocked.exception))
+        transitioned = ch.change_transition(
+            target, report["change_id"], "CLASSIFY",
+            lease_token_file=token,
+            expected_lease_revision=acquired["lease_revision"])
+        self.assertEqual(transitioned["status"], "TRANSITION_OK")
+        self.assertEqual(
+            transitioned["coordination"]["status"], "MUTATION_FINALIZED")
+
     def test_legal_transitions_direct(self):
         target = make_healthy()
         r = ch.change_new(target, "普通文案修改", suggested_level="DIRECT")
