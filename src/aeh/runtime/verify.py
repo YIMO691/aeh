@@ -109,7 +109,7 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     omod.assert_checkpoint(target, change_id)
     omod.ensure_state_available(target, change_id)
     change = ch.load_change(target, change_id)
-    if change["state"]["current"] not in ("GREEN", "REFACTOR", "VERIFY"):
+    if change["state"]["current"] not in ("GREEN", "REFACTOR", "REGRESSION", "VERIFY"):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id,
                 "state": change["state"]["current"]}
     for g in ("grounding", "spec", "red", "green"):
@@ -304,17 +304,22 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     change["gates"] = dict(change.get("gates") or {})
     change["gates"]["verify"] = "PASS"
     ch.save_change(target, change)
-    if change["state"]["current"] != "VERIFY":
-        tr2 = ch.change_transition(target, change_id, "VERIFY")
+    destination = "REVIEW" if change["state"]["current"] == "REGRESSION" else "VERIFY"
+    if change["state"]["current"] != destination:
+        tr2 = ch.change_transition(target, change_id, destination)
         if tr2["status"] != "TRANSITION_OK":
             return {"status": "BLOCKED_TRANSITION_FAILED", "change_id": change_id, "transition": tr2}
 
-    _write_review_md(cdir, change_id, level, results, overall, warnings, tr["traceability"])
+    _write_review_md(
+        cdir, change_id, level, results, overall, warnings,
+        tr["traceability"], state=destination,
+    )
     omod.record_checkpoint(target, change_id)
     return {"status": "VERIFY_COMPLETE", "change_id": change_id, "overall": overall,
-            "state": "VERIFY", "results": len(results), "warnings": warnings}
+            "state": destination, "results": len(results), "warnings": warnings}
 
-def _write_review_md(cdir, change_id, level, results, overall, warnings, traceability):
+def _write_review_md(cdir, change_id, level, results, overall, warnings, traceability,
+                     state="VERIFY"):
     # review.md 是人工叙事投影（非机器事实）；机器事实 = verification.yaml + traceability.yaml
     lines = []
     lines.append("# AEH Review Projection — " + change_id)
@@ -324,7 +329,7 @@ def _write_review_md(cdir, change_id, level, results, overall, warnings, traceab
     lines.append("")
     lines.append("- classification: " + level)
     lines.append("- overall verdict: " + overall)
-    lines.append("- state: VERIFY (stop — no merge/push/PR is performed by AEH)")
+    lines.append("- state: " + state + " (stop — no merge/push/PR is performed by AEH)")
     lines.append("")
     lines.append("## Verification results")
     lines.append("")
@@ -380,7 +385,8 @@ def change_review(target, change_id, ae_root=None):
         ver = _load_yaml(ver_path)
         trace = _load_yaml(os.path.join(cdir, "traceability.yaml"))
         _write_review_md(cdir, change_id, _level_of(change), ver.get("results", []),
-                         ver.get("overall", "BLOCKED"), ver.get("warnings", []), trace)
+                         ver.get("overall", "BLOCKED"), ver.get("warnings", []), trace,
+                         state=change["state"]["current"])
         return {"status": "REVIEW_READY", "change_id": change_id, "overall": ver.get("overall")}
     except (VerifyError, omod.OwnershipError, ch.ChangeError, FileNotFoundError) as e:
         code = str(e).split(":")[0] if str(e).startswith("BLOCKED") else "REVIEW_FAILED"

@@ -289,6 +289,17 @@ class TestGreen(unittest.TestCase):
         self.assertEqual(rep["status"], "REFACTOR_COMPLETE", rep)
         change = ch.load_change(target, cid)
         self.assertEqual(change["state"]["current"], "REFACTOR")
+        # A Controller may repeat REFACTOR verification after review fixes.
+        # The rerun must reseal evidence without requiring an illegal
+        # REFACTOR -> REFACTOR state-machine edge.
+        rerun = gmod.change_refactor(
+            target, cid,
+            scope_path=scope_manifest(tempfile.mkdtemp(), [{
+                "path": "src/reward.py", "before_hash": b2, "after_hash": a2,
+            }]),
+        )
+        self.assertEqual(rerun["status"], "REFACTOR_COMPLETE", rerun)
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "REFACTOR")
 
     def test_refactor_unreachable_before_green(self):
         target = make_target()

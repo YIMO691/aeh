@@ -285,7 +285,12 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
         tr = ch.change_transition(target, change_id, "GREEN")
     else:
         ch.save_change(target, change)
-        tr = ch.change_transition(target, change_id, "REFACTOR")
+        if change["state"]["current"] == "REFACTOR":
+            tr = {"status": "TRANSITION_OK", "change_id": change_id,
+                  "from": "REFACTOR", "to": "REFACTOR",
+                  "state": change["state"], "idempotent": True}
+        else:
+            tr = ch.change_transition(target, change_id, "REFACTOR")
     if tr["status"] != "TRANSITION_OK":
         return {"status": verdict_kind + "_BUT_TRANSITION_FAILED", "change_id": change_id, "transition": tr}
     omod.record_checkpoint(target, change_id)

@@ -22,3 +22,10 @@
 - D-009: No new runtime dependency is permitted.
 - D-010: Acquire/renew/release/recover, Change-ID reservation, mutator CAS,
   stable readers, and AEW v2 remain deferred to M6.3B/C.
+- D-011: Final review exposed a CRITICAL workflow bridge mismatch: the workflow
+  reaches REGRESSION while the legacy verify runtime accepted only
+  GREEN/REFACTOR/VERIFY and attempted the legacy VERIFY state. The Controller
+  returns this Change to REFACTOR only to regenerate locked evidence after the
+  bridge and idempotent REFACTOR rerun fixes, then replays INTEGRATION,
+  RUNTIME_PLATFORM_VERIFY, and REGRESSION. This grants no approval and does not
+  bypass VERIFY or MERGE_GATE.
