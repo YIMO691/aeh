@@ -2,25 +2,8 @@ approvals:
 - actor:
     id: user
     type: human
-  credential:
-    key_fingerprint: 5391d280736c02427aaccdf04885b854a169cc1de7346608d29868f2fe2bdb68
-    key_id: task-m6-3a-spec-20260831
-    payload_hash: 6ee9dd18be005daff3d3d929099268462e6f23c408769ba33ae805974da2c1ab
-    scheme: hmac-sha256-v1
-    signature: 8acdb9a80352ce34f6cb8ed16ccefa658840664459336618dac1bb60c6aaf862
-  decided_at: '2026-08-31T05:16:59.213458+00:00'
-  evidence_ref: TASK-20260831-aeh-m6-3-bounded-concurrency/OWNER_AUTHORIZATION.yaml
-  gate: SPEC_REVIEW
-  status: APPROVED
-- actor:
-    id: user
-    type: human
-  credential:
-    key_fingerprint: 3618bd9918fea37186d8686447248f4875aed470a2c6489bcd921a1784cac5e7
-    key_id: task-m6-3a-merge
-    payload_hash: f0810c2bd9a3e2255ea2afba2a52f90416b2278bf423e11dd8c963f8c74dc1cb
-    scheme: hmac-sha256-v1
-    signature: 4490359a78c4e24ada5139fc1ae0707e331b298211b5e0c3d238006bcff031c6
-  decided_at: '2026-08-31T09:20:05.884487+00:00'
+  decided_at: '2026-08-31T11:12:00+00:00'
+  evidence_ref: github.com/YIMO691/aeh/pull/19
   gate: MERGE_GATE
   status: APPROVED
+  trust_mode: SCM_AUTHENTICATED_MERGE

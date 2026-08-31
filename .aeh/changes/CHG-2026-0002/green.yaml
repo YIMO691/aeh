@@ -33,57 +33,69 @@ changed_files:
   before_hash: 9c8ed78d549f2036d7143591cc9c9db11c704a2b74a2b39225e2ee7b1ffbeb27
   code_id: CODE-008
   path: src/aeh/doctor/doctor.py
-- after_hash: 27d037c7bf6193c3ae978f4c237f9677b8a8d988f24d3fdafdab15319d77241f
+- after_hash: 1c94120f08596b9869cdcab2db51bea50f6fbde7c8d81ee81163c21768142934
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-009
   path: src/aeh/runtime/coordination.py
-- after_hash: 9374ad5617ca3d4e5302a227b7bb38a69901c952707c71029168dae1404fa8bf
+- after_hash: 8ee420e8efbd40cfec7eab75b21482fc0025cc91e65278b8b0868eea506d3d12
   before_hash: 0481e3435dda678956e9000afe11251cccb4c4d0202a8b4866ac6ed100b66d4f
   code_id: CODE-010
   path: src/aeh/runtime/green.py
+- after_hash: 5636e47d130d6dbd874474c0c766245999fab9b729b02317f3046cdeb925e73a
+  before_hash: 248178596d2ec1b4b09c5c4303d68edabc1b255746f842936b7ba4ebdc2794da
+  code_id: CODE-011
+  path: src/aeh/runtime/traceability.py
+- after_hash: f07f21b0e8be38c4c539f2c291ecc362a906343283490303fe4019c971202af9
+  before_hash: cba9b79793e6fb46718c89c4befc50482f5186f0bea2d60a1b6c9bba78df311a
+  code_id: CODE-012
+  path: src/aeh/runtime/verify.py
 - after_hash: 0faad25c5a81b1731c45924832601237e76a9786244fd704da3d27749330584a
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-011
+  code_id: CODE-013
   path: tests/contract/fixtures/illegal/change-lease.bad.version.json
 - after_hash: 61a0da50f5bf48c677bfc08cb22fd910787948e3eab5a571115f9e7fc4b3e31c
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-012
+  code_id: CODE-014
   path: tests/contract/fixtures/illegal/coordination-receipt.bad.version.json
 - after_hash: 65b5a4b00f963da1a0df3e119dd12a503d8a4f432f4b5e5c446306b8ccbe1196
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-013
+  code_id: CODE-015
   path: tests/contract/fixtures/illegal/coordination-store.bad.version.json
 - after_hash: 936c0729696ed6af6901061df66dc1f4be08b1d499933fc415b3d7f9a09f6f07
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-014
+  code_id: CODE-016
   path: tests/contract/fixtures/illegal/workspace-binding.bad.version.json
 - after_hash: 73e4c66c57995e2f3815cfbe648d7b7a9a1c052509f0b89859226568f0504f10
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-015
+  code_id: CODE-017
   path: tests/contract/fixtures/legal/change-lease.ok.json
 - after_hash: f02872fdf1c88d8f997a3917aedf7daaf761f117004ad1fedf177ac1ef3e5b9d
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-016
+  code_id: CODE-018
   path: tests/contract/fixtures/legal/coordination-receipt.ok.json
 - after_hash: 7a3f7fdb7f3c94a592549828feccbc659e78bd57a1191ac37469d70dbb760b01
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-017
+  code_id: CODE-019
   path: tests/contract/fixtures/legal/coordination-store.ok.json
 - after_hash: d72d3e0868b54e449a71d1d69c755c74600002d4df91c04d901c523c005858da
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-018
+  code_id: CODE-020
   path: tests/contract/fixtures/legal/workspace-binding.ok.json
 - after_hash: 1d9e4a1c106e607836c240039c9004473c3d062b949bd1d3ed3f1a58c91c867a
   before_hash: db341ef02c9848d11894adb3d711f5e6ae394a88e4873852419a8a7230f08003
-  code_id: CODE-019
+  code_id: CODE-021
   path: tests/contract/test_contracts.py
-- after_hash: cfa84b4da85701197df3a90bc42b9fe3285c1e5a1ea2b636b1a5ee147cea1eee
+- after_hash: 20caf88628bd8064a66ab89abbd449c29e29b7f70925d8eb820925ced56dbd09
   before_hash: b2ddcb31f390ddf61d2332be172b1fb778833ea7a5a6df6a19e1e8bb7fa4698c
-  code_id: CODE-020
+  code_id: CODE-022
   path: tests/runtime/test_green.py
+- after_hash: 03ab34d909e534bedfdb1baf2c6ed086311c76b08119638de2fae787d638b6c4
+  before_hash: 18c6b26a412d03818ec0a9ed9fd6b3723d64139c7812783652774262fc577acb
+  code_id: CODE-023
+  path: tests/runtime/test_verify.py
 contract: green.evidence
-production_after_hash: 29822ba6796e96b63144294b0171f0e4a1f914f60ef7b99b35db2744bc24be3d
-production_before_hash: 464c00bb1a9cd7d6b5218b77c5b87edb531888b065475265bd31312cbba87e13
+production_after_hash: 3c9bf9b475453c6f6561a17509cef5399e8626ec95f1cd34ece2c6fb6e67e667
+production_before_hash: b55c344d2eed34b79ce2c2116e7d2fbd9096ad5439f1c4a6a704c76e7bb0b8c2
 test_lock_hash: fc8bd360cdb769fcc8da46bc8471799554deecaa98888094fa3919195d0c5c4e
 tests:
 - argv:
@@ -94,7 +106,7 @@ tests:
   - tests.runtime.test_coordination
   command: python -B -m unittest tests.runtime.test_coordination
   exit_code: 0
-  output_hash: 6d0d261b711e63ae59a7ce729220aca86d47df0b155a283afd60df39889f3842
+  output_hash: 5baf585d6fbbba40b9350f000c1597a20ffbe6b8807775f29de6bc82a0c4f1b1
   output_ref: .aeh\changes\CHG-2026-0002\evidence\green-TEST-001.log
   test_id: TEST-001
   verdict: PASS
