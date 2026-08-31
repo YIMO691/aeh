@@ -38,11 +38,15 @@ class CoordinationCase(unittest.TestCase):
         return coordination.new_store(SHA_A, OBSERVED, revision=revision)
 
     def test_identity_aliases_and_repository_common_dir(self):
-        rel = os.path.relpath(self.target, Path.cwd())
-        self.assertEqual(
-            coordination.workspace_identity(rel),
-            coordination.workspace_identity(str(self.target)),
-        )
+        previous_cwd = Path.cwd()
+        try:
+            os.chdir(self.root)
+            self.assertEqual(
+                coordination.workspace_identity(self.target.name),
+                coordination.workspace_identity(str(self.target)),
+            )
+        finally:
+            os.chdir(previous_cwd)
         self.assertEqual(
             coordination.repository_identity(str(self.target), repository_id="repo-A"),
             coordination.repository_identity(str(self.target), repository_id="repo-A"),

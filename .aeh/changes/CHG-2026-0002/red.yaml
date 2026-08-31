@@ -5,7 +5,7 @@ tests:
     category: behavior
     signature: No module named 'aeh.runtime.coordination'
   base_commit: a6b08383ad72866bf4df1bd6ec37f8dab6e55598
-  changed_files_hash: fc8bd360cdb769fcc8da46bc8471799554deecaa98888094fa3919195d0c5c4e
+  changed_files_hash: ab34bd0437d3c26c87f2ac279dd05eb65722b5d35f711b48cb7b5e4c39d0782a
   command: python -B -m unittest tests.runtime.test_coordination
   commit: null
   exit_code: 1
@@ -14,7 +14,7 @@ tests:
     signature: No module named 'aeh.runtime.coordination'
   output_hash: eb0d678ba727d7c42cae36149510160fedb9309450b9c4d0d5fb8317f62fdafc
   output_ref: .aeh\changes\CHG-2026-0002\evidence\red-TEST-001.log
-  test_files_hash: fc8bd360cdb769fcc8da46bc8471799554deecaa98888094fa3919195d0c5c4e
+  test_files_hash: ab34bd0437d3c26c87f2ac279dd05eb65722b5d35f711b48cb7b5e4c39d0782a
   test_id: TEST-001
   verdict: VALID_RED
 version: 1

@@ -1,9 +1,9 @@
 change_id: CHG-2026-0002
 contract: test-lock
 files:
-- hash: a28692758cce19b065df5c9728089e955451afc66ca721339762be8fb102ef15
+- hash: d883457ed23a925b5bb5afafd239111e6d5599a85144b0e9e05a723431c968d9
   path: tests/runtime/test_coordination.py
-locked_at: '2026-08-31T05:29:26.211324+00:00'
+locked_at: '2026-08-31T12:05:08.842507+00:00'
 protected:
   .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2

@@ -96,7 +96,7 @@ changed_files:
 contract: green.evidence
 production_after_hash: 3c9bf9b475453c6f6561a17509cef5399e8626ec95f1cd34ece2c6fb6e67e667
 production_before_hash: b55c344d2eed34b79ce2c2116e7d2fbd9096ad5439f1c4a6a704c76e7bb0b8c2
-test_lock_hash: fc8bd360cdb769fcc8da46bc8471799554deecaa98888094fa3919195d0c5c4e
+test_lock_hash: ab34bd0437d3c26c87f2ac279dd05eb65722b5d35f711b48cb7b5e4c39d0782a
 tests:
 - argv:
   - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
