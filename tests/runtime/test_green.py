@@ -94,9 +94,11 @@ def apply_fix(target):
     return before, after
 
 
-def scope_manifest(tmpdir, changed_files, allowed_paths=None):
+def scope_manifest(tmpdir, changed_files, allowed_paths=None, base_commit=None):
     body = {"changed_files": changed_files,
             "allowed_paths": allowed_paths or [cf["path"] for cf in changed_files]}
+    if base_commit is not None:
+        body["base_commit"] = base_commit
     return write_yaml(tmpdir, "scope.yaml", body)
 
 
@@ -108,6 +110,20 @@ def make_target(src=TDD_REPO):
 
 
 class TestGreen(unittest.TestCase):
+    def test_scope_base_prefers_declared_pr_base(self):
+        declared = "A" * 40
+        with mock.patch.object(
+                gmod, "_git_base",
+                side_effect=AssertionError("current HEAD must not replace PR base")):
+            self.assertEqual(
+                gmod._scope_base("unused", {"base_commit": declared}),
+                declared.lower(),
+            )
+
+    def test_scope_base_rejects_non_commit_identifier(self):
+        with self.assertRaisesRegex(gmod.GreenError, "invalid base_commit"):
+            gmod._scope_base("unused", {"base_commit": "main"})
+
     def test_required_execution_prefers_declared_argv_over_display_command(self):
         target = tempfile.mkdtemp(prefix="aeh-g12-argv-target-")
         cdir = tempfile.mkdtemp(prefix="aeh-g12-argv-change-")

@@ -52,6 +52,11 @@ def commit_all(target, message):
 
 
 class TestCiReplay(unittest.TestCase):
+    def test_scm_metadata_is_not_a_repository_input(self):
+        self.assertTrue(ci._is_scm_metadata(".git"))
+        self.assertTrue(ci._is_scm_metadata(".git/config"))
+        self.assertFalse(ci._is_scm_metadata(".github/workflows/verify.yml"))
+
     @classmethod
     def setUpClass(cls):
         cls.seed = tempfile.mkdtemp(prefix="aeh-ci-seed-")
@@ -132,6 +137,26 @@ class TestCiReplay(unittest.TestCase):
         with mock.patch("aeh.runtime.green.run_execution",
                         side_effect=AssertionError("project command executed")):
             self.assertEqual(self.replay(target)["verdict"], "PASS")
+
+    def test_verified_critical_post_review_state_is_accepted(self):
+        target = self.make_copy()
+        path = Path(target, ".aeh", "changes", self.change_id, "change.yaml")
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        body["workflow"]["phases"] = [
+            "INTAKE", "CLASSIFY", "GROUND", "SPEC", "TEST_DESIGN", "RED",
+            "GREEN", "REFACTOR", "INTEGRATION", "RUNTIME_PLATFORM_VERIFY",
+            "REGRESSION", "REVIEW", "DRIFT_CHECK", "HUMAN_MERGE_APPROVAL",
+            "ARCHIVE",
+        ]
+        body["state"] = {
+            "current": "HUMAN_MERGE_APPROVAL", "previous": "DRIFT_CHECK"}
+        path.write_text(
+            yaml.safe_dump(body, sort_keys=True, allow_unicode=True),
+            encoding="utf-8",
+        )
+        head = commit_all(target, "advance verified critical workflow")
+        report = self.replay(target, head_sha=head)
+        self.assertEqual(report["verdict"], "PASS", report)
 
     def test_cli_emits_pass_and_external_report(self):
         target = self.make_copy()

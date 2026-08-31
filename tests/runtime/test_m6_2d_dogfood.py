@@ -9,10 +9,10 @@ import yaml
 from aeh.runtime import ownership
 
 
-WHEEL_SHA256 = "59f45274c9b21234edf8349f2aae3be3c60f32128e7866b4bef888953c82f57b"
-WORKFLOW_SHA256 = "4180fd0538d5267059536f33c2bb73ee400fef3968096dd92ae237872cf32330"
+WHEEL_SHA256 = "b2efedc94b55b911d7798c169bc2722147624d675c1d85da60e8fdada1ed09b0"
+WORKFLOW_SHA256 = "a8475d6985c2f76f522136821db31ad299355bf93a78e8034474006b0102e276"
 WHEEL_URL = (
-    "https://github.com/YIMO691/aeh/releases/download/m6.2d-dogfood-3/"
+    "https://github.com/YIMO691/aeh/releases/download/m6.3b-dogfood-1/"
     "adaptive_engineering_harness-0.3.0.dev0-py3-none-any.whl"
 )
 
