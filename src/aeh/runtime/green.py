@@ -3,6 +3,7 @@
 # Core enforcement: Test Lock hash unchanged before/after.
 import hashlib
 import os
+import re
 import subprocess
 from datetime import datetime, timezone
 
@@ -44,6 +45,15 @@ def _git_base(target):
         return base.stdout.strip() or None
     except Exception:
         return None
+
+
+def _scope_base(target, scope):
+    declared = scope.get("base_commit")
+    if declared is None:
+        return _git_base(target)
+    if not isinstance(declared, str) or not re.fullmatch(r"[0-9a-fA-F]{40}", declared):
+        raise GreenError("BLOCKED_SCOPE_VIOLATION: invalid base_commit")
+    return declared.lower()
 
 
 def _resolve_cwd(target, cwd):
@@ -207,7 +217,11 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     change = ch.load_change(target, change_id)
     if verdict_kind == "GREEN_PASS" and change["state"]["current"] not in ("LOCK_TEST", "GREEN", "REFACTOR"):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
-    if verdict_kind == "REFACTOR_PASS" and change["state"]["current"] not in ("GREEN", "REFACTOR"):
+    post_refactor_states = (
+        "REFACTOR", "INTEGRATION", "RUNTIME_PLATFORM_VERIFY", "REGRESSION",
+        "VERIFY", "REVIEW", "DRIFT_CHECK", "HUMAN_MERGE_APPROVAL", "ARCHIVE")
+    if (verdict_kind == "REFACTOR_PASS" and
+            change["state"]["current"] not in ("GREEN",) + post_refactor_states):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
     for g in ("grounding", "spec", "red"):
         if change.get("gates", {}).get(g) != "PASS":
@@ -255,7 +269,7 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     lock2, cur_lock_hash2 = _verify_lock(target, change_id, plan)
     if cur_lock_hash2 != cur_lock_hash:
         return {"status": "BLOCKED_TEST_CHANGED", "change_id": change_id}
-    base_commit = _git_base(target)
+    base_commit = _scope_base(target, scope)
     if not changed:
         return {"status": "BLOCKED_SCOPE_VIOLATION", "change_id": change_id, "error": "no changed_files declared"}
     before_parts = sorted(cf["before_hash"] + "\0" + cf["path"] for cf in changed)
@@ -288,9 +302,10 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
             tr = ch.change_transition(target, change_id, "GREEN")
     else:
         ch.save_change(target, change)
-        if change["state"]["current"] == "REFACTOR":
+        if change["state"]["current"] in post_refactor_states:
             tr = {"status": "TRANSITION_OK", "change_id": change_id,
-                  "from": "REFACTOR", "to": "REFACTOR",
+                  "from": change["state"]["current"],
+                  "to": change["state"]["current"],
                   "state": change["state"], "idempotent": True}
         else:
             tr = ch.change_transition(target, change_id, "REFACTOR")

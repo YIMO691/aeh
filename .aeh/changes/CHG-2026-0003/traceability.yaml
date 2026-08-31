@@ -17,43 +17,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-001
   tests:
   - TEST-001
@@ -80,43 +86,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-002
   tests:
   - TEST-001
@@ -144,43 +156,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-003
   tests:
   - TEST-001
@@ -208,43 +226,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-004
   tests:
   - TEST-001
@@ -272,43 +296,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-005
   tests:
   - TEST-001
@@ -336,43 +366,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-006
   tests:
   - TEST-001
@@ -400,43 +436,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-007
   tests:
   - TEST-001
@@ -464,43 +506,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-008
   tests:
   - TEST-001
@@ -528,43 +576,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-009
   tests:
   - TEST-001
@@ -592,43 +646,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-010
   tests:
   - TEST-001
@@ -656,43 +716,49 @@ requirements:
   - code_id: CODE-007
     path: src/aeh/bootstrap/pipeline.py
   - code_id: CODE-008
-    path: src/aeh/cli.py
+    path: src/aeh/ci.py
   - code_id: CODE-009
-    path: src/aeh/github_ci.py
+    path: src/aeh/cli.py
   - code_id: CODE-010
-    path: src/aeh/repair.py
+    path: src/aeh/github_ci.py
   - code_id: CODE-011
-    path: src/aeh/runtime/approval.py
+    path: src/aeh/repair.py
   - code_id: CODE-012
-    path: src/aeh/runtime/change.py
+    path: src/aeh/runtime/approval.py
   - code_id: CODE-013
-    path: src/aeh/runtime/coordination.py
+    path: src/aeh/runtime/change.py
   - code_id: CODE-014
-    path: src/aeh/runtime/green.py
+    path: src/aeh/runtime/coordination.py
   - code_id: CODE-015
-    path: src/aeh/runtime/grounding.py
+    path: src/aeh/runtime/green.py
   - code_id: CODE-016
-    path: src/aeh/runtime/ownership.py
+    path: src/aeh/runtime/grounding.py
   - code_id: CODE-017
-    path: src/aeh/runtime/red.py
+    path: src/aeh/runtime/ownership.py
   - code_id: CODE-018
-    path: src/aeh/runtime/specification.py
+    path: src/aeh/runtime/red.py
   - code_id: CODE-019
-    path: src/aeh/runtime/test_design.py
+    path: src/aeh/runtime/specification.py
   - code_id: CODE-020
-    path: src/aeh/runtime/traceability.py
+    path: src/aeh/runtime/test_design.py
   - code_id: CODE-021
-    path: src/aeh/runtime/verify.py
+    path: src/aeh/runtime/traceability.py
   - code_id: CODE-022
-    path: src/aeh/upgrade.py
+    path: src/aeh/runtime/verify.py
   - code_id: CODE-023
-    path: tests/runtime/test_change.py
+    path: src/aeh/upgrade.py
   - code_id: CODE-024
-    path: tests/runtime/test_coordination.py
+    path: tests/runtime/test_change.py
   - code_id: CODE-025
-    path: tests/runtime/test_coordination_writers.py
+    path: tests/runtime/test_ci_replay.py
   - code_id: CODE-026
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-027
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-028
     path: tests/runtime/test_green.py
+  - code_id: CODE-029
+    path: tests/runtime/test_verify.py
   id: REQ-011
   tests:
   - TEST-001

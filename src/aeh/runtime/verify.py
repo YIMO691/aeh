@@ -110,7 +110,10 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     omod.assert_checkpoint(target, change_id)
     omod.ensure_state_available(target, change_id)
     change = ch.load_change(target, change_id)
-    if change["state"]["current"] not in ("GREEN", "REFACTOR", "REGRESSION", "VERIFY"):
+    post_verify_states = (
+        "VERIFY", "REVIEW", "DRIFT_CHECK", "HUMAN_MERGE_APPROVAL", "ARCHIVE")
+    if change["state"]["current"] not in (
+            "GREEN", "REFACTOR", "REGRESSION") + post_verify_states:
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id,
                 "state": change["state"]["current"]}
     for g in ("grounding", "spec", "red", "green"):
@@ -305,7 +308,11 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     change["gates"] = dict(change.get("gates") or {})
     change["gates"]["verify"] = "PASS"
     ch.save_change(target, change)
-    destination = "REVIEW" if change["state"]["current"] == "REGRESSION" else "VERIFY"
+    current_state = change["state"]["current"]
+    if current_state in post_verify_states:
+        destination = current_state
+    else:
+        destination = "REVIEW" if current_state == "REGRESSION" else "VERIFY"
     if change["state"]["current"] != destination:
         tr2 = ch.change_transition(target, change_id, destination)
         if tr2["status"] != "TRANSITION_OK":
@@ -359,7 +366,7 @@ def _write_review_md(cdir, change_id, level, results, overall, warnings, traceab
     lines.append("Approval can never override a technical failure.")
     lines.append("")
     coord.atomic_write_text(
-        os.path.join(cdir, "review.md"), "\n".join(lines) + "\n")
+        os.path.join(cdir, "review.md"), "\n".join(lines).rstrip("\n") + "\n")
 
 
 @coord.coordinated_change_mutator("CHANGE_VERIFY")

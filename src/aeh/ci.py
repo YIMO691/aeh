@@ -28,6 +28,27 @@ class ReplayFailure(ValueError):
         self.message = message
 
 
+def _change_state_replay_ready(change, required_state):
+    """Accept VERIFY or a later declared workflow phase after VERIFY passed."""
+    current = (change.get("state") or {}).get("current")
+    if current == required_state:
+        return True
+    if (change.get("gates") or {}).get("verify") != "PASS":
+        return False
+    phases = ((change.get("workflow") or {}).get("phases") or [])
+    if current not in phases:
+        return False
+    if required_state in phases:
+        anchor = phases.index(required_state)
+    elif "REVIEW" in phases:
+        # CRITICAL verifies from REGRESSION directly into REVIEW; VERIFY is a
+        # gate result, not a phase in that workflow.
+        anchor = phases.index("REVIEW")
+    else:
+        return False
+    return phases.index(current) >= anchor
+
+
 def _load_yaml(path):
     with open(path, "r", encoding="utf-8") as stream:
         return yaml.safe_load(stream)
@@ -117,6 +138,11 @@ def _remote_repository_id(remote):
     if path.endswith(".git"):
         path = path[:-4]
     return (host + "/" + path).lower() if host and path else ""
+
+
+def _is_scm_metadata(relative):
+    normalized = str(relative or "").replace("\\", "/").strip("/")
+    return normalized == ".git" or normalized.startswith(".git/")
 
 
 def _safe_target_file(target, relative):
@@ -346,7 +372,10 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             schema_path = os.path.join(target, ".aeh", "runtime", "schemas", schema_name)
             _schema_validate(value, schema_path, name)
             documents[name] = value
-        implementation_name = "green.yaml" if os.path.isfile(os.path.join(target, change_prefix, "green.yaml")) else "refactor.yaml"
+        implementation_name = (
+            "refactor.yaml"
+            if os.path.isfile(os.path.join(target, change_prefix, "refactor.yaml"))
+            else "green.yaml")
         implementation_path = inputs.add(change_prefix + implementation_name)
         implementation = _load_yaml(implementation_path)
         _schema_validate(implementation,
@@ -366,8 +395,10 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
         change = documents["change.yaml"]
         if change.get("change_id") != change_id:
             raise ReplayFailure("change.identity", "INVALID", "change.yaml does not bind requested change_id")
-        if change.get("state", {}).get("current") != policy["required_change_state"]:
-            raise ReplayFailure("change.state", "BLOCKED", "Change has not reached required VERIFY state")
+        if not _change_state_replay_ready(change, policy["required_change_state"]):
+            raise ReplayFailure(
+                "change.state", "BLOCKED",
+                "Change has not reached required VERIFY or a later verified workflow state")
         missing_gates = [gate for gate in policy["required_gates"]
                          if change.get("gates", {}).get(gate) != "PASS"]
         if missing_gates:
@@ -390,7 +421,7 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
                 inputs.add(change_prefix + protected_path)
         for evidence_item in documents["evidence.yaml"].get("evidence", []):
             source_path = (evidence_item.get("source_state") or {}).get("rel_path")
-            if source_path:
+            if source_path and not _is_scm_metadata(source_path):
                 inputs.add(source_path)
         try:
             lock, lock_hash = green._verify_lock(target, change_id, plan)

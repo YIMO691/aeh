@@ -29,85 +29,97 @@ changed_files:
   before_hash: 8033262b43c59f22fe1c53fa1240298db0fa9cc60d36447dad2258d515378604
   code_id: CODE-007
   path: src/aeh/bootstrap/pipeline.py
+- after_hash: c55c4531616ef241e5c7c8495213b1f1b8cf85e69b19061b22094ad0ef8f2eb7
+  before_hash: f529beee958317bc12099e69b2e8f5a96b85a30bb82b8d04526c22a9cd9bb350
+  code_id: CODE-008
+  path: src/aeh/ci.py
 - after_hash: b76e794b6015047f66fd69824da0f1206588f05f2c39a265995181f208d7d133
   before_hash: 81bf538b1a7e09b8d816cfda54aea8f249a593b5939254aae5c686cb51d9848a
-  code_id: CODE-008
+  code_id: CODE-009
   path: src/aeh/cli.py
 - after_hash: 430dd429ded2e207c200d2d8d00318efb278c9bbdc8bd2e1536d1a1fdff51424
   before_hash: 77f9cc9fa5b213218e1f0f127bb075fade9cca4f48b3e9e02f8d985b585d4912
-  code_id: CODE-009
+  code_id: CODE-010
   path: src/aeh/github_ci.py
 - after_hash: 889e81aed78b5fb04e6c388c24a8cd710e92368b64102768f38b6327a2313587
   before_hash: df8332c3bb2d3a70236a3e625aac75f35de312466cadd41c386964e508af51c3
-  code_id: CODE-010
+  code_id: CODE-011
   path: src/aeh/repair.py
 - after_hash: 00a8c0de1b8a29944a3d96d004054a56bba7695914ecb9512f8b8965aef5183e
   before_hash: b8adb0263ebf05f47931ffea0d4f798f8088b40c368aca56ca294eee72bd6f3e
-  code_id: CODE-011
+  code_id: CODE-012
   path: src/aeh/runtime/approval.py
 - after_hash: 7dffb58803f2cddaa490a1d364cfc798ff0903c782df1fd72f366e9a440dc658
   before_hash: 253ff2bdb49d98af60467e4eca47e50a7fde9dc818daebdbabac8dd4606e2f9e
-  code_id: CODE-012
+  code_id: CODE-013
   path: src/aeh/runtime/change.py
 - after_hash: 2c818b219624501b78d0c4552c0551bcaf2a16d8c5f38f8254a3f98756b2932f
   before_hash: 1c94120f08596b9869cdcab2db51bea50f6fbde7c8d81ee81163c21768142934
-  code_id: CODE-013
-  path: src/aeh/runtime/coordination.py
-- after_hash: e9bc3676efc1dbdffe2341df8ed9f035219cee6e6918c9413971985404f59cbc
-  before_hash: 8ee420e8efbd40cfec7eab75b21482fc0025cc91e65278b8b0868eea506d3d12
   code_id: CODE-014
+  path: src/aeh/runtime/coordination.py
+- after_hash: 75536ff3dc9aef19b46cbaaca756143c322be727f2641fd2b01aa3e19b0b2620
+  before_hash: 8ee420e8efbd40cfec7eab75b21482fc0025cc91e65278b8b0868eea506d3d12
+  code_id: CODE-015
   path: src/aeh/runtime/green.py
 - after_hash: fc5c64adc5ad980505a1b3513b2b697d42a6530130ad92875f751317fcd30eff
   before_hash: 52f49e6977202ba3a50fbc473668e481457354a903558bb0475ef7e21f4bb534
-  code_id: CODE-015
+  code_id: CODE-016
   path: src/aeh/runtime/grounding.py
 - after_hash: e056b750daf80db0e95c82602ae81426a5dd3952744d48d9ab078ba55e61aa8e
   before_hash: 4b1ec72b137916136bca9b1753dcf0c6ef58323690ef0e402412d2d3a8213bbb
-  code_id: CODE-016
+  code_id: CODE-017
   path: src/aeh/runtime/ownership.py
 - after_hash: 77f761c3feb6ac88df57cec22f4e5189cf3726f92eb67b003776ca9098b22e7a
   before_hash: fc49f44ce33449ea8a105e0317c816dc50c4ca2160f397dddb6679660f11aec6
-  code_id: CODE-017
+  code_id: CODE-018
   path: src/aeh/runtime/red.py
 - after_hash: 899bf01cc57875f0f271011551c6e576e3ecc3df568dd78e7e41c167650b1d2b
   before_hash: a32a12a1a084f613c544ecee2a13d85503d74675d2a67ff57416c029c8bdd939
-  code_id: CODE-018
+  code_id: CODE-019
   path: src/aeh/runtime/specification.py
 - after_hash: ceb2b41750715cb037f77c43e1979104fc8943f3c2f2cffcf8a905c645ba3639
   before_hash: 77dcc66f4fc290127f9e8b7b3b952cf0280417bd92143272802412f92a22b518
-  code_id: CODE-019
+  code_id: CODE-020
   path: src/aeh/runtime/test_design.py
 - after_hash: 6a37ad8c016db62dcae0d3659baa28dd380e8f67a0f87769a68e2e3576923e39
   before_hash: 5636e47d130d6dbd874474c0c766245999fab9b729b02317f3046cdeb925e73a
-  code_id: CODE-020
-  path: src/aeh/runtime/traceability.py
-- after_hash: 4e6ae2b10a1abcef22d3fc472f793dd979ba3d2a20a3b6d2a0e903a581ab92de
-  before_hash: f07f21b0e8be38c4c539f2c291ecc362a906343283490303fe4019c971202af9
   code_id: CODE-021
+  path: src/aeh/runtime/traceability.py
+- after_hash: 870b10d46f9330420af7086d35405090c9a8f8c315872b093920bc6ac562a501
+  before_hash: f07f21b0e8be38c4c539f2c291ecc362a906343283490303fe4019c971202af9
+  code_id: CODE-022
   path: src/aeh/runtime/verify.py
 - after_hash: 1dfd7c43a019d342ef4f9d490212fe6840b33ea53cd955da06d94ddbfc762e3f
   before_hash: 88205e4d0b7b6a52649c9743a01cf4c11f664ce32f6b9f65c34137014283a96d
-  code_id: CODE-022
+  code_id: CODE-023
   path: src/aeh/upgrade.py
 - after_hash: 7591743204a5862674b673e1b5fc54b48d03f1b7907d011de634642bc4f098af
   before_hash: ee5e8fac1d7c63baa5bc24a6f50f350e2f1ec295a8fa0cafe1753f273fcbf10e
-  code_id: CODE-023
+  code_id: CODE-024
   path: tests/runtime/test_change.py
+- after_hash: b61256d492ba6ae2996cb35347cd8855da74da17f8065bf05257cb1cec5d9e6d
+  before_hash: 0b3ac79fd464e572a816dfbe1395fd0a14f8663a67e066e4d9c5a8c43ef260ab
+  code_id: CODE-025
+  path: tests/runtime/test_ci_replay.py
 - after_hash: 5e757a82f31c68b22f5c21195ae014801bc8261835bd099ee8cc34132078b673
   before_hash: d883457ed23a925b5bb5afafd239111e6d5599a85144b0e9e05a723431c968d9
-  code_id: CODE-024
+  code_id: CODE-026
   path: tests/runtime/test_coordination.py
 - after_hash: b3a979c0f52d301a1b1f307c8f92c8c2bf65c55faeb0818b37e2a9cdc58edba9
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
-  code_id: CODE-025
+  code_id: CODE-027
   path: tests/runtime/test_coordination_writers.py
-- after_hash: c63ab21d741eb341123c6113613ac1a97dcd233d5b93498e323e3dfd6acec09f
+- after_hash: 9c26cc8c189bf48b2943f65125d5677669c19706a00d548ae7157af14f12e26e
   before_hash: 20caf88628bd8064a66ab89abbd449c29e29b7f70925d8eb820925ced56dbd09
-  code_id: CODE-026
+  code_id: CODE-028
   path: tests/runtime/test_green.py
+- after_hash: a5e4118ca87a5571e37a15f8d3a0f89145c7cf9855eb8a43a62bfeac7692e464
+  before_hash: 03ab34d909e534bedfdb1baf2c6ed086311c76b08119638de2fae787d638b6c4
+  code_id: CODE-029
+  path: tests/runtime/test_verify.py
 contract: green.evidence
-production_after_hash: 0d87a3105ddb50c35b72dc0d0aad0a623cbded9ba164017ab5730f55bb407af3
-production_before_hash: 7e57d5ac27d8dad95f451d04d6c833e540d07293826b56302e6af01cb5f1ac51
+production_after_hash: 534d84441235c9b8737a4ce098cfbb962adfda9e78d632c4e7d4bf56211c59ef
+production_before_hash: adc12298e59b572c30d28581067bb872d7a3585e38c7e3b7047951125fc2c8a2
 test_lock_hash: 40da49a176b34487e6f58a7a134d51a328c392c5a1a9b94642fae9b79efbdedc
 tests:
 - argv:
@@ -118,7 +130,7 @@ tests:
   - tests.runtime.test_coordination_writers
   command: python -B -m unittest tests.runtime.test_coordination_writers
   exit_code: 0
-  output_hash: fa890a70847a1d02b4be4c1d873d715d4cd9f985fd38239c164d94808d215a9a
+  output_hash: c967543b04d27c1a4bac601934fb40fd3f8ba9245e752e32bf7e7a0c4bd8ef36
   output_ref: .aeh\changes\CHG-2026-0003\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

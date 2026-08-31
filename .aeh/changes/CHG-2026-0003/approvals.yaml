@@ -31,11 +31,11 @@ approvals:
   credential:
     key_fingerprint: 731aa6f1a024deaae74302098a26a910f29f264c12b68598aeef768d246b464d
     key_id: task-m6-3b-merge
-    payload_hash: a6a07026e4eaed28a0a30a5ae3fe401b8f4f8b3e5b073cfc39e1a74335ba8e7c
+    payload_hash: 6a0528149cf1bc4d7efe93fb69241cf603eab19c283ba6d2f8abf64d916a29ec
     scheme: hmac-sha256-v1
-    signature: ad63094b17c2b3e84f1fa08c8b1fcbf496f8a3fd312fca89a0f373a92f965287
-  decided_at: '2026-08-31T17:13:43.850371+00:00'
-  evidence_ref: OWNER_AUTHORIZATION:M6_3B_MERGE_GATE
-  expires_at: '2026-09-01T17:13:43.850371+00:00'
+    signature: 477b4572dcd2cd85d8449e25b20d6b20890ef846b4ddae12283284d573054be9
+  decided_at: '2026-08-31T20:04:41.104918+00:00'
+  evidence_ref: PR-20-MERGE-GATE-RENEWAL-20260901
+  expires_at: '2026-09-07T20:04:41.104918+00:00'
   gate: MERGE_GATE
   status: APPROVED

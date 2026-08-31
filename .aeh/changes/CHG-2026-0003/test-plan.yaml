@@ -79,15 +79,18 @@ tests:
   - src/aeh/runtime/approval.py
   - src/aeh/runtime/ownership.py
   - src/aeh/runtime/traceability.py
+  - src/aeh/ci.py
   - src/aeh/cli.py
   - src/aeh/bootstrap/pipeline.py
   - src/aeh/repair.py
   - src/aeh/upgrade.py
   - src/aeh/github_ci.py
   - tests/runtime/test_change.py
+  - tests/runtime/test_ci_replay.py
   - tests/runtime/test_coordination.py
   - tests/runtime/test_coordination_writers.py
   - tests/runtime/test_green.py
+  - tests/runtime/test_verify.py
   verifies:
   - AC-001-01
   - AC-002-01
