@@ -29,3 +29,14 @@
   bridge and idempotent REFACTOR rerun fixes, then replays INTEGRATION,
   RUNTIME_PLATFORM_VERIFY, and REGRESSION. This grants no approval and does not
   bypass VERIFY or MERGE_GATE.
+- D-012: The first authorized VERIFY attempt correctly failed closed because
+  the verifier passed both a display command and the locked argv to the
+  constrained executor. The verifier now gives locked argv precedence, matching
+  GREEN/REFACTOR execution semantics. The Controller repeats REFACTOR and the
+  complete regression before retrying VERIFY; the MERGE_GATE approval remains
+  independently signed and is not treated as technical evidence.
+- D-013: The next VERIFY attempt passed all technical executions but blocked on
+  seven orphan supporting files. Their Test Plan targets are completed to match
+  the already-frozen TEST-001 intent (the complete additive substrate,
+  packaging, and fail-closed contracts). No test source, assertion, RED
+  signature, or lock hash changes; VERIFY reruns every technical execution.

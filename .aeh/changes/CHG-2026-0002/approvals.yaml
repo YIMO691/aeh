@@ -12,3 +12,15 @@ approvals:
   evidence_ref: TASK-20260831-aeh-m6-3-bounded-concurrency/OWNER_AUTHORIZATION.yaml
   gate: SPEC_REVIEW
   status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 3618bd9918fea37186d8686447248f4875aed470a2c6489bcd921a1784cac5e7
+    key_id: task-m6-3a-merge
+    payload_hash: f0810c2bd9a3e2255ea2afba2a52f90416b2278bf423e11dd8c963f8c74dc1cb
+    scheme: hmac-sha256-v1
+    signature: 4490359a78c4e24ada5139fc1ae0707e331b298211b5e0c3d238006bcff031c6
+  decided_at: '2026-08-31T09:20:05.884487+00:00'
+  gate: MERGE_GATE
+  status: APPROVED

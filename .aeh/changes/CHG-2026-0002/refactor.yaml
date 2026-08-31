@@ -1,4 +1,4 @@
-base_commit: e5875c1ceb3a60804c47596bca87f04a1071d07d
+base_commit: ebfe578ac6490acffe6d936531e839fa709e0ae6
 change_id: CHG-2026-0002
 changed_files:
 - after_hash: 08c962efb669aa30c038edb7d336835c5086a99019794e0632f8f52040521e78
@@ -45,7 +45,7 @@ changed_files:
   before_hash: 248178596d2ec1b4b09c5c4303d68edabc1b255746f842936b7ba4ebdc2794da
   code_id: CODE-011
   path: src/aeh/runtime/traceability.py
-- after_hash: 005bba6395c25362de974172861b61848ac1473f3f96d40917566be9c8512ee2
+- after_hash: f07f21b0e8be38c4c539f2c291ecc362a906343283490303fe4019c971202af9
   before_hash: cba9b79793e6fb46718c89c4befc50482f5186f0bea2d60a1b6c9bba78df311a
   code_id: CODE-012
   path: src/aeh/runtime/verify.py
@@ -89,12 +89,12 @@ changed_files:
   before_hash: b2ddcb31f390ddf61d2332be172b1fb778833ea7a5a6df6a19e1e8bb7fa4698c
   code_id: CODE-022
   path: tests/runtime/test_green.py
-- after_hash: 597970a92c4fcf3282a69e532da64b73c61cdc179d907410e39d84a2e14fa154
+- after_hash: 03ab34d909e534bedfdb1baf2c6ed086311c76b08119638de2fae787d638b6c4
   before_hash: 18c6b26a412d03818ec0a9ed9fd6b3723d64139c7812783652774262fc577acb
   code_id: CODE-023
   path: tests/runtime/test_verify.py
 contract: green.evidence
-production_after_hash: e57afde650dfe05ee02b1c894f1716dfbfcb690b8257fbe96637fb88e93bc4b0
+production_after_hash: 3c9bf9b475453c6f6561a17509cef5399e8626ec95f1cd34ece2c6fb6e67e667
 production_before_hash: b55c344d2eed34b79ce2c2116e7d2fbd9096ad5439f1c4a6a704c76e7bb0b8c2
 test_lock_hash: fc8bd360cdb769fcc8da46bc8471799554deecaa98888094fa3919195d0c5c4e
 tests:
@@ -106,7 +106,7 @@ tests:
   - tests.runtime.test_coordination
   command: python -B -m unittest tests.runtime.test_coordination
   exit_code: 0
-  output_hash: 001094f98f18080dbbfa1d06c4de5f685d7d63da0b57b4cc5f11053bff64ccc8
+  output_hash: ad4bff56f7b10c5ec17ce9ed8eadf7cb17641b6fa775aaddf52e635ce2308ba0
   output_ref: .aeh\changes\CHG-2026-0002\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

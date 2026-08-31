@@ -16,13 +16,14 @@ gates:
   red: PASS
   spec: PASS
   test_design: PASS
+  verify: PASS
 preflight_warnings:
 - 'guidance-only deny fields for codex: permissions.git_push'
 - 'guidance-only deny fields for claude: permissions.web_access'
 - workflow not provided to preflight
 state:
-  current: REGRESSION
-  previous: RUNTIME_PLATFORM_VERIFY
+  current: HUMAN_MERGE_APPROVAL
+  previous: DRIFT_CHECK
 title: M6.3A coordination contracts and external store substrate
 workflow:
   level: CRITICAL

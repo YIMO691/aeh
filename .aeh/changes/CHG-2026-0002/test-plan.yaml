@@ -68,7 +68,14 @@ tests:
   - src/aeh/runtime/coordination.py
   - src/aeh/cli.py
   - src/aeh/doctor/doctor.py
+  - src/aeh/runtime/green.py
+  - src/aeh/runtime/traceability.py
+  - src/aeh/runtime/verify.py
+  - docs/m6-3-coordination.md
+  - docs/roadmap-v0.2.md
   - tests/contract/test_contracts.py
+  - tests/runtime/test_green.py
+  - tests/runtime/test_verify.py
   - tests/contract/fixtures/legal/coordination-store.ok.json
   - tests/contract/fixtures/legal/change-lease.ok.json
   - tests/contract/fixtures/legal/workspace-binding.ok.json

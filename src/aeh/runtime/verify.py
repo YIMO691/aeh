@@ -47,7 +47,8 @@ def _log_result(cdir, change_id, prefix, rid, output):
 
 
 def _exec_spec(entry):
-    spec = {"command": entry.get("command"), "argv": entry.get("argv"),
+    argv = entry.get("argv")
+    spec = {"command": None if argv is not None else entry.get("command"), "argv": argv,
             "cwd": entry.get("cwd"), "timeout_seconds": entry.get("timeout_seconds", 120),
             "shell": entry.get("shell", False), "env": entry.get("env")}
     return spec

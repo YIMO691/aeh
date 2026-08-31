@@ -159,6 +159,14 @@ def to_green(target, title="功能开发", suggested="STANDARD", neutral=True, t
 
 
 class TestVerify(unittest.TestCase):
+    def test_exec_spec_prefers_locked_argv_over_display_command(self):
+        spec = vmod._exec_spec({
+            "command": "python tests/display_only.py",
+            "argv": [sys.executable, "-c", "print('locked argv')"],
+        })
+        self.assertIsNone(spec["command"])
+        self.assertEqual(spec["argv"][0], sys.executable)
+
     def test_verify_standard_flow(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
