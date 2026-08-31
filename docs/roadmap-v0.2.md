@@ -203,7 +203,8 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 本地风险：① CI 校验门被伪造（跳过命令/改结果文件）——校验命令与报告必须可重放且摘要进 CI 日志；② 范围易膨胀——AEH 只强化 Change 并发，不实现通用 Agent scheduler。
 - M6.1 已合并：`aeh ci verify` 具备 repository/base/head/runtime/time/credential/input 绑定、确定性 report digest、目标仓库零写入和真实流程攻击回归；它不运行项目命令。
 - M6.2a–c 已合并：GitHub PR/merge-group 事件与 authenticated run/check 绑定；一个 fresh Change + 完整 diff closure；固定 Action commit 与 wheel hash 的确定性 workflow renderer；区分 observed/required/externally governed 的只读 enforcement audit。
-- M6.2d live dogfood 候选绑定独立授权的不可变 wheel、字节稳定 workflow 与 AEH 自举 runtime snapshot；是否达到 required trust level 仍必须由当前 GitHub 配置的 authenticated audit 证明。M6.3 尚未实施。
+- M6.2d live dogfood 候选绑定独立授权的不可变 wheel、字节稳定 workflow 与 AEH 自举 runtime snapshot；是否达到 required trust level 仍必须由当前 GitHub 配置的 authenticated audit 证明。
+- M6.3A 本地候选正在独立 Gate 中验证：仅建立 single-host/local-filesystem coordination contracts、外部 store substrate 与只读 status/doctor；lease/reservation 写入仍属于 M6.3B，stable readers/AEW v2 属于 M6.3C。详见 [M6.3 coordination boundary](m6-3-coordination.md)。
 
 ### 依赖 DAG（已做拓扑校验：no cycle）
 

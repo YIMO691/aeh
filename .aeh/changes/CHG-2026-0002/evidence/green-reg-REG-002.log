@@ -1,0 +1,246 @@
+
+...........................s.s......D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:165: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-ukplv4ok\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:166: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\aeh-m6-3-a\\schemas\\test-plan.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "test-plan.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-zirct_ff\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-plan.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:157: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-zwnik6ug\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:159: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-zwnik6ug\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:278: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-p5fioedb\\src\\reward.py'>
+  before = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:280: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-p5fioedb\\src\\reward.py'>
+  after = hashlib.sha256(open(os.path.join(target, "src", "reward.py"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+......D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:189: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-tuu3vyqy\\.aeh\\changes\\CHG-2026-0001\\red.yaml' mode='r' encoding='utf-8'>
+  red_rec = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "red.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_red.py:192: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-r-target-tuu3vyqy\\.aeh\\changes\\CHG-2026-0001\\test-lock.yaml' mode='r' encoding='utf-8'>
+  lock = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "test-lock.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+....D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:149: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-dp_xy584\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-dp_xy584\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:201: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-zo6972ua\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-zo6972ua\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:170: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-dgp8kuu5\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  raw = open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:110: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-ofasu_6l\\.aeh\\changes\\CHG-2026-0001\\evidence.yaml' mode='r' encoding='utf-8'>
+  ev = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "evidence.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:89: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-s-target-ofasu_6l\\.aeh\\changes\\CHG-2026-0001\\spec.yaml' mode='r' encoding='utf-8'>
+  return yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "spec.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_specification.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\aeh-m6-3-a\\schemas\\spec.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "spec.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:115: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\aeh-m6-3-a\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-0s0m71jk\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-0s0m71jk\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-xbz8i_lt\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-xbz8i_lt\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-qg0h1528\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-qg0h1528\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:435: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-qg0h1528\\.aeh\\changes\\CHG-2026-0001\\approvals.yaml' mode='r' encoding='utf-8'>
+  body = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "approvals.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:118: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\aeh-m6-3-a\\tests\\fixtures\\tdd-src\\reward_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(TDD_SRC, "reward_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-j6kn4qt4\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-j6kn4qt4\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-z0jv1v69\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-z0jv1v69\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-6nlwu8kx\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-6nlwu8kx\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:216: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-6nlwu8kx\\.aeh\\changes\\CHG-2026-0001\\change.yaml' mode='r' encoding='utf-8'>
+  forged = yaml.safe_load(open(cpath, encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-78t7ge09\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-78t7ge09\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-oh7hzu4u\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-oh7hzu4u\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-12_s5gbk\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-12_s5gbk\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-mxwoknim\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-mxwoknim\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:357: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-mxwoknim\\.aeh\\changes\\CHG-2026-0001\\verification.yaml' mode='r' encoding='utf-8'>
+  ver = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "verification.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-yx2mz290\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-yx2mz290\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-4ja21pj9\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-4ja21pj9\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-n8_ka32a\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-n8_ka32a\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-7rrsm5oy\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-7rrsm5oy\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-89py3lp7\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-89py3lp7\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-lyr7bxaq\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-lyr7bxaq\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-zpxuwu32\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-zpxuwu32\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-7_lvc70n\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-7_lvc70n\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-js9ubu6s\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-js9ubu6s\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-fme_w1tj\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-fme_w1tj\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:406: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-fme_w1tj\\.aeh\\changes\\CHG-2026-0001\\test-plan.yaml' mode='r' encoding='utf-8'>
+  plan = yaml.safe_load(open(plan_path, encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-8jiid37l\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-8jiid37l\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-bq28vp2f\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-bq28vp2f\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-vgsiuohj\\src\\reward.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-vgsiuohj\\src\\reward.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-lut5wlt8\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-lut5wlt8\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-4sbmroi8\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-4sbmroi8\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-8imxjmmv\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-8imxjmmv\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:269: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-8imxjmmv\\.aeh\\changes\\CHG-2026-0001\\verification.yaml' mode='r' encoding='utf-8'>
+  ver = yaml.safe_load(open(os.path.join(target, ".aeh", "changes", cid, "verification.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:120: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-hv85kjsf\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:123: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-hv85kjsf\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:168: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-hv85kjsf\\.aeh\\changes\\CHG-2026-0001\\verification.yaml' mode='r' encoding='utf-8'>
+  ver = yaml.safe_load(open(os.path.join(cdir, "verification.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_verify.py:173: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-bounded-concurrency\\regression-runtime\\aeh-g13-t-hv85kjsf\\.aeh\\changes\\CHG-2026-0001\\traceability.yaml' mode='r' encoding='utf-8'>
+  tr = yaml.safe_load(open(os.path.join(cdir, "traceability.yaml"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.............s...
+----------------------------------------------------------------------
+Ran 114 tests in 511.380s
+
+OK (skipped=3)

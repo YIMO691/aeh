@@ -43,6 +43,10 @@ FIXTURE_SCHEMA = {
     "ci-provider-snapshot": "ci-provider-snapshot.schema.json",
     "ci-enforcement-report": "ci-enforcement-report.schema.json",
     "ci-workflow-template": "ci-workflow-template.schema.json",
+    "coordination-store": "coordination-store.schema.json",
+    "change-lease": "change-lease.schema.json",
+    "workspace-binding": "workspace-binding.schema.json",
+    "coordination-receipt": "coordination-receipt.schema.json",
 }
 
 

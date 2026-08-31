@@ -120,7 +120,8 @@ def _verify_core(target, change_id, ae_root, allow_shell=False,
     jsonschema.validate(plan, _load_yaml(os.path.join(ae_root, "schemas", "test-plan.schema.json")))
     spec = _load_yaml(os.path.join(cdir, "spec.yaml"))
     red_rec = _load_yaml(os.path.join(cdir, "red.yaml"))
-    green_rec = _load_yaml(os.path.join(cdir, "green.yaml")) if os.path.isfile(os.path.join(cdir, "green.yaml")) else _load_yaml(os.path.join(cdir, "refactor.yaml"))
+    refactor_path = os.path.join(cdir, "refactor.yaml")
+    green_rec = _load_yaml(refactor_path) if os.path.isfile(refactor_path) else _load_yaml(os.path.join(cdir, "green.yaml"))
     gmod._verify_lock(target, change_id, plan)
     exclude = [cf["path"] for cf in green_rec.get("changed_files", [])]
     stale = gmod._stale_excluding(target, change_id, exclude)

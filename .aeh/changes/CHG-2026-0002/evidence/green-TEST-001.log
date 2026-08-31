@@ -1,0 +1,8 @@
+
+..usage: aeh coordination [-h] {status} ...
+aeh coordination: error: argument coordination_cmd: invalid choice: 'acquire' (choose from 'status')
+...........
+----------------------------------------------------------------------
+Ran 13 tests in 0.575s
+
+OK

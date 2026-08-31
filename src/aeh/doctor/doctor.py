@@ -339,6 +339,33 @@ def run_doctor(target, ae_root=None, which=None, capability_overrides=None, now=
             checks.append(_check("private.presence", "private", "PASS", "private dir empty"))
     # 不回显 private 原文：本函数从不读取 private 文件内容（结构上保证）
 
+    # ---- COORDINATION（M6.3A read-only）----
+    # Observation must not activate the external store.  The coordination
+    # module returns hashes and stable codes only, never raw state paths.
+    try:
+        from ..runtime import coordination as coordination_runtime
+        coordination_report = coordination_runtime.coordination_status(target)
+        if coordination_report["status"] == "NOT_ACTIVATED":
+            checks.append(_check(
+                "coordination.status", "coordination", "WARN",
+                "single-host local-filesystem coordination is not activated",
+                ["status=NOT_ACTIVATED"],
+            ))
+        else:
+            checks.append(_check(
+                "coordination.status", "coordination", "PASS",
+                "single-host local-filesystem coordination store is readable",
+                ["status=READY", "revision=" + str(coordination_report["store_revision"])],
+            ))
+    except Exception as exc:
+        code = str(exc)
+        if not code.startswith("BLOCKED_COORDINATION_"):
+            code = "BLOCKED_COORDINATION_STATUS"
+        checks.append(_check(
+            "coordination.status", "coordination", "BLOCKED", code,
+            [], "inspect the external local-filesystem coordination state",
+        ))
+
     # ---- ENVIRONMENT ----
     git_path = which("git")
     if git_path:

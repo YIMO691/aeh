@@ -143,11 +143,15 @@ def _run_required(target, plan, cdir, prefix, change_id, allow_shell=False, ae_r
         t = tmap.get(tid)
         if t is None:
             raise GreenError("required RED test missing in plan: " + tid)
-        spec = {"command": t.get("command"), "argv": t.get("execution", {}).get("argv"),
-                "cwd": t.get("execution", {}).get("cwd"),
-                "timeout_seconds": t.get("execution", {}).get("timeout_seconds", 60),
-                "shell": t.get("execution", {}).get("shell", False),
-                "env": t.get("execution", {}).get("env")}
+        execution = t.get("execution", {})
+        argv = execution.get("argv")
+        spec = {"command": None if argv is not None else (
+                    execution.get("command") or t.get("command")),
+                "argv": argv,
+                "cwd": execution.get("cwd"),
+                "timeout_seconds": execution.get("timeout_seconds", 60),
+                "shell": execution.get("shell", False),
+                "env": execution.get("env")}
         exit_code, output, cmd_repr = run_execution(
             target, spec, allow_shell=allow_shell, ae_root=ae_root)
         out_path = os.path.join(cdir, "evidence", prefix + "-" + tid + ".log")

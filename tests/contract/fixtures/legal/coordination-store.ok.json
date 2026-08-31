@@ -1,0 +1,11 @@
+{
+  "contract": "coordination.store",
+  "version": 1,
+  "repository_id_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "revision": 0,
+  "last_observed_at": "2026-08-31T00:00:00+00:00",
+  "reservations": [],
+  "change_leases": [],
+  "workspace_bindings": [],
+  "last_receipt_digest": null
+}

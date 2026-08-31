@@ -1,0 +1,178 @@
+generated_at: '2026-08-31T05:08:47.106960+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: Documentation and runtime diagnostics state the single-host/local-filesystem
+      boundary without implying universal exclusion.
+    type: invariant
+  behavior: Implementation is limited to the Owner-frozen single-host local-filesystem
+    protocol and does not claim cross-host or network-filesystem correctness.
+  id: REQ-001
+  kind: CONSTRAINT
+  source:
+    refs:
+    - M6_3_SPEC.md#2
+    - M6_3_SPEC.md#5
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-002-01
+    statement: Project dependency metadata gains no new runtime dependency.
+    type: automated
+  - id: AC-002-02
+    statement: Platform locking and atomic-file behavior use Python standard-library
+      facilities on every supported platform.
+    type: invariant
+  behavior: M6.3A uses only the Python standard library plus existing project dependencies.
+  id: REQ-002
+  kind: CONSTRAINT
+  source:
+    refs:
+    - M6_3_IMPLEMENTATION_PLAN.md#5
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-003-01
+    statement: Repeated hashing of unchanged Change files is stable and any byte,
+      length, or path-set change alters the digest.
+    type: automated
+  - id: AC-003-02
+    statement: Symlink or reparse entries, unsupported types, temporary remnants,
+      overflow, and read drift never produce accepted truth.
+    type: invariant
+  behavior: Change truth hashing returns a stable digest for one complete regular-file
+    snapshot and fails closed on unsafe or drifting content.
+  id: REQ-003
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-004-01
+    statement: Identical receipt bodies produce identical SHA-256 digests and validate
+      against the receipt schema.
+    type: automated
+  - id: AC-004-02
+    statement: Token bytes, token-file paths, raw repository IDs, raw workspace paths,
+      state-root paths, and credential bodies are absent from receipts and errors.
+    type: invariant
+  behavior: Coordination receipts are deterministic canonical JSON records and expose
+    hashes and bounded references without secrets or raw paths.
+  id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: Concurrent shared readers coexist, an exclusive waiter is excluded
+      until readers release, and timeout uses BLOCKED_COORDINATION_LOCK_TIMEOUT.
+    type: automated
+  - id: AC-005-02
+    statement: A process crash releases the OS lock without granting or changing logical
+      lease authority.
+    type: invariant
+  behavior: Cross-platform shared and exclusive repository-store locks provide bounded
+    acquisition and process-exit safety on supported Windows and POSIX local filesystems.
+  id: REQ-005
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-006-01
+    statement: The CLI exposes coordination status, reports NOT_ACTIVATED without
+      mutation, and packages/installs every new schema.
+    type: automated
+  - id: AC-006-02
+    statement: Acquire, renew, release, recover, reservation, and mutator lease enforcement
+      are not exposed by M6.3A.
+    type: invariant
+  behavior: M6.3A exposes only a read-only coordination status surface and package/bootstrap/doctor
+    support; writer commands remain unavailable until M6.3B.
+  id: REQ-006
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-007-01
+    statement: The full existing test suite, docs check, wheel build, and clean-room
+      bootstrap/doctor/status smoke pass.
+    type: automated
+  - id: AC-007-02
+    statement: Existing Change files, approvals, evidence, private data, transaction
+      journals, and ownership-v1 checkpoints remain byte-preserved.
+    type: invariant
+  behavior: M6.3A preserves all existing AEH behavior and remains independently revertible
+    without an external coordination store migration.
+  id: REQ-007
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-008-01
+    statement: Relative and absolute aliases of one safe workspace derive the same
+      identity while distinct Git worktrees derive distinct workspace identities and
+      one repository identity.
+    type: automated
+  - id: AC-008-02
+    statement: Symlink, junction, reparse, state-root-inside-target, and Windows UNC
+      inputs block with stable failure codes when their safety cannot be proven.
+    type: invariant
+  behavior: Repository and physical workspace identities are deterministic, non-secret,
+    and resistant to path aliases within the supported local-filesystem boundary.
+  id: REQ-008
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-009-01
+    statement: Atomic replacement fault injection exposes either the prior complete
+      store or the new complete store, never a torn accepted document.
+    type: automated
+  - id: AC-009-02
+    statement: Malformed, unavailable, unsafe, or unsupported-version state blocks;
+      coordination status and doctor do not create the store.
+    type: invariant
+  behavior: The additive coordination-v1 external store is canonical, schema validated,
+    atomically replaced, and never created by read-only inspection.
+  id: REQ-009
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-010-01
+    statement: All four schemas validate their legal fixtures and reject each illegal
+      fixture through the contract suite.
+    type: automated
+  - id: AC-010-02
+    statement: Unknown coordination contract or store versions fail closed and are
+      never migrated implicitly.
+    type: invariant
+  behavior: Versioned coordination-store, change-lease, workspace-binding, and coordination-receipt
+    contracts accept frozen legal fixtures and reject malformed or unknown-version
+    state.
+  id: REQ-010
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+scope:
+  in:
+  - coordination_contracts
+  - repository_and_workspace_identity
+  - external_coordination_store
+  - cross_platform_store_locking
+  - change_truth_hashing
+  - deterministic_non_secret_receipts
+  - read_only_coordination_status
+  - bootstrap_package_and_doctor_integration
+  out:
+  - change_id_reservation
+  - lease_acquire_renew_release_recover
+  - mandatory_mutator_cas
+  - stable_change_readers
+  - aew_v2_export
+  - push_pull_request_merge_release

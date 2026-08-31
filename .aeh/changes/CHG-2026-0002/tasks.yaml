@@ -1,0 +1,21 @@
+tasks:
+- id: TASK-001
+  name: Freeze four coordination contracts and fixtures
+  requires_req: [REQ-004, REQ-009, REQ-010]
+  depends_on: []
+  status: DONE
+- id: TASK-002
+  name: Implement safe identity, path, locking, store, truth, and receipt runtime
+  requires_req: [REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-008, REQ-009]
+  depends_on: [TASK-001]
+  status: DONE
+- id: TASK-003
+  name: Add read-only coordination status and Doctor integration
+  requires_req: [REQ-001, REQ-006, REQ-007, REQ-009]
+  depends_on: [TASK-001, TASK-002]
+  status: DONE
+- id: TASK-004
+  name: Run contract, integration, regression, wheel, and clean-room verification
+  requires_req: [REQ-002, REQ-006, REQ-007, REQ-010]
+  depends_on: [TASK-001, TASK-002, TASK-003]
+  status: DONE

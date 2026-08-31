@@ -1,0 +1,135 @@
+generated_at: '2026-08-31T06:10:18.646055+00:00'
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[a-m]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\regression-runtime
+  id: REG-001
+  timeout_seconds: 900
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[n-z]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\regression-runtime
+  id: REG-002
+  timeout_seconds: 900
+test_files:
+- dest: tests/runtime/test_coordination.py
+  src: test_coordination.py
+tests:
+- command: python -B -m unittest tests.runtime.test_coordination
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.runtime.test_coordination
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\red-runtime
+    timeout_seconds: 180
+  expected_before_fix:
+    signature: No module named 'aeh.runtime.coordination'
+    type: behavior_failure
+  id: TEST-001
+  intent: Fail until the complete additive M6.3A coordination substrate, read-only
+    surfaces, packaging, and fail-closed contracts exist together.
+  kind: contract
+  required: true
+  targets:
+  - schemas/coordination-store.schema.json
+  - schemas/change-lease.schema.json
+  - schemas/workspace-binding.schema.json
+  - schemas/coordination-receipt.schema.json
+  - src/aeh/runtime/coordination.py
+  - src/aeh/cli.py
+  - src/aeh/doctor/doctor.py
+  - tests/contract/test_contracts.py
+  - tests/contract/fixtures/legal/coordination-store.ok.json
+  - tests/contract/fixtures/legal/change-lease.ok.json
+  - tests/contract/fixtures/legal/workspace-binding.ok.json
+  - tests/contract/fixtures/legal/coordination-receipt.ok.json
+  - tests/contract/fixtures/illegal/coordination-store.bad.version.json
+  - tests/contract/fixtures/illegal/change-lease.bad.version.json
+  - tests/contract/fixtures/illegal/workspace-binding.bad.version.json
+  - tests/contract/fixtures/illegal/coordination-receipt.bad.version.json
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-002-02
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_coordination
+  - tests.contract.test_contracts
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-bounded-concurrency\verification-runtime
+  id: CONTRACT-001
+  timeout_seconds: 600
+  type: contract
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-002-02
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02

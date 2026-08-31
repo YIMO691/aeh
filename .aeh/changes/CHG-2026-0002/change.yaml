@@ -1,0 +1,49 @@
+change_id: CHG-2026-0002
+classification:
+  escalated: false
+  evidence:
+  - no_hard_domain_hits
+  level: CRITICAL
+  reasons:
+  - 'suggested_level: CRITICAL'
+  suggested_level: CRITICAL
+created_at: '2026-08-31T04:50:09.846814+00:00'
+gates:
+  classification: PASS
+  green: PASS
+  grounding: PASS
+  lock_test: PASS
+  red: PASS
+  spec: PASS
+  test_design: PASS
+preflight_warnings:
+- 'guidance-only deny fields for codex: permissions.git_push'
+- 'guidance-only deny fields for claude: permissions.web_access'
+- workflow not provided to preflight
+state:
+  current: REGRESSION
+  previous: RUNTIME_PLATFORM_VERIFY
+title: M6.3A coordination contracts and external store substrate
+workflow:
+  level: CRITICAL
+  phases:
+  - INTAKE
+  - CLASSIFY
+  - GROUND
+  - SPEC
+  - HUMAN_SPEC_APPROVAL
+  - DESIGN
+  - TEST_DESIGN
+  - RED
+  - VALIDATE_RED
+  - LOCK_TEST
+  - HUMAN_CI_RED_GATE
+  - GREEN
+  - REFACTOR
+  - INTEGRATION
+  - RUNTIME_PLATFORM_VERIFY
+  - REGRESSION
+  - REVIEW
+  - DRIFT_CHECK
+  - HUMAN_MERGE_APPROVAL
+  - ARCHIVE

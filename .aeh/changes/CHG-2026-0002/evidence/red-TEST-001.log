@@ -1,0 +1,19 @@
+
+E
+======================================================================
+ERROR: test_coordination (unittest.loader._FailedTest.test_coordination)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_coordination
+Traceback (most recent call last):
+  File "C:\Users\Yimo\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-a\tests\runtime\test_coordination.py", line 15, in <module>
+    import aeh.runtime.coordination as coordination
+ModuleNotFoundError: No module named 'aeh.runtime.coordination'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
