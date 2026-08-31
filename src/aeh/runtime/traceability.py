@@ -31,11 +31,11 @@ def build_traceability(target, change_id, ae_root=None):
     cdir = ch._change_dir(target, change_id)
     spec = _load_yaml(os.path.join(cdir, "spec.yaml"))
     plan = _load_yaml(os.path.join(cdir, "test-plan.yaml"))
-    green_path = os.path.join(cdir, "green.yaml")
-    if os.path.isfile(green_path):
-        green = _load_yaml(green_path)
+    refactor_path = os.path.join(cdir, "refactor.yaml")
+    if os.path.isfile(refactor_path):
+        green = _load_yaml(refactor_path)
     else:
-        green = _load_yaml(os.path.join(cdir, "refactor.yaml"))
+        green = _load_yaml(os.path.join(cdir, "green.yaml"))
     ver_path = os.path.join(cdir, "verification.yaml")
     ver = _load_yaml(ver_path) if os.path.isfile(ver_path) else {"results": []}
 

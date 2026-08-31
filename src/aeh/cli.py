@@ -33,6 +33,15 @@ def main(argv=None):
     b.add_argument("--source-revision", default="dev", help="AEH source revision recorded in manifest")
     d = sub.add_parser("doctor", help="observe/validate/diagnose an AEH installation (read-only)")
     d.add_argument("target")
+    coordination = sub.add_parser(
+        "coordination", help="read-only single-host coordination inspection")
+    coordination_sub = coordination.add_subparsers(
+        dest="coordination_cmd", required=True)
+    coordination_status = coordination_sub.add_parser(
+        "status", help="inspect external coordination state without activating it")
+    coordination_status.add_argument("target")
+    coordination_status.add_argument("--change-id", default=None)
+    coordination_status.add_argument("--repository-id", default=None)
     rp = sub.add_parser("repair", help="plan, apply, or roll back installation repair")
     rp.add_argument("target")
     repair_mode = rp.add_mutually_exclusive_group()
@@ -191,6 +200,19 @@ def main(argv=None):
         report = doc.run_doctor(args.target)
         _emit(report)
         return 0 if report["overall"] != "BLOCKED" else 1
+    if args.cmd == "coordination":
+        from .runtime import coordination as coordination_module
+        try:
+            report = coordination_module.coordination_status(
+                args.target,
+                change_id=args.change_id,
+                repository_id=args.repository_id,
+            )
+            _emit(report)
+            return 0
+        except coordination_module.CoordinationError as exc:
+            _emit({"status": str(exc)})
+            return 1
     if args.cmd == "repair":
         from . import repair as repair_module
         if args.rollback:

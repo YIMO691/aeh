@@ -1,0 +1,13 @@
+{
+  "contract": "coordination.receipt",
+  "version": 2,
+  "operation": "STATUS",
+  "outcome": "NOT_ACTIVATED",
+  "repository_id_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "workspace_id_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "change_id": "CHG-2026-0002",
+  "change_truth_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "store_revision": 0,
+  "observed_at": "2026-08-31T00:00:00+00:00",
+  "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+}

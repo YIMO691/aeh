@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Workspace Binding Contract",
+  "type": "object",
+  "required": [
+    "contract", "version", "repository_id_sha256", "workspace_id_sha256",
+    "change_id", "bound_at", "state"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "workspace.binding"},
+    "version": {"const": 1},
+    "repository_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "workspace_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "change_id": {"type": "string", "pattern": "^CHG-[0-9]{4}-[0-9]{4,}$"},
+    "bound_at": {"type": "string", "format": "date-time"},
+    "state": {"enum": ["ACTIVE", "RELEASED"]}
+  }
+}

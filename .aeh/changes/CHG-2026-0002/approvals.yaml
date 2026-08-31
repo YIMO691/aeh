@@ -1,0 +1,9 @@
+approvals:
+- actor:
+    id: user
+    type: human
+  decided_at: '2026-08-31T11:12:00+00:00'
+  evidence_ref: github.com/YIMO691/aeh/pull/19
+  gate: MERGE_GATE
+  status: APPROVED
+  trust_mode: SCM_AUTHENTICATED_MERGE

@@ -8,6 +8,7 @@ import shutil
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 import yaml
 
@@ -107,6 +108,27 @@ def make_target(src=TDD_REPO):
 
 
 class TestGreen(unittest.TestCase):
+    def test_required_execution_prefers_declared_argv_over_display_command(self):
+        target = tempfile.mkdtemp(prefix="aeh-g12-argv-target-")
+        cdir = tempfile.mkdtemp(prefix="aeh-g12-argv-change-")
+        write_yaml(cdir, "red.yaml", {
+            "tests": [{"test_id": "TEST-001", "verdict": "VALID_RED"}],
+        })
+        plan = {"tests": [{
+            "id": "TEST-001",
+            "command": "display-only command",
+            "execution": {"argv": [sys.executable, "-c", "print('ok')"]},
+        }]}
+        with mock.patch.object(
+                gmod, "run_execution", return_value=(0, "ok\n", "argv")) as run:
+            records, passed = gmod._run_required(
+                target, plan, cdir, "green", "CHG-2026-0001")
+        self.assertTrue(passed)
+        self.assertEqual(records[0]["verdict"], "PASS")
+        execution = run.call_args.args[1]
+        self.assertIsNone(execution["command"])
+        self.assertEqual(execution["argv"], plan["tests"][0]["execution"]["argv"])
+
     def test_green_full_flow(self):
         target = make_target()
         cid = to_lock(target)
@@ -267,6 +289,17 @@ class TestGreen(unittest.TestCase):
         self.assertEqual(rep["status"], "REFACTOR_COMPLETE", rep)
         change = ch.load_change(target, cid)
         self.assertEqual(change["state"]["current"], "REFACTOR")
+        # A Controller may repeat REFACTOR verification after review fixes.
+        # The rerun must reseal evidence without requiring an illegal
+        # REFACTOR -> REFACTOR state-machine edge.
+        rerun = gmod.change_refactor(
+            target, cid,
+            scope_path=scope_manifest(tempfile.mkdtemp(), [{
+                "path": "src/reward.py", "before_hash": b2, "after_hash": a2,
+            }]),
+        )
+        self.assertEqual(rerun["status"], "REFACTOR_COMPLETE", rerun)
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "REFACTOR")
 
     def test_refactor_unreachable_before_green(self):
         target = make_target()

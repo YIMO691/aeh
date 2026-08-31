@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Change Lease Contract",
+  "type": "object",
+  "required": [
+    "contract", "version", "repository_id_sha256", "change_id",
+    "workspace_id_sha256", "holder_id_sha256", "fencing_token",
+    "acquired_at", "expires_at", "state"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "change.lease"},
+    "version": {"const": 1},
+    "repository_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "change_id": {"type": "string", "pattern": "^CHG-[0-9]{4}-[0-9]{4,}$"},
+    "workspace_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "holder_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "fencing_token": {"type": "integer", "minimum": 1},
+    "acquired_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "state": {"enum": ["ACTIVE", "RELEASED", "EXPIRED", "RECOVERED"]}
+  }
+}

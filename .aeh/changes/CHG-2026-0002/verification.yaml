@@ -1,0 +1,131 @@
+overall: READY_WITH_WARNINGS
+red:
+  actual_failure:
+    category: behavior
+    signature: No module named 'aeh.runtime.coordination'
+  command: python -B -m unittest tests.runtime.test_coordination
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: No module named 'aeh.runtime.coordination'
+  output_hash: eb0d678ba727d7c42cae36149510160fedb9309450b9c4d0d5fb8317f62fdafc
+  output_ref: .aeh\changes\CHG-2026-0002\evidence\red-TEST-001.log
+  repository_state:
+    base_commit: a6b08383ad72866bf4df1bd6ec37f8dab6e55598
+    changed_files_hash: ab34bd0437d3c26c87f2ac279dd05eb65722b5d35f711b48cb7b5e4c39d0782a
+    test_files_hash: ab34bd0437d3c26c87f2ac279dd05eb65722b5d35f711b48cb7b5e4c39d0782a
+  test_id: TEST-001
+  verdict: VALID_RED
+results:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_coordination
+  exit_code: 0
+  id: VER-001
+  method: automated_test
+  output_hash: 55eb631181bd818985b31ad4c3ce70f62d3750727a0bf893465061c618c5976c
+  output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-1.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-002-02
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[a-m]*.py
+  exit_code: 0
+  id: VER-002
+  method: automated_test
+  output_hash: 6c3e57b4045fb1d68cec93c469de0822cb73a1eb6771080632107dd35918d190
+  output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-reg-2.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[n-z]*.py
+  exit_code: 0
+  id: VER-003
+  method: automated_test
+  output_hash: fe55a51ad88e0bd61e94f2406e9672a4b99d1eb3301af7ab65283917dfb8ba1e
+  output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-reg-3.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_coordination
+  - tests.contract.test_contracts
+  exit_code: 0
+  id: VER-004
+  method: automated_test
+  output_hash: 0fa9d246a54b4c578d921d08ed99bec3fc6a1bd1b0f6247e61698dd5127997ba
+  output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-v-4.log
+  status: pass
+  type: contract
+  verdict: pass
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-002-02
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02
+verified_at: '2026-08-31T10:22:23.631857+00:00'
+warnings:
+- verified credential key_id=task-m6-3a-merge
+- MERGE_GATE approval has no expiry
+- CRITICAL MERGE_GATE approved by user

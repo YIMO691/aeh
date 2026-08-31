@@ -25,6 +25,7 @@ from aeh.runtime import test_design as td
 from aeh.runtime import red as rmod
 from aeh.runtime import green as gmod
 from aeh.runtime import approval as amod
+from aeh.runtime import ownership as omod
 from aeh.runtime import verify as vmod
 
 TDD_REPO = os.path.join(ROOT, "tests", "fixtures", "tdd-repo")
@@ -158,6 +159,14 @@ def to_green(target, title="功能开发", suggested="STANDARD", neutral=True, t
 
 
 class TestVerify(unittest.TestCase):
+    def test_exec_spec_prefers_locked_argv_over_display_command(self):
+        spec = vmod._exec_spec({
+            "command": "python tests/display_only.py",
+            "argv": [sys.executable, "-c", "print('locked argv')"],
+        })
+        self.assertIsNone(spec["command"])
+        self.assertEqual(spec["argv"][0], sys.executable)
+
     def test_verify_standard_flow(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target)
@@ -321,6 +330,35 @@ class TestVerify(unittest.TestCase):
         rep = vmod.change_verify(target, cid)
         self.assertEqual(rep["status"], "VERIFY_COMPLETE", rep)
         self.assertEqual(rep["overall"], "READY_WITH_WARNINGS")
+
+    def test_verify_critical_regression_advances_to_review(self):
+        target = make_target(TDD_REPO)
+        cid = to_green(
+            target, title="修复奖励领取逻辑", neutral=False,
+            verification=[{"id": "INTEG-001", "type": "integration",
+                           "verifies": ["AC-001-01"],
+                           "command": "python tests/test_claim.py"}],
+        )
+        for destination in (
+                "REFACTOR", "INTEGRATION", "RUNTIME_PLATFORM_VERIFY", "REGRESSION"):
+            transition = ch.change_transition(target, cid, destination)
+            self.assertEqual(transition["status"], "TRANSITION_OK", transition)
+        omod.record_checkpoint(target, cid)
+        approval = signed_approval(target, cid, "MERGE_GATE", "APPROVED", "owner")
+        self.assertEqual(approval["status"], "APPROVAL_RECORDED", approval)
+
+        report = vmod.change_verify(target, cid)
+
+        self.assertEqual(report["status"], "VERIFY_COMPLETE", report)
+        self.assertEqual(report["state"], "REVIEW")
+        change = ch.load_change(target, cid)
+        self.assertEqual(change["state"]["current"], "REVIEW")
+        self.assertEqual(change["gates"]["verify"], "PASS")
+        review = open(
+            os.path.join(target, ".aeh", "changes", cid, "review.md"),
+            encoding="utf-8",
+        ).read()
+        self.assertIn("- state: REVIEW", review)
 
     def test_approval_cannot_override_technical_failure(self):
         target = make_target(NEUTRAL_REPO)
