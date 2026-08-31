@@ -1,4 +1,4 @@
-base_commit: ebfe578ac6490acffe6d936531e839fa709e0ae6
+base_commit: a6b08383ad72866bf4df1bd6ec37f8dab6e55598
 change_id: CHG-2026-0002
 changed_files:
 - after_hash: 08c962efb669aa30c038edb7d336835c5086a99019794e0632f8f52040521e78
@@ -106,7 +106,7 @@ tests:
   - tests.runtime.test_coordination
   command: python -B -m unittest tests.runtime.test_coordination
   exit_code: 0
-  output_hash: ad4bff56f7b10c5ec17ce9ed8eadf7cb17641b6fa775aaddf52e635ce2308ba0
+  output_hash: 597243c051d9c1db44249d84573c90e85026a7e348d6c44c85a16d0d26d7c1d0
   output_ref: .aeh\changes\CHG-2026-0002\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

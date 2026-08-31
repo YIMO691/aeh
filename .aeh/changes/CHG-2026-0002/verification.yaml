@@ -8,7 +8,7 @@ red:
   expected_failure:
     category: behavior
     signature: No module named 'aeh.runtime.coordination'
-  output_hash: 5f13b52b0e3e866eab81a1d89e7ae52295dbd400a2f4f6071138e2a001e4dcbf
+  output_hash: eb0d678ba727d7c42cae36149510160fedb9309450b9c4d0d5fb8317f62fdafc
   output_ref: .aeh\changes\CHG-2026-0002\evidence\red-TEST-001.log
   repository_state:
     base_commit: a6b08383ad72866bf4df1bd6ec37f8dab6e55598
@@ -26,7 +26,7 @@ results:
   exit_code: 0
   id: VER-001
   method: automated_test
-  output_hash: 01b6a22c332fb6589409e2f8ff547760b14d75451ff7b1c63322f62394a8c508
+  output_hash: 55eb631181bd818985b31ad4c3ce70f62d3750727a0bf893465061c618c5976c
   output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-1.log
   status: pass
   type: target_test
@@ -64,7 +64,7 @@ results:
   exit_code: 0
   id: VER-002
   method: automated_test
-  output_hash: cc3ec8b197d35b038442f4bba0029d4ea9cb0d1e013166c9aaa49eb94f0940bf
+  output_hash: 6c3e57b4045fb1d68cec93c469de0822cb73a1eb6771080632107dd35918d190
   output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-reg-2.log
   status: pass
   type: regression
@@ -83,7 +83,7 @@ results:
   exit_code: 0
   id: VER-003
   method: automated_test
-  output_hash: ea69b21ca30b7ece05432fd22dee41848d7d8445b4eebe42489962ccd63b17b7
+  output_hash: fe55a51ad88e0bd61e94f2406e9672a4b99d1eb3301af7ab65283917dfb8ba1e
   output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-reg-3.log
   status: pass
   type: regression
@@ -99,7 +99,7 @@ results:
   exit_code: 0
   id: VER-004
   method: automated_test
-  output_hash: 8096c1f6f272ad514af3cdecc96eef714574b28ce8db553b5980ef8740317da7
+  output_hash: 0fa9d246a54b4c578d921d08ed99bec3fc6a1bd1b0f6247e61698dd5127997ba
   output_ref: .aeh\changes\CHG-2026-0002\evidence\verify-v-4.log
   status: pass
   type: contract

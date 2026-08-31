@@ -22,8 +22,8 @@ preflight_warnings:
 - 'guidance-only deny fields for claude: permissions.web_access'
 - workflow not provided to preflight
 state:
-  current: HUMAN_MERGE_APPROVAL
-  previous: DRIFT_CHECK
+  current: VERIFY
+  previous: REGRESSION
 title: M6.3A coordination contracts and external store substrate
 workflow:
   level: CRITICAL
