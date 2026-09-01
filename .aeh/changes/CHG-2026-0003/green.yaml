@@ -1,11 +1,11 @@
 base_commit: 8c937cb83c3f8e4a5ee85067b208069b4d0dcd12
 change_id: CHG-2026-0003
 changed_files:
-- after_hash: a1a1ac103a5a6fbe31f8a1dfe3183a4cf7f4cc20ba8218595416554affc179de
+- after_hash: 7676c495ebac1aa31758f110ad58c842ba3f97778b3035f7a91c1af0706477f4
   before_hash: d6f1837270064b2228cb6993b9d37e2392b87bec500fc542431e71c21591834d
   code_id: CODE-001
   path: .aeh/manifest.yaml
-- after_hash: 49dfdb9cb0a017f5105269c439a6f310bf55a277a6495910753026b91a0b566a
+- after_hash: e137f4de95c05d2c1b4031cc8b669ec007d34b68f14fa27ac5b1fd9ad4ae1aac
   before_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
   code_id: CODE-002
   path: .aeh/runtime/core/ci-enforcement-policy.yaml
@@ -13,7 +13,7 @@ changed_files:
   before_hash: e77a87932d5ab5df55c1e1436d114ab3333ef8b83098d669d88fd621912bb9f3
   code_id: CODE-003
   path: .aeh/runtime/core/states.yaml
-- after_hash: ec2444487b285f14bc60ef56e3f83ce94f2b7702e06a01ca9e991f39fbf4f8de
+- after_hash: 6befd10f19f4e6e4e6b33cbaf45826d6c066c0a0422d6f0c2416f47ed4bdebd2
   before_hash: 4180fd0538d5267059536f33c2bb73ee400fef3968096dd92ae237872cf32330
   code_id: CODE-004
   path: .github/workflows/aeh-assurance.yml
@@ -21,7 +21,7 @@ changed_files:
   before_hash: d3531f0ec824295359377b3f17ef64e4c6fae08a064fb069a00425841db0d52d
   code_id: CODE-005
   path: README.md
-- after_hash: 49dfdb9cb0a017f5105269c439a6f310bf55a277a6495910753026b91a0b566a
+- after_hash: e137f4de95c05d2c1b4031cc8b669ec007d34b68f14fa27ac5b1fd9ad4ae1aac
   before_hash: 357fc01bb1dc97d57a6f358ac03e2a20ffc7ecc107b6e7819ac2b44f81c5f477
   code_id: CODE-006
   path: core/ci-enforcement-policy.yaml
@@ -137,7 +137,7 @@ changed_files:
   before_hash: 20caf88628bd8064a66ab89abbd449c29e29b7f70925d8eb820925ced56dbd09
   code_id: CODE-034
   path: tests/runtime/test_green.py
-- after_hash: a4a1b6334e6bcf517f102c449a6fb051d70221bbcc14b8add2bf2a3db838d316
+- after_hash: 06ad487536d32490f21aa01eca9853b2c8dbf811ed52cc088f485271c85451b4
   before_hash: c1a4bb54394e48e93edfd9a94b9a5abc5fc5de46cbb71c27c8c84e2653c73a8d
   code_id: CODE-035
   path: tests/runtime/test_m6_2d_dogfood.py
@@ -150,7 +150,7 @@ changed_files:
   code_id: CODE-037
   path: tests/runtime/test_verify.py
 contract: green.evidence
-production_after_hash: 02a7b7eae48178803fdf03e2c4ba880ab9f61440e3843f4bd052192178536d9c
+production_after_hash: cbd732a682adf460b9028195c9f739c8e60502d88d9016e42efaaafe6a97787c
 production_before_hash: 85d41183ef40e4c56a6c92d48030ce5e2c101f93884ad64acaeeefc243295868
 test_lock_hash: 40da49a176b34487e6f58a7a134d51a328c392c5a1a9b94642fae9b79efbdedc
 tests:
@@ -162,7 +162,7 @@ tests:
   - tests.runtime.test_coordination_writers
   command: python -B -m unittest tests.runtime.test_coordination_writers
   exit_code: 0
-  output_hash: b86afac9f11c069b616783ff3da80f8179d5f135996857a741d6f6cfaefa4ed7
+  output_hash: c676b795e51e800f7a3c8963426362dfa956b788f4580d27c43d16cd6838fd88
   output_ref: .aeh\changes\CHG-2026-0003\evidence\green-TEST-001.log
   test_id: TEST-001
   verdict: PASS
