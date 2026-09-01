@@ -28,7 +28,7 @@ approvals:
 - actor:
     id: user
     type: human
-  decided_at: '2026-09-01T03:05:04.246613+00:00'
+  decided_at: '2026-09-01T03:51:45.861719+00:00'
   evidence_ref: OWNER_CHAT_APPROVAL_PR20_SCM_MERGE_20260901
   gate: MERGE_GATE
   status: APPROVED

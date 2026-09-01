@@ -218,6 +218,29 @@ class TestCiReplay(unittest.TestCase):
             accepted_approval_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
         self.assertEqual(accepted["verdict"], "PASS", accepted)
 
+    def test_unprotected_hmac_approval_does_not_require_key_in_provider_replay(self):
+        target = self.make_copy()
+        self.assertEqual(amod.record_approval(
+            target, self.change_id, "SPEC_REVIEW", "APPROVED", "reviewer",
+            key_id=flow.TEST_KEY_ID,
+        )["status"], "APPROVAL_RECORDED")
+        path = Path(target, ".aeh", "changes", self.change_id, "approvals.yaml")
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        merge = next(item for item in body["approvals"] if item["gate"] == "MERGE_GATE")
+        merge.pop("credential", None)
+        merge["trust_mode"] = amod.SCM_AUTHENTICATED_MERGE
+        merge["evidence_ref"] = "owner-decision:T-2"
+        path.write_text(
+            yaml.safe_dump(body, sort_keys=True, allow_unicode=True),
+            encoding="utf-8",
+        )
+        head = commit_all(target, "retain local spec signature and delegate merge")
+        report = self.replay(
+            target, head_sha=head, credential_files={},
+            accepted_approval_trust_modes={amod.SCM_AUTHENTICATED_MERGE},
+        )
+        self.assertEqual(report["verdict"], "PASS", report)
+
     def test_committed_forged_output_hash_is_invalid(self):
         target = self.make_copy()
         path = Path(target, ".aeh", "changes", self.change_id, "verification.yaml")

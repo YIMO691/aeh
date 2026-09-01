@@ -494,10 +494,10 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             if entry.get("status") == "REVOKED":
                 raise ReplayFailure("approvals.decision", "BLOCKED", "approval gate is REVOKED: " + entry["gate"])
             require_credential = entry["gate"] in policy["protected_approval_gates"]
+            credential = entry.get("credential") or entry.get("revocation_credential") or {}
+            key_id = credential.get("key_id")
+            key_path = (credential_files or {}).get(key_id)
             if require_credential:
-                credential = entry.get("credential") or entry.get("revocation_credential") or {}
-                key_id = credential.get("key_id")
-                key_path = (credential_files or {}).get(key_id)
                 delegated = (entry.get("trust_mode") in
                              set(accepted_approval_trust_modes or ()))
                 if not key_path and not delegated:
@@ -510,8 +510,15 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
                         key_inside_target = False
                     if key_inside_target:
                         raise ReplayFailure("approvals.credentials", "BLOCKED", "approval credential must be held outside the target repository: " + entry["gate"])
+            assessment_entry = entry
+            if not require_credential and credential and not key_path:
+                # The repository may retain a locally verified signature for
+                # an informational gate without exposing its HMAC key to CI.
+                # Only policy-protected gates require remote credential proof.
+                assessment_entry = dict(entry)
+                assessment_entry.pop("credential", None)
             state, _warnings = approval.assess_approval(
-                entry, now=observed, target=target, change_id=change_id,
+                assessment_entry, now=observed, target=target, change_id=change_id,
                 credential_files=credential_files, require_credential=require_credential,
                 accepted_trust_modes=accepted_approval_trust_modes)
             if state in ("INVALID", "UNVERIFIED"):
