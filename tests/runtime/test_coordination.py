@@ -8,6 +8,7 @@ import tempfile
 import threading
 import time
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import jsonschema
@@ -206,6 +207,52 @@ class CoordinationCase(unittest.TestCase):
                 os.environ.pop("AEH_CONTROLLER_STATE_DIR", None)
             else:
                 os.environ["AEH_CONTROLLER_STATE_DIR"] = old
+
+    def test_expired_active_operation_recovery_requires_exact_truth_opt_in(self):
+        change_id = "CHG-2026-0002"
+        change = self.target / ".aeh" / "changes" / change_id
+        (change / "change.yaml").write_text("state: before\n", encoding="utf-8")
+        token = self.root / "lease.token"
+        now = datetime(2026, 8, 31, tzinfo=timezone.utc)
+        acquired = coordination.acquire_lease(
+            str(self.target), change_id, holder_ref="holder",
+            token_file=str(token), ttl_seconds=60,
+            state_root=str(self.state), now=now)
+        begun = coordination.begin_mutation(
+            str(self.target), change_id, operation="TEST_CRASH",
+            token_file=str(token), expected_revision=acquired["lease_revision"],
+            state_root=str(self.state), now=now + timedelta(seconds=1))
+        (change / "result.yaml").write_text("ok: true\n", encoding="utf-8")
+        current = coordination.change_truth(str(self.target), change_id)["digest"]
+        with self.assertRaises(coordination.CoordinationError) as default_block:
+            coordination.recover_lease(
+                str(self.target), change_id,
+                expected_revision=begun["lease_revision"],
+                expected_truth_hash=current, state_root=str(self.state),
+                now=now + timedelta(seconds=61))
+        self.assertIn("BLOCKED_RECOVERY_ACTIVE_OPERATION", str(default_block.exception))
+        with self.assertRaises(coordination.CoordinationError) as wrong_truth:
+            coordination.recover_lease(
+                str(self.target), change_id,
+                expected_revision=begun["lease_revision"],
+                expected_truth_hash="0" * 64, state_root=str(self.state),
+                accept_active_operation_truth=True,
+                now=now + timedelta(seconds=61))
+        self.assertIn("BLOCKED_RECOVERY_TRUTH_DRIFT", str(wrong_truth.exception))
+        recovered = coordination.recover_lease(
+            str(self.target), change_id,
+            expected_revision=begun["lease_revision"],
+            expected_truth_hash=current, state_root=str(self.state),
+            accept_active_operation_truth=True,
+            now=now + timedelta(seconds=61))
+        self.assertEqual(recovered["status"], "LEASE_RECOVERED")
+        self.assertEqual(
+            recovered["recovery_outcome"],
+            "ACTIVE_OPERATION_TRUTH_ACCEPTED",
+        )
+        status = coordination.coordination_status(
+            str(self.target), change_id, state_root=str(self.state))
+        self.assertIsNone(status["active_operation"])
 
     def test_doctor_coordination_diagnostic_is_read_only(self):
         old = os.environ.get("AEH_CONTROLLER_STATE_DIR")

@@ -49,7 +49,7 @@ changed_files:
   before_hash: f529beee958317bc12099e69b2e8f5a96b85a30bb82b8d04526c22a9cd9bb350
   code_id: CODE-012
   path: src/aeh/ci.py
-- after_hash: b76e794b6015047f66fd69824da0f1206588f05f2c39a265995181f208d7d133
+- after_hash: bf328605bb76e5c1bf00a721db7fddd72c795a41a2b1d0b07bbcaa4f0516e831
   before_hash: 81bf538b1a7e09b8d816cfda54aea8f249a593b5939254aae5c686cb51d9848a
   code_id: CODE-013
   path: src/aeh/cli.py
@@ -69,11 +69,11 @@ changed_files:
   before_hash: 253ff2bdb49d98af60467e4eca47e50a7fde9dc818daebdbabac8dd4606e2f9e
   code_id: CODE-017
   path: src/aeh/runtime/change.py
-- after_hash: 2c818b219624501b78d0c4552c0551bcaf2a16d8c5f38f8254a3f98756b2932f
+- after_hash: de7452e80c83ae3e9f35dd6b5bc346eb901fd3ef70c132e2da61f5cbb83907d2
   before_hash: 1c94120f08596b9869cdcab2db51bea50f6fbde7c8d81ee81163c21768142934
   code_id: CODE-018
   path: src/aeh/runtime/coordination.py
-- after_hash: bd60c902ff8d5e00e6cf598159211c4b030533adc22833a5d8707038e5e836ff
+- after_hash: 918df9ed968de80026684305c92c5914d23193948530831ff1e7e65583ebf5bf
   before_hash: 8ee420e8efbd40cfec7eab75b21482fc0025cc91e65278b8b0868eea506d3d12
   code_id: CODE-019
   path: src/aeh/runtime/green.py
@@ -117,7 +117,7 @@ changed_files:
   before_hash: 0b3ac79fd464e572a816dfbe1395fd0a14f8663a67e066e4d9c5a8c43ef260ab
   code_id: CODE-029
   path: tests/runtime/test_ci_replay.py
-- after_hash: 5e757a82f31c68b22f5c21195ae014801bc8261835bd099ee8cc34132078b673
+- after_hash: 71abf097cd2df73bf04da014ed33d243280fe5e30b450d1a4d4a07447fc1529c
   before_hash: d883457ed23a925b5bb5afafd239111e6d5599a85144b0e9e05a723431c968d9
   code_id: CODE-030
   path: tests/runtime/test_coordination.py
@@ -125,7 +125,7 @@ changed_files:
   before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
   code_id: CODE-031
   path: tests/runtime/test_coordination_writers.py
-- after_hash: 12ceb72adf39172a092ab578fc4b9a1e2c98abc9cbe8f1e5973f5f262c0ca3e7
+- after_hash: 5ff558cffb9a111c57025c4b5fb63e1789d05d688864e3d25937cf889a508772
   before_hash: 20caf88628bd8064a66ab89abbd449c29e29b7f70925d8eb820925ced56dbd09
   code_id: CODE-032
   path: tests/runtime/test_green.py
@@ -138,7 +138,7 @@ changed_files:
   code_id: CODE-034
   path: tests/runtime/test_verify.py
 contract: green.evidence
-production_after_hash: 161e16e7bfeaa05df5dcf8a258a27e1aa6bcf71a9f4c55d9b71f3d991f0b5829
+production_after_hash: 67ef4c814aa20f94188edb0980ed0f570783b4969864794ce757deee44483700
 production_before_hash: 31c55b7634da2aa1e76c704c53e43dfca2fc9088eb5b92ea1827c91048a4a794
 test_lock_hash: 40da49a176b34487e6f58a7a134d51a328c392c5a1a9b94642fae9b79efbdedc
 tests:
@@ -150,7 +150,7 @@ tests:
   - tests.runtime.test_coordination_writers
   command: python -B -m unittest tests.runtime.test_coordination_writers
   exit_code: 0
-  output_hash: b86afac9f11c069b616783ff3da80f8179d5f135996857a741d6f6cfaefa4ed7
+  output_hash: ea62c0e684cff373170818fbbfd746774e19dba6c3787e2ee6eca7099f4ae16f
   output_ref: .aeh\changes\CHG-2026-0003\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

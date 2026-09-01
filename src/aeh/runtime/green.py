@@ -83,6 +83,18 @@ def _lock_hash(lock):
     return hashlib.sha256(("\n".join(f["path"] + "\0" + f["hash"] for f in lock["files"])).encode("utf-8")).hexdigest()
 
 
+def _portable_file_hashes(path):
+    """Hash ordinary Git LF/CRLF materializations without relaxing content."""
+    with open(path, "rb") as stream:
+        content = stream.read()
+    variants = {content}
+    if b"\x00" not in content:
+        canonical = content.replace(b"\r\n", b"\n")
+        variants.add(canonical)
+        variants.add(canonical.replace(b"\n", b"\r\n"))
+    return {hashlib.sha256(item).hexdigest() for item in variants}
+
+
 def _verify_lock(target, change_id, plan):
     cdir = ch._change_dir(target, change_id)
     lock_path = os.path.join(cdir, "test-lock.yaml")
@@ -90,16 +102,19 @@ def _verify_lock(target, change_id, plan):
         raise GreenError("test-lock.yaml missing")
     lock = _load_yaml(lock_path)
     # 当前测试文件哈希 vs lock
-    current = rmod._test_files_hash(target, plan)
-    locked = _lock_hash(lock)
-    # lock hash 基于文件内容：重建 current files hash 列表对比
-    cur_files = []
+    rmod._test_files_hash(target, plan)
+    locked_files = lock.get("files") or []
+    locked_by_path = {item.get("path"): item.get("hash") for item in locked_files}
+    current_paths = []
     for tf in plan.get("test_files", []):
         p = os.path.join(target, tf["dest"])
-        if os.path.isfile(p):
-            cur_files.append({"path": tf["dest"], "hash": _sha256_file(p)})
-    cur_files_hash = hashlib.sha256(("\n".join(f["path"] + "\0" + f["hash"] for f in cur_files)).encode("utf-8")).hexdigest()
-    if cur_files_hash != locked:
+        expected = locked_by_path.get(tf["dest"])
+        if (not os.path.isfile(p) or not expected or
+                expected not in _portable_file_hashes(p)):
+            raise GreenError("BLOCKED_TEST_CHANGED")
+        current_paths.append(tf["dest"])
+    if (len(locked_by_path) != len(locked_files) or
+            set(current_paths) != set(locked_by_path)):
         raise GreenError("BLOCKED_TEST_CHANGED")
     # protected 哈希（spec/evidence/profile/workflow）
     for prel, expect in (lock.get("protected") or {}).items():
@@ -108,9 +123,9 @@ def _verify_lock(target, change_id, plan):
             p = os.path.join(cdir, prel)
         if not os.path.isfile(p):
             raise GreenError("BLOCKED_RUNTIME_CONTEXT_STALE: protected file missing " + prel)
-        if _sha256_file(p) != expect:
+        if expect not in _portable_file_hashes(p):
             raise GreenError("BLOCKED_RUNTIME_CONTEXT_STALE: " + prel)
-    return lock, cur_files_hash
+    return lock, _lock_hash(lock)
 
 
 def _stale_excluding(target, change_id, exclude_paths):

@@ -1049,6 +1049,7 @@ def release_lease(target, change_id, token_file, expected_revision,
 
 def recover_lease(target, change_id, expected_revision, expected_truth_hash,
                   repository_id=None, state_root=None,
+                  accept_active_operation_truth=False,
                   timeout_seconds=5.0, now=None):
     if not re.fullmatch(r"[0-9a-f]{64}", expected_truth_hash or ""):
         raise _blocked("BLOCKED_EXPECTED_TRUTH_INVALID")
@@ -1060,12 +1061,22 @@ def recover_lease(target, change_id, expected_revision, expected_truth_hash,
         _require_lease_binding(paths, lease)
         if observed < _parse_time(lease["expires_at"]):
             raise _blocked("BLOCKED_LIVE_LEASE")
-        if lease.get("active_operation") is not None:
-            raise _blocked("BLOCKED_RECOVERY_ACTIVE_OPERATION")
-        if not secrets.compare_digest(
-                expected_truth_hash, str(lease.get("change_truth_sha256", ""))):
-            raise _blocked("BLOCKED_RECOVERY_TRUTH_DRIFT")
-        _require_truth(target, change_id, lease, recovery=True)
+        active = lease.get("active_operation")
+        if active is not None:
+            if not accept_active_operation_truth:
+                raise _blocked("BLOCKED_RECOVERY_ACTIVE_OPERATION")
+            current_truth = change_truth(target, change_id)["digest"]
+            if not secrets.compare_digest(expected_truth_hash, current_truth):
+                raise _blocked("BLOCKED_RECOVERY_TRUTH_DRIFT")
+            lease["change_truth_sha256"] = current_truth
+            lease["active_operation"] = None
+            recovery_outcome = "ACTIVE_OPERATION_TRUTH_ACCEPTED"
+        else:
+            if not secrets.compare_digest(
+                    expected_truth_hash, str(lease.get("change_truth_sha256", ""))):
+                raise _blocked("BLOCKED_RECOVERY_TRUTH_DRIFT")
+            _require_truth(target, change_id, lease, recovery=True)
+            recovery_outcome = "EXPIRED_LEASE_RELEASED"
         lease["lease_revision"] += 1
         lease["state"] = "RECOVERED"
         lease["recovered_at"] = _time_text(observed)
@@ -1075,6 +1086,7 @@ def recover_lease(target, change_id, expected_revision, expected_truth_hash,
             "change_id": change_id,
             "lease_revision": lease["lease_revision"],
             "change_truth_sha256": lease["change_truth_sha256"],
+            "recovery_outcome": recovery_outcome,
             "store_revision": store["revision"] + 1,
         }
 

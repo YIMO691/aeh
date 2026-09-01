@@ -16,6 +16,7 @@
 
 ## Warnings
 - verified credential key_id=task-m6-3b-merge
+- MERGE_GATE approval has no expiry
 - CRITICAL MERGE_GATE approved by user
 
 ## Traceability

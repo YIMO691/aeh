@@ -111,6 +111,37 @@ def make_target(src=TDD_REPO):
 
 
 class TestGreen(unittest.TestCase):
+    def test_lock_accepts_only_lf_crlf_materialization_differences(self):
+        target = make_target()
+        cid = to_lock(target)
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        lock_path = os.path.join(cdir, "test-lock.yaml")
+        with open(os.path.join(cdir, "test-plan.yaml"), encoding="utf-8") as stream:
+            plan = yaml.safe_load(stream)
+        with open(lock_path, encoding="utf-8") as stream:
+            lock = yaml.safe_load(stream)
+
+        def alternate_hash(path):
+            with open(path, "rb") as stream:
+                content = stream.read()
+            canonical = content.replace(b"\r\n", b"\n")
+            alternate = (canonical.replace(b"\n", b"\r\n")
+                         if content == canonical else canonical)
+            self.assertNotEqual(content, alternate)
+            return hashlib.sha256(alternate).hexdigest()
+
+        test_rel = lock["files"][0]["path"]
+        lock["files"][0]["hash"] = alternate_hash(
+            os.path.join(target, test_rel))
+        lock["protected"]["spec.yaml"] = alternate_hash(
+            os.path.join(cdir, "spec.yaml"))
+        with open(lock_path, "w", encoding="utf-8") as stream:
+            yaml.safe_dump(lock, stream, sort_keys=True, allow_unicode=True)
+
+        verified, lock_hash = gmod._verify_lock(target, cid, plan)
+        self.assertEqual(verified, lock)
+        self.assertEqual(lock_hash, gmod._lock_hash(lock))
+
     def test_scope_base_prefers_declared_pr_base(self):
         declared = "A" * 40
         with mock.patch.object(

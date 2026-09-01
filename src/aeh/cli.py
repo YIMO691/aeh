@@ -103,6 +103,9 @@ def main(argv=None):
     coordination_recover.add_argument("--workdir", default=".")
     coordination_recover.add_argument("--expected-revision", type=int, required=True)
     coordination_recover.add_argument("--expected-truth-hash", required=True)
+    coordination_recover.add_argument(
+        "--accept-active-operation-truth", action="store_true",
+        help="accept exact current Change truth when recovering an expired active operation")
     coordination_recover.add_argument("--repository-id", default=None)
     rp = sub.add_parser("repair", help="plan, apply, or roll back installation repair")
     rp.add_argument("target")
@@ -304,6 +307,7 @@ def main(argv=None):
                         args.workdir, args.change_id,
                         expected_revision=args.expected_revision,
                         expected_truth_hash=args.expected_truth_hash,
+                        accept_active_operation_truth=args.accept_active_operation_truth,
                         repository_id=args.repository_id)
                 else:
                     report = coordination_module.recover_reservation(
