@@ -22,6 +22,7 @@ from aeh import cli
 from aeh.bootstrap import pipeline as bp
 from aeh.runtime import approval as amod
 from aeh.runtime import grounding as gmod
+from aeh.runtime import green as greenmod
 from aeh.runtime import verify as vmod
 from tests.runtime import test_verify as flow
 
@@ -83,6 +84,40 @@ class TestCiReplay(unittest.TestCase):
         self.assertTrue(ci._is_scm_metadata(".git"))
         self.assertTrue(ci._is_scm_metadata(".git/config"))
         self.assertFalse(ci._is_scm_metadata(".github/workflows/verify.yml"))
+
+    def test_grounding_freshness_is_cross_platform_and_ignores_git_metadata(self):
+        target = Path(tempfile.mkdtemp(prefix="aeh-ci-grounding-paths-"))
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        change_id = "CHG-2026-0003"
+        change_dir = target / ".aeh" / "changes" / change_id
+        change_dir.mkdir(parents=True)
+        source = target / "nested" / "sample.txt"
+        source.parent.mkdir()
+        source.write_bytes(b"portable\n")
+        (target / ".git").mkdir()
+        (change_dir / "evidence.yaml").write_text(
+            yaml.safe_dump({"evidence": [
+                {
+                    "id": "EV-001",
+                    "source_state": {
+                        "rel_path": r"nested\sample.txt",
+                        "file_hash": hashlib.sha256(source.read_bytes()).hexdigest(),
+                    },
+                },
+                {
+                    "id": "EV-002",
+                    "source_state": {
+                        "rel_path": ".git",
+                        "file_hash": "0" * 64,
+                    },
+                },
+            ]}),
+            encoding="utf-8",
+        )
+        self.assertEqual(
+            greenmod._stale_excluding(str(target), change_id, ["nested/sample.txt"]),
+            [],
+        )
 
     @classmethod
     def setUpClass(cls):

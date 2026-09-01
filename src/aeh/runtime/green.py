@@ -138,11 +138,19 @@ def _stale_excluding(target, change_id, exclude_paths):
         ss = e.get("source_state") or {}
         if ss.get("rel_path"):
             id_to_path[e["id"]] = ss["rel_path"]
-    norm_exclude = [p.replace(os.sep, "/") for p in exclude_paths]
+    def portable(path):
+        return str(path).replace("\\", "/")
+
+    norm_exclude = {portable(p) for p in exclude_paths}
     remain = []
     for ev_id in stale_all:
         p = id_to_path.get(ev_id)
-        if p is None or p.replace(os.sep, "/") not in norm_exclude:
+        normalized = portable(p) if p is not None else None
+        # Git administrative state is provider/runtime metadata, not a
+        # repository input whose bytes can be stable across worktrees.
+        if normalized == ".git" or (normalized or "").startswith(".git/"):
+            continue
+        if normalized is None or normalized not in norm_exclude:
             remain.append(ev_id)
     return remain
 

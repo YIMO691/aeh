@@ -291,8 +291,12 @@ def check_stale(target, change_id):
         rel = ss.get("rel_path")
         expected = ss.get("file_hash")
         if rel and expected:
-            full = os.path.join(target, rel)
-            if (not os.path.isfile(full) or
+            # Grounding evidence is portable repository truth.  A Windows
+            # producer may record backslashes, but an Ubuntu replay must
+            # still resolve the same repository-relative file.
+            portable_rel = str(rel).replace("\\", "/")
+            full = _resolve_within(target, portable_rel)
+            if (full is None or not os.path.isfile(full) or
                     expected not in _portable_file_hashes(full)):
                 stale.append(e["id"])
     return {"change_id": change_id, "stale": stale}
