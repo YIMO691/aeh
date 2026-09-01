@@ -201,16 +201,34 @@ class TestStateMachine(unittest.TestCase):
         self.assertEqual(repaired["to"], "SPEC_REPAIR")
 
     def test_stale_grounding_can_restart_without_manual_state_edit(self):
-        for current in ("SPEC", "TEST_DESIGN"):
+        for current in ("SPEC", "TEST_DESIGN", "HUMAN_MERGE_APPROVAL"):
             with self.subTest(current=current):
                 target = make_healthy()
                 report = ch.change_new(target, "功能开发", suggested_level="STANDARD")
                 change = ch.load_change(target, report["change_id"])
                 change["state"] = {"current": current, "previous": "GROUND"}
                 ch.save_change(target, change)
+                if current == "HUMAN_MERGE_APPROVAL":
+                    blocked = ch.change_transition(target, report["change_id"], "GROUND")
+                    self.assertEqual(blocked["status"], "BLOCKED_CONDITION_REQUIRED", blocked)
+                    self.assertEqual(blocked["required"], "GROUNDING_STALE")
                 repaired = ch.change_repair(target, report["change_id"], "ground")
                 self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
                 self.assertEqual(repaired["to"], "GROUND")
+
+    def test_traceability_gap_can_reenter_test_repair_only_with_condition(self):
+        target = make_healthy()
+        report = ch.change_new(target, "功能开发", suggested_level="STANDARD")
+        change = ch.load_change(target, report["change_id"])
+        change["state"] = {"current": "REGRESSION", "previous": "RUNTIME_PLATFORM_VERIFY"}
+        ch.save_change(target, change)
+        blocked = ch.change_transition(target, report["change_id"], "TEST_REPAIR")
+        self.assertEqual(blocked["status"], "BLOCKED_CONDITION_REQUIRED", blocked)
+        self.assertEqual(blocked["required"], "TRACEABILITY_INCOMPLETE")
+        repaired = ch.change_transition(
+            target, report["change_id"], "TEST_REPAIR",
+            condition="TRACEABILITY_INCOMPLETE")
+        self.assertEqual(repaired["status"], "TRANSITION_OK", repaired)
 
     def test_locked_tests_can_reenter_test_design_explicitly(self):
         target = make_healthy()

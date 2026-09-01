@@ -244,6 +244,12 @@ class TestCiReplay(unittest.TestCase):
             target, head_sha=head, credential_files={},
             accepted_approval_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
         self.assertEqual(accepted["verdict"], "PASS", accepted)
+        provider_authenticated = self.replay(
+            target, head_sha=head, credential_files={},
+            scm_authenticated_merge=True,
+        )
+        self.assertEqual(provider_authenticated["verdict"], "PASS",
+                         provider_authenticated)
 
     def test_unprotected_hmac_approval_does_not_require_key_in_provider_replay(self):
         target = self.make_copy()

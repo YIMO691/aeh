@@ -265,6 +265,8 @@ def verify_event(target, event_payload, event_type, run_snapshot, policy=None):
             target, closure["change_id"], "github.com/" + binding["repository"]["full_name"],
             binding["base_sha"], binding["head_sha"], observed_at, credential_files={},
             accepted_approval_trust_modes=accepted_trust_modes,
+            scm_authenticated_merge=(
+                merge_channel == approval_runtime.SCM_AUTHENTICATED_MERGE),
         )
         if replay["verdict"] != "PASS":
             last = replay["checks"][-1]

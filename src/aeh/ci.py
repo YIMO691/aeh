@@ -294,10 +294,14 @@ def _build_report(repository_id, change_id, base_sha, head_sha, observed_at,
 
 
 def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
-           credential_files=None, ae_root=None, accepted_approval_trust_modes=None):
+           credential_files=None, ae_root=None, accepted_approval_trust_modes=None,
+           scm_authenticated_merge=False):
     """Replay committed assurance evidence without writing to the target."""
     ae_root = ae_root or aeh_paths.ae_root()
     target = os.path.realpath(target)
+    accepted_trust_modes = set(accepted_approval_trust_modes or ())
+    if scm_authenticated_merge:
+        accepted_trust_modes.add(approval.SCM_AUTHENTICATED_MERGE)
     inputs = _Inputs(target)
     checks = []
     harness = {"version": "unknown", "source_revision": "unknown",
@@ -498,8 +502,11 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             key_id = credential.get("key_id")
             key_path = (credential_files or {}).get(key_id)
             if require_credential:
-                delegated = (entry.get("trust_mode") in
-                             set(accepted_approval_trust_modes or ()))
+                trust_mode = entry.get("trust_mode")
+                delegated = trust_mode in accepted_trust_modes
+                if (scm_authenticated_merge and entry.get("gate") == "MERGE_GATE" and
+                        trust_mode == approval.SCM_AUTHENTICATED_MERGE):
+                    delegated = True
                 if not key_path and not delegated:
                     raise ReplayFailure("approvals.credentials", "BLOCKED", "external approval credential is unavailable: " + entry["gate"])
                 if key_path:
@@ -520,7 +527,7 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             state, _warnings = approval.assess_approval(
                 assessment_entry, now=observed, target=target, change_id=change_id,
                 credential_files=credential_files, require_credential=require_credential,
-                accepted_trust_modes=accepted_approval_trust_modes)
+                accepted_trust_modes=accepted_trust_modes)
             if state in ("INVALID", "UNVERIFIED"):
                 raise ReplayFailure("approvals.credentials", "BLOCKED", "approval credential is unavailable or invalid: " + entry["gate"])
             if state == "EXPIRED":
@@ -536,7 +543,7 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             state, _warnings = approval.assess_approval(
                 approvals.get(gate), now=observed, target=target, change_id=change_id,
                 credential_files=credential_files, require_credential=True,
-                accepted_trust_modes=accepted_approval_trust_modes)
+                accepted_trust_modes=accepted_trust_modes)
             if state != "APPROVED":
                 raise ReplayFailure("approvals.required", "BLOCKED", "required approval is not effectively APPROVED: " + gate)
         checks.append({"id": "approvals.effective", "status": "PASS", "message": "required approvals are effective at observed_at"})

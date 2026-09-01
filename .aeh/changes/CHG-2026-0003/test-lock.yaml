@@ -3,11 +3,11 @@ contract: test-lock
 files:
 - hash: b3a979c0f52d301a1b1f307c8f92c8c2bf65c55faeb0818b37e2a9cdc58edba9
   path: tests/runtime/test_coordination_writers.py
-locked_at: '2026-08-31T13:22:09.009666+00:00'
+locked_at: '2026-09-01T14:17:42.541117+00:00'
 protected:
   .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
   .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
-  evidence.yaml: ff29d50bbf932d0b9026b0a002383eca86a936ae42ca477208038c4e4adee475
+  evidence.yaml: a97c9b6dcd7bb596f498dd1fb1455c7543fff5a070f20c39763250a7ea0bd3ce
   spec.yaml: 40d97ed3f109ad9df447b4c3b64824aec37c513bd4dc839760e672ae825e2d85
 repository:
   base_commit: 8c937cb83c3f8e4a5ee85067b208069b4d0dcd12

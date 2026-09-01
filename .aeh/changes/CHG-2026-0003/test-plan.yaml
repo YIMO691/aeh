@@ -1,4 +1,4 @@
-generated_at: '2026-08-31T13:21:30.178377+00:00'
+generated_at: '2026-09-01T14:17:22.019709+00:00'
 regression:
 - argv:
   - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
@@ -63,9 +63,11 @@ tests:
   targets:
   - .aeh/manifest.yaml
   - .aeh/runtime/core/ci-enforcement-policy.yaml
+  - .aeh/runtime/core/states.yaml
   - .github/workflows/aeh-assurance.yml
   - README.md
   - core/ci-enforcement-policy.yaml
+  - core/states.yaml
   - docs/architecture-current.md
   - schemas/coordination-store.schema.json
   - schemas/change-lease.schema.json
@@ -95,6 +97,7 @@ tests:
   - tests/runtime/test_coordination_writers.py
   - tests/runtime/test_green.py
   - tests/runtime/test_m6_2d_dogfood.py
+  - tests/runtime/test_red.py
   - tests/runtime/test_verify.py
   verifies:
   - AC-001-01

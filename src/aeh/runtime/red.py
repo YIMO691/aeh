@@ -75,6 +75,142 @@ def _test_files_hash(target, plan):
     return hashlib.sha256(("\n".join(parts)).encode("utf-8")).hexdigest()
 
 
+def _portable_hashes(data):
+    normalized = data.replace(b"\r\n", b"\n")
+    return {
+        hashlib.sha256(data).hexdigest(),
+        hashlib.sha256(normalized).hexdigest(),
+        hashlib.sha256(normalized.replace(b"\n", b"\r\n")).hexdigest(),
+    }
+
+
+def _read_bytes(path):
+    with open(path, "rb") as stream:
+        return stream.read()
+
+
+def _git_blob(target, relative):
+    result = subprocess.run(
+        ["git", "-C", target, "show", "HEAD:" + relative.replace(os.sep, "/")],
+        capture_output=True, timeout=10, check=False)
+    return result.stdout if result.returncode == 0 else None
+
+
+def _validate_red_relock_context(target, change_id, plan, ae_root,
+                                 red_bytes, lock_bytes, load_log):
+    cdir = ch._change_dir(target, change_id)
+    try:
+        previous_red = yaml.safe_load(red_bytes.decode("utf-8"))
+        lock = yaml.safe_load(lock_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, yaml.YAMLError):
+        return None
+    jsonschema.validate(
+        previous_red, _load_yaml(os.path.join(ae_root, "schemas", "red.schema.json")))
+    jsonschema.validate(
+        lock, _load_yaml(os.path.join(ae_root, "schemas", "test-lock.schema.json")))
+    if previous_red.get("change_id") != change_id or lock.get("change_id") != change_id:
+        return None
+    required_ids = {item["id"] for item in plan.get("tests", []) if item.get("required", True)}
+    records = previous_red.get("tests") or []
+    if ({item.get("test_id") for item in records} != required_ids or
+            any(item.get("verdict") != "VALID_RED" for item in records)):
+        return None
+    current_test_hash = _test_files_hash(target, plan)
+    if any(item.get("test_files_hash") != current_test_hash for item in records):
+        return None
+    locked_files = lock.get("files") or []
+    if {item.get("path") for item in locked_files} != {
+            item["dest"] for item in plan.get("test_files", [])}:
+        return None
+    for item in locked_files:
+        path = os.path.join(target, item["path"])
+        if not os.path.isfile(path) or item.get("hash") not in _portable_hashes(_read_bytes(path)):
+            return None
+    saved_logs = {}
+    for item in records:
+        relative = str(item.get("output_ref", "")).replace("\\", "/")
+        prefix = ".aeh/changes/" + change_id + "/evidence/"
+        if not relative.startswith(prefix) or ".." in relative.split("/"):
+            return None
+        data = load_log(relative)
+        if data is None:
+            return None
+        if item.get("output_hash") not in _portable_hashes(data):
+            return None
+        path = os.path.join(target, *relative.split("/"))
+        saved_logs[path] = data
+    protected = lock.get("protected") or {}
+    evidence_changed = False
+    for relative, expected in protected.items():
+        path = relative if os.path.isabs(relative) else os.path.join(target, relative)
+        if not os.path.isfile(path):
+            path = os.path.join(cdir, relative)
+        if not os.path.isfile(path):
+            return None
+        matches = expected in _portable_hashes(_read_bytes(path))
+        if relative == "evidence.yaml":
+            evidence_changed = not matches
+        elif not matches:
+            return None
+    if not evidence_changed:
+        return None
+    return {"red_bytes": red_bytes, "lock": lock, "logs": saved_logs}
+
+
+def _existing_red_relock_context(target, change_id, plan, ae_root):
+    """Load a sealed or committed VALID_RED context eligible for a narrow relock."""
+    cdir = ch._change_dir(target, change_id)
+    red_path = os.path.join(cdir, "red.yaml")
+    lock_path = os.path.join(cdir, "test-lock.yaml")
+    if os.path.isfile(red_path) and os.path.isfile(lock_path):
+        current = _validate_red_relock_context(
+            target, change_id, plan, ae_root,
+            _read_bytes(red_path), _read_bytes(lock_path),
+            lambda relative: (
+                _read_bytes(os.path.join(target, *relative.split("/")))
+                if os.path.isfile(os.path.join(target, *relative.split("/"))) else None))
+        if current is not None:
+            return current
+    red_relative = ".aeh/changes/" + change_id + "/red.yaml"
+    lock_relative = ".aeh/changes/" + change_id + "/test-lock.yaml"
+    committed_red = _git_blob(target, red_relative)
+    committed_lock = _git_blob(target, lock_relative)
+    if committed_red is None or committed_lock is None:
+        return None
+    return _validate_red_relock_context(
+        target, change_id, plan, ae_root, committed_red, committed_lock,
+        lambda relative: _git_blob(target, relative))
+
+
+def _complete_context_relock(target, change_id, context, ae_root):
+    """Refresh only the Controller-produced Grounding hash in a proven RED lock."""
+    cdir = ch._change_dir(target, change_id)
+    coord.atomic_write_bytes(os.path.join(cdir, "red.yaml"), context["red_bytes"])
+    for path, content in context["logs"].items():
+        coord.atomic_write_bytes(path, content)
+    lock = dict(context["lock"])
+    protected = dict(lock.get("protected") or {})
+    protected["evidence.yaml"] = hashlib.sha256(
+        _read_bytes(os.path.join(cdir, "evidence.yaml"))).hexdigest()
+    lock["protected"] = protected
+    lock["locked_at"] = datetime.now(timezone.utc).isoformat()
+    jsonschema.validate(
+        lock, _load_yaml(os.path.join(ae_root, "schemas", "test-lock.schema.json")))
+    coord.atomic_write_text(os.path.join(cdir, "test-lock.yaml"), _dump_yaml(lock))
+    change = ch.load_change(target, change_id)
+    change["gates"] = dict(change.get("gates") or {})
+    change["gates"]["red"] = "PASS"
+    change["gates"]["lock_test"] = "PASS"
+    ch.save_change(target, change)
+    transition = ch.change_transition(target, change_id, "LOCK_TEST", condition="VALID_RED")
+    if transition["status"] != "TRANSITION_OK":
+        return {"status": "RED_RELOCK_TRANSITION_FAILED", "change_id": change_id,
+                "transition": transition}
+    omod.record_checkpoint(target, change_id)
+    return {"status": "RED_CONTEXT_RELOCKED", "change_id": change_id,
+            "verdicts": ["NO_RED_ALREADY_GREEN"], "state": "LOCK_TEST", "gate": "PASS"}
+
+
 def classify_red(exit_code, output, t):
     if exit_code == 0:
         return "NO_RED_ALREADY_GREEN", {"category": "none", "signature": "exit_code==0"}
@@ -105,8 +241,14 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
                     "blocking": [c["check_id"] for c in d["checks"] if c["status"] == "BLOCKED"]}
         omod.ensure_state_available(target, change_id)
         had_checkpoint = omod.checkpoint_exists(target, change_id)
+        red_only_checkpoint_drift = False
         if had_checkpoint:
-            omod.assert_checkpoint(target, change_id)
+            try:
+                omod.assert_checkpoint(target, change_id)
+            except omod.OwnershipError as exc:
+                if str(exc) != "BLOCKED_MACHINE_TRUTH_PROVENANCE: modified=red.yaml":
+                    raise
+                red_only_checkpoint_drift = True
         change = ch.load_change(target, change_id)
         if change["state"]["current"] not in ("TEST_DESIGN", "RED", "LOCK_TEST"):
             return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id,
@@ -119,6 +261,19 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
         plan = _load_yaml(os.path.join(ch._change_dir(target, change_id), "test-plan.yaml"))
         schema_plan = _load_yaml(os.path.join(ae_root, "schemas", "test-plan.schema.json"))
         jsonschema.validate(plan, schema_plan)
+        relock_context = (
+            _existing_red_relock_context(target, change_id, plan, ae_root)
+            if had_checkpoint else None)
+        if red_only_checkpoint_drift:
+            current_red = _load_yaml(os.path.join(ch._change_dir(target, change_id), "red.yaml"))
+            current_verdicts = [item.get("verdict") for item in current_red.get("tests", [])]
+            if (relock_context is None or not current_verdicts or
+                    any(verdict != "NO_RED_ALREADY_GREEN" for verdict in current_verdicts)):
+                raise omod.OwnershipError(
+                    "BLOCKED_MACHINE_TRUTH_PROVENANCE: modified=red.yaml")
+            # The external lease CAS already binds this exact late-replay result.
+            # Adopt it only after a committed VALID_RED context has been proven.
+            omod.record_checkpoint(target, change_id)
         if change["state"]["current"] == "TEST_DESIGN":
             tr0 = ch.change_transition(target, change_id, "RED")
             if tr0["status"] != "TRANSITION_OK":
@@ -180,6 +335,9 @@ def change_red(target, change_id, ae_root=None, allow_shell=False):
             os.path.join(cdir, "red.yaml"), _dump_yaml(red_record))
         verdicts = [r["verdict"] for r in results]
         if any(v == "NO_RED_ALREADY_GREEN" for v in verdicts):
+            if relock_context is not None and all(v == "NO_RED_ALREADY_GREEN" for v in verdicts):
+                return _complete_context_relock(
+                    target, change_id, relock_context, ae_root)
             return {"status": "NO_RED_ALREADY_GREEN", "change_id": change_id, "verdicts": verdicts,
                     "diagnostics": "requirement may already be satisfied / test too weak / spec mismatch"}
         if any(v != "VALID_RED" for v in verdicts):

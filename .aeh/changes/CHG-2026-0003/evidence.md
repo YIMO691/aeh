@@ -14,40 +14,40 @@ machine truth in evidence.yaml
 - EV-010 [SOURCE] keyword match: and in CONTRIBUTING.md:25
 - EV-011 [SOURCE] keyword match: and in LICENSE:6
 - EV-012 [SOURCE] keyword match: m6 in README.md:11
-- EV-013 [SOURCE] keyword match: leases in README.md:4
-- EV-014 [SOURCE] keyword match: and in README.md:13
-- EV-015 [SOURCE] keyword match: cas in README.md:242
-- EV-016 [SOURCE] keyword match: and in setup.py:6
-- EV-017 [SOURCE] keyword match: and in adapters\claude\CLAUDE.template.md:6
-- EV-018 [SOURCE] keyword match: and in adapters\codex\AGENTS.template.md:6
-- EV-019 [SOURCE] keyword match: and in adapters\codex\adapter.yaml:12
-- EV-020 [SOURCE] keyword match: and in bootstrap\grounding.yaml:25
-- EV-021 [SOURCE] keyword match: and in bootstrap\interview\core.yaml:54
-- EV-022 [SOURCE] keyword match: m6 in core\ci-enforcement-policy.yaml:18
-- EV-023 [SOURCE] keyword match: leases in core\ci-enforcement-policy.yaml:18
-- EV-024 [SOURCE] keyword match: and in core\classifications.yaml:7
-- EV-025 [SOURCE] keyword match: and in core\evidence.yaml:2
-- EV-026 [SOURCE] keyword match: and in core\gates.yaml:14
-- EV-027 [SOURCE] keyword match: and in core\states.yaml:87
-- EV-028 [SOURCE] keyword match: and in core\workflow.yaml:19
-- EV-029 [SOURCE] keyword match: m6 in docs\README.md:6
-- EV-030 [SOURCE] keyword match: leases in docs\README.md:45
-- EV-031 [SOURCE] keyword match: and in docs\README.md:6
-- EV-032 [SOURCE] keyword match: m6 in docs\about.md:91
-- EV-033 [SOURCE] keyword match: and in docs\about.md:9
-- EV-034 [SOURCE] keyword match: mandatory in docs\about.md:81
-- EV-035 [SOURCE] keyword match: m6 in docs\architecture-current.md:97
-- EV-036 [SOURCE] keyword match: leases in docs\architecture-current.md:32
-- EV-037 [SOURCE] keyword match: and in docs\architecture-current.md:16
-- EV-038 [SOURCE] keyword match: and in docs\architecture.md:154
-- EV-039 [SOURCE] keyword match: m6 in docs\decisions.md:682
-- EV-040 [SOURCE] keyword match: leases in docs\decisions.md:498
+- EV-013 [SOURCE] keyword match: reservations in README.md:187
+- EV-014 [SOURCE] keyword match: leases in README.md:4
+- EV-015 [SOURCE] keyword match: and in README.md:13
+- EV-016 [SOURCE] keyword match: writer in README.md:185
+- EV-017 [SOURCE] keyword match: cas in README.md:265
+- EV-018 [SOURCE] keyword match: and in setup.py:6
+- EV-019 [SOURCE] keyword match: and in adapters\claude\CLAUDE.template.md:6
+- EV-020 [SOURCE] keyword match: and in adapters\codex\AGENTS.template.md:6
+- EV-021 [SOURCE] keyword match: and in adapters\codex\adapter.yaml:12
+- EV-022 [SOURCE] keyword match: and in bootstrap\grounding.yaml:25
+- EV-023 [SOURCE] keyword match: and in bootstrap\interview\core.yaml:54
+- EV-024 [SOURCE] keyword match: m6 in core\ci-enforcement-policy.yaml:18
+- EV-025 [SOURCE] keyword match: leases in core\ci-enforcement-policy.yaml:18
+- EV-026 [SOURCE] keyword match: and in core\classifications.yaml:7
+- EV-027 [SOURCE] keyword match: and in core\evidence.yaml:2
+- EV-028 [SOURCE] keyword match: and in core\gates.yaml:14
+- EV-029 [SOURCE] keyword match: and in core\states.yaml:87
+- EV-030 [SOURCE] keyword match: and in core\workflow.yaml:19
+- EV-031 [SOURCE] keyword match: m6 in docs\README.md:6
+- EV-032 [SOURCE] keyword match: leases in docs\README.md:45
+- EV-033 [SOURCE] keyword match: and in docs\README.md:6
+- EV-034 [SOURCE] keyword match: m6 in docs\about.md:91
+- EV-035 [SOURCE] keyword match: and in docs\about.md:9
+- EV-036 [SOURCE] keyword match: mandatory in docs\about.md:81
+- EV-037 [SOURCE] keyword match: m6 in docs\architecture-current.md:72
+- EV-038 [SOURCE] keyword match: coordinated in docs\architecture-current.md:90
+- EV-039 [SOURCE] keyword match: reservations in docs\architecture-current.md:73
+- EV-040 [SOURCE] keyword match: leases in docs\architecture-current.md:32
 - EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
 - EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
 - EV-043 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
 - EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
 - EV-045 [TEST] existing test file: tests\compiler\test_compiler.py
-- EV-046 [CALL_PATH] keyword co-occurrence across 184 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
+- EV-046 [CALL_PATH] keyword co-occurrence across 187 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
 - EV-047 [CONFIG] config file match: adapters\codex\adapter.yaml:12
 - EV-048 [CONFIG] config file match: bootstrap\grounding.yaml:25
 - EV-049 [CONFIG] config file match: bootstrap\interview\core.yaml:54
