@@ -215,11 +215,12 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     # starts. GREEN must never adopt current YAML/JSON as a new baseline.
     omod.assert_checkpoint(target, change_id)
     change = ch.load_change(target, change_id)
-    if verdict_kind == "GREEN_PASS" and change["state"]["current"] not in ("LOCK_TEST", "GREEN", "REFACTOR"):
-        return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
     post_refactor_states = (
         "REFACTOR", "INTEGRATION", "RUNTIME_PLATFORM_VERIFY", "REGRESSION",
         "VERIFY", "REVIEW", "DRIFT_CHECK", "HUMAN_MERGE_APPROVAL", "ARCHIVE")
+    if (verdict_kind == "GREEN_PASS" and
+            change["state"]["current"] not in ("LOCK_TEST", "GREEN") + post_refactor_states):
+        return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
     if (verdict_kind == "REFACTOR_PASS" and
             change["state"]["current"] not in ("GREEN",) + post_refactor_states):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
@@ -294,7 +295,12 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
         change["gates"]["lock_test"] = "PASS"
         change["gates"]["green"] = "PASS"
         ch.save_change(target, change)
-        if change["state"]["current"] == "GREEN":
+        if change["state"]["current"] in post_refactor_states:
+            tr = {"status": "TRANSITION_OK", "change_id": change_id,
+                  "from": change["state"]["current"],
+                  "to": change["state"]["current"],
+                  "state": change["state"], "idempotent": True}
+        elif change["state"]["current"] == "GREEN":
             tr = {"status": "TRANSITION_OK", "change_id": change_id,
                   "from": "GREEN", "to": "GREEN",
                   "state": change["state"], "idempotent": True}
@@ -314,7 +320,7 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     omod.record_checkpoint(target, change_id)
     return {"status": "GREEN_COMPLETE" if verdict_kind == "GREEN_PASS" else "REFACTOR_COMPLETE",
             "change_id": change_id, "verdict": verdict_kind,
-            "state": "GREEN" if verdict_kind == "GREEN_PASS" else "REFACTOR"}
+            "state": change["state"]["current"]}
 
 
 @coord.coordinated_change_mutator("CHANGE_GREEN")

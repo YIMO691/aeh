@@ -22,6 +22,7 @@ from aeh.runtime import specification as sp
 from aeh.runtime import test_design as td
 from aeh.runtime import red as rmod
 from aeh.runtime import green as gmod
+from aeh.runtime import ownership as omod
 
 TDD_REPO = os.path.join(ROOT, "tests", "fixtures", "tdd-repo")
 TDD_SRC = os.path.join(ROOT, "tests", "fixtures", "tdd-src")
@@ -171,6 +172,27 @@ class TestGreen(unittest.TestCase):
         )
         self.assertEqual(rerun["status"], "GREEN_COMPLETE", rerun)
         self.assertEqual(ch.load_change(target, cid)["state"]["current"], "GREEN")
+
+        # A final provider-closure reconciliation may need to reseal GREEN
+        # after later verified files join the declared scope.  It must preserve
+        # the already-reached human merge state rather than transition backward.
+        change = ch.load_change(target, cid)
+        change["state"] = {"current": "HUMAN_MERGE_APPROVAL", "previous": "DRIFT_CHECK"}
+        ch.save_change(target, change)
+        omod.record_checkpoint(target, cid)
+        reconciled = gmod.change_green(
+            target, cid,
+            scope_path=scope_manifest(
+                tempfile.mkdtemp(),
+                [{"path": "src/reward.py", "before_hash": before,
+                  "after_hash": after}],
+            ),
+        )
+        self.assertEqual(reconciled["status"], "GREEN_COMPLETE", reconciled)
+        self.assertEqual(
+            ch.load_change(target, cid)["state"]["current"],
+            "HUMAN_MERGE_APPROVAL",
+        )
 
     def test_precondition_blocked_without_lock(self):
         target = make_target()
