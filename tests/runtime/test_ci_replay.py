@@ -21,6 +21,8 @@ from aeh import ci
 from aeh import cli
 from aeh.bootstrap import pipeline as bp
 from aeh.runtime import approval as amod
+from aeh.runtime import grounding as gmod
+from aeh.runtime import green as greenmod
 from aeh.runtime import verify as vmod
 from tests.runtime import test_verify as flow
 
@@ -52,6 +54,85 @@ def commit_all(target, message):
 
 
 class TestCiReplay(unittest.TestCase):
+    def test_grounding_freshness_accepts_safe_line_ending_materialization(self):
+        target = Path(tempfile.mkdtemp(prefix="aeh-ci-grounding-eol-"))
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        change_id = "CHG-2026-0002"
+        change_dir = target / ".aeh" / "changes" / change_id
+        change_dir.mkdir(parents=True)
+        source = target / "sample.txt"
+        source.write_bytes(b"alpha\nbeta\n")
+        crlf_hash = hashlib.sha256(b"alpha\r\nbeta\r\n").hexdigest()
+        (change_dir / "evidence.yaml").write_text(
+            yaml.safe_dump({"evidence": [{
+                "id": "EV-001",
+                "source_state": {
+                    "rel_path": "sample.txt",
+                    "file_hash": crlf_hash,
+                },
+            }]}),
+            encoding="utf-8",
+        )
+        self.assertEqual(gmod.check_stale(str(target), change_id)["stale"], [])
+        source.write_bytes(b"alpha\nbeta changed\n")
+        self.assertEqual(
+            gmod.check_stale(str(target), change_id)["stale"],
+            ["EV-001"],
+        )
+
+    def test_evidence_output_hash_accepts_only_safe_line_ending_materialization(self):
+        target = Path(tempfile.mkdtemp(prefix="aeh-ci-evidence-eol-"))
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        output = target / "evidence.log"
+        output.write_bytes(b"red\nresult\n")
+        record = {
+            "output_ref": "evidence.log",
+            "output_hash": hashlib.sha256(b"red\r\nresult\r\n").hexdigest(),
+        }
+        ci._verify_hash_reference(str(target), ci._Inputs(str(target)), record, "RED TEST-001")
+        output.write_bytes(b"red\nchanged\n")
+        with self.assertRaises(ci.ReplayFailure):
+            ci._verify_hash_reference(str(target), ci._Inputs(str(target)), record, "RED TEST-001")
+
+    def test_scm_metadata_is_not_a_repository_input(self):
+        self.assertTrue(ci._is_scm_metadata(".git"))
+        self.assertTrue(ci._is_scm_metadata(".git/config"))
+        self.assertFalse(ci._is_scm_metadata(".github/workflows/verify.yml"))
+
+    def test_grounding_freshness_is_cross_platform_and_ignores_git_metadata(self):
+        target = Path(tempfile.mkdtemp(prefix="aeh-ci-grounding-paths-"))
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        change_id = "CHG-2026-0003"
+        change_dir = target / ".aeh" / "changes" / change_id
+        change_dir.mkdir(parents=True)
+        source = target / "nested" / "sample.txt"
+        source.parent.mkdir()
+        source.write_bytes(b"portable\n")
+        (target / ".git").mkdir()
+        (change_dir / "evidence.yaml").write_text(
+            yaml.safe_dump({"evidence": [
+                {
+                    "id": "EV-001",
+                    "source_state": {
+                        "rel_path": r"nested\sample.txt",
+                        "file_hash": hashlib.sha256(source.read_bytes()).hexdigest(),
+                    },
+                },
+                {
+                    "id": "EV-002",
+                    "source_state": {
+                        "rel_path": ".git",
+                        "file_hash": "0" * 64,
+                    },
+                },
+            ]}),
+            encoding="utf-8",
+        )
+        self.assertEqual(
+            greenmod._stale_excluding(str(target), change_id, ["nested/sample.txt"]),
+            [],
+        )
+
     @classmethod
     def setUpClass(cls):
         cls.seed = tempfile.mkdtemp(prefix="aeh-ci-seed-")
@@ -133,6 +214,26 @@ class TestCiReplay(unittest.TestCase):
                         side_effect=AssertionError("project command executed")):
             self.assertEqual(self.replay(target)["verdict"], "PASS")
 
+    def test_verified_critical_post_review_state_is_accepted(self):
+        target = self.make_copy()
+        path = Path(target, ".aeh", "changes", self.change_id, "change.yaml")
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        body["workflow"]["phases"] = [
+            "INTAKE", "CLASSIFY", "GROUND", "SPEC", "TEST_DESIGN", "RED",
+            "GREEN", "REFACTOR", "INTEGRATION", "RUNTIME_PLATFORM_VERIFY",
+            "REGRESSION", "REVIEW", "DRIFT_CHECK", "HUMAN_MERGE_APPROVAL",
+            "ARCHIVE",
+        ]
+        body["state"] = {
+            "current": "HUMAN_MERGE_APPROVAL", "previous": "DRIFT_CHECK"}
+        path.write_text(
+            yaml.safe_dump(body, sort_keys=True, allow_unicode=True),
+            encoding="utf-8",
+        )
+        head = commit_all(target, "advance verified critical workflow")
+        report = self.replay(target, head_sha=head)
+        self.assertEqual(report["verdict"], "PASS", report)
+
     def test_cli_emits_pass_and_external_report(self):
         target = self.make_copy()
         report_path = tempfile.mktemp(prefix="aeh-ci-cli-", suffix=".json")
@@ -192,6 +293,35 @@ class TestCiReplay(unittest.TestCase):
             target, head_sha=head, credential_files={},
             accepted_approval_trust_modes={amod.SCM_AUTHENTICATED_MERGE})
         self.assertEqual(accepted["verdict"], "PASS", accepted)
+        provider_authenticated = self.replay(
+            target, head_sha=head, credential_files={},
+            scm_authenticated_merge=True,
+        )
+        self.assertEqual(provider_authenticated["verdict"], "PASS",
+                         provider_authenticated)
+
+    def test_unprotected_hmac_approval_does_not_require_key_in_provider_replay(self):
+        target = self.make_copy()
+        self.assertEqual(amod.record_approval(
+            target, self.change_id, "SPEC_REVIEW", "APPROVED", "reviewer",
+            key_id=flow.TEST_KEY_ID,
+        )["status"], "APPROVAL_RECORDED")
+        path = Path(target, ".aeh", "changes", self.change_id, "approvals.yaml")
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        merge = next(item for item in body["approvals"] if item["gate"] == "MERGE_GATE")
+        merge.pop("credential", None)
+        merge["trust_mode"] = amod.SCM_AUTHENTICATED_MERGE
+        merge["evidence_ref"] = "owner-decision:T-2"
+        path.write_text(
+            yaml.safe_dump(body, sort_keys=True, allow_unicode=True),
+            encoding="utf-8",
+        )
+        head = commit_all(target, "retain local spec signature and delegate merge")
+        report = self.replay(
+            target, head_sha=head, credential_files={},
+            accepted_approval_trust_modes={amod.SCM_AUTHENTICATED_MERGE},
+        )
+        self.assertEqual(report["verdict"], "PASS", report)
 
     def test_committed_forged_output_hash_is_invalid(self):
         target = self.make_copy()

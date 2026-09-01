@@ -240,6 +240,8 @@ def run_repair(target, apply=False, ae_root=None):
                     "doctor": before}
         if not apply:
             return {"status": "REPAIR_PLAN_READY", "target": target, "plan": plan}
+        from .runtime import coordination as coord
+        coord.assert_workspace_maintenance_allowed(target)
         journal = tx.apply_mutations(target, "repair", "RPR", mutations, plan, ae_root)
         after = doc.run_doctor(target, ae_root)
         status = "REPAIR_APPLIED" if after["overall"] != "BLOCKED" else "REPAIR_APPLIED_WITH_BLOCKERS"
@@ -253,6 +255,8 @@ def run_repair(target, apply=False, ae_root=None):
 def rollback(target, transaction_id, ae_root=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
+        from .runtime import coordination as coord
+        coord.assert_workspace_maintenance_allowed(target)
         journal = tx.rollback_transaction(target, transaction_id, ae_root)
         return {"status": "REPAIR_ROLLED_BACK", "target": target,
                 "transaction_id": transaction_id, "journal": journal,

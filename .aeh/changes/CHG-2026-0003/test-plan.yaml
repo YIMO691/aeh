@@ -1,0 +1,160 @@
+generated_at: '2026-09-01T14:17:22.019709+00:00'
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[a-m]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\regression-runtime
+  id: REG-001
+  timeout_seconds: 900
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[n-z]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\regression-runtime
+  id: REG-002
+  timeout_seconds: 900
+test_files:
+- dest: tests/runtime/test_coordination_writers.py
+  src: test_coordination_writers.py
+tests:
+- command: python -B -m unittest tests.runtime.test_coordination_writers
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.runtime.test_coordination_writers
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\red-runtime
+    timeout_seconds: 300
+  expected_before_fix:
+    signature: M6_3B_COORDINATION_WRITERS_REQUIRED
+    type: behavior_failure
+  id: TEST-001
+  intent: Fail until M6.3B reservation, lease lifecycle, writer CAS, maintenance,
+    drain, and redaction contracts exist together.
+  kind: contract
+  required: true
+  targets:
+  - .aeh/manifest.yaml
+  - .aeh/runtime/core/ci-enforcement-policy.yaml
+  - .aeh/runtime/core/states.yaml
+  - .github/workflows/aeh-assurance.yml
+  - README.md
+  - core/ci-enforcement-policy.yaml
+  - core/states.yaml
+  - docs/architecture-current.md
+  - schemas/coordination-store.schema.json
+  - schemas/change-lease.schema.json
+  - schemas/change-reservation.schema.json
+  - schemas/workspace-binding.schema.json
+  - schemas/coordination-receipt.schema.json
+  - src/aeh/runtime/coordination.py
+  - src/aeh/runtime/change.py
+  - src/aeh/runtime/grounding.py
+  - src/aeh/runtime/specification.py
+  - src/aeh/runtime/test_design.py
+  - src/aeh/runtime/red.py
+  - src/aeh/runtime/green.py
+  - src/aeh/runtime/verify.py
+  - src/aeh/runtime/approval.py
+  - src/aeh/runtime/ownership.py
+  - src/aeh/runtime/traceability.py
+  - src/aeh/ci.py
+  - src/aeh/cli.py
+  - src/aeh/bootstrap/pipeline.py
+  - src/aeh/repair.py
+  - src/aeh/upgrade.py
+  - src/aeh/github_ci.py
+  - tests/runtime/test_change.py
+  - tests/runtime/test_ci_replay.py
+  - tests/runtime/test_coordination.py
+  - tests/runtime/test_coordination_writers.py
+  - tests/runtime/test_green.py
+  - tests/runtime/test_m6_2d_dogfood.py
+  - tests/runtime/test_red.py
+  - tests/runtime/test_verify.py
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02
+  - AC-011-01
+  - AC-011-02
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_coordination_writers
+  - tests.runtime.test_coordination
+  - tests.contract.test_contracts
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-b-bounded-concurrency\verification-runtime
+  id: CONTRACT-001
+  timeout_seconds: 900
+  type: contract
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02
+  - AC-011-01
+  - AC-011-02

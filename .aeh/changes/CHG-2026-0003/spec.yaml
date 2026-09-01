@@ -1,0 +1,196 @@
+generated_at: '2026-08-31T12:56:40.869499+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: Unsupported network or cross-host state is rejected or explicitly outside
+      the assurance claim.
+    type: invariant
+  behavior: Coordination remains a single-host local-filesystem protocol using standard-library
+    locking, atomic file operations, and cryptographic hashing.
+  id: REQ-001
+  kind: CONSTRAINT
+  source:
+    refs:
+    - M6_3_SPEC.md#2
+    - M6_3_SPEC.md#5
+    - M6_3_SPEC.md#6
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-002-01
+    statement: CHG-2026-0002 credentials and approvals are not reused for CHG-2026-0003.
+    type: invariant
+  behavior: M6.3B is delivered after M6.3A and before M6.3C as a separate Change,
+    branch, PR, approval chain, and rollback unit.
+  id: REQ-002
+  kind: CONSTRAINT
+  source:
+    refs:
+    - M6_3_IMPLEMENTATION_PLAN.md#3
+    - M6_3_IMPLEMENTATION_PLAN.md#7
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-003-01
+    statement: Maintenance can run when the workspace has no live or expired-unrecovered
+      writer authority and blocks otherwise; drained rollback succeeds without deleting
+      the external store.
+    type: automated
+  - id: AC-003-02
+    statement: No force or bypass flag can install an older writer while reservations,
+      leases, active operations, or truth mismatches remain unresolved.
+    type: invariant
+  behavior: Bootstrap, repair, upgrade, rollback, and GitHub configuration apply paths
+    use a workspace-maintenance guard and downgrade obeys the coordination drain Gate.
+  id: REQ-003
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-004-01
+    statement: Concurrent change-new processes receive distinct increasing identifiers
+      and exactly one complete schema-valid Change for every committed reservation.
+    type: automated
+  - id: AC-004-02
+    statement: A crash may consume an identifier but a pending, abandoned, or committed
+      reservation is never reused or silently deleted.
+    type: invariant
+  behavior: Change allocation uses a repository-scoped monotonic external reservation
+    and atomic Change creation so concurrent creators never duplicate or reuse an
+    identifier.
+  id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: Acquire accepts one safe request, exclusively creates the external
+      token file, and blocks same-Change or same-workspace conflicts with stable codes.
+    type: automated
+  - id: AC-005-02
+    statement: Token bytes and token-file paths never enter the repository, Change
+      artifacts, receipts, normal output, errors, or logs.
+    type: invariant
+  behavior: Coordination acquire creates a bounded WRITE lease bound to repository,
+    physical workspace, Change truth, holder, external token hash, revision, and expiry.
+  id: REQ-005
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-006-01
+    statement: Transition, repair, ground, spec, test-design, red, green, refactor,
+      verify, approve, review-related writes, traceability, and Controller checkpoint
+      updates block without valid lease context after activation.
+    type: automated
+  - id: AC-006-02
+    statement: Begin and finalize validate token, revision, identity, time, active
+      operation, and Change truth; nested transitions reuse the active context and
+      cannot open a bypass transaction.
+    type: invariant
+  behavior: Every public Change-mutating CLI path and direct Python entry point uses
+    one begin-execute-finalize-or-abort coordination wrapper with optimistic truth
+    CAS.
+  id: REQ-006
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-007-01
+    statement: First acquire records current legacy Change truth, manual acquire-mutate-release
+      succeeds, and existing fixtures upgrade without data loss.
+    type: automated
+  - id: AC-007-02
+    statement: M6.3B preserves existing approvals, evidence, private data, transaction
+      journals, v1 ownership checkpoints, and the already-merged M6.3A contracts.
+    type: invariant
+  behavior: Existing never-coordinated Changes activate lazily without rewriting their
+    artifacts and continue to operate manually without AEW once a valid lease is acquired.
+  id: REQ-007
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-008-01
+    statement: Faults before execution, after begin, before Change replace, and before
+      finalize yield either unchanged truth with an abort or a retained unresolved
+      operation that blocks later writers.
+    type: automated
+  - id: AC-008-02
+    statement: Abort clears an operation only when current truth still equals the
+      pre-operation truth; changed truth remains fail-closed.
+    type: invariant
+  behavior: Failed or crashed mutations never publish an accepted mixed truth and
+    leave deterministic state for retry, expiry, or separately governed reconciliation.
+  id: REQ-008
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-009-01
+    statement: Focused concurrency tests, full regression, docs check, wheel build,
+      clean-room install, doctor, repair, upgrade/rollback, M4/M5, and CI replay pass.
+    type: automated
+  - id: AC-009-02
+    statement: The slice introduces no new third-party runtime dependency and does
+      not claim cross-host or network-filesystem correctness.
+    type: invariant
+  behavior: M6.3B remains cross-platform, independently reviewable, and regression-safe
+    across the supported Python and operating-system matrix.
+  id: REQ-009
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-010-01
+    statement: Valid renew and release advance revisions while stale revision, wrong
+      token, expiry, truth drift, and active-operation cases fail closed.
+    type: automated
+  - id: AC-010-02
+    statement: Release retains a RELEASED tombstone and never deletes the caller-owned
+      token file or historical coordination state.
+    type: invariant
+  behavior: Renew and release enforce exact token, identity, expected revision, live
+    time, no active operation, and unchanged accepted Change truth.
+  id: REQ-010
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-011-01
+    statement: Exactly one concurrent eligible recovery writes a RECOVERED tombstone
+      and later attempts return deterministic stale or already-recovered outcomes.
+    type: automated
+  - id: AC-011-02
+    statement: Live leases, truth drift, unresolved operations, clock rollback, malformed
+      state, and unsupported versions cannot be force-recovered.
+    type: invariant
+  behavior: Token-free recovery is allowed only for an expired lease with exact expected
+    revision and truth, no active operation, and deterministic serialized race handling.
+  id: REQ-011
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+scope:
+  in:
+  - atomic_change_id_reservation
+  - lease_acquire_renew_release_recover
+  - external_token_file_handling
+  - mandatory_change_mutator_cas
+  - nested_operation_context_reuse
+  - workspace_maintenance_guards
+  - coordination_drain_gate
+  - legacy_change_activation
+  out:
+  - stable_change_readers
+  - aew_v2_export
+  - extended_multiprocess_fault_matrix
+  - final_current_documentation_reconciliation
+  - release_tag_pypi

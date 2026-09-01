@@ -22,6 +22,7 @@ from aeh.runtime import specification as sp
 from aeh.runtime import test_design as td
 from aeh.runtime import red as rmod
 from aeh.runtime import green as gmod
+from aeh.runtime import ownership as omod
 
 TDD_REPO = os.path.join(ROOT, "tests", "fixtures", "tdd-repo")
 TDD_SRC = os.path.join(ROOT, "tests", "fixtures", "tdd-src")
@@ -94,9 +95,11 @@ def apply_fix(target):
     return before, after
 
 
-def scope_manifest(tmpdir, changed_files, allowed_paths=None):
+def scope_manifest(tmpdir, changed_files, allowed_paths=None, base_commit=None):
     body = {"changed_files": changed_files,
             "allowed_paths": allowed_paths or [cf["path"] for cf in changed_files]}
+    if base_commit is not None:
+        body["base_commit"] = base_commit
     return write_yaml(tmpdir, "scope.yaml", body)
 
 
@@ -108,6 +111,51 @@ def make_target(src=TDD_REPO):
 
 
 class TestGreen(unittest.TestCase):
+    def test_lock_accepts_only_lf_crlf_materialization_differences(self):
+        target = make_target()
+        cid = to_lock(target)
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        lock_path = os.path.join(cdir, "test-lock.yaml")
+        with open(os.path.join(cdir, "test-plan.yaml"), encoding="utf-8") as stream:
+            plan = yaml.safe_load(stream)
+        with open(lock_path, encoding="utf-8") as stream:
+            lock = yaml.safe_load(stream)
+
+        def alternate_hash(path):
+            with open(path, "rb") as stream:
+                content = stream.read()
+            canonical = content.replace(b"\r\n", b"\n")
+            alternate = (canonical.replace(b"\n", b"\r\n")
+                         if content == canonical else canonical)
+            self.assertNotEqual(content, alternate)
+            return hashlib.sha256(alternate).hexdigest()
+
+        test_rel = lock["files"][0]["path"]
+        lock["files"][0]["hash"] = alternate_hash(
+            os.path.join(target, test_rel))
+        lock["protected"]["spec.yaml"] = alternate_hash(
+            os.path.join(cdir, "spec.yaml"))
+        with open(lock_path, "w", encoding="utf-8") as stream:
+            yaml.safe_dump(lock, stream, sort_keys=True, allow_unicode=True)
+
+        verified, lock_hash = gmod._verify_lock(target, cid, plan)
+        self.assertEqual(verified, lock)
+        self.assertEqual(lock_hash, gmod._lock_hash(lock))
+
+    def test_scope_base_prefers_declared_pr_base(self):
+        declared = "A" * 40
+        with mock.patch.object(
+                gmod, "_git_base",
+                side_effect=AssertionError("current HEAD must not replace PR base")):
+            self.assertEqual(
+                gmod._scope_base("unused", {"base_commit": declared}),
+                declared.lower(),
+            )
+
+    def test_scope_base_rejects_non_commit_identifier(self):
+        with self.assertRaisesRegex(gmod.GreenError, "invalid base_commit"):
+            gmod._scope_base("unused", {"base_commit": "main"})
+
     def test_required_execution_prefers_declared_argv_over_display_command(self):
         target = tempfile.mkdtemp(prefix="aeh-g12-argv-target-")
         cdir = tempfile.mkdtemp(prefix="aeh-g12-argv-change-")
@@ -142,6 +190,40 @@ class TestGreen(unittest.TestCase):
         self.assertEqual(ev["verdict"], "GREEN_PASS")
         self.assertGreater(len(ev["changed_files"]), 0)
         self.assertTrue(ev["changed_files"][0]["code_id"].startswith("CODE-"))
+        # A failed post-test handoff may leave the Change in GREEN before a
+        # Controller retries the gate.  The retry must reseal evidence without
+        # requiring an illegal GREEN -> GREEN transition.
+        rerun = gmod.change_green(
+            target, cid,
+            scope_path=scope_manifest(
+                tempfile.mkdtemp(),
+                [{"path": "src/reward.py", "before_hash": before,
+                  "after_hash": after}],
+            ),
+        )
+        self.assertEqual(rerun["status"], "GREEN_COMPLETE", rerun)
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "GREEN")
+
+        # A final provider-closure reconciliation may need to reseal GREEN
+        # after later verified files join the declared scope.  It must preserve
+        # the already-reached human merge state rather than transition backward.
+        change = ch.load_change(target, cid)
+        change["state"] = {"current": "HUMAN_MERGE_APPROVAL", "previous": "DRIFT_CHECK"}
+        ch.save_change(target, change)
+        omod.record_checkpoint(target, cid)
+        reconciled = gmod.change_green(
+            target, cid,
+            scope_path=scope_manifest(
+                tempfile.mkdtemp(),
+                [{"path": "src/reward.py", "before_hash": before,
+                  "after_hash": after}],
+            ),
+        )
+        self.assertEqual(reconciled["status"], "GREEN_COMPLETE", reconciled)
+        self.assertEqual(
+            ch.load_change(target, cid)["state"]["current"],
+            "HUMAN_MERGE_APPROVAL",
+        )
 
     def test_precondition_blocked_without_lock(self):
         target = make_target()

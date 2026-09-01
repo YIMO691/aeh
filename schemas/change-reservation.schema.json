@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Change Reservation Contract",
+  "type": "object",
+  "required": [
+    "contract", "version", "change_id", "year", "sequence",
+    "workspace_id_sha256", "reservation_ref_sha256", "reserved_at", "state"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "change.reservation"},
+    "version": {"const": 1},
+    "change_id": {"type": "string", "pattern": "^CHG-[0-9]{4}-[0-9]{4,}$"},
+    "year": {"type": "integer", "minimum": 1, "maximum": 9999},
+    "sequence": {"type": "integer", "minimum": 1},
+    "workspace_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reservation_ref_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reserved_at": {"type": "string", "format": "date-time"},
+    "finalized_at": {"type": "string", "format": "date-time"},
+    "change_truth_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "state": {"enum": ["PENDING", "COMMITTED", "ABANDONED"]}
+  }
+}

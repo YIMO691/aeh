@@ -368,6 +368,8 @@ def bootstrap(target, answers_path=None, dry_run=False, source_revision="dev", a
         if dry_run:
             return {"status": "PLAN_READY", "target": target, "plan": plan,
                     "pending_questions": pending, "runtime_digest": digests["runtime"]}
+        from ..runtime import coordination as coord
+        coord.assert_workspace_maintenance_allowed(target)
         manifest_final = finalize_manifest(target, source_revision, digests)
         if manifest_final is not None:
             staged[".aeh/manifest.yaml"] = {"kind": "file", "content": manifest_final}
@@ -379,5 +381,8 @@ def bootstrap(target, answers_path=None, dry_run=False, source_revision="dev", a
     except BootstrapError as e:
         return {"status": str(e).split(":")[0] if str(e).startswith(("BLOCKED", "BOOTSTRAP")) else "BOOTSTRAP_FAILED",
                 "target": target, "error": str(e)}
+    except ValueError as e:
+        status = str(e).split(":")[0] if str(e).startswith("BLOCKED_") else "BOOTSTRAP_FAILED"
+        return {"status": status, "target": target, "error": str(e)}
     except (ar.AdapterError, cf.CompilerError) as e:
         return {"status": "BOOTSTRAP_FAILED", "target": target, "error": str(e)}

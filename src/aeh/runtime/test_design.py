@@ -8,7 +8,6 @@
 import hashlib
 import json
 import os
-import shutil
 from datetime import datetime, timezone
 
 import jsonschema
@@ -18,6 +17,7 @@ from .. import paths as aeh_paths
 from ..discovery import _resolve_within
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import grounding as gr
 from . import ownership as omod
 
@@ -99,6 +99,7 @@ def validate_coverage(spec, plan, level):
     return None, []
 
 
+@coord.coordinated_change_mutator("CHANGE_TEST_DESIGN")
 def change_test_design(target, change_id, plan_path, test_src=None, ae_root=None):
     ae_root = ae_root or aeh_paths.ae_root()
     try:
@@ -143,6 +144,7 @@ def change_test_design(target, change_id, plan_path, test_src=None, ae_root=None
         gr_rules = _load_yaml(os.path.join(ae_root, "bootstrap", "grounding.yaml"))
         allowed_dirs = tuple(gr_rules["test_dirs"])
         allowed_patterns = tuple(gr_rules["test_file_patterns"])
+        copies = []
         for tf in plan.get("test_files", []):
             dest = tf["dest"]
             rel = os.path.normpath(dest)
@@ -158,12 +160,14 @@ def change_test_design(target, change_id, plan_path, test_src=None, ae_root=None
             target_dest = _resolve_within(target, rel)
             if target_dest is None:
                 return {"status": "BLOCKED_TEST_LOCATION", "change_id": change_id, "dest": dest}
+            copies.append((src, target_dest))
+        for src, target_dest in copies:
             os.makedirs(os.path.dirname(target_dest), exist_ok=True)
-            shutil.copyfile(src, target_dest)
+            coord.atomic_copy_file(src, target_dest)
         plan["generated_at"] = datetime.now(timezone.utc).isoformat()
         cdir = ch._change_dir(target, change_id)
-        with open(os.path.join(cdir, "test-plan.yaml"), "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(plan))
+        coord.atomic_write_text(
+            os.path.join(cdir, "test-plan.yaml"), _dump_yaml(plan))
         change["gates"] = dict(change.get("gates") or {})
         change["gates"]["test_design"] = "PASS"
         ch.save_change(target, change)

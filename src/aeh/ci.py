@@ -28,6 +28,27 @@ class ReplayFailure(ValueError):
         self.message = message
 
 
+def _change_state_replay_ready(change, required_state):
+    """Accept VERIFY or a later declared workflow phase after VERIFY passed."""
+    current = (change.get("state") or {}).get("current")
+    if current == required_state:
+        return True
+    if (change.get("gates") or {}).get("verify") != "PASS":
+        return False
+    phases = ((change.get("workflow") or {}).get("phases") or [])
+    if current not in phases:
+        return False
+    if required_state in phases:
+        anchor = phases.index(required_state)
+    elif "REVIEW" in phases:
+        # CRITICAL verifies from REGRESSION directly into REVIEW; VERIFY is a
+        # gate result, not a phase in that workflow.
+        anchor = phases.index("REVIEW")
+    else:
+        return False
+    return phases.index(current) >= anchor
+
+
 def _load_yaml(path):
     with open(path, "r", encoding="utf-8") as stream:
         return yaml.safe_load(stream)
@@ -119,6 +140,11 @@ def _remote_repository_id(remote):
     return (host + "/" + path).lower() if host and path else ""
 
 
+def _is_scm_metadata(relative):
+    normalized = str(relative or "").replace("\\", "/").strip("/")
+    return normalized == ".git" or normalized.startswith(".git/")
+
+
 def _safe_target_file(target, relative):
     if not isinstance(relative, str) or not relative or os.path.isabs(relative):
         raise ReplayFailure("artifacts.paths", "INVALID", "artifact path is not repository-relative")
@@ -173,7 +199,9 @@ def _verify_hash_reference(target, inputs, record, label):
     if not relative or not re.fullmatch(r"[0-9a-f]{64}", expected):
         raise ReplayFailure("evidence.hashes", "INVALID", label + " has no valid output binding")
     path = inputs.add(relative)
-    if _sha256_file(path) != expected:
+    with open(path, "rb") as stream:
+        observed_hashes = _portable_content_hashes(stream.read())
+    if expected not in observed_hashes:
         raise ReplayFailure("evidence.hashes", "INVALID", label + " output hash mismatch")
 
 
@@ -268,10 +296,14 @@ def _build_report(repository_id, change_id, base_sha, head_sha, observed_at,
 
 
 def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
-           credential_files=None, ae_root=None, accepted_approval_trust_modes=None):
+           credential_files=None, ae_root=None, accepted_approval_trust_modes=None,
+           scm_authenticated_merge=False):
     """Replay committed assurance evidence without writing to the target."""
     ae_root = ae_root or aeh_paths.ae_root()
     target = os.path.realpath(target)
+    accepted_trust_modes = set(accepted_approval_trust_modes or ())
+    if scm_authenticated_merge:
+        accepted_trust_modes.add(approval.SCM_AUTHENTICATED_MERGE)
     inputs = _Inputs(target)
     checks = []
     harness = {"version": "unknown", "source_revision": "unknown",
@@ -346,7 +378,10 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             schema_path = os.path.join(target, ".aeh", "runtime", "schemas", schema_name)
             _schema_validate(value, schema_path, name)
             documents[name] = value
-        implementation_name = "green.yaml" if os.path.isfile(os.path.join(target, change_prefix, "green.yaml")) else "refactor.yaml"
+        implementation_name = (
+            "refactor.yaml"
+            if os.path.isfile(os.path.join(target, change_prefix, "refactor.yaml"))
+            else "green.yaml")
         implementation_path = inputs.add(change_prefix + implementation_name)
         implementation = _load_yaml(implementation_path)
         _schema_validate(implementation,
@@ -366,8 +401,10 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
         change = documents["change.yaml"]
         if change.get("change_id") != change_id:
             raise ReplayFailure("change.identity", "INVALID", "change.yaml does not bind requested change_id")
-        if change.get("state", {}).get("current") != policy["required_change_state"]:
-            raise ReplayFailure("change.state", "BLOCKED", "Change has not reached required VERIFY state")
+        if not _change_state_replay_ready(change, policy["required_change_state"]):
+            raise ReplayFailure(
+                "change.state", "BLOCKED",
+                "Change has not reached required VERIFY or a later verified workflow state")
         missing_gates = [gate for gate in policy["required_gates"]
                          if change.get("gates", {}).get(gate) != "PASS"]
         if missing_gates:
@@ -390,7 +427,7 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
                 inputs.add(change_prefix + protected_path)
         for evidence_item in documents["evidence.yaml"].get("evidence", []):
             source_path = (evidence_item.get("source_state") or {}).get("rel_path")
-            if source_path:
+            if source_path and not _is_scm_metadata(source_path):
                 inputs.add(source_path)
         try:
             lock, lock_hash = green._verify_lock(target, change_id, plan)
@@ -463,12 +500,15 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             if entry.get("status") == "REVOKED":
                 raise ReplayFailure("approvals.decision", "BLOCKED", "approval gate is REVOKED: " + entry["gate"])
             require_credential = entry["gate"] in policy["protected_approval_gates"]
+            credential = entry.get("credential") or entry.get("revocation_credential") or {}
+            key_id = credential.get("key_id")
+            key_path = (credential_files or {}).get(key_id)
             if require_credential:
-                credential = entry.get("credential") or entry.get("revocation_credential") or {}
-                key_id = credential.get("key_id")
-                key_path = (credential_files or {}).get(key_id)
-                delegated = (entry.get("trust_mode") in
-                             set(accepted_approval_trust_modes or ()))
+                trust_mode = entry.get("trust_mode")
+                delegated = trust_mode in accepted_trust_modes
+                if (scm_authenticated_merge and entry.get("gate") == "MERGE_GATE" and
+                        trust_mode == approval.SCM_AUTHENTICATED_MERGE):
+                    delegated = True
                 if not key_path and not delegated:
                     raise ReplayFailure("approvals.credentials", "BLOCKED", "external approval credential is unavailable: " + entry["gate"])
                 if key_path:
@@ -479,10 +519,17 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
                         key_inside_target = False
                     if key_inside_target:
                         raise ReplayFailure("approvals.credentials", "BLOCKED", "approval credential must be held outside the target repository: " + entry["gate"])
+            assessment_entry = entry
+            if not require_credential and credential and not key_path:
+                # The repository may retain a locally verified signature for
+                # an informational gate without exposing its HMAC key to CI.
+                # Only policy-protected gates require remote credential proof.
+                assessment_entry = dict(entry)
+                assessment_entry.pop("credential", None)
             state, _warnings = approval.assess_approval(
-                entry, now=observed, target=target, change_id=change_id,
+                assessment_entry, now=observed, target=target, change_id=change_id,
                 credential_files=credential_files, require_credential=require_credential,
-                accepted_trust_modes=accepted_approval_trust_modes)
+                accepted_trust_modes=accepted_trust_modes)
             if state in ("INVALID", "UNVERIFIED"):
                 raise ReplayFailure("approvals.credentials", "BLOCKED", "approval credential is unavailable or invalid: " + entry["gate"])
             if state == "EXPIRED":
@@ -498,7 +545,7 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
             state, _warnings = approval.assess_approval(
                 approvals.get(gate), now=observed, target=target, change_id=change_id,
                 credential_files=credential_files, require_credential=True,
-                accepted_trust_modes=accepted_approval_trust_modes)
+                accepted_trust_modes=accepted_trust_modes)
             if state != "APPROVED":
                 raise ReplayFailure("approvals.required", "BLOCKED", "required approval is not effectively APPROVED: " + gate)
         checks.append({"id": "approvals.effective", "status": "PASS", "message": "required approvals are effective at observed_at"})

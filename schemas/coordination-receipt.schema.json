@@ -11,7 +11,7 @@
   "properties": {
     "contract": {"const": "coordination.receipt"},
     "version": {"const": 1},
-    "operation": {"enum": ["STATUS", "ACQUIRE", "RENEW", "RELEASE", "RECOVER", "RESERVE"]},
+    "operation": {"enum": ["STATUS", "ACQUIRE", "RENEW", "RELEASE", "RECOVER", "RESERVE", "FINALIZE_RESERVATION", "BEGIN_MUTATION", "FINALIZE_MUTATION", "ABORT_MUTATION", "MAINTENANCE", "DRAIN"]},
     "outcome": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,63}$"},
     "repository_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "workspace_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},

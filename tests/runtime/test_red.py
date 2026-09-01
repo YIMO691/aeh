@@ -5,6 +5,7 @@
 import hashlib
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -18,6 +19,7 @@ sys.path.insert(0, os.path.join(ROOT, "src"))
 from aeh.bootstrap import pipeline as bp
 from aeh.runtime import change as ch
 from aeh.runtime import grounding as gr
+from aeh.runtime import ownership as omod
 from aeh.runtime import specification as sp
 from aeh.runtime import test_design as td
 from aeh.runtime import red as rmod
@@ -256,6 +258,61 @@ class TestRed(unittest.TestCase):
         rep = rmod.change_red(target, cid)
         self.assertEqual(rep["status"], "NO_RED_ALREADY_GREEN")
         self.assertFalse(os.path.exists(os.path.join(target, ".aeh", "changes", cid, "test-lock.yaml")))
+
+    def test_grounding_refresh_relocks_proven_red_without_rewriting_red_evidence(self):
+        target, cid, _ = self._to_red()
+        self.assertEqual(rmod.change_red(target, cid)["status"], "RED_COMPLETE")
+        cdir = os.path.join(target, ".aeh", "changes", cid)
+        red_path = os.path.join(cdir, "red.yaml")
+        log_path = os.path.join(cdir, "evidence", "red-TEST-001.log")
+        with open(red_path, "rb") as stream:
+            original_red = stream.read()
+        with open(log_path, "rb") as stream:
+            original_log = stream.read()
+        subprocess.run(["git", "-C", target, "init"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", target, "config", "user.email", "aeh-test@example.invalid"], check=True)
+        subprocess.run(["git", "-C", target, "config", "user.name", "AEH Test"], check=True)
+        subprocess.run(["git", "-C", target, "add", "-A"], check=True)
+        subprocess.run(["git", "-C", target, "commit", "-m", "seal valid red"], check=True, capture_output=True)
+        shutil.copyfile(
+            os.path.join(TDD_SRC, "reward_fixed.py"),
+            os.path.join(target, "src", "reward.py"))
+        self.assertEqual(ch.change_repair(target, cid, "test")["status"], "TRANSITION_OK")
+        self.assertEqual(ch.change_transition(target, cid, "TEST_DESIGN")["status"], "TRANSITION_OK")
+        evidence_path = os.path.join(cdir, "evidence.yaml")
+        with open(evidence_path, encoding="utf-8") as stream:
+            evidence = yaml.safe_load(stream)
+        for item in evidence.get("evidence", []):
+            source = item.get("source_state") or {}
+            relative = source.get("rel_path")
+            path = os.path.join(target, relative) if relative else None
+            if path and os.path.isfile(path):
+                with open(path, "rb") as stream:
+                    source["file_hash"] = hashlib.sha256(stream.read()).hexdigest()
+        with open(evidence_path, "w", encoding="utf-8") as stream:
+            yaml.safe_dump(evidence, stream, sort_keys=True, allow_unicode=True)
+        omod.record_checkpoint(target, cid)
+        current_red = yaml.safe_load(original_red.decode("utf-8"))
+        current_red["tests"][0]["verdict"] = "NO_RED_ALREADY_GREEN"
+        current_red["tests"][0]["exit_code"] = 0
+        current_red["tests"][0]["actual_failure"] = {
+            "category": "none", "signature": "exit_code==0"}
+        with open(red_path, "w", encoding="utf-8") as stream:
+            yaml.safe_dump(current_red, stream, sort_keys=True, allow_unicode=True)
+        rep = rmod.change_red(target, cid)
+        self.assertEqual(rep["status"], "RED_CONTEXT_RELOCKED", rep)
+        with open(red_path, "rb") as stream:
+            self.assertEqual(stream.read(), original_red)
+        with open(log_path, "rb") as stream:
+            self.assertEqual(stream.read(), original_log)
+        with open(os.path.join(cdir, "test-lock.yaml"), encoding="utf-8") as stream:
+            lock = yaml.safe_load(stream)
+        with open(evidence_path, "rb") as stream:
+            evidence_hash = hashlib.sha256(stream.read()).hexdigest()
+        self.assertEqual(
+            lock["protected"]["evidence.yaml"],
+            evidence_hash)
+        self.assertEqual(ch.load_change(target, cid)["state"]["current"], "LOCK_TEST")
 
     def test_invalid_red_lock_unreachable(self):
         target, cid, _ = self._to_red(plan=plan_body(src="crash_test.py"))

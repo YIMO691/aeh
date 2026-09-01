@@ -10,6 +10,7 @@
 """
 import os
 import re
+import secrets
 from datetime import datetime, timezone
 
 import jsonschema
@@ -18,9 +19,9 @@ import yaml
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import classify as cls
+from . import coordination as coord
 
 CHG_RE = re.compile(r"^CHG-(\d{4})-(\d{4})$")
-
 
 class ChangeError(ValueError):
     pass
@@ -39,23 +40,6 @@ def _change_dir(target, change_id):
     return os.path.join(target, ".aeh", "changes", change_id)
 
 
-def allocate_change_id(target, now=None):
-    root = os.path.join(target, ".aeh", "changes")
-    os.makedirs(root, exist_ok=True)
-    year = (now or datetime.now(timezone.utc)).year
-    max_n = 0
-    for name in os.listdir(root):
-        m = CHG_RE.match(name)
-        if m and int(m.group(1)) == year and os.path.isdir(os.path.join(root, name)):
-            max_n = max(max_n, int(m.group(2)))
-    n = max_n + 1
-    while True:
-        candidate = "CHG-%04d-%04d" % (year, n)
-        if not os.path.exists(os.path.join(root, candidate)):
-            return candidate
-        n += 1
-
-
 def _load_installed_contracts(target):
     states = _load_yaml(os.path.join(target, ".aeh", "runtime", "core", "states.yaml"))
     gates = _load_yaml(os.path.join(target, ".aeh", "runtime", "core", "gates.yaml"))
@@ -72,6 +56,7 @@ def _workflow_for(target, level):
 
 def change_new(target, title, suggested_level=None, ae_root=None, now=None):
     try:
+        observed = now or datetime.now(timezone.utc)
         d = doc.run_doctor(target, ae_root)
         pre = doc.runtime_preflight(d)
         if pre["verdict"] == "BLOCKED":
@@ -81,7 +66,11 @@ def change_new(target, title, suggested_level=None, ae_root=None, now=None):
         hits = cls.detect_hits(title)
         classification = cls.classify(title, suggested_level=suggested_level, hits=hits)
         level = classification["level"]
-        change_id = allocate_change_id(target, now)
+        reservation_ref = secrets.token_hex(16)
+        reservation = coord.reserve_change_id(
+            target, year=observed.year, reservation_ref=reservation_ref,
+            now=observed)
+        change_id = reservation["change_id"]
         ewf, lv = _workflow_for(target, level)
         change = {
             "change_id": change_id,
@@ -91,18 +80,25 @@ def change_new(target, title, suggested_level=None, ae_root=None, now=None):
             "gates": {"classification": "PASS"},
             "workflow": {"level": level, "phases": list(lv["phases"])},
             "preflight_warnings": warnings,
-            "created_at": (now or datetime.now(timezone.utc)).isoformat(),
+            "created_at": observed.isoformat(),
         }
         schema = _load_yaml(os.path.join(ae_root or aeh_paths.ae_root(), "schemas", "change.schema.json"))
         jsonschema.validate(change, schema)
         cdir = _change_dir(target, change_id)
         os.makedirs(cdir, exist_ok=False)
-        with open(os.path.join(cdir, "change.yaml"), "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(change))
+        change_path = os.path.join(cdir, "change.yaml")
+        coord.atomic_write_text(change_path, _dump_yaml(change))
+        committed = coord.finalize_reservation(
+            target, change_id, reservation_ref=reservation_ref,
+            outcome="COMMITTED", now=observed)
         return {"status": "CHANGE_CREATED", "target": target, "change_id": change_id,
                 "classification": classification, "workflow_level": level,
+                "reservation": {"status": committed["status"],
+                                "store_revision": committed["store_revision"]},
                 "preflight": {"verdict": pre["verdict"], "warnings": warnings}}
-    except (ChangeError, cls.ClassifyError, jsonschema.ValidationError) as e:
+    except coord.CoordinationError as e:
+        return {"status": str(e), "target": target}
+    except (ChangeError, cls.ClassifyError, jsonschema.ValidationError, OSError) as e:
         return {"status": "CHANGE_FAILED", "target": target, "error": str(e)}
 
 
@@ -114,17 +110,17 @@ def load_change(target, change_id):
 
 
 def save_change(target, change):
+    coord.assert_change_write_allowed(target, change["change_id"])
     cdir = _change_dir(target, change["change_id"])
-    tmp = os.path.join(cdir, "change.yaml.aeh-tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        f.write(_dump_yaml(change))
-    os.replace(tmp, os.path.join(cdir, "change.yaml"))
+    coord.atomic_write_text(
+        os.path.join(cdir, "change.yaml"), _dump_yaml(change))
 
 
 def _legal_transitions(states):
     return {(t["from"], t["to"]): t for t in states.get("transitions", [])}
 
 
+@coord.coordinated_change_mutator("CHANGE_TRANSITION")
 def change_transition(target, change_id, to, condition=None, ae_root=None):
     try:
         d = doc.run_doctor(target, ae_root)
@@ -150,6 +146,11 @@ def change_transition(target, change_id, to, condition=None, ae_root=None):
                         "from": current, "to": to, "gate": gate["id"]}
         change["state"] = {"current": to, "previous": current}
         save_change(target, change)
+        # Once RED has established Controller ownership, every later legal
+        # Controller transition must advance that external checkpoint too.
+        from . import ownership as omod
+        if omod.checkpoint_exists(target, change_id):
+            omod.record_checkpoint(target, change_id)
         return {"status": "TRANSITION_OK", "change_id": change_id, "from": current, "to": to,
                 "state": change["state"]}
     except (ChangeError, FileNotFoundError) as e:
@@ -176,6 +177,7 @@ def change_status(target, change_id, ae_root=None):
             "state": change["state"], "gates": change.get("gates", {}), "phases": rows}
 
 
+@coord.coordinated_change_mutator("CHANGE_REPAIR")
 def change_repair(target, change_id, kind, ae_root=None):
     """Route GREEN into a frozen repair state without bypassing transition checks."""
     routes = {

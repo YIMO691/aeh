@@ -1,0 +1,945 @@
+requirements:
+- acceptance:
+  - AC-001-01
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-001
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-002-01
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-002
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-003-01
+  - AC-003-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-003
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-004-01
+  - AC-004-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-004
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-005-01
+  - AC-005-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-005
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-006-01
+  - AC-006-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-006
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-007-01
+  - AC-007-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-007
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-008-01
+  - AC-008-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-008
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-009-01
+  - AC-009-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-009
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-010-01
+  - AC-010-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-010
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-011-01
+  - AC-011-02
+  code:
+  - code_id: CODE-001
+    path: .aeh/manifest.yaml
+  - code_id: CODE-002
+    path: .aeh/runtime/core/ci-enforcement-policy.yaml
+  - code_id: CODE-003
+    path: .aeh/runtime/core/states.yaml
+  - code_id: CODE-004
+    path: .github/workflows/aeh-assurance.yml
+  - code_id: CODE-005
+    path: README.md
+  - code_id: CODE-006
+    path: core/ci-enforcement-policy.yaml
+  - code_id: CODE-007
+    path: core/states.yaml
+  - code_id: CODE-008
+    path: docs/architecture-current.md
+  - code_id: CODE-009
+    path: schemas/change-lease.schema.json
+  - code_id: CODE-010
+    path: schemas/change-reservation.schema.json
+  - code_id: CODE-011
+    path: schemas/coordination-receipt.schema.json
+  - code_id: CODE-012
+    path: schemas/workspace-binding.schema.json
+  - code_id: CODE-013
+    path: src/aeh/bootstrap/pipeline.py
+  - code_id: CODE-014
+    path: src/aeh/ci.py
+  - code_id: CODE-015
+    path: src/aeh/cli.py
+  - code_id: CODE-016
+    path: src/aeh/github_ci.py
+  - code_id: CODE-017
+    path: src/aeh/repair.py
+  - code_id: CODE-018
+    path: src/aeh/runtime/approval.py
+  - code_id: CODE-019
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-020
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-021
+    path: src/aeh/runtime/green.py
+  - code_id: CODE-022
+    path: src/aeh/runtime/grounding.py
+  - code_id: CODE-023
+    path: src/aeh/runtime/ownership.py
+  - code_id: CODE-024
+    path: src/aeh/runtime/red.py
+  - code_id: CODE-025
+    path: src/aeh/runtime/specification.py
+  - code_id: CODE-026
+    path: src/aeh/runtime/test_design.py
+  - code_id: CODE-027
+    path: src/aeh/runtime/traceability.py
+  - code_id: CODE-028
+    path: src/aeh/runtime/verify.py
+  - code_id: CODE-029
+    path: src/aeh/upgrade.py
+  - code_id: CODE-030
+    path: tests/runtime/test_change.py
+  - code_id: CODE-031
+    path: tests/runtime/test_ci_replay.py
+  - code_id: CODE-032
+    path: tests/runtime/test_coordination.py
+  - code_id: CODE-033
+    path: tests/runtime/test_coordination_writers.py
+  - code_id: CODE-034
+    path: tests/runtime/test_green.py
+  - code_id: CODE-035
+    path: tests/runtime/test_m6_2d_dogfood.py
+  - code_id: CODE-036
+    path: tests/runtime/test_red.py
+  - code_id: CODE-037
+    path: tests/runtime/test_verify.py
+  id: REQ-011
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004

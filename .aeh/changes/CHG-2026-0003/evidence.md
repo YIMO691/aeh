@@ -1,0 +1,64 @@
+# Grounding Evidence
+
+machine truth in evidence.yaml
+
+- EV-001 [SOURCE] keyword match: m6 in .git:1
+- EV-002 [SOURCE] keyword match: and in AGENTS.md:7
+- EV-003 [SOURCE] keyword match: m6 in CHANGELOG.md:17
+- EV-004 [SOURCE] keyword match: leases in CHANGELOG.md:160
+- EV-005 [SOURCE] keyword match: and in CHANGELOG.md:17
+- EV-006 [SOURCE] keyword match: cas in CHANGELOG.md:110
+- EV-007 [SOURCE] keyword match: and in CLAUDE.md:7
+- EV-008 [SOURCE] keyword match: m6 in CONTRIBUTING.md:25
+- EV-009 [SOURCE] keyword match: leases in CONTRIBUTING.md:98
+- EV-010 [SOURCE] keyword match: and in CONTRIBUTING.md:25
+- EV-011 [SOURCE] keyword match: and in LICENSE:6
+- EV-012 [SOURCE] keyword match: m6 in README.md:11
+- EV-013 [SOURCE] keyword match: reservations in README.md:187
+- EV-014 [SOURCE] keyword match: leases in README.md:4
+- EV-015 [SOURCE] keyword match: and in README.md:13
+- EV-016 [SOURCE] keyword match: writer in README.md:185
+- EV-017 [SOURCE] keyword match: cas in README.md:265
+- EV-018 [SOURCE] keyword match: and in setup.py:6
+- EV-019 [SOURCE] keyword match: and in adapters\claude\CLAUDE.template.md:6
+- EV-020 [SOURCE] keyword match: and in adapters\codex\AGENTS.template.md:6
+- EV-021 [SOURCE] keyword match: and in adapters\codex\adapter.yaml:12
+- EV-022 [SOURCE] keyword match: and in bootstrap\grounding.yaml:25
+- EV-023 [SOURCE] keyword match: and in bootstrap\interview\core.yaml:54
+- EV-024 [SOURCE] keyword match: m6 in core\ci-enforcement-policy.yaml:18
+- EV-025 [SOURCE] keyword match: leases in core\ci-enforcement-policy.yaml:18
+- EV-026 [SOURCE] keyword match: and in core\classifications.yaml:7
+- EV-027 [SOURCE] keyword match: and in core\evidence.yaml:2
+- EV-028 [SOURCE] keyword match: and in core\gates.yaml:14
+- EV-029 [SOURCE] keyword match: and in core\states.yaml:87
+- EV-030 [SOURCE] keyword match: and in core\workflow.yaml:19
+- EV-031 [SOURCE] keyword match: m6 in docs\README.md:6
+- EV-032 [SOURCE] keyword match: leases in docs\README.md:45
+- EV-033 [SOURCE] keyword match: and in docs\README.md:6
+- EV-034 [SOURCE] keyword match: m6 in docs\about.md:91
+- EV-035 [SOURCE] keyword match: and in docs\about.md:9
+- EV-036 [SOURCE] keyword match: mandatory in docs\about.md:81
+- EV-037 [SOURCE] keyword match: m6 in docs\architecture-current.md:72
+- EV-038 [SOURCE] keyword match: coordinated in docs\architecture-current.md:90
+- EV-039 [SOURCE] keyword match: reservations in docs\architecture-current.md:73
+- EV-040 [SOURCE] keyword match: leases in docs\architecture-current.md:32
+- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-043 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-045 [TEST] existing test file: tests\compiler\test_compiler.py
+- EV-046 [CALL_PATH] keyword co-occurrence across 187 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
+- EV-047 [CONFIG] config file match: adapters\codex\adapter.yaml:12
+- EV-048 [CONFIG] config file match: bootstrap\grounding.yaml:25
+- EV-049 [CONFIG] config file match: bootstrap\interview\core.yaml:54
+- EV-050 [CONFIG] config file match: core\ci-enforcement-policy.yaml:18
+- EV-051 [CONFIG] config file match: core\ci-enforcement-policy.yaml:18
+- EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
+- EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
+- EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration
+- EV-055 [SOURCE] risk domain marker found in repository: money_economy
+- EV-056 [SOURCE] risk domain marker found in repository: persistence
+- EV-057 [SOURCE] risk domain marker found in repository: protocol_compatibility
+- EV-058 [SOURCE] risk domain marker found in repository: save_migration
+- EV-059 [SOURCE] risk domain marker found in repository: security_boundary
+- EV-060 [UNKNOWN] architecture constraints not symbolically verified in Phase 9 scan

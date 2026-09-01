@@ -100,9 +100,11 @@ transitions:
   - {from: GREEN, to: SPEC_REPAIR, condition: SPEC_CHANGED_IN_GREEN}
   - {from: REFACTOR, to: TEST_REPAIR, condition: BLOCKED_TEST_CHANGED}
   - {from: REFACTOR, to: SPEC_REPAIR, condition: SPEC_CHANGED_IN_GREEN}
+  - {from: REGRESSION, to: TEST_REPAIR, condition: TRACEABILITY_INCOMPLETE}
   - {from: REFACTOR, to: GROUND, condition: GROUNDING_STALE}
   - {from: SPEC, to: GROUND, condition: GROUNDING_STALE}
   - {from: TEST_DESIGN, to: GROUND, condition: GROUNDING_STALE}
+  - {from: HUMAN_MERGE_APPROVAL, to: GROUND, condition: GROUNDING_STALE}
   - {from: LOCK_TEST, to: TEST_REPAIR, condition: BLOCKED_TEST_CHANGED}
   - {from: TEST_REPAIR, to: TEST_DESIGN}
   - {from: SPEC_REPAIR, to: SPEC}

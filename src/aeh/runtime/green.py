@@ -3,6 +3,7 @@
 # Core enforcement: Test Lock hash unchanged before/after.
 import hashlib
 import os
+import re
 import subprocess
 from datetime import datetime, timezone
 
@@ -12,6 +13,7 @@ import yaml
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import grounding as gr
 from . import red as rmod
 from . import ownership as omod
@@ -45,6 +47,15 @@ def _git_base(target):
         return None
 
 
+def _scope_base(target, scope):
+    declared = scope.get("base_commit")
+    if declared is None:
+        return _git_base(target)
+    if not isinstance(declared, str) or not re.fullmatch(r"[0-9a-fA-F]{40}", declared):
+        raise GreenError("BLOCKED_SCOPE_VIOLATION: invalid base_commit")
+    return declared.lower()
+
+
 def _resolve_cwd(target, cwd):
     # cwd 必须位于 target repository 内（含 symlink 越界防护）
     if not cwd:
@@ -72,6 +83,18 @@ def _lock_hash(lock):
     return hashlib.sha256(("\n".join(f["path"] + "\0" + f["hash"] for f in lock["files"])).encode("utf-8")).hexdigest()
 
 
+def _portable_file_hashes(path):
+    """Hash ordinary Git LF/CRLF materializations without relaxing content."""
+    with open(path, "rb") as stream:
+        content = stream.read()
+    variants = {content}
+    if b"\x00" not in content:
+        canonical = content.replace(b"\r\n", b"\n")
+        variants.add(canonical)
+        variants.add(canonical.replace(b"\n", b"\r\n"))
+    return {hashlib.sha256(item).hexdigest() for item in variants}
+
+
 def _verify_lock(target, change_id, plan):
     cdir = ch._change_dir(target, change_id)
     lock_path = os.path.join(cdir, "test-lock.yaml")
@@ -79,16 +102,19 @@ def _verify_lock(target, change_id, plan):
         raise GreenError("test-lock.yaml missing")
     lock = _load_yaml(lock_path)
     # 当前测试文件哈希 vs lock
-    current = rmod._test_files_hash(target, plan)
-    locked = _lock_hash(lock)
-    # lock hash 基于文件内容：重建 current files hash 列表对比
-    cur_files = []
+    rmod._test_files_hash(target, plan)
+    locked_files = lock.get("files") or []
+    locked_by_path = {item.get("path"): item.get("hash") for item in locked_files}
+    current_paths = []
     for tf in plan.get("test_files", []):
         p = os.path.join(target, tf["dest"])
-        if os.path.isfile(p):
-            cur_files.append({"path": tf["dest"], "hash": _sha256_file(p)})
-    cur_files_hash = hashlib.sha256(("\n".join(f["path"] + "\0" + f["hash"] for f in cur_files)).encode("utf-8")).hexdigest()
-    if cur_files_hash != locked:
+        expected = locked_by_path.get(tf["dest"])
+        if (not os.path.isfile(p) or not expected or
+                expected not in _portable_file_hashes(p)):
+            raise GreenError("BLOCKED_TEST_CHANGED")
+        current_paths.append(tf["dest"])
+    if (len(locked_by_path) != len(locked_files) or
+            set(current_paths) != set(locked_by_path)):
         raise GreenError("BLOCKED_TEST_CHANGED")
     # protected 哈希（spec/evidence/profile/workflow）
     for prel, expect in (lock.get("protected") or {}).items():
@@ -97,9 +123,9 @@ def _verify_lock(target, change_id, plan):
             p = os.path.join(cdir, prel)
         if not os.path.isfile(p):
             raise GreenError("BLOCKED_RUNTIME_CONTEXT_STALE: protected file missing " + prel)
-        if _sha256_file(p) != expect:
+        if expect not in _portable_file_hashes(p):
             raise GreenError("BLOCKED_RUNTIME_CONTEXT_STALE: " + prel)
-    return lock, cur_files_hash
+    return lock, _lock_hash(lock)
 
 
 def _stale_excluding(target, change_id, exclude_paths):
@@ -112,11 +138,19 @@ def _stale_excluding(target, change_id, exclude_paths):
         ss = e.get("source_state") or {}
         if ss.get("rel_path"):
             id_to_path[e["id"]] = ss["rel_path"]
-    norm_exclude = [p.replace(os.sep, "/") for p in exclude_paths]
+    def portable(path):
+        return str(path).replace("\\", "/")
+
+    norm_exclude = {portable(p) for p in exclude_paths}
     remain = []
     for ev_id in stale_all:
         p = id_to_path.get(ev_id)
-        if p is None or p.replace(os.sep, "/") not in norm_exclude:
+        normalized = portable(p) if p is not None else None
+        # Git administrative state is provider/runtime metadata, not a
+        # repository input whose bytes can be stable across worktrees.
+        if normalized == ".git" or (normalized or "").startswith(".git/"):
+            continue
+        if normalized is None or normalized not in norm_exclude:
             remain.append(ev_id)
     return remain
 
@@ -156,8 +190,7 @@ def _run_required(target, plan, cdir, prefix, change_id, allow_shell=False, ae_r
             target, spec, allow_shell=allow_shell, ae_root=ae_root)
         out_path = os.path.join(cdir, "evidence", prefix + "-" + tid + ".log")
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(output)
+        coord.atomic_write_text(out_path, output)
         with open(out_path, "rb") as f:
             output_hash = hashlib.sha256(f.read()).hexdigest()
         rec = {"test_id": tid, "command": t.get("command"),
@@ -183,8 +216,7 @@ def _run_regression(target, plan, cdir, prefix, change_id, allow_shell=False, ae
         rid = rg.get("id") or ("REG-%02d" % (i + 1))
         out_path = os.path.join(cdir, "evidence", prefix + "-" + rid + ".log")
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(output)
+        coord.atomic_write_text(out_path, output)
         with open(out_path, "rb") as f:
             output_hash = hashlib.sha256(f.read()).hexdigest()
         reg_records.append({"test_id": rid, "exit_code": exit_code,
@@ -206,9 +238,14 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     # starts. GREEN must never adopt current YAML/JSON as a new baseline.
     omod.assert_checkpoint(target, change_id)
     change = ch.load_change(target, change_id)
-    if verdict_kind == "GREEN_PASS" and change["state"]["current"] not in ("LOCK_TEST", "GREEN", "REFACTOR"):
+    post_refactor_states = (
+        "REFACTOR", "INTEGRATION", "RUNTIME_PLATFORM_VERIFY", "REGRESSION",
+        "VERIFY", "REVIEW", "DRIFT_CHECK", "HUMAN_MERGE_APPROVAL", "ARCHIVE")
+    if (verdict_kind == "GREEN_PASS" and
+            change["state"]["current"] not in ("LOCK_TEST", "GREEN") + post_refactor_states):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
-    if verdict_kind == "REFACTOR_PASS" and change["state"]["current"] not in ("GREEN", "REFACTOR"):
+    if (verdict_kind == "REFACTOR_PASS" and
+            change["state"]["current"] not in ("GREEN",) + post_refactor_states):
         return {"status": "BLOCKED_CHANGE_STATE", "change_id": change_id, "state": change["state"]["current"]}
     for g in ("grounding", "spec", "red"):
         if change.get("gates", {}).get(g) != "PASS":
@@ -256,7 +293,7 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     lock2, cur_lock_hash2 = _verify_lock(target, change_id, plan)
     if cur_lock_hash2 != cur_lock_hash:
         return {"status": "BLOCKED_TEST_CHANGED", "change_id": change_id}
-    base_commit = _git_base(target)
+    base_commit = _scope_base(target, scope)
     if not changed:
         return {"status": "BLOCKED_SCOPE_VIOLATION", "change_id": change_id, "error": "no changed_files declared"}
     before_parts = sorted(cf["before_hash"] + "\0" + cf["path"] for cf in changed)
@@ -274,20 +311,30 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     schema_g = _load_yaml(os.path.join(ae_root, "schemas", "green.schema.json"))
     jsonschema.validate(evidence, schema_g)
     fname = "green.yaml" if verdict_kind == "GREEN_PASS" else "refactor.yaml"
-    with open(os.path.join(cdir, fname), "w", encoding="utf-8") as f:
-        f.write(_dump_yaml(evidence))
+    coord.atomic_write_text(os.path.join(cdir, fname), _dump_yaml(evidence))
     change = ch.load_change(target, change_id)
     change["gates"] = dict(change.get("gates") or {})
     if verdict_kind == "GREEN_PASS":
         change["gates"]["lock_test"] = "PASS"
         change["gates"]["green"] = "PASS"
         ch.save_change(target, change)
-        tr = ch.change_transition(target, change_id, "GREEN")
+        if change["state"]["current"] in post_refactor_states:
+            tr = {"status": "TRANSITION_OK", "change_id": change_id,
+                  "from": change["state"]["current"],
+                  "to": change["state"]["current"],
+                  "state": change["state"], "idempotent": True}
+        elif change["state"]["current"] == "GREEN":
+            tr = {"status": "TRANSITION_OK", "change_id": change_id,
+                  "from": "GREEN", "to": "GREEN",
+                  "state": change["state"], "idempotent": True}
+        else:
+            tr = ch.change_transition(target, change_id, "GREEN")
     else:
         ch.save_change(target, change)
-        if change["state"]["current"] == "REFACTOR":
+        if change["state"]["current"] in post_refactor_states:
             tr = {"status": "TRANSITION_OK", "change_id": change_id,
-                  "from": "REFACTOR", "to": "REFACTOR",
+                  "from": change["state"]["current"],
+                  "to": change["state"]["current"],
                   "state": change["state"], "idempotent": True}
         else:
             tr = ch.change_transition(target, change_id, "REFACTOR")
@@ -296,9 +343,10 @@ def _green_core(target, change_id, scope_path, ae_root, verdict_kind, allow_shel
     omod.record_checkpoint(target, change_id)
     return {"status": "GREEN_COMPLETE" if verdict_kind == "GREEN_PASS" else "REFACTOR_COMPLETE",
             "change_id": change_id, "verdict": verdict_kind,
-            "state": "GREEN" if verdict_kind == "GREEN_PASS" else "REFACTOR"}
+            "state": change["state"]["current"]}
 
 
+@coord.coordinated_change_mutator("CHANGE_GREEN")
 def change_green(target, change_id, scope_path=None, ae_root=None, allow_shell=False):
     try:
         return _green_core(
@@ -309,6 +357,7 @@ def change_green(target, change_id, scope_path=None, ae_root=None, allow_shell=F
         return {"status": code, "change_id": change_id, "error": str(e)}
 
 
+@coord.coordinated_change_mutator("CHANGE_REFACTOR")
 def change_refactor(target, change_id, scope_path=None, ae_root=None, allow_shell=False):
     try:
         return _green_core(

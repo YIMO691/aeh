@@ -10,6 +10,7 @@ from datetime import datetime, timedelta, timezone
 from .. import paths as aeh_paths
 from ..doctor import doctor as doc
 from . import change as ch
+from . import coordination as coord
 from . import ownership as omod
 from . import credentials as credmod
 
@@ -123,6 +124,7 @@ def load_approvals(target, change_id):
     return out
 
 
+@coord.coordinated_change_mutator("CHANGE_APPROVAL")
 def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None,
                     ttl_seconds=None, ae_root=None, now=None, key_id=None,
                     credential_file=None, trust_mode=HMAC_CREDENTIAL):
@@ -209,8 +211,7 @@ def record_approval(target, change_id, gate, status, actor_id, evidence_ref=None
         body["approvals"] = others + [entry]
         schema = _load_yaml(os.path.join(ae_root, "schemas", "approvals.schema.json"))
         jsonschema.validate(body, schema)
-        with open(docp, "w", encoding="utf-8") as f:
-            f.write(_dump_yaml(body))
+        coord.atomic_write_text(docp, _dump_yaml(body))
         if omod.checkpoint_exists(target, change_id):
             omod.record_checkpoint(target, change_id)
         return {"status": result_status, "change_id": change_id, "gate": gate,

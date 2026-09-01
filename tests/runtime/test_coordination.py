@@ -8,6 +8,7 @@ import tempfile
 import threading
 import time
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import jsonschema
@@ -182,26 +183,76 @@ class CoordinationCase(unittest.TestCase):
                 timeout_seconds=1.0, create=True):
             pass
 
-    def test_cli_exposes_status_only_and_does_not_activate(self):
+    def test_cli_exposes_lifecycle_and_status_does_not_activate(self):
         old = os.environ.get("AEH_CONTROLLER_STATE_DIR")
         os.environ["AEH_CONTROLLER_STATE_DIR"] = str(self.state)
         try:
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
-                code = cli.main(["coordination", "status", str(self.target)])
+                code = cli.main([
+                    "coordination", "status", "--workdir", str(self.target)])
             self.assertEqual(code, 0)
             self.assertEqual(json.loads(output.getvalue())["status"], "NOT_ACTIVATED")
             self.assertFalse(self.state.exists())
             help_output = io.StringIO()
             with contextlib.redirect_stdout(help_output):
-                with self.assertRaises(SystemExit):
-                    cli.main(["coordination", "acquire", str(self.target)])
+                with self.assertRaises(SystemExit) as shown:
+                    cli.main(["coordination", "acquire", "--help"])
+            self.assertEqual(shown.exception.code, 0)
+            self.assertIn("--holder-ref", help_output.getvalue())
+            self.assertIn("--token-file", help_output.getvalue())
             self.assertFalse(self.state.exists())
         finally:
             if old is None:
                 os.environ.pop("AEH_CONTROLLER_STATE_DIR", None)
             else:
                 os.environ["AEH_CONTROLLER_STATE_DIR"] = old
+
+    def test_expired_active_operation_recovery_requires_exact_truth_opt_in(self):
+        change_id = "CHG-2026-0002"
+        change = self.target / ".aeh" / "changes" / change_id
+        (change / "change.yaml").write_text("state: before\n", encoding="utf-8")
+        token = self.root / "lease.token"
+        now = datetime(2026, 8, 31, tzinfo=timezone.utc)
+        acquired = coordination.acquire_lease(
+            str(self.target), change_id, holder_ref="holder",
+            token_file=str(token), ttl_seconds=60,
+            state_root=str(self.state), now=now)
+        begun = coordination.begin_mutation(
+            str(self.target), change_id, operation="TEST_CRASH",
+            token_file=str(token), expected_revision=acquired["lease_revision"],
+            state_root=str(self.state), now=now + timedelta(seconds=1))
+        (change / "result.yaml").write_text("ok: true\n", encoding="utf-8")
+        current = coordination.change_truth(str(self.target), change_id)["digest"]
+        with self.assertRaises(coordination.CoordinationError) as default_block:
+            coordination.recover_lease(
+                str(self.target), change_id,
+                expected_revision=begun["lease_revision"],
+                expected_truth_hash=current, state_root=str(self.state),
+                now=now + timedelta(seconds=61))
+        self.assertIn("BLOCKED_RECOVERY_ACTIVE_OPERATION", str(default_block.exception))
+        with self.assertRaises(coordination.CoordinationError) as wrong_truth:
+            coordination.recover_lease(
+                str(self.target), change_id,
+                expected_revision=begun["lease_revision"],
+                expected_truth_hash="0" * 64, state_root=str(self.state),
+                accept_active_operation_truth=True,
+                now=now + timedelta(seconds=61))
+        self.assertIn("BLOCKED_RECOVERY_TRUTH_DRIFT", str(wrong_truth.exception))
+        recovered = coordination.recover_lease(
+            str(self.target), change_id,
+            expected_revision=begun["lease_revision"],
+            expected_truth_hash=current, state_root=str(self.state),
+            accept_active_operation_truth=True,
+            now=now + timedelta(seconds=61))
+        self.assertEqual(recovered["status"], "LEASE_RECOVERED")
+        self.assertEqual(
+            recovered["recovery_outcome"],
+            "ACTIVE_OPERATION_TRUTH_ACCEPTED",
+        )
+        status = coordination.coordination_status(
+            str(self.target), change_id, state_root=str(self.state))
+        self.assertIsNone(status["active_operation"])
 
     def test_doctor_coordination_diagnostic_is_read_only(self):
         old = os.environ.get("AEH_CONTROLLER_STATE_DIR")
@@ -223,7 +274,7 @@ class CoordinationCase(unittest.TestCase):
         self.assertNotIn("portalocker", setup_text.lower())
         for name in (
                 "coordination-store", "change-lease", "workspace-binding",
-                "coordination-receipt"):
+                "coordination-receipt", "change-reservation"):
             schema = json.loads((root / "schemas" / (name + ".schema.json")).read_text(encoding="utf-8"))
             self.assertEqual(schema["$schema"], "http://json-schema.org/draft-07/schema#")
 

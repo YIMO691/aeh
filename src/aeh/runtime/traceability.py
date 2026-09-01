@@ -7,6 +7,7 @@ import jsonschema
 
 from .. import paths as aeh_paths
 from . import change as ch
+from . import coordination as coord
 
 
 class TraceError(ValueError):
@@ -26,6 +27,7 @@ def _norm(p):
     return p.replace(os.sep, "/")
 
 
+@coord.coordinated_change_mutator("CHANGE_TRACEABILITY")
 def build_traceability(target, change_id, ae_root=None):
     ae_root = ae_root or aeh_paths.ae_root()
     cdir = ch._change_dir(target, change_id)
@@ -108,8 +110,8 @@ def build_traceability(target, change_id, ae_root=None):
     body = {"requirements": requirements}
     schema = _load_yaml(os.path.join(ae_root, "schemas", "traceability.schema.json"))
     jsonschema.validate(body, schema)
-    with open(os.path.join(cdir, "traceability.yaml"), "w", encoding="utf-8") as f:
-        f.write(_dump_yaml(body))
+    coord.atomic_write_text(
+        os.path.join(cdir, "traceability.yaml"), _dump_yaml(body))
     if issues:
         return {"status": "BLOCKED_TRACEABILITY_INCOMPLETE", "change_id": change_id,
                 "issues": issues, "traceability": body}

@@ -182,6 +182,29 @@ aeh upgrade /path/to/project --rollback UPG-2026-0001
 Upgrade is explicit and version-bound. It is not an automatic, network-driven,
 incremental, or arbitrary multi-version migration service.
 
+## Bounded Change writers
+
+M6.3B provides single-host, local-filesystem reservations and WRITE leases.
+The token path must be outside both the target repository and AEH's external
+coordination state. Token bytes and paths are never written to Change truth or
+normal JSON output.
+
+```bash
+aeh coordination acquire CHG-2026-0003 --workdir /path/to/project \
+  --holder-ref worker-a --token-file /outside/project/worker-a.token
+aeh change transition CHG-2026-0003 --workdir /path/to/project \
+  --to CLASSIFY --lease-token-file /outside/project/worker-a.token \
+  --expected-lease-revision 1
+aeh coordination status CHG-2026-0003 --workdir /path/to/project
+aeh coordination release CHG-2026-0003 --workdir /path/to/project \
+  --token-file /outside/project/worker-a.token --expected-revision 3
+```
+
+Every accepted mutation advances the lease revision at begin and finalize, so
+callers must use the revision returned by the preceding operation. Expired or
+unresolved leases require the bounded recovery path; there is no force flag.
+This protocol makes no cross-host or network-filesystem correctness claim.
+
 ## AEW integration
 
 AEH and AEW remain separate systems. AEH can inspect local SCM boundaries and

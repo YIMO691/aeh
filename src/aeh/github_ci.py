@@ -265,6 +265,8 @@ def verify_event(target, event_payload, event_type, run_snapshot, policy=None):
             target, closure["change_id"], "github.com/" + binding["repository"]["full_name"],
             binding["base_sha"], binding["head_sha"], observed_at, credential_files={},
             accepted_approval_trust_modes=accepted_trust_modes,
+            scm_authenticated_merge=(
+                merge_channel == approval_runtime.SCM_AUTHENTICATED_MERGE),
         )
         if replay["verdict"] != "PASS":
             last = replay["checks"][-1]
@@ -377,6 +379,8 @@ def configure_repository(target, artifact_url, artifact_filename, artifact_sha25
     whose current manifest binding is already invalid.
     """
     target = os.path.abspath(target)
+    from .runtime import coordination as coordination_module
+    coordination_module.assert_workspace_maintenance_allowed(target)
     parsed = urlsplit(str(artifact_url))
     digest = str(artifact_sha256).strip().lower()
     filename = str(artifact_filename).strip()

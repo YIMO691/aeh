@@ -360,6 +360,17 @@ class TestVerify(unittest.TestCase):
         ).read()
         self.assertIn("- state: REVIEW", review)
 
+        for destination in ("DRIFT_CHECK", "HUMAN_MERGE_APPROVAL"):
+            transition = ch.change_transition(target, cid, destination)
+            self.assertEqual(transition["status"], "TRANSITION_OK", transition)
+        rerun = vmod.change_verify(target, cid)
+        self.assertEqual(rerun["status"], "VERIFY_COMPLETE", rerun)
+        self.assertEqual(rerun["state"], "HUMAN_MERGE_APPROVAL")
+        self.assertEqual(
+            ch.load_change(target, cid)["state"]["current"],
+            "HUMAN_MERGE_APPROVAL",
+        )
+
     def test_approval_cannot_override_technical_failure(self):
         target = make_target(NEUTRAL_REPO)
         cid = to_green(target, verification=[{"id": "BROKEN-001", "type": "integration",
