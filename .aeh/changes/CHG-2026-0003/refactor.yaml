@@ -77,7 +77,7 @@ changed_files:
   before_hash: 8ee420e8efbd40cfec7eab75b21482fc0025cc91e65278b8b0868eea506d3d12
   code_id: CODE-019
   path: src/aeh/runtime/green.py
-- after_hash: fc5c64adc5ad980505a1b3513b2b697d42a6530130ad92875f751317fcd30eff
+- after_hash: 4d75aa910b022bf225865a72d94d29d5f87875ad0ad9f11da1146cb56ee6defc
   before_hash: 52f49e6977202ba3a50fbc473668e481457354a903558bb0475ef7e21f4bb534
   code_id: CODE-020
   path: src/aeh/runtime/grounding.py
@@ -113,7 +113,7 @@ changed_files:
   before_hash: ee5e8fac1d7c63baa5bc24a6f50f350e2f1ec295a8fa0cafe1753f273fcbf10e
   code_id: CODE-028
   path: tests/runtime/test_change.py
-- after_hash: 40ff12c89e838ba8cc4ee1187f74c66f14642259f9d0bc5103e8a1d3622b9e04
+- after_hash: 5f95b939bf95e7a0cc106cb340b91daf8d07d9683556d37c0aa45ce73c3bda1e
   before_hash: 0b3ac79fd464e572a816dfbe1395fd0a14f8663a67e066e4d9c5a8c43ef260ab
   code_id: CODE-029
   path: tests/runtime/test_ci_replay.py
@@ -138,7 +138,7 @@ changed_files:
   code_id: CODE-034
   path: tests/runtime/test_verify.py
 contract: green.evidence
-production_after_hash: dae003c25f796acbe8ceba3a4bb448ec211decbabb4b1ad9445d771dcf36bf62
+production_after_hash: 60609bd476b62bdda85edd014bf83adbb226090ca1c0fba178771815e750f4ae
 production_before_hash: 31c55b7634da2aa1e76c704c53e43dfca2fc9088eb5b92ea1827c91048a4a794
 test_lock_hash: 40da49a176b34487e6f58a7a134d51a328c392c5a1a9b94642fae9b79efbdedc
 tests:
@@ -150,7 +150,7 @@ tests:
   - tests.runtime.test_coordination_writers
   command: python -B -m unittest tests.runtime.test_coordination_writers
   exit_code: 0
-  output_hash: c967543b04d27c1a4bac601934fb40fd3f8ba9245e752e32bf7e7a0c4bd8ef36
+  output_hash: 05755d605b4639cbde0e70b2f8f35fe82a8aed64b3112d46b6f3180bb382311c
   output_ref: .aeh\changes\CHG-2026-0003\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

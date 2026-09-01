@@ -15,7 +15,7 @@
 - VER-004 [contract] verdict=pass (exit 0)
 
 ## Warnings
-- verified credential key_id=task-m6-3b-merge
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity claim is made
 - MERGE_GATE approval has no expiry
 - CRITICAL MERGE_GATE approved by user
 

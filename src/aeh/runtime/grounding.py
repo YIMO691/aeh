@@ -49,6 +49,18 @@ def _sha256_file(path):
         return hashlib.sha256(f.read()).hexdigest()
 
 
+def _portable_file_hashes(path):
+    """Hash ordinary Git LF/CRLF materializations without masking edits."""
+    with open(path, "rb") as stream:
+        content = stream.read()
+    variants = {content}
+    if b"\x00" not in content:
+        canonical = content.replace(b"\r\n", b"\n")
+        variants.add(canonical)
+        variants.add(canonical.replace(b"\n", b"\r\n"))
+    return {hashlib.sha256(item).hexdigest() for item in variants}
+
+
 def _tokens(title):
     tokens = [t.lower() for t in LATIN_RE.findall(title or "")]
     for run in CJK_RE.findall(title or ""):
@@ -280,7 +292,8 @@ def check_stale(target, change_id):
         expected = ss.get("file_hash")
         if rel and expected:
             full = os.path.join(target, rel)
-            if not os.path.isfile(full) or _sha256_file(full) != expected:
+            if (not os.path.isfile(full) or
+                    expected not in _portable_file_hashes(full)):
                 stale.append(e["id"])
     return {"change_id": change_id, "stale": stale}
 

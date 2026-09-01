@@ -21,6 +21,7 @@ from aeh import ci
 from aeh import cli
 from aeh.bootstrap import pipeline as bp
 from aeh.runtime import approval as amod
+from aeh.runtime import grounding as gmod
 from aeh.runtime import verify as vmod
 from tests.runtime import test_verify as flow
 
@@ -52,6 +53,32 @@ def commit_all(target, message):
 
 
 class TestCiReplay(unittest.TestCase):
+    def test_grounding_freshness_accepts_safe_line_ending_materialization(self):
+        target = Path(tempfile.mkdtemp(prefix="aeh-ci-grounding-eol-"))
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        change_id = "CHG-2026-0002"
+        change_dir = target / ".aeh" / "changes" / change_id
+        change_dir.mkdir(parents=True)
+        source = target / "sample.txt"
+        source.write_bytes(b"alpha\nbeta\n")
+        crlf_hash = hashlib.sha256(b"alpha\r\nbeta\r\n").hexdigest()
+        (change_dir / "evidence.yaml").write_text(
+            yaml.safe_dump({"evidence": [{
+                "id": "EV-001",
+                "source_state": {
+                    "rel_path": "sample.txt",
+                    "file_hash": crlf_hash,
+                },
+            }]}),
+            encoding="utf-8",
+        )
+        self.assertEqual(gmod.check_stale(str(target), change_id)["stale"], [])
+        source.write_bytes(b"alpha\nbeta changed\n")
+        self.assertEqual(
+            gmod.check_stale(str(target), change_id)["stale"],
+            ["EV-001"],
+        )
+
     def test_scm_metadata_is_not_a_repository_input(self):
         self.assertTrue(ci._is_scm_metadata(".git"))
         self.assertTrue(ci._is_scm_metadata(".git/config"))
