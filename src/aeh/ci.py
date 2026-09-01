@@ -199,7 +199,9 @@ def _verify_hash_reference(target, inputs, record, label):
     if not relative or not re.fullmatch(r"[0-9a-f]{64}", expected):
         raise ReplayFailure("evidence.hashes", "INVALID", label + " has no valid output binding")
     path = inputs.add(relative)
-    if _sha256_file(path) != expected:
+    with open(path, "rb") as stream:
+        observed_hashes = _portable_content_hashes(stream.read())
+    if expected not in observed_hashes:
         raise ReplayFailure("evidence.hashes", "INVALID", label + " output hash mismatch")
 
 

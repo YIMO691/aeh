@@ -80,6 +80,20 @@ class TestCiReplay(unittest.TestCase):
             ["EV-001"],
         )
 
+    def test_evidence_output_hash_accepts_only_safe_line_ending_materialization(self):
+        target = Path(tempfile.mkdtemp(prefix="aeh-ci-evidence-eol-"))
+        self.addCleanup(shutil.rmtree, target, ignore_errors=True)
+        output = target / "evidence.log"
+        output.write_bytes(b"red\nresult\n")
+        record = {
+            "output_ref": "evidence.log",
+            "output_hash": hashlib.sha256(b"red\r\nresult\r\n").hexdigest(),
+        }
+        ci._verify_hash_reference(str(target), ci._Inputs(str(target)), record, "RED TEST-001")
+        output.write_bytes(b"red\nchanged\n")
+        with self.assertRaises(ci.ReplayFailure):
+            ci._verify_hash_reference(str(target), ci._Inputs(str(target)), record, "RED TEST-001")
+
     def test_scm_metadata_is_not_a_repository_input(self):
         self.assertTrue(ci._is_scm_metadata(".git"))
         self.assertTrue(ci._is_scm_metadata(".git/config"))
