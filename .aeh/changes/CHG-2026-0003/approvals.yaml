@@ -28,8 +28,8 @@ approvals:
 - actor:
     id: user
     type: human
-  decided_at: '2026-09-01T09:50:01.406188+00:00'
-  evidence_ref: OWNER_CHAT_EXECUTE_AND_MERGE_AUTHORIZATION_20260901
+  decided_at: '2026-09-01T11:22:49.240410+00:00'
+  evidence_ref: OWNER_CHAT_EXECUTE_AND_MERGE_AUTHORIZATION_20260901_POST3_FINAL
   gate: MERGE_GATE
   status: APPROVED
   trust_mode: SCM_AUTHENTICATED_MERGE
