@@ -26,7 +26,7 @@ results:
   exit_code: 0
   id: VER-001
   method: automated_test
-  output_hash: ddabb75052ee989e172e622ef27dfb5c82c77e9710f58e4f8b40e8c27deb7fa9
+  output_hash: 9c96a822830829329966bc01c61be6f86e392f2a4447c59e87eb4e6c76597ab4
   output_ref: .aeh\changes\CHG-2026-0004\evidence\verify-1.log
   status: pass
   type: target_test
@@ -63,7 +63,7 @@ results:
   exit_code: 0
   id: VER-002
   method: automated_test
-  output_hash: 3dc8763ab5143ee3e5618c4f2e1cb08c45eb328bb2af9004128b431e464d65d8
+  output_hash: 9de7f3bc682ebcd449e7391fa4544ee84aec701ac611678151e984cdfccf4b31
   output_ref: .aeh\changes\CHG-2026-0004\evidence\verify-reg-2.log
   status: pass
   type: regression
@@ -82,7 +82,7 @@ results:
   exit_code: 0
   id: VER-003
   method: automated_test
-  output_hash: 63c18b035d3a48d001e31e0c29178cab8cfc9e68e9fb9c8d098f05e27f777b1a
+  output_hash: 753c6226b3fa24a820dda28de8f70fcdfc1ba916a79da019896cb04cff71800c
   output_ref: .aeh\changes\CHG-2026-0004\evidence\verify-reg-3.log
   status: pass
   type: regression
@@ -103,7 +103,7 @@ results:
   exit_code: 0
   id: VER-004
   method: automated_test
-  output_hash: 2068fcfe90d4478bd575cc89e0beb05085686f8a11e404f8bf4ce7dc073ee621
+  output_hash: a39950bf25ca428c2e02cc85317a3dc7dd498d6e6c7c196ac14d40a101c03594
   output_ref: .aeh\changes\CHG-2026-0004\evidence\verify-v-4.log
   status: pass
   type: integration
@@ -127,7 +127,9 @@ results:
   - AC-009-02
   - AC-010-01
   - AC-010-02
-verified_at: '2026-09-02T07:16:32.010918+00:00'
+verified_at: '2026-09-02T09:33:40.981870+00:00'
 warnings:
-- verified credential key_id=task-m6-3c-post-repair-merge
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
+  claim is made
+- MERGE_GATE approval has no expiry
 - CRITICAL MERGE_GATE approved by user

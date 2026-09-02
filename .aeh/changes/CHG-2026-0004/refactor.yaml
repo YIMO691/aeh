@@ -53,7 +53,7 @@ changed_files:
   before_hash: c94e2abba07cd7c3b5f523cadb0741cee8ae933b0a1748ebba15b911ccff7845
   code_id: CODE-013
   path: src/aeh/ci.py
-- after_hash: a74b1cb18ceeed65ea12a92e04cffa83abb6f98e21d08019bb9017fe776a41a8
+- after_hash: 8500c05b5986b96859591dee862d0fffc9ea2392a2449f959b90947ff4a59788
   before_hash: 0348e6206be975b94bbb128809d51a16dbbe54b35aa7dd270e9383196f2e109f
   code_id: CODE-014
   path: src/aeh/integrations/aew.py
@@ -74,7 +74,7 @@ changed_files:
   code_id: CODE-018
   path: tests/runtime/test_coordination_readers.py
 contract: green.evidence
-production_after_hash: 312c43eefe21712f77ff96d8473cddadfe0e19b74fab6bd7b2175bd57b863d13
+production_after_hash: cb44b2f27a118ba026fa6a6c05ba0c1e6c961c8a0b3a386e51e051c6faa3ff5d
 production_before_hash: 83656c1f4fcbb396c01c2e745c48d8280685b0d88feeb3c2474db070128d4b7e
 test_lock_hash: edcf9b616030ed965f92d25e2393769283c5881b5fcef89adcdf36e8e4a51c3d
 tests:
@@ -86,7 +86,7 @@ tests:
   - tests.runtime.test_coordination_readers
   command: python -B -m unittest tests.runtime.test_coordination_readers
   exit_code: 0
-  output_hash: a792fd7ca6f4cee25fb2b5b7254b4144dadda5a74243cb071aae888285f7bd66
+  output_hash: 43fb1644acc382ce7c4dba83037f31ce138fb3c357a50c78489c616b499a0152
   output_ref: .aeh\changes\CHG-2026-0004\evidence\refactor-TEST-001.log
   test_id: TEST-001
   verdict: PASS

@@ -376,14 +376,17 @@ def export_change(target: str, change_id: str, *, task_id: str, run_id: str,
                   coordination_repository_id: str | None = None,
                   coordination_timeout_seconds: float = 5.0) -> dict:
     """Export one stable, deterministic and read-only AEW v2 envelope."""
-    snapshot = coordination.stable_change_snapshot(
-        target, change_id,
-        lambda: _export_change_snapshot(
-            target, change_id, task_id=task_id, run_id=run_id,
-            project_id=project_id, ae_root=ae_root),
-        repository_id=coordination_repository_id,
-        state_root=coordination_state_root,
-        timeout_seconds=coordination_timeout_seconds)
+    try:
+        snapshot = coordination.stable_change_snapshot(
+            target, change_id,
+            lambda: _export_change_snapshot(
+                target, change_id, task_id=task_id, run_id=run_id,
+                project_id=project_id, ae_root=ae_root),
+            repository_id=coordination_repository_id,
+            state_root=coordination_state_root,
+            timeout_seconds=coordination_timeout_seconds)
+    except coordination.CoordinationError as exc:
+        raise IntegrationError("stable Change snapshot unavailable: " + str(exc)) from exc
     report = snapshot["value"]
     report["coordination"] = snapshot["coordination"]
     _validate(report, "aew-governance-adapter.schema.json", ae_root)
