@@ -62,7 +62,9 @@ M6.1 follows this rule with `core/ci-policy.yaml`, CI policy/report schemas,
 legal and illegal fixtures, real-flow attack tests, upgrade coverage, and a
 documented read-only boundary. M6.2a–c add a separate enforcement policy,
 provider event/snapshot/report/workflow contracts, exact-diff attacks, a secure
-renderer and read-only audit. M6.2d/M6.3 require separate implementation Gates.
+renderer and read-only audit. M6.3 adds external coordination contracts,
+writer CAS, stable readers, and AEW v2; every slice retains separate human
+Gates and rollback evidence.
 
 M5 execution and approval changes must preserve the boundaries in
 [m5-security.md](m5-security.md): no-shell default execution, dual explicit
@@ -79,6 +81,12 @@ GitHub integration changes must preserve
 workflow digest binding, one fresh Change, complete declared diff closure,
 immutable artifact/action pins, no protected credential in repository CI, and
 honest `INCONCLUSIVE` results when provider metadata is unavailable.
+
+Coordination changes must preserve
+[m6-3-coordination.md](m6-3-coordination.md): one-host/local-filesystem scope,
+external token custody, exact lease revisions, stable pre/post truth, read-only
+legacy behavior, explicit recovery/drain, redacted receipts, and real spawned-
+process coverage. Never replace the process tests with thread-only substitutes.
 
 ## Documentation rules
 

@@ -1,0 +1,94 @@
+base_commit: 1763b0fa6226d3541aa81cc303974208e9c9a862
+change_id: CHG-2026-0004
+changed_files:
+- after_hash: 0fbe5949eee598f28d45652c307330cc69465fbf6cd3e79a7e4b89a54d3a2d8e
+  before_hash: 786a30c1ccc721705903ba99f1df0778aead45c537a17eaddce9225c449112ea
+  code_id: CODE-001
+  path: .github/workflows/regression.yml
+- after_hash: 0cf5ee5612cd048d2f895e84c03218c78f787575c8020d5dd2fe0a37e37483c2
+  before_hash: d90a1f89e513a074b3faf76f457453dea22b7113f350728f9dea8db2d2101f98
+  code_id: CODE-002
+  path: CHANGELOG.md
+- after_hash: 40a2d0f4d33835c286b5705e93a0213976d486eb0f29a4b7f977e395d042fc54
+  before_hash: 80f66a91ed6b6040ded13872a5440dff8173575b9c340a9f6822993cd9c912c2
+  code_id: CODE-003
+  path: README.md
+- after_hash: 76c6218914bc03b3ac38be0567cc9a2b88005f6eebab25e176c6ceab7c114327
+  before_hash: e0873a7f26062307de88325b6b36cf42dd5c725430ccefcd269d77aca7de202f
+  code_id: CODE-004
+  path: docs/architecture-current.md
+- after_hash: e98fa0ee362ddc35c35f9507116dba9d51b6b63d632f113834d9cf4f9b818c6c
+  before_hash: 9b751a215ab76bdaea71496d221ed8518da69e47d1cc06a7c9c2004c7b52b606
+  code_id: CODE-005
+  path: docs/decisions.md
+- after_hash: 62af0d3a3203d275b897d2d4e6f8574fcdd6e7a43a22ad29fe743ea1a876fe75
+  before_hash: 61bf311a60be8c4ddd61f2b7dbe5503b63c1c4f5c3d8c077f3811a78be6f5dab
+  code_id: CODE-006
+  path: docs/documentation-contract.yaml
+- after_hash: 9974ba9d1e4ae3ec240a38797503eb63f6c75cca540cfe8103d393f5eb25a687
+  before_hash: ebcf0455445b10d626c2d888ecfa29c68f514a133ddf7a2960072ff7fbeb181f
+  code_id: CODE-007
+  path: docs/engineering-guide.md
+- after_hash: ee3cfc4dd027390d0c02cf8a9fdd5c500efd25446b827cdc19b01d10266b3399
+  before_hash: 1b42b098a87cde3a2ea5e031427b7ad4fbbd14b401011d6f51ee7865cf277e7a
+  code_id: CODE-008
+  path: docs/integrations/aew.md
+- after_hash: 5e5bf4f006cdc8ed3a3493b4b1428a80af5c5a98d6f0e5f5ace1a702ca6a69a5
+  before_hash: 08c962efb669aa30c038edb7d336835c5086a99019794e0632f8f52040521e78
+  code_id: CODE-009
+  path: docs/m6-3-coordination.md
+- after_hash: db579cfd3f3aedbd5ecb78a94609ed93b1c18c024d2d64a2e421545782869de3
+  before_hash: 6b9d674822a78086b9f09254087cb8ed26101d25cc14010d37ea207ad699ffc9
+  code_id: CODE-010
+  path: docs/roadmap-v0.2.md
+- after_hash: aea333dc8fccc03d3d5fafa8d14293b69f65b94ed446025a6e0ed38ae24c9961
+  before_hash: 34c41374629ad5859808af341a7aa6ab56f9dccf47187065835faf0fe6cc25e6
+  code_id: CODE-011
+  path: docs/status.md
+- after_hash: 184da5dd6ecd3a3e1e11cf5ab0394aa2a3078e7025fbf9e2e4282646bdee3b99
+  before_hash: 85aaad8b1406fc543c40c85d0d4b2fd65fccdd4a1abaf193513f08dd7310ba77
+  code_id: CODE-012
+  path: schemas/aew-governance-adapter.schema.json
+- after_hash: 6584e3ee49d2de5add3cfefe1ab22e6d9a3088141949dbe75eae4115f829c4de
+  before_hash: c94e2abba07cd7c3b5f523cadb0741cee8ae933b0a1748ebba15b911ccff7845
+  code_id: CODE-013
+  path: src/aeh/ci.py
+- after_hash: 8500c05b5986b96859591dee862d0fffc9ea2392a2449f959b90947ff4a59788
+  before_hash: 0348e6206be975b94bbb128809d51a16dbbe54b35aa7dd270e9383196f2e109f
+  code_id: CODE-014
+  path: src/aeh/integrations/aew.py
+- after_hash: 3ccfaf8d954d6dbbff7c4dd905d0db606737ce80bc6d130b05c0193c5a699b94
+  before_hash: 7dffb58803f2cddaa490a1d364cfc798ff0903c782df1fd72f366e9a440dc658
+  code_id: CODE-015
+  path: src/aeh/runtime/change.py
+- after_hash: 59d29a425fabaedb1ee8fb28722761065a3f2d931aa0e7f797ef92d82d7923aa
+  before_hash: de7452e80c83ae3e9f35dd6b5bc346eb901fd3ef70c132e2da61f5cbb83907d2
+  code_id: CODE-016
+  path: src/aeh/runtime/coordination.py
+- after_hash: 2d62cb57a5adc5b3048b4aaffa20ac838b39db3b57a47c8a40305eebd76cd7be
+  before_hash: d127599b1b9fb0e4d7b8233f0c5eb3529df1c26eee57a47f2e9d542ed5f0b491
+  code_id: CODE-017
+  path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+- after_hash: db34d369d227e9f6669a8e2824bc272ff26a231bc137054541bb7e2e4ca248e8
+  before_hash: '0000000000000000000000000000000000000000000000000000000000000000'
+  code_id: CODE-018
+  path: tests/runtime/test_coordination_readers.py
+contract: green.evidence
+production_after_hash: cb44b2f27a118ba026fa6a6c05ba0c1e6c961c8a0b3a386e51e051c6faa3ff5d
+production_before_hash: 83656c1f4fcbb396c01c2e745c48d8280685b0d88feeb3c2474db070128d4b7e
+test_lock_hash: edcf9b616030ed965f92d25e2393769283c5881b5fcef89adcdf36e8e4a51c3d
+tests:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_coordination_readers
+  command: python -B -m unittest tests.runtime.test_coordination_readers
+  exit_code: 0
+  output_hash: 02b103948997cb79ae3f321a05d450ecd287cb196039eef4c1abcc5d1b1381ad
+  output_ref: .aeh\changes\CHG-2026-0004\evidence\green-TEST-001.log
+  test_id: TEST-001
+  verdict: PASS
+verdict: GREEN_PASS
+version: 1

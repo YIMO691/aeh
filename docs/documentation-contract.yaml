@@ -1,6 +1,6 @@
 schema_version: 1
 status: CURRENT
-updated_at: '2026-08-27'
+updated_at: '2026-09-02'
 
 product:
   name: Adaptive Engineering Harness
@@ -18,8 +18,8 @@ roadmap:
   planned: []
 
 validation:
-  local_tests_discovered: 356
-  local_tests_passed: 352
+  local_tests_discovered: 411
+  local_tests_passed: 407
   local_tests_skipped: 4
   latest_main_ci_jobs_passed: 6
 
@@ -33,6 +33,7 @@ canonical_documents:
   security: docs/m5-security.md
   ci_replay: docs/m6-ci-replay.md
   github_assurance: docs/m6-2-github-assurance.md
+  coordination: docs/m6-3-coordination.md
   roadmap: docs/roadmap-v0.2.md
   history: CHANGELOG.md
 
@@ -54,3 +55,4 @@ current_claim_files:
   - docs/m5-security.md
   - docs/m6-ci-replay.md
   - docs/m6-2-github-assurance.md
+  - docs/m6-3-coordination.md

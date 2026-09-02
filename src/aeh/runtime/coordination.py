@@ -2,7 +2,8 @@
 
 This module does not provide cross-host or network-filesystem correctness.
 M6.3B adds repository reservations, WRITE leases, optimistic Change-truth CAS,
-maintenance guards, and a drain Gate on top of the M6.3A substrate.
+maintenance guards, and a drain Gate on top of the M6.3A substrate. M6.3C
+adds stable shared-lock snapshots for token-free Change readers.
 """
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -188,21 +189,58 @@ def resolve_store_paths(target, repository_id=None, state_root=None):
 
 def _lock_attempt(stream, shared):
     if os.name == "nt":
+        import ctypes
         import msvcrt
-        stream.seek(0)
-        mode = msvcrt.LK_NBRLCK if shared else msvcrt.LK_NBLCK
-        msvcrt.locking(stream.fileno(), mode, 1)
+        from ctypes import wintypes
+
+        class Overlapped(ctypes.Structure):
+            _fields_ = [
+                ("Internal", ctypes.c_void_p),
+                ("InternalHigh", ctypes.c_void_p),
+                ("Offset", wintypes.DWORD),
+                ("OffsetHigh", wintypes.DWORD),
+                ("hEvent", wintypes.HANDLE),
+            ]
+
+        overlapped = Overlapped()
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        lock_file = kernel32.LockFileEx
+        lock_file.argtypes = [
+            wintypes.HANDLE, wintypes.DWORD, wintypes.DWORD,
+            wintypes.DWORD, wintypes.DWORD, ctypes.POINTER(Overlapped),
+        ]
+        lock_file.restype = wintypes.BOOL
+        flags = 0x00000001  # LOCKFILE_FAIL_IMMEDIATELY
+        if not shared:
+            flags |= 0x00000002  # LOCKFILE_EXCLUSIVE_LOCK
+        handle = wintypes.HANDLE(msvcrt.get_osfhandle(stream.fileno()))
+        if not lock_file(handle, flags, 0, 1, 0, ctypes.byref(overlapped)):
+            error = ctypes.get_last_error()
+            raise OSError(error, "LockFileEx failed")
+        return overlapped
     else:
         import fcntl
         mode = fcntl.LOCK_SH if shared else fcntl.LOCK_EX
         fcntl.flock(stream.fileno(), mode | fcntl.LOCK_NB)
+        return None
 
 
-def _lock_release(stream):
+def _lock_release(stream, lock_state=None):
     if os.name == "nt":
+        import ctypes
         import msvcrt
-        stream.seek(0)
-        msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
+        from ctypes import wintypes
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        unlock_file = kernel32.UnlockFileEx
+        unlock_file.argtypes = [
+            wintypes.HANDLE, wintypes.DWORD, wintypes.DWORD,
+            wintypes.DWORD, ctypes.c_void_p,
+        ]
+        unlock_file.restype = wintypes.BOOL
+        handle = wintypes.HANDLE(msvcrt.get_osfhandle(stream.fileno()))
+        if not unlock_file(handle, 0, 1, 0, ctypes.byref(lock_state)):
+            error = ctypes.get_last_error()
+            raise OSError(error, "UnlockFileEx failed")
     else:
         import fcntl
         fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
@@ -240,10 +278,11 @@ def repository_lock(target, repository_id=None, state_root=None, shared=True,
         raise _blocked("BLOCKED_COORDINATION_LOCK_UNAVAILABLE") from None
     deadline = time.monotonic() + float(timeout_seconds)
     acquired = False
+    lock_state = None
     try:
         while True:
             try:
-                _lock_attempt(stream, shared)
+                lock_state = _lock_attempt(stream, shared)
                 acquired = True
                 break
             except OSError as exc:
@@ -256,7 +295,7 @@ def repository_lock(target, repository_id=None, state_root=None, shared=True,
     finally:
         if acquired:
             try:
-                _lock_release(stream)
+                _lock_release(stream, lock_state)
             except OSError:
                 pass
         stream.close()
@@ -759,6 +798,79 @@ def change_truth(target, change_id, max_files=_MAX_CHANGE_FILES, max_bytes=_MAX_
     entries.sort(key=lambda item: item["path"])
     body = {"entries": entries}
     return {"entries": entries, "digest": _sha256(_canonical_json(body))}
+
+
+def _snapshot_provenance(paths, store, lease):
+    state = "NOT_ACTIVATED"
+    if lease is not None:
+        state = lease.get("state")
+        if state not in ("ACTIVE", "RELEASED", "RECOVERED"):
+            state = "BLOCKED"
+    result = {
+        "protocol_version": STORE_VERSION,
+        "state": state,
+        "repository_id_sha256": paths.repository_id_sha256,
+        "workspace_id_sha256": paths.workspace_id_sha256,
+        "lease_revision": None if lease is None else lease.get("lease_revision"),
+        "last_truth_hash": None if lease is None else lease.get("change_truth_sha256"),
+        "last_receipt_digest": None if store is None else store.get("last_receipt_digest"),
+    }
+    if lease is not None and lease.get("workspace_ref_sha256") is not None:
+        result["external_workspace_ref_sha256"] = lease["workspace_ref_sha256"]
+    return result
+
+
+def stable_change_snapshot(target, change_id, reader, repository_id=None,
+                           state_root=None, timeout_seconds=5.0, now=None):
+    """Run a bounded Change reader against one stable, token-free generation.
+
+    The shared repository lock is retained across the callback. A legacy
+    Change without a coordination store stays unactivated and is accepted only
+    if neither the Change truth nor coordination state appears during the read.
+    """
+    if not callable(reader):
+        raise _blocked("BLOCKED_COORDINATION_READER_INVALID")
+    paths = resolve_store_paths(
+        target, repository_id=repository_id, state_root=state_root)
+    observed = _utc_now(now)
+    store_present = os.path.lexists(paths.store)
+    if store_present and not paths.lock.is_file():
+        # Preserve the store parser's deterministic malformed/version verdict.
+        read_store(
+            target, repository_id=repository_id, state_root=state_root,
+            timeout_seconds=timeout_seconds)
+        raise _blocked("BLOCKED_COORDINATION_LOCK_UNAVAILABLE")
+
+    with repository_lock(
+            target, repository_id=repository_id, state_root=state_root,
+            shared=True, timeout_seconds=timeout_seconds, create=False):
+        store = _load_store_unlocked(paths) if store_present else None
+        if store is not None:
+            _observe_store(store, observed)
+        matches = [] if store is None else [
+            item for item in store["change_leases"]
+            if item.get("change_id") == change_id
+        ]
+        lease = matches[-1] if matches else None
+        if lease is not None:
+            _require_lease_binding(paths, lease)
+            if lease.get("active_operation") is not None:
+                raise _blocked("BLOCKED_ACTIVE_OPERATION")
+        before = change_truth(target, change_id)["digest"]
+        if lease is not None and before != lease.get("change_truth_sha256"):
+            raise _blocked("BLOCKED_CHANGE_TRUTH_DRIFT")
+        value = reader()
+        after = change_truth(target, change_id)["digest"]
+        if after != before:
+            raise _blocked("BLOCKED_CHANGE_TRUTH_DRIFT")
+        if store is None and (
+                os.path.lexists(paths.store) or os.path.lexists(paths.lock)):
+            raise _blocked("BLOCKED_CHANGE_TRUTH_DRIFT")
+        return {
+            "status": "SNAPSHOT_COMPLETE",
+            "value": value,
+            "coordination": _snapshot_provenance(paths, store, lease),
+        }
 
 
 def build_receipt(operation, outcome, repository_id_sha256, workspace_id_sha256,

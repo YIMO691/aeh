@@ -1,7 +1,7 @@
 {
   "status": "EXPORT_COMPLETE",
   "contract": "aeh.aew-governance-adapter",
-  "version": 1,
+  "version": 2,
   "read_only": true,
   "network_used": false,
   "external_refs": {"project_id": "PRJ-1", "task_id": "TASK-1", "run_id": "RUN-1"},
@@ -28,6 +28,15 @@
   "artifacts": [
     {"kind": "CHANGE_CONTRACT", "path": ".aeh/changes/CHG-2026-0001/change.yaml", "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}
   ],
+  "coordination": {
+    "protocol_version": 1,
+    "state": "NOT_ACTIVATED",
+    "repository_id_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "workspace_id_sha256": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+    "lease_revision": null,
+    "last_truth_hash": null,
+    "last_receipt_digest": null
+  },
   "metadata": {
     "scope": {"kind": "CHANGE", "ref": "CHG-2026-0001"},
     "ownership": {"operational_task_run": "AEW_OR_EXTERNAL_OWNER", "engineering_change": "AEH", "repository": "SCM_OR_PROJECT"},

@@ -1,0 +1,15 @@
+change_id: CHG-2026-0004
+contract: test-lock
+files:
+- hash: db34d369d227e9f6669a8e2824bc272ff26a231bc137054541bb7e2e4ca248e8
+  path: tests/runtime/test_coordination_readers.py
+locked_at: '2026-09-02T05:40:11.553215+00:00'
+protected:
+  .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
+  .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
+  evidence.yaml: e1c85704b902d13048531877eea721eb0ea0b7558b6a2ef5e4e2ed57e0dadf86
+  spec.yaml: 9eec3b8df8e6ecff801e4290583304097e436acfdd947e7d4fd4f01da2e2fe14
+repository:
+  base_commit: 1763b0fa6226d3541aa81cc303974208e9c9a862
+  dirty: null
+version: 1

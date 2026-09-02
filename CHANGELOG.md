@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Complete the M6.3 bounded local coordination candidate with stable shared
+  Change snapshots, token-free status/CI/AEW readers, AEW governance adapter
+  v2 coordination provenance, real spawned-process reader/writer/crash tests,
+  and a 40-minute bounded full-regression job while retaining the 20-minute
+  clean-room budget.
 - Add tiered `MERGE_GATE` trust: strict external HMAC remains the default, while
   `SCM_AUTHENTICATED_MERGE` supports explicit, evidence-linked solo-repository
   delegation without putting a secret in pull-request CI.

@@ -69,7 +69,7 @@ than silent overwrite.
 
 ## Bounded local coordination
 
-M6.3B coordinates Change writers on one host and a local filesystem. A
+M6.3 coordinates Change readers and writers on one host and a local filesystem. A
 repository-scoped external store serializes monotonic Change-ID reservations,
 WRITE leases, workspace bindings, fencing revisions, active operations, and
 non-secret receipt digests. Lease tokens are created only at an explicit path
@@ -85,9 +85,16 @@ repair, upgrade, rollback, and GitHub configuration also refuse workspace
 maintenance while conflicting writer authority exists, and upgrade rollback
 requires a repository-wide drain.
 
+Stable status, CI replay, and AEW export retain a shared repository lock while
+they compare Change truth before and after one bounded callback. Activated
+Changes must match the last accepted truth and have no active operation;
+legacy Changes remain `NOT_ACTIVATED` without creating a store. The same
+snapshot supplies redacted coordination provenance to AEW adapter v2.
+
 The assurance boundary is deliberately narrow: local OS file locking and
 atomic replacement do not establish correctness across hosts or network
-filesystems. Stable coordinated readers and AEW v2 provenance remain M6.3C.
+filesystems. Process exit releases the OS lock but not logical lease authority;
+recovery and drain remain explicit operations.
 
 ## Change Assurance lifecycle
 
@@ -122,9 +129,9 @@ Current limitations are equally important:
 - AEH stops at `MERGE_READY` and does not autonomously merge or release.
 
 M5 implements the bounded portable security layer. M6.1 adds the replay core;
-M6.2 adds the GitHub adapter and live dogfood required-check path. M6.3A/B add
-the bounded local coordination substrate and writer protocol; M6.3C remains
-responsible for coordinated readers, AEW v2 provenance, and extended faults.
+M6.2 adds the GitHub adapter and live dogfood required-check path. M6.3 adds
+the bounded local coordination substrate, writer protocol, stable readers,
+AEW v2 provenance, and real spawned-process fault coverage.
 
 ## CI replay boundary
 

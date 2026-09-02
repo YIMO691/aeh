@@ -8,7 +8,7 @@
 >
 > **Independent change assurance for AI-assisted software engineering.**
 > Current source: `0.3.0.dev0` (unreleased) · Latest public release: `v0.2.0` ·
-> M1–M5 merged · M6 planned · PyPI not published
+> M1–M5 merged · M6 in progress (M6.3 candidate) · PyPI not published
 
 Coding agents can produce an implementation and a persuasive explanation. AEH
 adds a separate acceptance layer: machine-enforced contracts, replayable
@@ -60,6 +60,12 @@ research narrative.
   envelopes for AEW.
 - replays committed Change Assurance evidence in a clean external Git checkout
   without running project code or mutating the repository.
+- coordinates Change writers on one host/local filesystem and binds status,
+  CI replay, and AEW v2 export to stable, token-free shared-lock snapshots.
+
+The M6.3 operating procedure and explicit limits are documented in
+[M6.3 Coordination Boundary](docs/m6-3-coordination.md). It does not claim
+cross-host, network-filesystem, scheduler, or administrator-proof guarantees.
 
 AEH is intended for selective assurance where failure has meaningful cost:
 security, money, identity, permissions, migrations, shared contracts,
@@ -261,7 +267,7 @@ The current source version is `0.3.0.dev0`; the latest public release is
 SCM/AEW integration, and M4 governance are present on the current development
 line. PyPI is not published.
 
-The current branch baseline completes 356 tests: 352 passed and 4 expected Windows
+The current branch baseline completes 411 tests: 407 passed and 4 expected Windows
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 

@@ -1,0 +1,479 @@
+requirements:
+- acceptance:
+  - AC-001-01
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-001
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-002-01
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-002
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-003-01
+  - AC-003-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-003
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-004-01
+  - AC-004-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-004
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-005-01
+  - AC-005-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-005
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-006-01
+  - AC-006-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-006
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-007-01
+  - AC-007-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-007
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-008-01
+  - AC-008-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-008
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-009-01
+  - AC-009-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-009
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-010-01
+  - AC-010-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: CHANGELOG.md
+  - code_id: CODE-003
+    path: README.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/decisions.md
+  - code_id: CODE-006
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-007
+    path: docs/engineering-guide.md
+  - code_id: CODE-008
+    path: docs/integrations/aew.md
+  - code_id: CODE-009
+    path: docs/m6-3-coordination.md
+  - code_id: CODE-010
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-011
+    path: docs/status.md
+  - code_id: CODE-012
+    path: schemas/aew-governance-adapter.schema.json
+  - code_id: CODE-013
+    path: src/aeh/ci.py
+  - code_id: CODE-014
+    path: src/aeh/integrations/aew.py
+  - code_id: CODE-015
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-016
+    path: src/aeh/runtime/coordination.py
+  - code_id: CODE-017
+    path: tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  - code_id: CODE-018
+    path: tests/runtime/test_coordination_readers.py
+  id: REQ-010
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004

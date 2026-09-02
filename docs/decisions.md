@@ -731,3 +731,24 @@
 - **CD-165**: 已有 Change 的 grounding 失效必须通过 `change repair --kind ground` 显式
   回到 GROUND；允许 REFACTOR/SPEC 在 `GROUNDING_STALE` 条件下重启，禁止人工改写状态或
   复用旧 evidence 伪造 freshness。
+
+## M6.3 Bounded Change Coordination（2026-09-02）
+
+- **CD-166**: Coordination correctness is limited to cooperating processes on
+  one host and a local filesystem. POSIX `flock` and Windows `LockFileEx`
+  protect the external canonical store; no cross-host, network-filesystem,
+  administrator-proof, or scheduler claim is made.
+- **CD-167**: Every public Change writer uses an external WRITE lease, exact
+  fencing revision, and begin/finalize truth CAS. Process death releases only
+  the OS lock; logical authority remains until explicit release or eligible
+  expiry recovery, and maintenance requires drain.
+- **CD-168**: `stable_change_snapshot` is the single token-free reader
+  authority. It holds a shared lock, rejects active operations or accepted-
+  truth mismatch, and requires identical pre/post Change truth. Legacy reads
+  do not activate coordination.
+- **CD-169**: Status, CI replay, and AEW export consume one stable snapshot.
+  AEW adapter v2 requires hashed coordination provenance and prohibits raw
+  repository/workspace/state-root/token/credential material.
+- **CD-170**: Full regression remains bounded at 40 minutes to cover the
+  supported Windows/Ubuntu Python 3.10/3.11 matrix after observed 20-minute
+  Windows cancellations; the independent clean-room job stays at 20 minutes.

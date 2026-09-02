@@ -1,0 +1,27 @@
+
+ssssssFs
+======================================================================
+FAIL: test_required_surface_schema_and_bounded_ci_budget (tests.runtime.test_coordination_readers.StableReaderContract.test_required_surface_schema_and_bounded_ci_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_coordination_readers.py", line 117, in test_required_surface_schema_and_bounded_ci_budget
+    self.assertEqual(problems, [], RED_SIGNATURE + ": " + "; ".join(problems))
+AssertionError: Lists differ: ['stable_change_snapshot missing', 'change[239 chars]tes'] != []
+
+First list contains 7 additional elements.
+First extra element 0:
+'stable_change_snapshot missing'
+
++ []
+- ['stable_change_snapshot missing',
+-  'change_status stable-reader argument missing',
+-  'AEW stable-reader argument missing',
+-  'CI replay stable-reader argument missing',
+-  'AEW adapter schema is not v2',
+-  'AEW v2 coordination object missing',
+-  'regression timeout is not bounded 30..60 minutes'] : M6_3C_STABLE_READERS_AEW_V2_REQUIRED: stable_change_snapshot missing; change_status stable-reader argument missing; AEW stable-reader argument missing; CI replay stable-reader argument missing; AEW adapter schema is not v2; AEW v2 coordination object missing; regression timeout is not bounded 30..60 minutes
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.035s
+
+FAILED (failures=1, skipped=7)
