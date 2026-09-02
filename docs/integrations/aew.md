@@ -44,8 +44,12 @@ aeh integration export <change-id> --workdir <target> \
 ```
 
 Task and Run IDs are mandatory because their canonical owner is external. The
-envelope is derived from the current AEH artifacts and is not stored back into
-the governed repository.
+v2 envelope is derived from one stable Change snapshot and is not stored back
+into the governed repository. It adds required coordination provenance:
+protocol/state, repository and workspace hashes, nullable lease revision,
+accepted truth and receipt digests, and an optional external workspace-ref
+hash. It never exports a raw path, repository identifier, token, credential,
+or state-root value.
 
 ## Truth ownership
 
@@ -92,6 +96,9 @@ Every envelope declares:
 - Nested SCM discovery has explicit depth and directory limits.
 - Subprocesses use argument arrays with `shell=False`.
 - SVN repository URLs are deliberately omitted.
+- Activated Changes must have no unresolved operation and must match their last
+  accepted truth before and after export; legacy Changes remain
+  `NOT_ACTIVATED` without creating a coordination store.
 
 ## Non-goals
 

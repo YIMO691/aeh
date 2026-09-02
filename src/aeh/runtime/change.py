@@ -157,24 +157,42 @@ def change_transition(target, change_id, to, condition=None, ae_root=None):
         return {"status": "CHANGE_FAILED", "change_id": change_id, "error": str(e)}
 
 
-def change_status(target, change_id, ae_root=None):
-    change = load_change(target, change_id)
-    phases = change.get("workflow", {}).get("phases", [])
-    current = change["state"]["current"]
-    idx = phases.index(current) if current in phases else -1
-    rows = []
-    for i, p in enumerate(phases):
-        if i < idx:
-            rows.append({"phase": p, "status": "PASS"})
-        elif i == idx:
-            rows.append({"phase": p, "status": "CURRENT"})
-        elif i == idx + 1:
-            rows.append({"phase": p, "status": "NEXT"})
-        else:
-            rows.append({"phase": p, "status": "LOCKED"})
-    return {"change_id": change_id, "level": change.get("workflow", {}).get("level"),
-            "classification": change.get("classification", {}).get("level", change.get("classification")),
-            "state": change["state"], "gates": change.get("gates", {}), "phases": rows}
+def change_status(target, change_id, ae_root=None, coordination_state_root=None,
+                  coordination_repository_id=None,
+                  coordination_timeout_seconds=5.0):
+    def read_status():
+        change = load_change(target, change_id)
+        phases = change.get("workflow", {}).get("phases", [])
+        current = change["state"]["current"]
+        idx = phases.index(current) if current in phases else -1
+        rows = []
+        for i, phase in enumerate(phases):
+            if i < idx:
+                rows.append({"phase": phase, "status": "PASS"})
+            elif i == idx:
+                rows.append({"phase": phase, "status": "CURRENT"})
+            elif i == idx + 1:
+                rows.append({"phase": phase, "status": "NEXT"})
+            else:
+                rows.append({"phase": phase, "status": "LOCKED"})
+        return {
+            "change_id": change_id,
+            "level": change.get("workflow", {}).get("level"),
+            "classification": change.get("classification", {}).get(
+                "level", change.get("classification")),
+            "state": change["state"],
+            "gates": change.get("gates", {}),
+            "phases": rows,
+        }
+
+    snapshot = coord.stable_change_snapshot(
+        target, change_id, read_status,
+        repository_id=coordination_repository_id,
+        state_root=coordination_state_root,
+        timeout_seconds=coordination_timeout_seconds)
+    report = snapshot["value"]
+    report["coordination"] = snapshot["coordination"]
+    return report
 
 
 @coord.coordinated_change_mutator("CHANGE_REPAIR")

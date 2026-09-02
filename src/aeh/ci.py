@@ -14,6 +14,7 @@ from . import paths as aeh_paths
 from .bootstrap import pipeline as bootstrap
 from .doctor import doctor
 from .runtime import approval
+from .runtime import coordination
 from .runtime import green
 
 
@@ -295,9 +296,10 @@ def _build_report(repository_id, change_id, base_sha, head_sha, observed_at,
     return report
 
 
-def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
-           credential_files=None, ae_root=None, accepted_approval_trust_modes=None,
-           scm_authenticated_merge=False):
+def _verify_snapshot(target, change_id, repository_id, base_sha, head_sha,
+                     observed_at, credential_files=None, ae_root=None,
+                     accepted_approval_trust_modes=None,
+                     scm_authenticated_merge=False):
     """Replay committed assurance evidence without writing to the target."""
     ae_root = ae_root or aeh_paths.ae_root()
     target = os.path.realpath(target)
@@ -572,6 +574,40 @@ def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
         _schema_validate(report, os.path.join(ae_root, "schemas", "ci-report.schema.json"),
                          "CI replay report")
     return report
+
+
+def verify(target, change_id, repository_id, base_sha, head_sha, observed_at,
+           credential_files=None, ae_root=None, accepted_approval_trust_modes=None,
+           scm_authenticated_merge=False, coordination_state_root=None,
+           coordination_repository_id=None,
+           coordination_timeout_seconds=5.0):
+    """Replay assurance evidence from one stable Change generation."""
+    try:
+        snapshot = coordination.stable_change_snapshot(
+            target, change_id,
+            lambda: _verify_snapshot(
+                target, change_id, repository_id, base_sha, head_sha,
+                observed_at, credential_files=credential_files,
+                ae_root=ae_root,
+                accepted_approval_trust_modes=accepted_approval_trust_modes,
+                scm_authenticated_merge=scm_authenticated_merge),
+            repository_id=coordination_repository_id,
+            state_root=coordination_state_root,
+            timeout_seconds=coordination_timeout_seconds)
+        return snapshot["value"]
+    except coordination.CoordinationError as exc:
+        try:
+            observed = _parse_observed_at(observed_at)
+        except ReplayFailure:
+            observed = datetime(1970, 1, 1, tzinfo=timezone.utc)
+        return _build_report(
+            str(repository_id or ""), str(change_id), str(base_sha),
+            str(head_sha), observed,
+            {"version": "unknown", "source_revision": "unknown",
+             "runtime_digest": "0" * 64},
+            "0" * 64, "INCONCLUSIVE",
+            [{"id": "coordination.snapshot", "status": "INCONCLUSIVE",
+              "message": str(exc)}], [])
 
 
 def write_report(report, path, target):

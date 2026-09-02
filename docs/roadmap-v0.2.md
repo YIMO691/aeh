@@ -204,7 +204,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - M6.1 已合并：`aeh ci verify` 具备 repository/base/head/runtime/time/credential/input 绑定、确定性 report digest、目标仓库零写入和真实流程攻击回归；它不运行项目命令。
 - M6.2a–c 已合并：GitHub PR/merge-group 事件与 authenticated run/check 绑定；一个 fresh Change + 完整 diff closure；固定 Action commit 与 wheel hash 的确定性 workflow renderer；区分 observed/required/externally governed 的只读 enforcement audit。
 - M6.2d live dogfood 候选绑定独立授权的不可变 wheel、字节稳定 workflow 与 AEH 自举 runtime snapshot；是否达到 required trust level 仍必须由当前 GitHub 配置的 authenticated audit 证明。
-- M6.3A 本地候选正在独立 Gate 中验证：仅建立 single-host/local-filesystem coordination contracts、外部 store substrate 与只读 status/doctor；lease/reservation 写入仍属于 M6.3B，stable readers/AEW v2 属于 M6.3C。详见 [M6.3 coordination boundary](m6-3-coordination.md)。
+- M6.3 串行候选已完成 A/B/C 代码面：single-host/local-filesystem contracts 与外部 store、reservation/WRITE lease/CAS/recovery/drain、稳定共享读取、AEW v2 coordination provenance、真实多进程 fault matrix，以及有界 40 分钟 full-regression 预算；它仍需独立 Gate、PR required checks 与合并后验证，不提供跨主机、网络文件系统或调度器保证。详见 [M6.3 coordination boundary](m6-3-coordination.md)。
 
 ### 依赖 DAG（已做拓扑校验：no cycle）
 

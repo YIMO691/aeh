@@ -18,12 +18,13 @@ import yaml
 
 from .. import paths as aeh_paths
 from ..runtime import change as change_module
+from ..runtime import coordination
 
 
 SCM_CONTRACT = "aeh.scm-inspection"
 SCM_CONTRACT_VERSION = 1
 AEW_CONTRACT = "aeh.aew-governance-adapter"
-AEW_CONTRACT_VERSION = 1
+AEW_CONTRACT_VERSION = 2
 
 _PRUNED_DIRECTORIES = {
     ".aeh", ".git", ".svn", ".hg", ".venv", "__pycache__", "node_modules",
@@ -277,9 +278,9 @@ def _load_optional_yaml(path: str) -> dict | None:
     return value if isinstance(value, dict) else None
 
 
-def export_change(target: str, change_id: str, *, task_id: str, run_id: str,
-                  project_id: str | None = None, ae_root: str | None = None) -> dict:
-    """Export AEH-owned Change truth as a deterministic, read-only AEW envelope."""
+def _export_change_snapshot(target: str, change_id: str, *, task_id: str,
+                            run_id: str, project_id: str | None = None,
+                            ae_root: str | None = None) -> dict:
     if not task_id or not run_id:
         raise IntegrationError("task_id and run_id are required AEW references")
     root = os.path.realpath(os.path.abspath(target))
@@ -366,5 +367,24 @@ def export_change(target: str, change_id: str, *, task_id: str, run_id: str,
             "cost": {"class": "BOUNDED_LOCAL_READ", "writes": False, "network": False},
         },
     }
+    return report
+
+
+def export_change(target: str, change_id: str, *, task_id: str, run_id: str,
+                  project_id: str | None = None, ae_root: str | None = None,
+                  coordination_state_root: str | None = None,
+                  coordination_repository_id: str | None = None,
+                  coordination_timeout_seconds: float = 5.0) -> dict:
+    """Export one stable, deterministic and read-only AEW v2 envelope."""
+    snapshot = coordination.stable_change_snapshot(
+        target, change_id,
+        lambda: _export_change_snapshot(
+            target, change_id, task_id=task_id, run_id=run_id,
+            project_id=project_id, ae_root=ae_root),
+        repository_id=coordination_repository_id,
+        state_root=coordination_state_root,
+        timeout_seconds=coordination_timeout_seconds)
+    report = snapshot["value"]
+    report["coordination"] = snapshot["coordination"]
     _validate(report, "aew-governance-adapter.schema.json", ae_root)
     return report
