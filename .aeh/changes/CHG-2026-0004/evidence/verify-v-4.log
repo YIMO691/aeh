@@ -1,0 +1,24 @@
+
+...............................D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_change.py:254: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-c\\verification-runtime\\aeh-ch-target-ceatys56\\.aeh\\changes\\CHG-2026-0003\\change.yaml'>
+  before = hashlib.sha256(open(os.path.join(target, ".aeh", "changes", cid, "change.yaml"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_change.py:259: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-c\\verification-runtime\\aeh-ch-target-ceatys56\\.aeh\\changes\\CHG-2026-0003\\change.yaml'>
+  after = hashlib.sha256(open(os.path.join(target, ".aeh", "changes", cid, "change.yaml"), "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_change.py:98: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\aeh-m6-3-c\\schemas\\change.schema.json' mode='r' encoding='utf-8'>
+  schema = yaml.safe_load(open(os.path.join(ROOT, "schemas", "change.schema.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+....................D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_verify.py:116: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\AgentWorkspace\\Ares\\50_OPERATIONS\\aeh-m6-3-c\\tests\\fixtures\\tdd-neutral-src\\order_fixed.py' mode='r' encoding='utf-8'>
+  fixed = open(os.path.join(NEUTRAL_SRC, "order_fixed.py"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_verify.py:121: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-c\\verification-runtime\\aeh-ci-seed-quoyeqah\\src\\order.py'>
+  before = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-3-c\tests\runtime\test_verify.py:124: ResourceWarning: unclosed file <_io.BufferedReader name='D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260831-aeh-m6-3-c\\verification-runtime\\aeh-ci-seed-quoyeqah\\src\\order.py'>
+  after = hashlib.sha256(open(prod, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......................s.................................
+----------------------------------------------------------------------
+Ran 110 tests in 170.496s
+
+OK (skipped=1)

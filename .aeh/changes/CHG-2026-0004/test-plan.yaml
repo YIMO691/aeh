@@ -1,0 +1,158 @@
+generated_at: '2026-09-02T05:39:54.249778+00:00'
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[a-m]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\regression-runtime
+  id: REG-001
+  timeout_seconds: 900
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[n-z]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\regression-runtime
+  id: REG-002
+  timeout_seconds: 900
+test_files:
+- dest: tests/runtime/test_coordination_readers.py
+  src: test_coordination_readers.py
+tests:
+- command: python -B -m unittest tests.runtime.test_coordination_readers
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.runtime.test_coordination_readers
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\red-runtime
+    timeout_seconds: 300
+  expected_before_fix:
+    signature: M6_3C_STABLE_READERS_AEW_V2_REQUIRED
+    type: behavior_failure
+  fixture_signatures:
+  - reader release timeout
+  - first reader did not enter snapshot
+  - second reader did not enter snapshot
+  - child did not acquire exclusive lock
+  id: TEST-001
+  intent: Fail until stable coordinated readers, AEW v2 provenance, CI/status snapshot
+    binding, real process exclusion, redaction, isolation, and bounded CI execution
+    exist together.
+  kind: integration
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - .github/workflows/regression.yml
+  - README.md
+  - CHANGELOG.md
+  - docs/architecture-current.md
+  - docs/roadmap-v0.2.md
+  - docs/status.md
+  - docs/decisions.md
+  - docs/engineering-guide.md
+  - docs/documentation-contract.yaml
+  - docs/m6-3-coordination.md
+  - docs/integrations/aew.md
+  - schemas/aew-governance-adapter.schema.json
+  - src/aeh/runtime/coordination.py
+  - src/aeh/runtime/change.py
+  - src/aeh/ci.py
+  - src/aeh/integrations/aew.py
+  - tests/runtime/test_coordination_readers.py
+  - tests/runtime/test_coordination.py
+  - tests/runtime/test_coordination_writers.py
+  - tests/runtime/test_change.py
+  - tests/runtime/test_ci_replay.py
+  - tests/integrations/test_aew.py
+  - tests/contract/test_contracts.py
+  - tests/contract/fixtures/legal/aew-governance-adapter.ok.json
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  - 'AttributeError: ''NoneType'''
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_coordination_readers
+  - tests.runtime.test_coordination_writers
+  - tests.runtime.test_coordination
+  - tests.runtime.test_change
+  - tests.runtime.test_ci_replay
+  - tests.integrations.test_aew
+  - tests.contract.test_contracts
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260831-aeh-m6-3-c\verification-runtime
+  id: INTEGRATION-001
+  timeout_seconds: 900
+  type: integration
+  verifies:
+  - AC-001-01
+  - AC-002-01
+  - AC-003-01
+  - AC-003-02
+  - AC-004-01
+  - AC-004-02
+  - AC-005-01
+  - AC-005-02
+  - AC-006-01
+  - AC-006-02
+  - AC-007-01
+  - AC-007-02
+  - AC-008-01
+  - AC-008-02
+  - AC-009-01
+  - AC-009-02
+  - AC-010-01
+  - AC-010-02

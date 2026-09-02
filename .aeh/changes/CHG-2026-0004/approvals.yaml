@@ -1,0 +1,41 @@
+approvals:
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 369d3b6735b83bc28b1994c381c948fb4f72f59602ad059a9ebc338f8fbbbdf6
+    key_id: task-m6-3c-spec
+    payload_hash: 3b1afd48fc1ad97d5235b82a4c92497b67bfbc9f1c1d7c4f7ecbdf4f4274e958
+    scheme: hmac-sha256-v1
+    signature: b39e8614f00359b17c717712ed3cc6cacf6a13f596f2cdb966dd65f33a5cb146
+  decided_at: '2026-09-02T00:49:11.478247+00:00'
+  evidence_ref: OWNER_CHAT_APPROVAL_2026-09-02_M6_3C_SPEC_REVIEW
+  gate: SPEC_REVIEW
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 2ae25d064f4723d860702f288f4aad93e9ac2428a703a920dfb78f6b0f1c1c8e
+    key_id: task-m6-3c-test-repair-red
+    payload_hash: 3f9ca1311be72c86c0d628e4a19adf509016e5b831e31ac2c8b5f1880ceae17c
+    scheme: hmac-sha256-v1
+    signature: dccecb4eb30f3a68d53bec573f5099cc5de73ec300861282cdd14877659789f7
+  decided_at: '2026-09-02T06:00:27.026744+00:00'
+  evidence_ref: OWNER_CHAT_APPROVAL_2026-09-02_M6_3C_TEST_REPAIR_RED_GATE
+  gate: RED_GATE
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 5a3d2d159b2e54564ded5a45f45520c89d64a909b71a2568f35429faeb9d00a2
+    key_id: task-m6-3c-post-repair-merge
+    payload_hash: 926279b631bc594a5d0af8884ba3414ec997327d6a6ac37fb1e3cf622784a4b2
+    scheme: hmac-sha256-v1
+    signature: 41189d078d2a5186a98bc5ecf45613105b90b8755cdd4011ac77411001594c85
+  decided_at: '2026-09-02T06:51:53.624455+00:00'
+  evidence_ref: OWNER_CHAT_APPROVAL_2026-09-02_M6_3C_POST_TEST_REPAIR_MERGE_GATE
+  expires_at: '2026-09-03T06:51:53.624455+00:00'
+  gate: MERGE_GATE
+  status: APPROVED
