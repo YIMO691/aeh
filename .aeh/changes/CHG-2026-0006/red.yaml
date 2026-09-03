@@ -1,0 +1,20 @@
+change_id: CHG-2026-0006
+contract: red.evidence
+tests:
+- actual_failure:
+    category: behavior
+    signature: roadmap=M1-M6_MERGED
+  base_commit: b72dcd5d261a35ea90b8b5b97899b6b4e5c8358a
+  changed_files_hash: d1b729c9c89fa2ad85d74cce6e7e9081e9e7527d7073585d1d5248139cd3d125
+  command: python -B -m unittest tests.documentation.test_documentation
+  commit: null
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: roadmap=M1-M6_MERGED
+  output_hash: 42fda3d01a1d297b2aeaaaa0f9e767d7db736bb6228175745b48e2186354a3b3
+  output_ref: .aeh\changes\CHG-2026-0006\evidence\red-TEST-001.log
+  test_files_hash: d1b729c9c89fa2ad85d74cce6e7e9081e9e7527d7073585d1d5248139cd3d125
+  test_id: TEST-001
+  verdict: VALID_RED
+version: 1

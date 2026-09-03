@@ -39,6 +39,7 @@ LINK_DOCUMENTS = (
     "docs/m5-security.md",
     "docs/m6-ci-replay.md",
     "docs/m6-2-github-assurance.md",
+    "docs/m6-3-coordination.md",
     "examples/README.md",
 )
 
@@ -120,7 +121,7 @@ def validate() -> list[str]:
     for rel_path, body in (("README.md", readme), ("docs/status.md", status)):
         required = (
             latest_release,
-            "M1–M5",
+            "M1–M6",
             "M6",
             "PyPI",
             str(validation["local_tests_discovered"]),
@@ -189,7 +190,7 @@ def main() -> int:
     print("DOCUMENTATION_CHECK_PASS")
     print("source_version=0.3.0.dev0")
     print("latest_github_release=v0.2.0")
-    print("roadmap=M1-M5_MERGED+M6_IN_PROGRESS")
+    print("roadmap=M1-M6_MERGED")
     print(f"link_documents={len(LINK_DOCUMENTS)}")
     return 0
 

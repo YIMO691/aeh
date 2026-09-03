@@ -2,11 +2,14 @@
 
 ## Unreleased
 
-- Complete the M6.3 bounded local coordination candidate with stable shared
+- Complete the M6.3 bounded local coordination milestone with stable shared
   Change snapshots, token-free status/CI/AEW readers, AEW governance adapter
   v2 coordination provenance, real spawned-process reader/writer/crash tests,
   and a 40-minute bounded full-regression job while retaining the 20-minute
   clean-room budget.
+- Merge M6.3A/B/C through PRs #19, #20, and #21; the final source baseline
+  passes 411 tests with 4 expected platform skips and the six-job exact-main
+  post-merge matrix.
 - Add tiered `MERGE_GATE` trust: strict external HMAC remains the default, while
   `SCM_AUTHENTICATED_MERGE` supports explicit, evidence-linked solo-repository
   delegation without putting a secret in pull-request CI.
@@ -19,13 +22,13 @@ All notable changes to AEH are recorded here per phase.
 
 ### Added
 
-- M6.2d live dogfood candidate: an exact prerelease wheel/hash binding,
+- M6.2d live dogfood completion: an exact prerelease wheel/hash binding,
   byte-stable repository workflow, committed self-hosting AEH runtime snapshot,
   and a contract regression for the configured source/runtime policy.
 - Windows Controller state now treats a different-volume state directory as
   outside the governed repository instead of failing on `commonpath`.
 
-- M6.2a–c GitHub assurance candidate: exact PR/merge-group event and
+- M6.2a–c GitHub assurance integration: exact PR/merge-group event and
   authenticated run/check binding, one-fresh-Change diff closure, deterministic
   full-SHA workflow rendering with immutable wheel verification, and read-only
   enforcement audits that distinguish observed, repository-required, and

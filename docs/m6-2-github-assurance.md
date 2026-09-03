@@ -2,7 +2,7 @@
 
 > Status: **CURRENT**
 > Source line: `0.3.0.dev0`
-> Implementation state: M6.2a–c merged; M6.2d immutable-workflow dogfood candidate
+> Implementation state: M6.2a–d merged; immutable-workflow dogfood completed
 
 M6.2 connects the provider-neutral M6.1 replay core to GitHub without confusing
 three different claims:
@@ -71,8 +71,8 @@ uses this channel.
 
 ## Configuration and rollout boundary
 
-The canonical `core/ci-enforcement-policy.yaml` binds the separately authorized
-`m6.2d-dogfood-1` wheel and the byte-exact rendered workflow. The repository also
+The canonical `core/ci-enforcement-policy.yaml` currently binds the separately
+authorized `m6.3b-dogfood-1` wheel and the byte-exact rendered workflow. The repository also
 commits its self-hosting `.aeh` runtime snapshot so replay can validate the exact
 Change without bootstrapping or mutating the checkout during the assurance job.
 These source facts still do not claim active protection: only the authenticated

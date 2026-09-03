@@ -1,0 +1,82 @@
+change_id: CHG-2026-0006
+classification:
+  escalated: true
+  evidence:
+  - no_hard_domain_hits
+  - confidence: direct
+    domain: authentication_authorization
+    kind: repository_evidence
+  - confidence: direct
+    domain: destructive_data_operation
+    kind: repository_evidence
+  - confidence: direct
+    domain: irreversible_migration
+    kind: repository_evidence
+  - confidence: direct
+    domain: money_economy
+    kind: repository_evidence
+  - confidence: direct
+    domain: persistence
+    kind: repository_evidence
+  - confidence: direct
+    domain: protocol_compatibility
+    kind: repository_evidence
+  - confidence: direct
+    domain: save_migration
+    kind: repository_evidence
+  - confidence: direct
+    domain: security_boundary
+    kind: repository_evidence
+  level: CRITICAL
+  reasons:
+  - 'suggested_level: STANDARD'
+  - 'grounding_escalation: authentication_authorization'
+  - 'grounding_escalation: destructive_data_operation'
+  - 'grounding_escalation: irreversible_migration'
+  - 'grounding_escalation: money_economy'
+  - 'grounding_escalation: persistence'
+  - 'grounding_escalation: protocol_compatibility'
+  - 'grounding_escalation: save_migration'
+  - 'grounding_escalation: security_boundary'
+  suggested_level: STANDARD
+created_at: '2026-09-03T06:12:25.597816+00:00'
+gates:
+  classification: PASS
+  green: PASS
+  grounding: PASS
+  lock_test: PASS
+  red: PASS
+  spec: PASS
+  test_design: PASS
+  verify: PASS
+preflight_warnings:
+- 'guidance-only deny fields for codex: permissions.git_push'
+- 'guidance-only deny fields for claude: permissions.web_access'
+- workflow not provided to preflight
+state:
+  current: VERIFY
+  previous: REFACTOR
+title: Align M1-M6 completion documentation and validation contract
+workflow:
+  level: CRITICAL
+  phases:
+  - INTAKE
+  - CLASSIFY
+  - GROUND
+  - SPEC
+  - HUMAN_SPEC_APPROVAL
+  - DESIGN
+  - TEST_DESIGN
+  - RED
+  - VALIDATE_RED
+  - LOCK_TEST
+  - HUMAN_CI_RED_GATE
+  - GREEN
+  - REFACTOR
+  - INTEGRATION
+  - RUNTIME_PLATFORM_VERIFY
+  - REGRESSION
+  - REVIEW
+  - DRIFT_CHECK
+  - HUMAN_MERGE_APPROVAL
+  - ARCHIVE

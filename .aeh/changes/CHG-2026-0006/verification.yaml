@@ -1,0 +1,76 @@
+overall: READY_WITH_WARNINGS
+red:
+  actual_failure:
+    category: behavior
+    signature: roadmap=M1-M6_MERGED
+  command: python -B -m unittest tests.documentation.test_documentation
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: roadmap=M1-M6_MERGED
+  output_hash: 42fda3d01a1d297b2aeaaaa0f9e767d7db736bb6228175745b48e2186354a3b3
+  output_ref: .aeh\changes\CHG-2026-0006\evidence\red-TEST-001.log
+  repository_state:
+    base_commit: b72dcd5d261a35ea90b8b5b97899b6b4e5c8358a
+    changed_files_hash: d1b729c9c89fa2ad85d74cce6e7e9081e9e7527d7073585d1d5248139cd3d125
+    test_files_hash: d1b729c9c89fa2ad85d74cce6e7e9081e9e7527d7073585d1d5248139cd3d125
+  test_id: TEST-001
+  verdict: VALID_RED
+results:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-001
+  method: automated_test
+  output_hash: 701c7807c87413e836192248073c69ad35547a7d735234fc468081096e5e06e1
+  output_ref: .aeh\changes\CHG-2026-0006\evidence\verify-1.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-002
+  method: automated_test
+  output_hash: ef9638e994991d3ca267b77f3278eed46180ea4afe05f9109c6cb0ae002ded46
+  output_ref: .aeh\changes\CHG-2026-0006\evidence\verify-reg-2.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-003
+  method: automated_test
+  output_hash: cfb692e32844aed9df5b1828af1c74cd81340e95725eb346b88cad73962cb4d0
+  output_ref: .aeh\changes\CHG-2026-0006\evidence\verify-v-3.log
+  status: pass
+  type: contract
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+verified_at: '2026-09-03T09:56:43.630626+00:00'
+warnings:
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
+  claim is made
+- MERGE_GATE approval has no expiry
+- CRITICAL MERGE_GATE approved by user
