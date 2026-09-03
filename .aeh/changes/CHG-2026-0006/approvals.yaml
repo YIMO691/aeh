@@ -1,0 +1,34 @@
+approvals:
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 9b59d0ff62d772d7330dc9140b76d0bacac6b7022329ae2f5efa7326c467af9c
+    key_id: task-doc-align-spec-20260903
+    payload_hash: b338435874a29791c6858aea61490204e6af41c9811180693434d91dbcb18c75
+    scheme: hmac-sha256-v1
+    signature: 52f8ae1d69abbfcc7d005201ba8f2da592a134d2c9be8e600799cf8a0376a77b
+  decided_at: '2026-09-03T07:37:02.553137+00:00'
+  evidence_ref: TASK-20260903-aeh-m6-doc-alignment/SPEC_REVIEW_REQUEST.yaml
+  gate: SPEC_REVIEW
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: ae11078b381cd36be14691a35eec037b8ebd6733998a258761277da596048b36
+    key_id: task-doc-align-red-20260903
+    payload_hash: 34a99beda3b4fba796afac6a3a8c1ae75b408d0f5c58795fa5c03197398a8ab9
+    scheme: hmac-sha256-v1
+    signature: 39a6974ac6b6a6b9bf1a0be6c86ec7145390c6ca11c9160043b76ed99a5f3b0f
+  decided_at: '2026-09-03T09:50:46.234882+00:00'
+  gate: RED_GATE
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  decided_at: '2026-09-03T09:56:29.211659+00:00'
+  evidence_ref: owner-decision:TASK-20260903-aeh-m6-doc-alignment
+  gate: MERGE_GATE
+  status: APPROVED
+  trust_mode: SCM_AUTHENTICATED_MERGE

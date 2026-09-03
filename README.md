@@ -8,7 +8,7 @@
 >
 > **Independent change assurance for AI-assisted software engineering.**
 > Current source: `0.3.0.dev0` (unreleased) · Latest public release: `v0.2.0` ·
-> M1–M5 merged · M6 in progress (M6.3 candidate) · PyPI not published
+> M1–M6 merged · current source line unreleased · PyPI not published
 
 Coding agents can produce an implementation and a persuasive explanation. AEH
 adds a separate acceptance layer: machine-enforced contracts, replayable
@@ -255,10 +255,11 @@ launcher, and credential-bound approvals. It does **not** provide:
 
 M5 is deliberately bounded: HMAC proves possession of a configured shared
 credential, while the execution policy constrains launch semantics without
-claiming OS isolation. M6.1 and M6.2a–c are merged. M6.2d adds the immutable
-dogfood wheel binding, configured repository workflow, self-hosting runtime
-snapshot, and live required-check evaluation; bounded Change concurrency remains
-M6.3. Source files alone never prove that external branch protection is active.
+claiming OS isolation. M6.1–M6.3 are merged. M6.2d adds the immutable dogfood
+wheel binding, configured repository workflow, self-hosting runtime snapshot,
+and live required-check evaluation; M6.3 adds bounded local Change coordination
+and stable readers. Source files alone never prove that external branch
+protection is active.
 
 ## Current status
 
@@ -271,8 +272,9 @@ The current branch baseline completes 411 tests: 407 passed and 4 expected Windo
 symlink-permission cases were skipped. The corresponding main workflow passed
 all 6 cross-platform regression and clean-room wheel jobs.
 
-M1–M5, M6.1, and M6.2a–c are merged. M6.2d is the current live dogfood
-candidate; M6.3 remains planned. See the canonical
+M1–M6 are merged. M6.2d live dogfood and the serial M6.3A/B/C delivery are
+complete; M6.3C merged through PR #21 and passed the six-job post-merge matrix.
+The current source line remains unreleased. See the canonical
 [current status](docs/status.md) and [roadmap](docs/roadmap-v0.2.md).
 
 ## Documentation

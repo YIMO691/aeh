@@ -13,8 +13,8 @@ release:
   pypi_published: false
 
 roadmap:
-  merged: [M1, M2, M3, M4, M5]
-  in_progress: [M6]
+  merged: [M1, M2, M3, M4, M5, M6]
+  in_progress: []
   planned: []
 
 validation:

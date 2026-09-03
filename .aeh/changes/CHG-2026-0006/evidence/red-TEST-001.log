@@ -1,0 +1,15 @@
+
+warning: Failed to set cwd to temp dir
+F
+======================================================================
+FAIL: test_current_claims_and_links_are_consistent (tests.documentation.test_documentation.DocumentationContractTests.test_current_claims_and_links_are_consistent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-m6-doc-alignment\tests\documentation\test_documentation.py", line 21, in test_current_claims_and_links_are_consistent
+    self.assertIn("roadmap=M1-M6_MERGED", result.stdout)
+AssertionError: 'roadmap=M1-M6_MERGED' not found in 'DOCUMENTATION_CHECK_PASS\nsource_version=0.3.0.dev0\nlatest_github_release=v0.2.0\nroadmap=M1-M5_MERGED+M6_IN_PROGRESS\nlink_documents=20\n'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.205s
+
+FAILED (failures=1)

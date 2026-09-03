@@ -3,7 +3,7 @@
 > 文档类别：**CURRENT ROADMAP**。当前软件事实的简表见 [status.md](status.md)；
 > 本文负责依赖、进入/退出 Gate 与未来范围，不承担 Release 证据职责。
 >
-> 状态：**V02-0 + M1–M5 + M6.1 + M6.2a–c MERGED；M6.2d LIVE DOGFOOD CANDIDATE；M6.3 PLANNED；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-08-28）
+> 状态：**V02-0 + M1–M6 MERGED；M6.2d LIVE DOGFOOD COMPLETE；M6.3A/B/C COMPLETE；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-09-02）
 > 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
 > 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
 > V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
@@ -18,6 +18,8 @@
   尚未授权，后续 Phase 2 v1.10 已完成并给出 `REPOSITION`。
 - **M1–M5 已按依赖顺序审查并合并到 main；v0.2.0 已发布。Phase 2 暴露的
   RUN-F055 机器真值逃逸已在 main 修复，当前源码为未发布的 `0.3.0.dev0`。**
+- **M6.1、M6.2a–d 与 M6.3A/B/C 已完成 Gate、required checks、合并和
+  exact-main 合并后验证；M1–M6 实现路线图至此完成。**
 - M1 提供 wheel/CI，M2 提供显式 repair/transaction，M3 提供 v0.1 snapshot 到当前
   candidate 的显式 upgrade。独立 Release Safety Review 已通过，Owner 已执行 v0.2.0
   tag 与 GitHub Release；PyPI 未授权、未发布。冻结的 v0.2.1 候选仅收口已观察完整性
@@ -192,7 +194,7 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
   HMAC-SHA256 凭据绑定 Change、Gate、actor、时间、TTL 与证据引用；撤销保留原
   签名并追加独立撤销签名。该能力不宣称 OS 隔离、非否认性、OIDC/IAM 或法律身份。
 
-### M6 规模化：CI 深集成 + 有界 Change 并发（进行中）
+### M6 规模化：CI 深集成 + 有界 Change 并发（已完成）
 
 - 目标：用户项目 PR/merge 触发 aeh 校验门；并发 Change 分配和写入不串扰。
 - In：M6.1 只读 replay core；M6.2 CI 模板/required-check 集成；M6.3 并发 Change 隔离强化。
@@ -203,8 +205,8 @@ S=≤2 文件小改动；M=单模块/单命令；L=跨多模块+契约决策；X
 - 本地风险：① CI 校验门被伪造（跳过命令/改结果文件）——校验命令与报告必须可重放且摘要进 CI 日志；② 范围易膨胀——AEH 只强化 Change 并发，不实现通用 Agent scheduler。
 - M6.1 已合并：`aeh ci verify` 具备 repository/base/head/runtime/time/credential/input 绑定、确定性 report digest、目标仓库零写入和真实流程攻击回归；它不运行项目命令。
 - M6.2a–c 已合并：GitHub PR/merge-group 事件与 authenticated run/check 绑定；一个 fresh Change + 完整 diff closure；固定 Action commit 与 wheel hash 的确定性 workflow renderer；区分 observed/required/externally governed 的只读 enforcement audit。
-- M6.2d live dogfood 候选绑定独立授权的不可变 wheel、字节稳定 workflow 与 AEH 自举 runtime snapshot；是否达到 required trust level 仍必须由当前 GitHub 配置的 authenticated audit 证明。
-- M6.3 串行候选已完成 A/B/C 代码面：single-host/local-filesystem contracts 与外部 store、reservation/WRITE lease/CAS/recovery/drain、稳定共享读取、AEW v2 coordination provenance、真实多进程 fault matrix，以及有界 40 分钟 full-regression 预算；它仍需独立 Gate、PR required checks 与合并后验证，不提供跨主机、网络文件系统或调度器保证。详见 [M6.3 coordination boundary](m6-3-coordination.md)。
+- M6.2d live dogfood 已完成：独立授权的不可变 wheel、字节稳定 workflow、AEH 自举 runtime snapshot，以及由当前 GitHub 配置和 App 绑定 required check 证明的 repository-required trust level。
+- M6.3 已按 A/B/C 串行完成并合并：single-host/local-filesystem contracts 与外部 store、reservation/WRITE lease/CAS/recovery/drain、稳定共享读取、AEW v2 coordination provenance、真实多进程 fault matrix，以及有界 40 分钟 full-regression 预算。最终 PR required checks 13/13、合并后矩阵 6/6、exact-main 本地回归 411 项（4 项预期跳过）通过；它不提供跨主机、网络文件系统或调度器保证。详见 [M6.3 coordination boundary](m6-3-coordination.md)。
 
 ### 依赖 DAG（已做拓扑校验：no cycle）
 

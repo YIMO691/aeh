@@ -1,0 +1,93 @@
+generated_at: '2026-09-03T07:40:41.153435+00:00'
+non_automatable:
+- ac_id: AC-001-01
+  reason: Confirmed by SCM operation audit and the final pull-request merge path.
+- ac_id: AC-002-02
+  reason: Confirmed by bounded documentation diff review against the accepted capability
+    boundary.
+- ac_id: AC-003-02
+  reason: Confirmed by exact base-to-head diff closure in the GitHub assurance required
+    check.
+- ac_id: AC-004-02
+  reason: Confirmed by local and provider exact diff inspection showing frozen roots
+    unchanged.
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260903-aeh-m6-doc-alignment\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260903-aeh-m6-doc-alignment\regression-runtime
+  id: REG-DOC-001
+  timeout_seconds: 120
+test_files:
+- dest: tests/documentation/test_documentation.py
+  src: test_documentation.py
+tests:
+- command: python -B -m unittest tests.documentation.test_documentation
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.documentation.test_documentation
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260903-aeh-m6-doc-alignment\red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260903-aeh-m6-doc-alignment\red-runtime
+    timeout_seconds: 120
+  expected_before_fix:
+    signature: roadmap=M1-M6_MERGED
+    type: behavior_failure
+  fixture_signatures: []
+  id: TEST-001
+  intent: Fail until the public documentation, documentation contract, and checker
+    consistently report M1-M6 merged and remove stale M6 candidate or planned claims.
+  kind: contract
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - README.md
+  - docs/README.md
+  - docs/documentation-contract.yaml
+  - docs/m6-2-github-assurance.md
+  - docs/roadmap-v0.2.md
+  - docs/status.md
+  - scripts/check_docs.py
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  - ModuleNotFoundError
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260903-aeh-m6-doc-alignment\verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260903-aeh-m6-doc-alignment\verification-runtime
+  id: VER-DOC-001
+  timeout_seconds: 120
+  type: contract
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01

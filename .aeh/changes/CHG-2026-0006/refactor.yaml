@@ -1,0 +1,58 @@
+base_commit: b72dcd5d261a35ea90b8b5b97899b6b4e5c8358a
+change_id: CHG-2026-0006
+changed_files:
+- after_hash: 25aa61aaacad98ec822b2af3a9db2ecadd8a5d0e1c9375c27a98ebebc6ace97c
+  before_hash: 0cf5ee5612cd048d2f895e84c03218c78f787575c8020d5dd2fe0a37e37483c2
+  code_id: CODE-001
+  path: CHANGELOG.md
+- after_hash: 4d15305377c225b1d281c635b89a8ab2236f0bd6f8c62a1e2c17daef9c85b16d
+  before_hash: 9593c03fe52b2acc72851e2ef2a612734228c3c6af324faf4b58cf9b09ad8480
+  code_id: CODE-002
+  path: CONTRIBUTING.md
+- after_hash: 1f145d8ebeb0a79c526968c3a7db233372c118fb0eb39efd68ac771d457cdf92
+  before_hash: 40a2d0f4d33835c286b5705e93a0213976d486eb0f29a4b7f977e395d042fc54
+  code_id: CODE-003
+  path: README.md
+- after_hash: 9e9e07da8c0123d0ab5c977dc6f7fc59bd3f29a09f7d30875c6e99772a89023c
+  before_hash: 466dd33ab2d9da3758dc7d8a46d16f22f71895d5146d4400805551fd7cbe5555
+  code_id: CODE-004
+  path: docs/README.md
+- after_hash: b630662e6d434f13fb41188c0a853c720197a3ad9f962b3d2b5c45b730558319
+  before_hash: 62af0d3a3203d275b897d2d4e6f8574fcdd6e7a43a22ad29fe743ea1a876fe75
+  code_id: CODE-005
+  path: docs/documentation-contract.yaml
+- after_hash: 472e768a8d46112875656077ed5ed9e871b466b78677380a0b59306292a9ce15
+  before_hash: 54ced337e8f8f772a7633a3b1095b8afb1a23b0e5b2d13f774c7de983090fee4
+  code_id: CODE-006
+  path: docs/m6-2-github-assurance.md
+- after_hash: d18dc3c306b7447e51c4af89fdc6f92fbc26f1a978afb69a1b0f91c915829abb
+  before_hash: db579cfd3f3aedbd5ecb78a94609ed93b1c18c024d2d64a2e421545782869de3
+  code_id: CODE-007
+  path: docs/roadmap-v0.2.md
+- after_hash: e652632dd614ab31965bfd3eaa7b549f0593d3d7f921e75f3ec5f4e622d4a335
+  before_hash: aea333dc8fccc03d3d5fafa8d14293b69f65b94ed446025a6e0ed38ae24c9961
+  code_id: CODE-008
+  path: docs/status.md
+- after_hash: 92745c0e5d158d2ce9b83bb4811ce20a4327bb3b7c463299fb0d6d199cd2f2ca
+  before_hash: d58c4d149e5cc98abadc219c8c8d4dc5c87ce3d460ad5fd3a384b185026662bc
+  code_id: CODE-009
+  path: scripts/check_docs.py
+contract: green.evidence
+production_after_hash: ef849af4548149288cab800ce1768ecdade0ef108b5146ab4b513e3f35f19b73
+production_before_hash: d57bf0b99b0459b1183fc398c8281ec141a4bfbb785476d4b0a1de8d8121ba2a
+test_lock_hash: d1b729c9c89fa2ad85d74cce6e7e9081e9e7527d7073585d1d5248139cd3d125
+tests:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  command: python -B -m unittest tests.documentation.test_documentation
+  exit_code: 0
+  output_hash: d43c8d1a315b7c7eeea77606d9c0bb707359998ac9957a82dbf52674a5bb1a1e
+  output_ref: .aeh\changes\CHG-2026-0006\evidence\refactor-TEST-001.log
+  test_id: TEST-001
+  verdict: PASS
+verdict: REFACTOR_PASS
+version: 1

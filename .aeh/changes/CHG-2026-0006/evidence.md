@@ -1,0 +1,64 @@
+# Grounding Evidence
+
+machine truth in evidence.yaml
+
+- EV-001 [SOURCE] keyword match: align in .git:1
+- EV-002 [SOURCE] keyword match: m6 in .git:1
+- EV-003 [SOURCE] keyword match: and in AGENTS.md:7
+- EV-004 [SOURCE] keyword match: align in CHANGELOG.md:62
+- EV-005 [SOURCE] keyword match: m1 in CHANGELOG.md:169
+- EV-006 [SOURCE] keyword match: m6 in CHANGELOG.md:5
+- EV-007 [SOURCE] keyword match: documentation in CHANGELOG.md:59
+- EV-008 [SOURCE] keyword match: and in CHANGELOG.md:5
+- EV-009 [SOURCE] keyword match: validation in CHANGELOG.md:110
+- EV-010 [SOURCE] keyword match: contract in CHANGELOG.md:24
+- EV-011 [SOURCE] keyword match: and in CLAUDE.md:7
+- EV-012 [SOURCE] keyword match: m1 in CONTRIBUTING.md:25
+- EV-013 [SOURCE] keyword match: m6 in CONTRIBUTING.md:25
+- EV-014 [SOURCE] keyword match: documentation in CONTRIBUTING.md:44
+- EV-015 [SOURCE] keyword match: and in CONTRIBUTING.md:25
+- EV-016 [SOURCE] keyword match: contract in CONTRIBUTING.md:18
+- EV-017 [SOURCE] keyword match: documentation in LICENSE:6
+- EV-018 [SOURCE] keyword match: and in LICENSE:6
+- EV-019 [SOURCE] keyword match: contract in LICENSE:19
+- EV-020 [SOURCE] keyword match: m1 in README.md:11
+- EV-021 [SOURCE] keyword match: m6 in README.md:11
+- EV-022 [SOURCE] keyword match: documentation in README.md:278
+- EV-023 [SOURCE] keyword match: and in README.md:11
+- EV-024 [SOURCE] keyword match: contract in README.md:14
+- EV-025 [SOURCE] keyword match: and in setup.py:6
+- EV-026 [SOURCE] keyword match: and in adapters\claude\CLAUDE.template.md:6
+- EV-027 [SOURCE] keyword match: contract in adapters\claude\adapter.yaml:3
+- EV-028 [SOURCE] keyword match: and in adapters\codex\AGENTS.template.md:6
+- EV-029 [SOURCE] keyword match: and in adapters\codex\adapter.yaml:12
+- EV-030 [SOURCE] keyword match: contract in adapters\codex\adapter.yaml:3
+- EV-031 [SOURCE] keyword match: contract in bootstrap\conflict-rules.yaml:2
+- EV-032 [SOURCE] keyword match: and in bootstrap\grounding.yaml:25
+- EV-033 [SOURCE] keyword match: contract in bootstrap\grounding.yaml:2
+- EV-034 [SOURCE] keyword match: contract in bootstrap\discovery\ai-rules.yaml:1
+- EV-035 [SOURCE] keyword match: contract in bootstrap\discovery\architecture.yaml:1
+- EV-036 [SOURCE] keyword match: contract in bootstrap\discovery\ci.yaml:1
+- EV-037 [SOURCE] keyword match: contract in bootstrap\discovery\git.yaml:1
+- EV-038 [SOURCE] keyword match: documentation in bootstrap\discovery\repository.yaml:5
+- EV-039 [SOURCE] keyword match: contract in bootstrap\discovery\repository.yaml:1
+- EV-040 [SOURCE] keyword match: contract in bootstrap\discovery\testing.yaml:1
+- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-042 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-043 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-045 [TEST] existing test file: tests\compiler\test_compiler.py
+- EV-046 [CALL_PATH] keyword co-occurrence across 268 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
+- EV-047 [CONFIG] config file match: adapters\claude\adapter.yaml:3
+- EV-048 [CONFIG] config file match: adapters\codex\adapter.yaml:12
+- EV-049 [CONFIG] config file match: adapters\codex\adapter.yaml:3
+- EV-050 [CONFIG] config file match: bootstrap\conflict-rules.yaml:2
+- EV-051 [CONFIG] config file match: bootstrap\grounding.yaml:25
+- EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
+- EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
+- EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration
+- EV-055 [SOURCE] risk domain marker found in repository: money_economy
+- EV-056 [SOURCE] risk domain marker found in repository: persistence
+- EV-057 [SOURCE] risk domain marker found in repository: protocol_compatibility
+- EV-058 [SOURCE] risk domain marker found in repository: save_migration
+- EV-059 [SOURCE] risk domain marker found in repository: security_boundary
+- EV-060 [UNKNOWN] architecture constraints not symbolically verified in Phase 9 scan
