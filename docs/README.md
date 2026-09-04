@@ -19,21 +19,23 @@ software truth from version-bound research and historical release evidence.
 ### I want to use AEH
 
 1. [Repository README](../README.md)
-2. [Current status and boundaries](status.md)
-3. [M4 manual verification governance](m4-governance.md)
-4. [M5 security boundary](m5-security.md)
-5. [AEW integration](integrations/aew.md)
-6. [M6.1 CI replay](m6-ci-replay.md)
-7. [M6.2 GitHub assurance](m6-2-github-assurance.md)
-8. [M6.3 coordination boundary](m6-3-coordination.md)
-9. [Examples](../examples/README.md)
+2. [Chinese README / 中文入口](../README.zh-CN.md)
+3. [Using AEH with Codex](codex-usage.md)
+4. [Current status and boundaries](status.md)
+5. [M4 manual verification governance](m4-governance.md)
+6. [M5 security boundary](m5-security.md)
+7. [AEW integration](integrations/aew.md)
+8. [M6.1 CI replay](m6-ci-replay.md)
+9. [M6.2 GitHub assurance](m6-2-github-assurance.md)
+10. [M6.3 coordination boundary](m6-3-coordination.md)
+11. [Examples](../examples/README.md)
 
 ### I want to develop or review AEH
 
 1. [Current architecture](architecture-current.md)
 2. [Engineering guide](engineering-guide.md)
 3. [Contributing](../CONTRIBUTING.md)
-4. [Roadmap](roadmap-v0.2.md)
+4. [Completed V0.2 roadmap](roadmap-v0.2.md)
 5. [Decision log](decisions.md)
 
 ## Document authority

@@ -1,0 +1,14 @@
+
+F.
+======================================================================
+FAIL: test_codex_user_guide_contract (tests.documentation.test_documentation.DocumentationContractTests.test_codex_user_guide_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-readme-user-guide\tests\documentation\test_documentation.py", line 43, in test_codex_user_guide_contract
+    self.assertTrue(
+AssertionError: False is not true : CODEx_USER_GUIDE_CONTRACT: missing README.zh-CN.md
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.172s
+
+FAILED (failures=1)

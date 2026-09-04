@@ -21,8 +21,10 @@ CONTRACT_PATH = ROOT / "docs" / "documentation-contract.yaml"
 
 LINK_DOCUMENTS = (
     "README.md",
+    "README.zh-CN.md",
     "CONTRIBUTING.md",
     "docs/README.md",
+    "docs/codex-usage.md",
     "docs/about.md",
     "docs/status.md",
     "docs/architecture-current.md",
@@ -95,6 +97,8 @@ def validate() -> list[str]:
     contract = load_yaml(CONTRACT_PATH)
     release = contract["release"]
     roadmap = contract["roadmap"]
+    onboarding = contract["onboarding"]
+    status_evidence = contract["status_evidence"]
     validation = contract["validation"]
 
     source_version = str(release["source_version"])
@@ -118,19 +122,64 @@ def validate() -> list[str]:
 
     status = text("docs/status.md")
     readme = text("README.md")
-    for rel_path, body in (("README.md", readme), ("docs/status.md", status)):
-        required = (
-            latest_release,
-            "M1–M6",
-            "M6",
-            "PyPI",
-            str(validation["local_tests_discovered"]),
-            str(validation["local_tests_passed"]),
-            str(validation["local_tests_skipped"]),
-        )
+    chinese_readme = text("README.zh-CN.md")
+    for rel_path, body in (
+        ("README.md", readme),
+        ("README.zh-CN.md", chinese_readme),
+        ("docs/status.md", status),
+    ):
+        required = (latest_release, "M1–M6", "M6", "PyPI")
         for claim in required:
             if claim not in body:
                 errors.append(f"missing canonical claim {claim!r}: {rel_path}")
+
+    for claim in (
+        str(validation["local_tests_discovered"]),
+        str(validation["local_tests_passed"]),
+        str(validation["local_tests_skipped"]),
+    ):
+        if claim not in status:
+            errors.append(f"missing validation baseline {claim!r}: docs/status.md")
+
+    onboarding_paths = {
+        "english_landing": "README.md",
+        "chinese_landing": "README.zh-CN.md",
+        "codex_guide": "docs/codex-usage.md",
+        "documentation_portal": "docs/README.md",
+    }
+    for field, expected in onboarding_paths.items():
+        actual = str(onboarding[field])
+        if actual != expected or not (ROOT / actual).is_file():
+            errors.append(f"invalid onboarding path {field}: {actual}")
+
+    codex_guide = text(str(onboarding["codex_guide"]))
+    docs_index = text(str(onboarding["documentation_portal"]))
+    for level in onboarding["workflow_levels"]:
+        for rel_path, body in (
+            ("README.md", readme),
+            ("README.zh-CN.md", chinese_readme),
+            ("docs/codex-usage.md", codex_guide),
+        ):
+            if str(level) not in body:
+                errors.append(f"missing workflow level {level}: {rel_path}")
+    for marker in ("README.zh-CN.md", "docs/codex-usage.md"):
+        if marker not in readme:
+            errors.append(f"README missing onboarding link: {marker}")
+    for marker in ("../README.zh-CN.md", "codex-usage.md"):
+        if marker not in docs_index:
+            errors.append(f"documentation portal missing onboarding link: {marker}")
+    for phrase in onboarding["authorization_boundary_phrases"]:
+        if str(phrase) not in codex_guide:
+            errors.append(f"Codex guide missing authorization boundary: {phrase}")
+
+    for field, claim in status_evidence.items():
+        if str(claim) not in status:
+            errors.append(f"status evidence missing {field}: {claim}")
+
+    completed_roadmap = text(str(roadmap["completed_document"]))
+    for label in roadmap["completed_labels"]:
+        if str(label) not in completed_roadmap:
+            errors.append(f"completed roadmap missing label: {label}")
 
     merged = [str(item) for item in roadmap["merged"]]
     planned = [str(item) for item in roadmap["planned"]]

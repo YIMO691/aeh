@@ -1,0 +1,78 @@
+overall: READY_WITH_WARNINGS
+red:
+  actual_failure:
+    category: behavior
+    signature: CODEx_USER_GUIDE_CONTRACT
+  command: python -B -m unittest tests.documentation.test_documentation
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: CODEx_USER_GUIDE_CONTRACT
+  output_hash: b4ab50fe9440ede7e3cbeed1bfb20d3b13e09daffabbac4f07f4ea462bb6a25d
+  output_ref: .aeh\changes\CHG-2026-0007\evidence\red-TEST-001.log
+  repository_state:
+    base_commit: debf35196ce5b9f649e6ff270327854224fccaee
+    changed_files_hash: 6974d7d4d5ad4aa479392ed2f363f47ca2509c981a28688c8dd51273fc814fd9
+    test_files_hash: 6974d7d4d5ad4aa479392ed2f363f47ca2509c981a28688c8dd51273fc814fd9
+  test_id: TEST-001
+  verdict: VALID_RED
+results:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-001
+  method: automated_test
+  output_hash: d6d61353935dd3d0e0a81dad651e75bf360431d4b3afb9957d72bc54f6d2e2e5
+  output_ref: .aeh\changes\CHG-2026-0007\evidence\verify-1.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-002
+  method: automated_test
+  output_hash: 12b92b46a397004f7d56ff35d9c7b3240d82283a8b52942fbc2894f1a81386bf
+  output_ref: .aeh\changes\CHG-2026-0007\evidence\verify-reg-2.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-003
+  method: automated_test
+  output_hash: 030e81d978700a15702b8d03d9684dabfea6a401047284a3f22a9558df724a23
+  output_ref: .aeh\changes\CHG-2026-0007\evidence\verify-v-3.log
+  status: pass
+  type: contract
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+verified_at: '2026-09-04T06:26:22.387053+00:00'
+warnings:
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
+  claim is made
+- MERGE_GATE approval has no expiry
+- CRITICAL MERGE_GATE approved by user

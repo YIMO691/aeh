@@ -1,0 +1,20 @@
+change_id: CHG-2026-0007
+contract: red.evidence
+tests:
+- actual_failure:
+    category: behavior
+    signature: CODEx_USER_GUIDE_CONTRACT
+  base_commit: debf35196ce5b9f649e6ff270327854224fccaee
+  changed_files_hash: 6974d7d4d5ad4aa479392ed2f363f47ca2509c981a28688c8dd51273fc814fd9
+  command: python -B -m unittest tests.documentation.test_documentation
+  commit: null
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: CODEx_USER_GUIDE_CONTRACT
+  output_hash: b4ab50fe9440ede7e3cbeed1bfb20d3b13e09daffabbac4f07f4ea462bb6a25d
+  output_ref: .aeh\changes\CHG-2026-0007\evidence\red-TEST-001.log
+  test_files_hash: 6974d7d4d5ad4aa479392ed2f363f47ca2509c981a28688c8dd51273fc814fd9
+  test_id: TEST-001
+  verdict: VALID_RED
+version: 1

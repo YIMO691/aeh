@@ -1,7 +1,7 @@
 # AEH Current Status
 
 > Status: **CURRENT**  
-> Last reconciled: 2026-09-02
+> Last reconciled: 2026-09-04
 
 ## Release and source state
 
@@ -11,8 +11,9 @@
 | Latest GitHub release | `v0.2.0` |
 | PyPI | Not published |
 | Roadmap | M1–M6 merged; M6.3A/B/C complete |
-| Current source test baseline | 411 discovered, 407 passed, 4 expected Windows symlink-permission skips |
+| Current source test baseline | 412 discovered, 408 passed, 4 expected Windows symlink-permission skips |
 | Latest post-merge main CI | 6/6 jobs passed on Ubuntu/Windows and Python 3.10/3.11 |
+| Latest documentation baseline | PR #22 merged as `debf35196ce5b9f649e6ff270327854224fccaee`; post-merge run `33745066439` passed 6/6 jobs |
 
 `0.3.0.dev0` is development metadata, not a tag or public release. The frozen
 `v0.2.1` integrity-patch candidate was never released; its integrity fix was
@@ -35,6 +36,12 @@ replay, and AEW v2 export to one stable local Change snapshot. PR #21 passed
 the exact-main post-merge run passed 6/6 jobs. This does not provide OS
 isolation, enterprise identity, cross-host coordination, or network-filesystem
 correctness.
+
+The later documentation-alignment change was merged through PR #22 as
+`debf35196ce5b9f649e6ff270327854224fccaee`. Its exact-main post-merge workflow,
+run `33745066439`, passed all 6 jobs. PR #22 aligned public documentation to the
+already completed M1–M6 implementation; it did not create a new capability
+milestone or release.
 
 ## Current capability boundary
 
@@ -69,7 +76,7 @@ not merge or release changes by itself.
 - Executable behavior: `src/aeh/`
 - Regression evidence: `tests/` and GitHub Actions
 - Development history: `CHANGELOG.md`
-- Roadmap decisions: [roadmap-v0.2.md](roadmap-v0.2.md)
+- Completed V0.2 roadmap record: [roadmap-v0.2.md](roadmap-v0.2.md)
 - Release evidence: `docs/releases/<version>/`
 - Documentation claims: [documentation-contract.yaml](documentation-contract.yaml)
 

@@ -1,0 +1,116 @@
+requirements:
+- acceptance:
+  - AC-001-01
+  code: []
+  id: REQ-001
+  tests: []
+  verification:
+  - VER-002
+- acceptance:
+  - AC-002-01
+  - AC-002-02
+  code:
+  - code_id: CODE-001
+    path: README.md
+  - code_id: CODE-002
+    path: README.zh-CN.md
+  - code_id: CODE-003
+    path: docs/README.md
+  - code_id: CODE-004
+    path: docs/codex-usage.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-007
+    path: docs/status.md
+  - code_id: CODE-008
+    path: scripts/check_docs.py
+  id: REQ-002
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-003-01
+  - AC-003-02
+  code:
+  - code_id: CODE-001
+    path: README.md
+  - code_id: CODE-002
+    path: README.zh-CN.md
+  - code_id: CODE-003
+    path: docs/README.md
+  - code_id: CODE-004
+    path: docs/codex-usage.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-007
+    path: docs/status.md
+  - code_id: CODE-008
+    path: scripts/check_docs.py
+  id: REQ-003
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-004-01
+  - AC-004-02
+  code:
+  - code_id: CODE-001
+    path: README.md
+  - code_id: CODE-002
+    path: README.zh-CN.md
+  - code_id: CODE-003
+    path: docs/README.md
+  - code_id: CODE-004
+    path: docs/codex-usage.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-007
+    path: docs/status.md
+  - code_id: CODE-008
+    path: scripts/check_docs.py
+  id: REQ-004
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-005-01
+  - AC-005-02
+  code:
+  - code_id: CODE-001
+    path: README.md
+  - code_id: CODE-002
+    path: README.zh-CN.md
+  - code_id: CODE-003
+    path: docs/README.md
+  - code_id: CODE-004
+    path: docs/codex-usage.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/roadmap-v0.2.md
+  - code_id: CODE-007
+    path: docs/status.md
+  - code_id: CODE-008
+    path: scripts/check_docs.py
+  id: REQ-005
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003

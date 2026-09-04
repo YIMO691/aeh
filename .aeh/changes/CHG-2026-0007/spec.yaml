@@ -1,0 +1,97 @@
+generated_at: '2026-09-04T02:44:40.142430+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: No local commit, push, pull request, merge, SCM administration mutation,
+      bypass, Gate credential, tag, Release, or PyPI operation occurs.
+    type: invariant
+  behavior: This authorization ends before commit or publication.
+  id: REQ-001
+  kind: CONSTRAINT
+  source:
+    refs:
+    - OWNER_AUTHORIZATION.yaml
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-002-01
+    statement: README.md links the Chinese README and Codex guide and contains a user-outcome
+      introduction, a Codex prompt example, and the four risk-proportional workflow
+      levels.
+    type: automated
+  - id: AC-002-02
+    statement: The README preserves the source-install and unreleased/PyPI boundaries
+      and does not claim that an AI agent or a passing test alone is trustworthy proof.
+    type: invariant
+  behavior: A first-time user can understand what AEH does, when it is useful, and
+    how to start using it with Codex without first reading the implementation architecture.
+  id: REQ-002
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-003-01
+    statement: README.zh-CN.md and docs/codex-usage.md exist, are linked from the
+      documentation portal, cover DIRECT, LIGHTWEIGHT, STANDARD, and CRITICAL, and
+      contain local-only and publish authorization examples.
+    type: automated
+  - id: AC-003-02
+    statement: The guidance never treats implementation approval as permission to
+      commit, push, create a PR, merge, publish, bypass policy, or generate Gate credentials.
+    type: invariant
+  behavior: Chinese-speaking Codex users receive copyable prompt patterns for small
+    bugs, normal features, and critical changes, with explicit staged authorization
+    boundaries.
+  id: REQ-003
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-004-01
+    statement: docs/status.md records PR 22, merge debf35196ce5b9f649e6ff270327854224fccaee,
+      and postmerge run 33745066439; docs/roadmap-v0.2.md is labeled completed and
+      version-bound rather than current.
+    type: automated
+  - id: AC-004-02
+    statement: Historical M6 evidence remains attributable to its original PR and
+      merge while the latest documentation baseline is separately identified.
+    type: invariant
+  behavior: Current project status and planning documents distinguish the completed
+    M1-M6 capability milestone from the later documentation-alignment merge and from
+    future uncommitted work.
+  id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: scripts/check_docs.py and tests.documentation.test_documentation enforce
+      the new files, links, required concepts, and exact current-status identifiers,
+      and both checks pass after implementation.
+    type: automated
+  - id: AC-005-02
+    statement: The final local diff is limited to the declared documentation, documentation
+      checker/test, and CHG-2026-0007 artifacts.
+    type: invariant
+  behavior: Documentation validation fails when the new public entry points, risk-level
+    guidance, authorization boundary, or current status facts drift.
+  id: REQ-005
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+scope:
+  in:
+  - rewrite_the_public_readme_around_user_outcomes_and_codex_usage
+  - add_a_chinese_readme_and_a_detailed_codex_usage_guide
+  - explain_risk_proportional_direct_lightweight_standard_and_critical_workflows
+  - align_current_status_to_the_latest_merged_documentation_baseline
+  - mark_the_v0_2_roadmap_as_completed_and_version_bound
+  - extend_the_documentation_contract_checker_and_tests_for_the_new_public_surface
+  out:
+  - runtime_schema_or_governance_behavior_changes
+  - github_workflow_or_required_check_changes
+  - frozen_release_archive_or_handbook_rewrites
+  - scm_administration_bypass_tag_release_or_pypi_operations
