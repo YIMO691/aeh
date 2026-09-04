@@ -2,36 +2,36 @@ approvals:
 - actor:
     id: user
     type: human
+  decided_at: '2026-09-04T05:57:21.719239+00:00'
+  evidence_ref: owner-decision:TASK-20260904-aeh-readme-user-guide:COMMIT_PUSH_PR_REQUIRED_CHECKS_NORMAL_MERGE
+  gate: MERGE_GATE
+  status: APPROVED
+  trust_mode: SCM_AUTHENTICATED_MERGE
+- actor:
+    id: user
+    type: human
   credential:
-    key_fingerprint: 9e52c0eeb5fc3450701ddca95c4f431a7d28967a757f20ca6b57bc4afec9bf67
-    key_id: task-readme-spec-20260904
-    payload_hash: 93f8857951904436118818ed139b661f348410d8c2eb30df1575c777a3284a8e
+    key_fingerprint: 202b77b38b5c26c0aa85f63915c862e75c7d0a8149095af4fa6468d901fd4863
+    key_id: task-readme-spec-renew-20260904-01
+    payload_hash: cc9f07ebde39533e2b41c5cd7298c79820f38b9adcb09d7285c4ee9369154945
     scheme: hmac-sha256-v1
-    signature: e157cd897d8a3ef50f7fd736470e7b0a6b4db259cf4fdca39313f2725b179992
-  decided_at: '2026-09-04T03:23:53.971486+00:00'
-  evidence_ref: owner-decision:TASK-20260904-aeh-readme-user-guide:SPEC_REVIEW
-  expires_at: '2026-09-04T04:23:53.971486+00:00'
+    signature: 8d6d5440b7b96ec6128d3a579ff06ae8f8b24dd83db1c132fb621b3ba4c46bb9
+  decided_at: '2026-09-04T06:23:37.677406+00:00'
+  evidence_ref: owner-decision:TASK-20260904-aeh-readme-user-guide:SPEC_REVIEW_RENEWAL_24H
+  expires_at: '2026-09-05T06:23:37.677406+00:00'
   gate: SPEC_REVIEW
   status: APPROVED
 - actor:
     id: user
     type: human
   credential:
-    key_fingerprint: aa2b140cb5ec560bf37d6b5c6d1536f2e6dc00a4282afee1a6ca77efbf9f6f86
-    key_id: task-readme-red-20260904
-    payload_hash: 1b13aad447db76df6d8aea20144e176f1ff79a12dc2f5199a86af59fffcd30fe
+    key_fingerprint: 99d1c0f287a061e766a08d56f1e2a3155d8d8cc2490586e63fe8d3bd8256c1c5
+    key_id: task-readme-red-renew-20260904-01
+    payload_hash: 0a57ccb7f27cb12f2904dc2d90067f6c236d5455c96ba625eb8f87a085eb2871
     scheme: hmac-sha256-v1
-    signature: 0a262cae73f263e610c22b972fe4a45c02a2d89b23ee3f79da600b9fd99923b1
-  decided_at: '2026-09-04T03:35:35.532488+00:00'
-  evidence_ref: owner-decision:TASK-20260904-aeh-readme-user-guide:RED_GATE
-  expires_at: '2026-09-04T04:35:35.532488+00:00'
+    signature: 0611662c638f3c0f7c41a9516f5999208a1a4156461484711d2329c88d779228
+  decided_at: '2026-09-04T06:25:00.934456+00:00'
+  evidence_ref: owner-decision:TASK-20260904-aeh-readme-user-guide:RED_GATE_RENEWAL_24H
+  expires_at: '2026-09-05T06:25:00.934456+00:00'
   gate: RED_GATE
   status: APPROVED
-- actor:
-    id: user
-    type: human
-  decided_at: '2026-09-04T05:57:21.719239+00:00'
-  evidence_ref: owner-decision:TASK-20260904-aeh-readme-user-guide:COMMIT_PUSH_PR_REQUIRED_CHECKS_NORMAL_MERGE
-  gate: MERGE_GATE
-  status: APPROVED
-  trust_mode: SCM_AUTHENTICATED_MERGE
