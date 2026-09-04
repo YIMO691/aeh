@@ -1,6 +1,6 @@
 schema_version: 1
 status: CURRENT
-updated_at: '2026-09-02'
+updated_at: '2026-09-04'
 
 product:
   name: Adaptive Engineering Harness
@@ -16,16 +16,39 @@ roadmap:
   merged: [M1, M2, M3, M4, M5, M6]
   in_progress: []
   planned: []
+  completed_document: docs/roadmap-v0.2.md
+  completed_labels: [COMPLETED, VERSION-BOUND]
+
+onboarding:
+  english_landing: README.md
+  chinese_landing: README.zh-CN.md
+  codex_guide: docs/codex-usage.md
+  documentation_portal: docs/README.md
+  workflow_levels: [DIRECT, LIGHTWEIGHT, STANDARD, CRITICAL]
+  authorization_boundary_phrases:
+    - Local implementation only
+    - Commit only
+    - Push and pull request
+    - Normal merge and post-merge verification
+    - one Change and one Gate
+    - It does not authorize implementation, commit, push, merge, or publication
+
+status_evidence:
+  latest_documentation_pr: 'PR #22'
+  latest_documentation_merge: debf35196ce5b9f649e6ff270327854224fccaee
+  latest_documentation_postmerge_run: '33745066439'
 
 validation:
-  local_tests_discovered: 411
-  local_tests_passed: 407
+  local_tests_discovered: 412
+  local_tests_passed: 408
   local_tests_skipped: 4
   latest_main_ci_jobs_passed: 6
 
 canonical_documents:
   landing: README.md
+  chinese_landing: README.zh-CN.md
   navigation: docs/README.md
+  codex_usage: docs/codex-usage.md
   purpose: docs/about.md
   current_status: docs/status.md
   current_architecture: docs/architecture-current.md
@@ -48,7 +71,9 @@ frozen_evidence_roots:
 
 current_claim_files:
   - README.md
+  - README.zh-CN.md
   - docs/README.md
+  - docs/codex-usage.md
   - docs/status.md
   - docs/architecture-current.md
   - docs/engineering-guide.md

@@ -34,7 +34,41 @@ class DocumentationContractTests(unittest.TestCase):
             for stale in stale_claims:
                 self.assertNotIn(stale, body)
 
+    def test_codex_user_guide_contract(self) -> None:
+        required_files = (
+            "README.zh-CN.md",
+            "docs/codex-usage.md",
+        )
+        for relative in required_files:
+            self.assertTrue(
+                (ROOT / relative).is_file(),
+                f"CODEx_USER_GUIDE_CONTRACT: missing {relative}",
+            )
+
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        for marker in (
+            "README.zh-CN.md",
+            "docs/codex-usage.md",
+            "DIRECT",
+            "LIGHTWEIGHT",
+            "STANDARD",
+            "CRITICAL",
+            "Codex",
+        ):
+            self.assertIn(marker, readme, f"CODEx_USER_GUIDE_CONTRACT: README missing {marker}")
+
+        status = (ROOT / "docs" / "status.md").read_text(encoding="utf-8")
+        for marker in (
+            "PR #22",
+            "debf35196ce5b9f649e6ff270327854224fccaee",
+            "33745066439",
+        ):
+            self.assertIn(marker, status, f"CODEx_USER_GUIDE_CONTRACT: status missing {marker}")
+
+        roadmap = (ROOT / "docs" / "roadmap-v0.2.md").read_text(encoding="utf-8")
+        self.assertIn("COMPLETED", roadmap, "CODEx_USER_GUIDE_CONTRACT: roadmap not completed")
+        self.assertIn("VERSION-BOUND", roadmap, "CODEx_USER_GUIDE_CONTRACT: roadmap not version-bound")
+
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -1,13 +1,12 @@
-# AEH V0.2 Roadmap
+# AEH V0.2 Roadmap — Completed Record
 
-> 文档类别：**CURRENT ROADMAP**。当前软件事实的简表见 [status.md](status.md)；
-> 本文负责依赖、进入/退出 Gate 与未来范围，不承担 Release 证据职责。
+> 文档类别：**COMPLETED · VERSION-BOUND ROADMAP**。本文保留 V0.2 的规划、依赖与
+> Gate 历史，不再承担当前状态或未来承诺的权威来源。当前软件事实见
+> [status.md](status.md)。
 >
-> 状态：**V02-0 + M1–M6 MERGED；M6.2d LIVE DOGFOOD COMPLETE；M6.3A/B/C COMPLETE；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（2026-09-02）
-> 本文档是 V0.2 的**规划输入**，不是冻结契约。任何里程碑开工前，仍须独立走完
-> 规范驱动开发六阶段（SPEC/PLAN/Gate/实现/验证/审查）并按需新增 CD/RISK 决策记录。
-> V0.1 线保持 Feature Freeze：只收 P0/P1 release blocker、安全、安装/CLI/跨平台
-> 与文档修复，不下沉任何 V0.2 功能。
+> 完成状态：**V02-0 + M1–M6 MERGED；M6.2d LIVE DOGFOOD COMPLETE；M6.3A/B/C COMPLETE；0.3.0.dev0 UNRELEASED DEVELOPMENT；V0.2.0 GITHUB RELEASED；PYPI NOT PUBLISHED**（完成记录对齐至 2026-09-03）
+> 本文不是当前 Release 证据，也不自动批准任何后续里程碑。未来工作必须建立新的
+> Change、规格、Gate 与状态来源，不能把本文候选池视为已承诺范围。
 
 ---
 

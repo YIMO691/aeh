@@ -1,0 +1,64 @@
+# Grounding Evidence
+
+machine truth in evidence.yaml
+
+- EV-001 [SOURCE] keyword match: readme in .git:1
+- EV-002 [SOURCE] keyword match: user in .git:1
+- EV-003 [SOURCE] keyword match: for in AGENTS.md:6
+- EV-004 [SOURCE] keyword match: codex in AGENTS.md:2
+- EV-005 [SOURCE] keyword match: readme in CHANGELOG.md:196
+- EV-006 [SOURCE] keyword match: for in CHANGELOG.md:11
+- EV-007 [SOURCE] keyword match: first in CHANGELOG.md:173
+- EV-008 [SOURCE] keyword match: codex in CHANGELOG.md:192
+- EV-009 [SOURCE] keyword match: for in CLAUDE.md:6
+- EV-010 [SOURCE] keyword match: rewrite in CONTRIBUTING.md:98
+- EV-011 [SOURCE] keyword match: for in CONTRIBUTING.md:3
+- EV-012 [SOURCE] keyword match: for in LICENSE:17
+- EV-013 [SOURCE] keyword match: readme in README.md:282
+- EV-014 [SOURCE] keyword match: for in README.md:9
+- EV-015 [SOURCE] keyword match: user in README.md:305
+- EV-016 [SOURCE] keyword match: first in README.md:96
+- EV-017 [SOURCE] keyword match: codex in README.md:58
+- EV-018 [SOURCE] keyword match: readme in pyproject.toml:9
+- EV-019 [SOURCE] keyword match: for in pyproject.toml:8
+- EV-020 [SOURCE] keyword match: codex in pyproject.toml:8
+- EV-021 [SOURCE] keyword match: for in setup.py:1
+- EV-022 [SOURCE] keyword match: for in adapters\claude\CLAUDE.template.md:5
+- EV-023 [SOURCE] keyword match: for in adapters\claude\adapter.yaml:12
+- EV-024 [SOURCE] keyword match: codex in adapters\claude\adapter.yaml:2
+- EV-025 [SOURCE] keyword match: for in adapters\codex\AGENTS.template.md:5
+- EV-026 [SOURCE] keyword match: codex in adapters\codex\AGENTS.template.md:1
+- EV-027 [SOURCE] keyword match: for in adapters\codex\adapter.yaml:12
+- EV-028 [SOURCE] keyword match: codex in adapters\codex\adapter.yaml:1
+- EV-029 [SOURCE] keyword match: for in bootstrap\conflict-rules.yaml:11
+- EV-030 [SOURCE] keyword match: user in bootstrap\conflict-rules.yaml:10
+- EV-031 [SOURCE] keyword match: for in bootstrap\discovery\ci.yaml:5
+- EV-032 [SOURCE] keyword match: readme in bootstrap\discovery\repository.yaml:28
+- EV-033 [SOURCE] keyword match: for in bootstrap\interview\core.yaml:8
+- EV-034 [SOURCE] keyword match: for in core\ci-enforcement-policy.yaml:1
+- EV-035 [SOURCE] keyword match: user in core\evidence.yaml:9
+- EV-036 [SOURCE] keyword match: user in core\execution-policy.yaml:40
+- EV-037 [SOURCE] keyword match: for in core\gates.yaml:2
+- EV-038 [SOURCE] keyword match: for in core\precedence.yaml:22
+- EV-039 [SOURCE] keyword match: user in core\precedence.yaml:3
+- EV-040 [SOURCE] keyword match: for in core\states.yaml:29
+- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-043 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-045 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-046 [CALL_PATH] keyword co-occurrence across 201 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
+- EV-047 [CONFIG] config file match: pyproject.toml:9
+- EV-048 [CONFIG] config file match: pyproject.toml:8
+- EV-049 [CONFIG] config file match: pyproject.toml:8
+- EV-050 [CONFIG] config file match: adapters\claude\adapter.yaml:12
+- EV-051 [CONFIG] config file match: adapters\claude\adapter.yaml:2
+- EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
+- EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
+- EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration
+- EV-055 [SOURCE] risk domain marker found in repository: money_economy
+- EV-056 [SOURCE] risk domain marker found in repository: persistence
+- EV-057 [SOURCE] risk domain marker found in repository: protocol_compatibility
+- EV-058 [SOURCE] risk domain marker found in repository: save_migration
+- EV-059 [SOURCE] risk domain marker found in repository: security_boundary
+- EV-060 [UNKNOWN] architecture constraints not symbolically verified in Phase 9 scan

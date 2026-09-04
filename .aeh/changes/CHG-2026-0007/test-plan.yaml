@@ -1,0 +1,97 @@
+generated_at: '2026-09-04T03:30:33.567373+00:00'
+non_automatable:
+- ac_id: AC-001-01
+  reason: Local Git and task authorization audit confirms no commit or remote mutation
+    occurred.
+- ac_id: AC-002-02
+  reason: A bounded review confirms the README preserves source-install and trust
+    boundaries.
+- ac_id: AC-003-02
+  reason: A bounded review confirms prompt examples do not broaden authority implicitly.
+- ac_id: AC-004-02
+  reason: Exact historical attribution is confirmed against the merged provider records
+    already recorded in docs/status.md.
+- ac_id: AC-005-02
+  reason: Exact base-to-worktree diff inspection confirms no runtime, workflow, release,
+    or frozen-document roots changed.
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-readme-user-guide\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-readme-user-guide\regression-runtime
+  id: REG-DOC-001
+  timeout_seconds: 120
+test_files:
+- dest: tests/documentation/test_documentation.py
+  src: test_documentation.py
+tests:
+- command: python -B -m unittest tests.documentation.test_documentation
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.documentation.test_documentation
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-readme-user-guide\red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-readme-user-guide\red-runtime
+    timeout_seconds: 120
+  expected_before_fix:
+    signature: CODEx_USER_GUIDE_CONTRACT
+    type: behavior_failure
+  fixture_signatures: []
+  id: TEST-001
+  intent: Fail until the new user-first README surfaces, Codex guidance, authorization
+    boundaries, and current status facts are present and linked.
+  kind: contract
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - README.md
+  - README.zh-CN.md
+  - docs/README.md
+  - docs/codex-usage.md
+  - docs/documentation-contract.yaml
+  - docs/roadmap-v0.2.md
+  - docs/status.md
+  - scripts/check_docs.py
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  - ModuleNotFoundError
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-readme-user-guide\verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-readme-user-guide\verification-runtime
+  id: VER-DOC-001
+  timeout_seconds: 120
+  type: contract
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
