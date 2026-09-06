@@ -15,7 +15,8 @@
 - VER-004 [contract] verdict=pass (exit 0)
 
 ## Warnings
-- verified credential key_id=chg-2026-0008-pr24-merge-20260906-01
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity claim is made
+- MERGE_GATE approval has no expiry
 - CRITICAL MERGE_GATE approved by user
 
 ## Traceability
