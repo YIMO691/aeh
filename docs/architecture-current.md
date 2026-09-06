@@ -13,6 +13,10 @@ The approved Phase 0 principles remain available in the version-bound
 Developer / coding agent
         |
         v
+  Agent decision layer
+  (scoped classification + bounded continue outcome)
+        |
+        v
   aeh CLI and adapters
         |
         +--> bootstrap / discovery / doctor
@@ -32,11 +36,12 @@ AEH owns Change Assurance truth. The coding agent owns implementation work.
 Git, CI, pull requests, merges, releases, and AEW retain their own external
 truth and are referenced rather than absorbed.
 
-## Five layers
+## Six layers
 
 | Layer | Repository surface | Responsibility |
 |---|---|---|
 | Guidance | adapters, generated agent instructions, Markdown | explains how to work; never decides a Gate |
+| Agent decision | `src/aeh/runtime/agent_flow.py`, classification facts, external authority envelope | advises the lightest supported workflow and next bounded action; never mutates a Change or satisfies a human Gate |
 | Normative contracts | `core/*.yaml`, `schemas/*.json` | defines legal states, evidence, transitions, and artifacts |
 | Compiler and bootstrap | `src/aeh/bootstrap`, discovery/interview/compiler code | derives and installs a versioned project runtime |
 | Enforcement runtime | `src/aeh/runtime`, doctor, repair, upgrade, integrations, CI replay | independently evaluates and mutates only authorized AEH surfaces; CI replay is target-read-only |
@@ -46,6 +51,7 @@ truth and are referenced rather than absorbed.
 
 | Truth | Owner |
 |---|---|
+| Task goal and granted action boundary | user intent plus the task-scoped external authority envelope |
 | Source implementation and repository history | project SCM |
 | AEH contract legality and Change state | AEH contracts and validators |
 | Test execution outcome | recorded command output plus AEH evidence validation |
@@ -66,6 +72,26 @@ contracts produced the installed runtime.
 Bootstrap is plan-first and fail-safe. Doctor is read-only. Repair and upgrade
 use explicit plans, transaction journals, byte backups, and rollback rather
 than silent overwrite.
+
+## Agent decision layer
+
+The Agent decision layer is a concise advisory surface over existing AEH truth.
+Classification accepts scoped facts: repository-relative paths, explicitly
+affected sensitive domains, reversibility, and evidence. With scoped facts,
+title keywords are hints rather than proof of impact; an explicit sensitive
+domain or irreversible change still escalates to `CRITICAL`, and reassessment
+cannot silently downgrade an established level.
+
+`aeh change continue` combines the current Change phase with a task-scoped
+authority envelope held outside the repository. It returns one of four outcomes:
+`CONTINUE`, `WAITING_FOR_AUTHORITY`, `BLOCKED`, or `COMPLETE`. An authority
+envelope can cover ordinary capabilities such as reading, editing, testing,
+commit, push, pull request, or merge, but it cannot satisfy a human Gate.
+
+This layer does not transition the Change, execute implementation, create an
+approval, infer publication permission, or replace AEH validators. The coding
+Agent performs an advised action; the existing runtime remains the enforcement
+and evidence authority.
 
 ## Bounded local coordination
 

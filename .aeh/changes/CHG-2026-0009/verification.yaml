@@ -1,0 +1,75 @@
+overall: MERGE_READY
+red:
+  actual_failure:
+    category: behavior
+    signature: AGENT_FLOW_DOC_ALIGNMENT
+  command: python -B -m unittest tests.documentation.test_documentation
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: AGENT_FLOW_DOC_ALIGNMENT
+  output_hash: 0fd43020d0459620a6579b197965b9f3ee33193b21c019dfe307c4619a4a5b2a
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\red-TEST-001.log
+  repository_state:
+    base_commit: d167b3ad899159cec809ef1819671b03b3838ffc
+    changed_files_hash: fe767efa97f6c1e9219faa700df95213010a13c6ad49e6900542e30493d8ba3a
+    test_files_hash: fe767efa97f6c1e9219faa700df95213010a13c6ad49e6900542e30493d8ba3a
+  test_id: TEST-001
+  verdict: VALID_RED
+results:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-001
+  method: automated_test
+  output_hash: 62115d369def774c5011b4d7e59d71b9e1852f37d045e19e8e366d922d79eb1a
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-1.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+  - AC-006-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-002
+  method: automated_test
+  output_hash: 025ad20f189d0f11cd8327705e83b4163f9ef9b099cd573dc50c386a1c66bec3
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-reg-2.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-003
+  method: automated_test
+  output_hash: 358f155e79d16cbfcade1d7102c82aad814a397cf58be42777985615abf600d8
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-v-3.log
+  status: pass
+  type: contract
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+  - AC-006-01
+verified_at: '2026-09-06T16:58:41.401419+00:00'

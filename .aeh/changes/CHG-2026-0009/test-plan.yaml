@@ -1,0 +1,101 @@
+generated_at: '2026-09-06T16:52:37.774206+00:00'
+non_automatable:
+- ac_id: AC-001-01
+  reason: Task and Git audit confirms no SCM administration, bypass, force push, release,
+    publication, or Gate credential action occurred.
+- ac_id: AC-002-02
+  reason: Bounded review preserves historical evidence attribution.
+- ac_id: AC-003-02
+  reason: Bounded architecture review confirms the decision layer remains advisory
+    and cannot mutate or approve Change truth.
+- ac_id: AC-004-02
+  reason: Bounded review confirms Agent-driven flow is post-roadmap usability work
+    rather than a release or publisher.
+- ac_id: AC-005-02
+  reason: Exact base-to-worktree diff confirms only declared documentation, documentation
+    regression, and Change artifacts changed.
+- ac_id: AC-006-02
+  reason: Package metadata and GitHub release state confirm source 0.3.0.dev0, public
+    release v0.2.0, and no PyPI publication.
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\docs-regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\docs-regression-runtime
+  id: REG-DOC-001
+  timeout_seconds: 120
+test_files:
+- dest: tests/documentation/test_documentation.py
+  src: test_documentation.py
+tests:
+- command: python -B -m unittest tests.documentation.test_documentation
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.documentation.test_documentation
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\docs-red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\docs-red-runtime
+    timeout_seconds: 120
+  expected_before_fix:
+    signature: AGENT_FLOW_DOC_ALIGNMENT
+    type: behavior_failure
+  fixture_signatures: []
+  id: TEST-001
+  intent: Fail until current public documentation records the merged Agent-driven
+    flow, its architecture boundary, exact SCM evidence, and the 418/414/4 baseline.
+  kind: contract
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - README.md
+  - README.zh-CN.md
+  - CHANGELOG.md
+  - docs/status.md
+  - docs/architecture-current.md
+  - docs/documentation-contract.yaml
+  - tests/documentation/test_documentation.py
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  - ModuleNotFoundError
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+  - AC-006-01
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\docs-verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\docs-verification-runtime
+  id: VER-DOC-001
+  timeout_seconds: 120
+  type: contract
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+  - AC-006-01

@@ -1,7 +1,7 @@
 # AEH Current Status
 
 > Status: **CURRENT**  
-> Last reconciled: 2026-09-04
+> Last reconciled: 2026-09-07
 
 ## Release and source state
 
@@ -10,10 +10,11 @@
 | Source version | `0.3.0.dev0` |
 | Latest GitHub release | `v0.2.0` |
 | PyPI | Not published |
-| Roadmap | M1–M6 merged; M6.3A/B/C complete |
-| Current source test baseline | 412 discovered, 408 passed, 4 expected Windows symlink-permission skips |
-| Latest post-merge main CI | 6/6 jobs passed on Ubuntu/Windows and Python 3.10/3.11 |
-| Latest documentation baseline | PR #22 merged as `debf35196ce5b9f649e6ff270327854224fccaee`; post-merge run `33745066439` passed 6/6 jobs |
+| Roadmap | M1–M6 merged; M6.3A/B/C complete; Agent-driven flow delivered after the roadmap |
+| Current source test baseline | 418 discovered, 414 passed, 4 expected Windows symlink-permission skips |
+| Latest feature baseline | PR #24 merged as `d167b3ad899159cec809ef1819671b03b3838ffc` |
+| Latest post-merge main CI | Run `34044290320` passed 6/6 jobs on Ubuntu/Windows and Python 3.10/3.11 |
+| Previous documentation baseline | PR #22 merged as `debf35196ce5b9f649e6ff270327854224fccaee`; post-merge run `33745066439` passed 6/6 jobs |
 
 `0.3.0.dev0` is development metadata, not a tag or public release. The frozen
 `v0.2.1` integrity-patch candidate was never released; its integrity fix was
@@ -43,6 +44,13 @@ run `33745066439`, passed all 6 jobs. PR #22 aligned public documentation to the
 already completed M1–M6 implementation; it did not create a new capability
 milestone or release.
 
+The post-roadmap Agent-driven flow was merged through PR #24 as
+`d167b3ad899159cec809ef1819671b03b3838ffc`. Its exact-main run `34044290320`
+passed all 6 jobs and established the 418-test source baseline: 414 passed and
+4 expected Windows symlink-permission cases skipped. This layer reduces user
+workflow decisions; it is not a new release and does not grant publication or
+SCM authority.
+
 ## Current capability boundary
 
 AEH can bootstrap and diagnose a repository, govern a Change from classification
@@ -52,6 +60,12 @@ committed Change in a clean external Git checkout without running project code.
 The current source line can also bind GitHub PR/merge-group runs to an exact
 new Change and declared diff, render a pinned immutable-artifact workflow, and
 audit required-check enforcement without changing GitHub settings.
+
+The Agent-driven flow lets a coding Agent supply scoped facts, select the
+lightest supported workflow, and ask the user only for a real authority boundary,
+human Gate, failure, or material scope expansion. `aeh change continue` advises
+the next bounded action; it does not execute implementation, transition Change
+truth, create approvals, or broaden the task authority envelope.
 
 M6.3C also provides token-free stable status/CI/AEW reads over
 the single-host local-filesystem coordination store. Real spawned-process tests

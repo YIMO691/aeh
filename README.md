@@ -8,7 +8,7 @@
 
 > Status: **CURRENT**
 > Source: `0.3.0.dev0` (unreleased) · Latest GitHub release: `v0.2.0` ·
-> M1–M6 merged · PyPI not published
+> M1–M6 merged · Agent-driven flow merged · PyPI not published
 
 AEH is an independent acceptance layer for software changes made with coding
 agents. Codex can write the change; AEH makes the requirements, tests,
@@ -163,9 +163,10 @@ Read [M5 security](docs/m5-security.md),
 ## Current status
 
 The current source version is `0.3.0.dev0`; the latest public release is
-`v0.2.0`. M1–M6 and M6.3A/B/C are merged, while the current source line remains
-unreleased and PyPI remains unpublished. The current regression baseline is
-412 tests: 408 passed and 4 expected Windows symlink-permission cases skipped.
+`v0.2.0`. M1–M6, M6.3A/B/C, and the Agent-driven flow are merged, while the
+current source line remains unreleased and PyPI remains unpublished. The
+current regression baseline is 418 tests: 414 passed and 4 expected Windows
+symlink-permission cases skipped.
 
 See [AEH Current Status](docs/status.md) for exact merge and CI evidence. The
 [V0.2 roadmap](docs/roadmap-v0.2.md) is a completed, version-bound planning

@@ -1,0 +1,50 @@
+base_commit: d167b3ad899159cec809ef1819671b03b3838ffc
+change_id: CHG-2026-0009
+changed_files:
+- after_hash: 3385a38bd2d8a372ed746a8c3426a3739514b8af2f546ed299673ad006db3bf5
+  before_hash: 25aa61aaacad98ec822b2af3a9db2ecadd8a5d0e1c9375c27a98ebebc6ace97c
+  code_id: CODE-001
+  path: CHANGELOG.md
+- after_hash: 7e07fb198976f89a7705e3631e9eea8caa20b6b234eaaca19f1fddd2dd00adaa
+  before_hash: 731593c728607deef8c842dc88efb0aa04a3e8e51c92635ea9ea117c4bc01e18
+  code_id: CODE-002
+  path: README.md
+- after_hash: 547c97c74bf790ac175149aeabdbb7f89de4d83e3a6f22de2eeb89329d7efb0b
+  before_hash: 606b2b4245035352ea8daffac29f12a96f4e3c8ba5f5b68b1d91896ea42509ab
+  code_id: CODE-003
+  path: README.zh-CN.md
+- after_hash: 2abdc08ba4eb497982778b78474b4ace1a535cdbf76fa66423c6a9f81b3f664b
+  before_hash: 76c6218914bc03b3ac38be0567cc9a2b88005f6eebab25e176c6ceab7c114327
+  code_id: CODE-004
+  path: docs/architecture-current.md
+- after_hash: 1f23383cca730e994ff9d59a5a2a11df2d65e682019452f0caf3dfd5bd92d050
+  before_hash: 314a7ba71705d3d98686084de00adc4cfaaec1305f877979776bc19cf1061c38
+  code_id: CODE-005
+  path: docs/documentation-contract.yaml
+- after_hash: b04bd8f132aacf23d59faaf6c9e15ad449bb1b4e240d05ca833a4a5aecb52ad5
+  before_hash: 3b30fe6dd1c5b0fceef9d7eecb6f64e391a560748f4ac116113d942195335b4e
+  code_id: CODE-006
+  path: docs/status.md
+- after_hash: 1ef34a461ab9ae69bbaeb9f0d8172022ffa53851dd3f3aff4edc19a0c6bf169d
+  before_hash: 3e34d9c03e97db8d71a4e82476defc9c196c12d102a24c8fb5cc54613519469a
+  code_id: CODE-007
+  path: tests/documentation/test_documentation.py
+contract: green.evidence
+production_after_hash: 0c7d8673f775bac99036f93d9470b2ad4e234c6f5777cdf955750470c3abfa9d
+production_before_hash: e8ecafb1a2c3fa2fbb7b4d6d8552721b28b08d407453e107ac3544931039660a
+test_lock_hash: fe767efa97f6c1e9219faa700df95213010a13c6ad49e6900542e30493d8ba3a
+tests:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  command: python -B -m unittest tests.documentation.test_documentation
+  exit_code: 0
+  output_hash: 62115d369def774c5011b4d7e59d71b9e1852f37d045e19e8e366d922d79eb1a
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\refactor-TEST-001.log
+  test_id: TEST-001
+  verdict: PASS
+verdict: REFACTOR_PASS
+version: 1

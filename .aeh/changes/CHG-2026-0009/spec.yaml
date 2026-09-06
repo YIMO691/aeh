@@ -1,0 +1,113 @@
+assumptions:
+- 'GitHub REST evidence for PR #24 and run 34044290320 remains the external source
+  of SCM truth.'
+generated_at: '2026-09-06T16:51:19.304779+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: No SCM administration change, bypass, force push, tag, Release, PyPI
+      publication, or Gate credential creation occurs.
+    type: invariant
+  behavior: Work stays within the approved documentation branch, checks, normal PR
+    merge, and post-merge verification boundary.
+  id: REQ-001
+  kind: CONSTRAINT
+  source:
+    refs:
+    - AUTHORITY.yaml
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-002-01
+    statement: 'Current status and documentation contract record PR #24, merge d167b3ad899159cec809ef1819671b03b3838ffc,
+      and run 34044290320.'
+    type: automated
+  - id: AC-002-02
+    statement: Historical milestone and documentation evidence remains attributable
+      and is not rewritten as current implementation evidence.
+    type: invariant
+  behavior: 'PR #24 is merged into main as d167b3ad899159cec809ef1819671b03b3838ffc
+    and exact-main regression run 34044290320 passed all six jobs.'
+  id: REQ-002
+  kind: CURRENT
+  source:
+    refs:
+    - github:pull/24
+    - github:actions/runs/34044290320
+    type: EVIDENCE_DERIVED
+  supported_by:
+  - EV-001
+- acceptance:
+  - id: AC-003-01
+    statement: docs/architecture-current.md identifies scoped-fact classification
+      and the CONTINUE, WAITING_FOR_AUTHORITY, BLOCKED, and COMPLETE outcomes.
+    type: automated
+  - id: AC-003-02
+    statement: Documentation does not claim that the Agent decision layer transitions
+      Changes, creates approvals, broadens authority, or replaces AEH validators.
+    type: invariant
+  behavior: Current architecture explains the advisory Agent decision layer and its
+    bounded relationship to AEH enforcement.
+  id: REQ-003
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-004-01
+    statement: 'docs/status.md and CHANGELOG.md record PR #24, merge d167b3ad899159cec809ef1819671b03b3838ffc,
+      run 34044290320, and the 418/414/4 baseline.'
+    type: automated
+  - id: AC-004-02
+    statement: Agent-driven flow is described as a post-roadmap usability layer, not
+      a new release or an automatic SCM publisher.
+    type: invariant
+  behavior: Current status and changelog identify the Agent-driven flow as delivered
+    after M6.3 and preserve exact production evidence.
+  id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: tests.documentation.test_documentation fails before the documentation
+      alignment and passes afterward without increasing the discovered test count.
+    type: automated
+  - id: AC-005-02
+    statement: The final implementation diff is limited to the declared documentation,
+      documentation regression, and CHG-2026-0009 artifacts.
+    type: invariant
+  behavior: Documentation regression prevents the Agent-driven status, architecture,
+    and validation facts from drifting.
+  id: REQ-005
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-006-01
+    statement: README.md and README.zh-CN.md describe the merged Agent-driven flow
+      and report 418 discovered, 414 passed, and 4 expected skips.
+    type: automated
+  - id: AC-006-02
+    statement: The source remains 0.3.0.dev0, latest public release remains v0.2.0,
+      and PyPI remains unpublished.
+    type: invariant
+  behavior: Public landing pages report the merged Agent-driven flow and the exact
+    418-test baseline without changing installation or release boundaries.
+  id: REQ-006
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+scope:
+  in:
+  - align_public_landing_status_and_test_baseline
+  - document_agent_decision_layer_in_current_architecture
+  - record_pr24_merge_and_exact_main_ci_evidence
+  - update_documentation_contract_and_regression
+  out:
+  - runtime_schema_workflow_or_governance_behavior
+  - github_workflow_branch_protection_or_rulesets
+  - frozen_release_archive_handbook_or_v0_2_roadmap
+  - tag_release_deployment_or_pypi_publication

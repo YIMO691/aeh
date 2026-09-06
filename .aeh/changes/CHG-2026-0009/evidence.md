@@ -1,0 +1,64 @@
+# Grounding Evidence
+
+machine truth in evidence.yaml
+
+- EV-001 [SOURCE] keyword match: align in .git:1
+- EV-002 [SOURCE] keyword match: agent in .git:1
+- EV-003 [SOURCE] keyword match: flow in .git:1
+- EV-004 [SOURCE] keyword match: the in AGENTS.md:8
+- EV-005 [SOURCE] keyword match: flow in AGENTS.md:7
+- EV-006 [SOURCE] keyword match: align in CHANGELOG.md:65
+- EV-007 [SOURCE] keyword match: current in CHANGELOG.md:59
+- EV-008 [SOURCE] keyword match: documentation in CHANGELOG.md:62
+- EV-009 [SOURCE] keyword match: with in CHANGELOG.md:5
+- EV-010 [SOURCE] keyword match: the in CHANGELOG.md:5
+- EV-011 [SOURCE] keyword match: agent in CHANGELOG.md:93
+- EV-012 [SOURCE] keyword match: flow in CHANGELOG.md:26
+- EV-013 [SOURCE] keyword match: the in CLAUDE.md:8
+- EV-014 [SOURCE] keyword match: flow in CLAUDE.md:7
+- EV-015 [SOURCE] keyword match: current in CONTRIBUTING.md:22
+- EV-016 [SOURCE] keyword match: documentation in CONTRIBUTING.md:44
+- EV-017 [SOURCE] keyword match: with in CONTRIBUTING.md:20
+- EV-018 [SOURCE] keyword match: the in CONTRIBUTING.md:4
+- EV-019 [SOURCE] keyword match: agent in CONTRIBUTING.md:92
+- EV-020 [SOURCE] keyword match: driven in CONTRIBUTING.md:39
+- EV-021 [SOURCE] keyword match: flow in CONTRIBUTING.md:37
+- EV-022 [SOURCE] keyword match: documentation in LICENSE:6
+- EV-023 [SOURCE] keyword match: with in LICENSE:7
+- EV-024 [SOURCE] keyword match: the in LICENSE:6
+- EV-025 [SOURCE] keyword match: current in README.md:9
+- EV-026 [SOURCE] keyword match: documentation in README.md:7
+- EV-027 [SOURCE] keyword match: with in README.md:13
+- EV-028 [SOURCE] keyword match: the in README.md:14
+- EV-029 [SOURCE] keyword match: agent in README.md:14
+- EV-030 [SOURCE] keyword match: flow in README.md:3
+- EV-031 [SOURCE] keyword match: current in README.zh-CN.md:9
+- EV-032 [SOURCE] keyword match: agent in README.zh-CN.md:17
+- EV-033 [SOURCE] keyword match: flow in README.zh-CN.md:3
+- EV-034 [SOURCE] keyword match: agent in pyproject.toml:8
+- EV-035 [SOURCE] keyword match: with in setup.py:13
+- EV-036 [SOURCE] keyword match: the in adapters\claude\CLAUDE.template.md:7
+- EV-037 [SOURCE] keyword match: flow in adapters\claude\CLAUDE.template.md:6
+- EV-038 [SOURCE] keyword match: agent in adapters\claude\adapter.yaml:5
+- EV-039 [SOURCE] keyword match: flow in adapters\claude\adapter.yaml:26
+- EV-040 [SOURCE] keyword match: with in adapters\codex\AGENTS.template.md:10
+- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-043 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-045 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-046 [CALL_PATH] keyword co-occurrence across 217 files: .git, AGENTS.md, CHANGELOG.md, CLAUDE.md
+- EV-047 [CONFIG] config file match: pyproject.toml:8
+- EV-048 [CONFIG] config file match: adapters\claude\adapter.yaml:5
+- EV-049 [CONFIG] config file match: adapters\claude\adapter.yaml:26
+- EV-050 [CONFIG] config file match: adapters\codex\adapter.yaml:5
+- EV-051 [CONFIG] config file match: adapters\codex\adapter.yaml:26
+- EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
+- EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
+- EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration
+- EV-055 [SOURCE] risk domain marker found in repository: money_economy
+- EV-056 [SOURCE] risk domain marker found in repository: persistence
+- EV-057 [SOURCE] risk domain marker found in repository: protocol_compatibility
+- EV-058 [SOURCE] risk domain marker found in repository: save_migration
+- EV-059 [SOURCE] risk domain marker found in repository: security_boundary
+- EV-060 [UNKNOWN] architecture constraints not symbolically verified in Phase 9 scan

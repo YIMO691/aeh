@@ -1,6 +1,6 @@
 schema_version: 1
 status: CURRENT
-updated_at: '2026-09-04'
+updated_at: '2026-09-07'
 
 product:
   name: Adaptive Engineering Harness
@@ -34,13 +34,16 @@ onboarding:
     - It does not authorize implementation, commit, push, merge, or publication
 
 status_evidence:
+  latest_feature_pr: 'PR #24'
+  latest_feature_merge: d167b3ad899159cec809ef1819671b03b3838ffc
+  latest_feature_postmerge_run: '34044290320'
   latest_documentation_pr: 'PR #22'
   latest_documentation_merge: debf35196ce5b9f649e6ff270327854224fccaee
   latest_documentation_postmerge_run: '33745066439'
 
 validation:
-  local_tests_discovered: 412
-  local_tests_passed: 408
+  local_tests_discovered: 418
+  local_tests_passed: 414
   local_tests_skipped: 4
   latest_main_ci_jobs_passed: 6
 

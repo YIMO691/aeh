@@ -1,0 +1,133 @@
+requirements:
+- acceptance:
+  - AC-001-01
+  code: []
+  id: REQ-001
+  tests: []
+  verification:
+  - VER-002
+- acceptance:
+  - AC-002-01
+  - AC-002-02
+  code:
+  - code_id: CODE-001
+    path: CHANGELOG.md
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/status.md
+  - code_id: CODE-007
+    path: tests/documentation/test_documentation.py
+  id: REQ-002
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-003-01
+  - AC-003-02
+  code:
+  - code_id: CODE-001
+    path: CHANGELOG.md
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/status.md
+  - code_id: CODE-007
+    path: tests/documentation/test_documentation.py
+  id: REQ-003
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-004-01
+  - AC-004-02
+  code:
+  - code_id: CODE-001
+    path: CHANGELOG.md
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/status.md
+  - code_id: CODE-007
+    path: tests/documentation/test_documentation.py
+  id: REQ-004
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-005-01
+  - AC-005-02
+  code:
+  - code_id: CODE-001
+    path: CHANGELOG.md
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/status.md
+  - code_id: CODE-007
+    path: tests/documentation/test_documentation.py
+  id: REQ-005
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-006-01
+  - AC-006-02
+  code:
+  - code_id: CODE-001
+    path: CHANGELOG.md
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: docs/architecture-current.md
+  - code_id: CODE-005
+    path: docs/documentation-contract.yaml
+  - code_id: CODE-006
+    path: docs/status.md
+  - code_id: CODE-007
+    path: tests/documentation/test_documentation.py
+  id: REQ-006
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003

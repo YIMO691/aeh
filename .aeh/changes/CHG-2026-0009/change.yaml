@@ -1,0 +1,68 @@
+change_id: CHG-2026-0009
+classification:
+  escalated: false
+  evidence:
+  - 'fact_evidence: The declared scope synchronizes public documentation and its documentation
+    regression contract only.'
+  - 'fact_evidence: PR'
+  - 'fact_evidence: Exact-main workflow run 34044290320 passed all six Ubuntu and
+    Windows jobs.'
+  - 'fact_evidence: No runtime, schema, workflow, release, credential, or SCM administration
+    file is in scope.'
+  facts:
+    evidence:
+    - The declared scope synchronizes public documentation and its documentation regression
+      contract only.
+    - PR
+    - Exact-main workflow run 34044290320 passed all six Ubuntu and Windows jobs.
+    - No runtime, schema, workflow, release, credential, or SCM administration file
+      is in scope.
+    paths:
+    - CHANGELOG.md
+    - README.md
+    - README.zh-CN.md
+    - docs/architecture-current.md
+    - docs/documentation-contract.yaml
+    - docs/status.md
+    - tests/documentation/test_documentation.py
+    reversible: true
+    sensitive_domains: []
+  keyword_hints: []
+  level: STANDARD
+  reasons:
+  - 'suggested_level: STANDARD'
+  - 'scoped_facts: no_sensitive_domain_declared'
+  suggested_level: STANDARD
+created_at: '2026-09-06T16:45:59.354057+00:00'
+gates:
+  classification: PASS
+  green: PASS
+  grounding: PASS
+  lock_test: PASS
+  red: PASS
+  spec: PASS
+  test_design: PASS
+  verify: PASS
+preflight_warnings:
+- 'guidance-only deny fields for codex: permissions.git_push'
+- 'guidance-only deny fields for claude: permissions.web_access'
+- workflow not provided to preflight
+state:
+  current: VERIFY
+  previous: REFACTOR
+title: Align current documentation with the agent-driven flow
+workflow:
+  level: STANDARD
+  phases:
+  - INTAKE
+  - CLASSIFY
+  - GROUND
+  - SPEC
+  - TEST_DESIGN
+  - RED
+  - LOCK_TEST
+  - GREEN
+  - REFACTOR
+  - VERIFY
+  - REVIEW
+  - ARCHIVE

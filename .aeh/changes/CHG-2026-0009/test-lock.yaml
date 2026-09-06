@@ -1,0 +1,15 @@
+change_id: CHG-2026-0009
+contract: test-lock
+files:
+- hash: 1ef34a461ab9ae69bbaeb9f0d8172022ffa53851dd3f3aff4edc19a0c6bf169d
+  path: tests/documentation/test_documentation.py
+locked_at: '2026-09-06T16:52:57.768452+00:00'
+protected:
+  .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
+  .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
+  evidence.yaml: 0fcb1a3bc223ae2f0a3bc0ec93073c3bd283ca517357cd23ea1cfda1235fdf2b
+  spec.yaml: 478949033ec79237cad42e06a3cf15618f8cc9e6e5e88d91a9ecc193d2a77857
+repository:
+  base_commit: d167b3ad899159cec809ef1819671b03b3838ffc
+  dirty: null
+version: 1
