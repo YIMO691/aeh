@@ -26,6 +26,7 @@ from . import coordination as coord
 CONTRACT = "bootstrap.evidence-index"
 CONTRACT_VERSION = 1
 DEFAULT_LIMITS = {"max_content_bytes": 1048576, "max_walk_files": 20000, "max_hits_per_file": 8, "max_evidence": 40}
+MANAGED_GUIDANCE_FILES = {"AGENTS.md", "CLAUDE.md"}
 
 CJK_RE = re.compile(r"[\u4e00-\u9fff]+")
 LATIN_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
@@ -70,7 +71,8 @@ def _tokens(title):
     return [t for t in tokens if len(t) >= 2]
 
 
-def _scan(root, needles, limits):
+def _scan(root, needles, limits, exclude_paths=None):
+    excluded = {os.path.normcase(os.path.normpath(path)) for path in (exclude_paths or [])}
     hits = []
     walk_files = 0
     resource_limited = False
@@ -85,6 +87,8 @@ def _scan(root, needles, limits):
                 break
             full = os.path.join(dp, fn)
             rel = os.path.relpath(full, root)
+            if os.path.normcase(os.path.normpath(rel)) in excluded:
+                continue
             if _resolve_within(root, rel) is None:
                 continue
             if _is_binary(full, limits):
@@ -169,7 +173,7 @@ def _git_identity(root):
 def domains_of(classification):
     domains = []
     for e in classification.get("evidence", []) or []:
-        if isinstance(e, dict):
+        if isinstance(e, dict) and e.get("kind") in ("repository_evidence", "user_hint"):
             domains.append(e["domain"])
         elif isinstance(e, str) and e.startswith("hard_escalation:"):
             domains.append(e.split(":", 1)[1].strip())
@@ -237,7 +241,11 @@ def build_evidence(target, change, ae_root, limits=None):
     grounded_domains = []
     class_contract = _load_yaml(os.path.join(ae_root, "core", "classifications.yaml"))
     for domain, keywords in class_contract.get("keyword_hints", {}).items():
-        dhits, _ = _scan(target, keywords, limits)
+        # Bootstrap-managed Agent instructions describe the control plane.  Words
+        # such as "permission" in those files are not evidence that application
+        # code touches an authentication domain.
+        dhits, _ = _scan(
+            target, keywords, limits, exclude_paths=MANAGED_GUIDANCE_FILES)
         if dhits:
             grounded_domains.append(domain)
     for d in sorted(grounded_domains):
@@ -335,7 +343,13 @@ def change_ground(target, change_id, ae_root=None, limits=None):
             md_lines.append("- " + e["id"] + " [" + e["type"] + "] " + e["finding"])
         coord.atomic_write_text(
             os.path.join(cdir, "evidence.md"), "\n".join(md_lines) + "\n")
-        new_domains = sorted(set(grounded_domains) - set(known))
+        # Repository-wide keyword markers are useful discovery evidence, but when
+        # the Agent supplied evidence-backed scoped facts they are ambient context,
+        # not proof that this Change touches every sensitive domain in the repo.
+        # Explicit sensitive facts still enter ``known`` and hard-escalate at intake.
+        scoped_facts = (change.get("classification") or {}).get("facts")
+        new_domains = [] if scoped_facts is not None else sorted(
+            set(grounded_domains) - set(known))
         escalated = False
         if new_domains and level != "CRITICAL":
             escalated = True
