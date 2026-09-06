@@ -16,25 +16,27 @@ approvals:
     id: user
     type: human
   credential:
-    key_fingerprint: 3c5e13baeb9fab2e78e033b80e1661eb4f1ddb2515e1d2e489082dff26f69fa1
-    key_id: chg-2026-0008-traceability-red-20260905-01
-    payload_hash: db087e82bce67815f7b3170d20a128eb934299e8d005c9568fce2dbf004266ae
+    key_fingerprint: c1ba7c31356ebece3504d20368eb8d36f175b9ebfdc2ddab77c189f05e5499ef
+    key_id: chg-2026-0008-pr24-red-20260906-01
+    payload_hash: c5adc3ee3ad1257f495a617635ff0ce99b4b2c842f74f5347514b91923b3b250
     scheme: hmac-sha256-v1
-    signature: 26756e7fa46ac75e95fed0b49f567801752bdcf60770b15568ad82fa109857c4
-  decided_at: '2026-09-05T10:58:50.322643+00:00'
-  evidence_ref: .aeh/changes/CHG-2026-0008/test-lock.yaml#sha256=5C9CD0A9FF32BC36A04ED3A17C41B5880E6CBFDB63981CA38077E88E3941CD04
+    signature: 1e5cb60f8fb2658ec15dc2fb1b0a30217fbdad9f6b3273c859d508ebe49569f1
+  decided_at: '2026-09-06T13:56:36.865554+00:00'
+  evidence_ref: .aeh/changes/CHG-2026-0008/test-lock.yaml#sha256=D0851F6323ECDE7584ECE92E8D6AB5E8FD3657F76098EE0789DF4A2A35B6C60C
+  expires_at: '2026-09-07T13:56:36.865554+00:00'
   gate: RED_GATE
   status: APPROVED
 - actor:
     id: user
     type: human
   credential:
-    key_fingerprint: 042da10c9acc0e65f76c30235b3ca6236dbcf006070868a136384fc0db78aec1
-    key_id: chg-2026-0008-final-merge-20260905-02
-    payload_hash: 8cba4065f5a3cd99d34f21fa2c94cde0b8764b4209a20a644a90d52d68ce15c6
+    key_fingerprint: 82fd8fdeb68c7f3f24f971f4939accee2df0e6c09b00e84cb9bdce528cc1a034
+    key_id: chg-2026-0008-pr24-merge-20260906-01
+    payload_hash: 8f603fe3c8ec21d26263305a834f0e6a256c9fdcea914947effba1cb2f8f5641
     scheme: hmac-sha256-v1
-    signature: 04fb38fcabbe201e233ac4162f4b616f8ba3aeecdb35e9c8ec1782e9282ed0bc
-  decided_at: '2026-09-05T12:23:26.167424+00:00'
-  evidence_ref: .aeh/changes/CHG-2026-0008/refactor.yaml#sha256=E582C56AEC327F4C41948470D37C1A7D4C7D6D082421C0DA1D6BFCA370B2ACC7
+    signature: dbf2d13b7aa1e66975772dd519b00f3ada4825a100a81d326afcfd7b8fa187cc
+  decided_at: '2026-09-06T14:48:59.744157+00:00'
+  evidence_ref: refactor.yaml#sha256=30B96FCF803890D7298A2877EA665B7E5A58D0D4806A4240B0874B8C5DFEB164
+  expires_at: '2026-09-07T14:48:59.744157+00:00'
   gate: MERGE_GATE
   status: APPROVED

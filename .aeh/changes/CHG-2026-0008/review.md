@@ -15,8 +15,7 @@
 - VER-004 [contract] verdict=pass (exit 0)
 
 ## Warnings
-- verified credential key_id=chg-2026-0008-final-merge-20260905-02
-- MERGE_GATE approval has no expiry
+- verified credential key_id=chg-2026-0008-pr24-merge-20260906-01
 - CRITICAL MERGE_GATE approved by user
 
 ## Traceability

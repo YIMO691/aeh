@@ -4,7 +4,7 @@ tests:
 - actual_failure:
     category: behavior
     signature: AGENT_FLOW_CONTRACT
-  base_commit: 8690d3b5b448cd6fbf996d8cdf2caf6b87a7fc21
+  base_commit: a0b58cb7bb7722d9ed3c9c00f98e768b4f77bdbb
   changed_files_hash: d96c80f24a4cb255b9e318dc2adddf5ab16a41387380dce635f20f461d8a9ae8
   command: python -B -m unittest tests.runtime.test_agent_flow
   commit: null
@@ -12,7 +12,7 @@ tests:
   expected_failure:
     category: behavior
     signature: AGENT_FLOW_CONTRACT
-  output_hash: ba6ff78b7f139ea420aaecd37098b4991422ead1a0810ac8e19a7742940032d0
+  output_hash: af5d72f2923bebfd7186d6c903194afd462df0e28066c14c2ee7dc8f22714016
   output_ref: .aeh\changes\CHG-2026-0008\evidence\red-TEST-001.log
   test_files_hash: d96c80f24a4cb255b9e318dc2adddf5ab16a41387380dce635f20f461d8a9ae8
   test_id: TEST-001
