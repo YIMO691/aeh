@@ -1,0 +1,36 @@
+approvals:
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: 56ac796415c4033403423bdc59c0daa62ee0516e02688ff0907bf267e4839d5f
+    key_id: chg-2026-0008-spec-review-20260904-01
+    payload_hash: a389015edecd4106f22a391f93d9d7a1c086e33014467c724f9b557f333ee03f
+    scheme: hmac-sha256-v1
+    signature: 774532761a36f172e7b1030e75f8eb2993a9d8adb9bedf7024dc430c626c8d37
+  decided_at: '2026-09-04T08:38:58.364245+00:00'
+  evidence_ref: .aeh/changes/CHG-2026-0008/spec.yaml#sha256=E4A7A1265547327F723F1433615051BAE1C1FF1D579BD6A89CAEC522BB956C8F
+  gate: SPEC_REVIEW
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  credential:
+    key_fingerprint: c1ba7c31356ebece3504d20368eb8d36f175b9ebfdc2ddab77c189f05e5499ef
+    key_id: chg-2026-0008-pr24-red-20260906-01
+    payload_hash: c5adc3ee3ad1257f495a617635ff0ce99b4b2c842f74f5347514b91923b3b250
+    scheme: hmac-sha256-v1
+    signature: 1e5cb60f8fb2658ec15dc2fb1b0a30217fbdad9f6b3273c859d508ebe49569f1
+  decided_at: '2026-09-06T13:56:36.865554+00:00'
+  evidence_ref: .aeh/changes/CHG-2026-0008/test-lock.yaml#sha256=D0851F6323ECDE7584ECE92E8D6AB5E8FD3657F76098EE0789DF4A2A35B6C60C
+  expires_at: '2026-09-07T13:56:36.865554+00:00'
+  gate: RED_GATE
+  status: APPROVED
+- actor:
+    id: user
+    type: human
+  decided_at: '2026-09-06T15:15:46.305521+00:00'
+  evidence_ref: github-pr:24#normal-merge-authorized-by-user
+  gate: MERGE_GATE
+  status: APPROVED
+  trust_mode: SCM_AUTHENTICATED_MERGE

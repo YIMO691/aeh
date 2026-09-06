@@ -3,31 +3,35 @@
 > Status: **CURRENT**
 > Source line: `0.3.0.dev0`
 
-This guide shows how to use AEH from a Codex conversation without memorizing
-the full CLI. It focuses on practical prompts and authority boundaries; the
-[engineering guide](engineering-guide.md) remains the detailed CLI reference.
+This guide shows how to use AEH from a Codex conversation without choosing a
+workflow or memorizing the CLI. You state the goal and authority boundary;
+Codex drives the workflow and AEH validates the resulting truth.
 
 ## The short version
 
-In an AEH-enabled repository, ask Codex to read the repository instructions,
-classify the change, and follow the effective workflow:
+In an AEH-enabled repository, give Codex the goal and the boundary once:
 
-> Use AEH for this task. Read AGENTS.md, .aeh/profile.yaml, and
-> .aeh/effective-workflow.yaml first. Choose the lightest safe workflow, keep
-> evidence under the Change, implement and verify locally, and stop before any
-> action that needs authority I have not explicitly granted.
+> Use AEH for this task. Decide the lightest safe workflow from the actual
+> change, implement and verify locally, and continue without asking me about
+> internal stages. Stop only if the scope expands, a check fails, or an action
+> falls outside my authority: no commit, push, PR, merge, release, or Gate
+> credential.
 
-Codex should tell you the classification, current Gate, evidence-backed result,
-and next action. It should not silently treat an earlier approval as permission
-for a later stage.
+Codex should maintain a task-scoped authority envelope outside the repository
+and call `aeh change continue` internally. `CONTINUE` means the next action is
+already authorized; `WAITING_FOR_AUTHORITY`, `BLOCKED`, and `COMPLETE` are the
+only reasons to interrupt or finish. Do not ask the user to choose a workflow level.
 
-## Pick a prompt by task size
+## What the Agent decides internally
+
+The levels remain useful for audit and debugging, but they are not questions
+the user must answer. Codex considers actual scope, reversibility, external
+side effects, uncertainty, and evidence. Title keywords are hints, not proof
+that an unrelated sensitive subsystem is being changed.
 
 ### Tiny, reversible edit (`DIRECT`)
 
-> Correct the typo in the command description. Use AEH, confirm this is truly
-> low risk and reversible, make the local edit, and run the smallest relevant
-> check. Do not commit or publish.
+> Correct the typo in the command description. Use AEH and work locally only.
 
 `DIRECT` is for a genuinely small change whose failure is easy to detect and
 undo. If grounding reveals broader behavior or contract impact, Codex should
@@ -35,30 +39,26 @@ escalate rather than force the task to remain DIRECT.
 
 ### Focused bug (`LIGHTWEIGHT`)
 
-> Fix the empty-state message shown after the final item is deleted. Use the
-> AEH LIGHTWEIGHT bug path if the evidence supports it. Add one focused
-> regression test, demonstrate the failure before the fix, implement the fix,
-> and verify locally. Stop before commit.
+> Fix the empty-state message shown after the final item is deleted. Add a
+> focused regression test, demonstrate the failure before the fix, implement
+> it, and verify locally. Stop before commit.
 
 This is the normal choice for a small bug: a bounded bug contract and a real
 RED/GREEN result, without the full feature process.
 
 ### Feature or cross-file change (`STANDARD`)
 
-> Add CSV export to the report screen using AEH. Ground the affected behavior,
-> compile a specification and test plan, show the intended RED, implement the
-> feature, and complete local verification and review. Do not push or open a PR
-> without separate approval.
+> Add CSV export to the report screen using AEH. Implement and verify locally.
+> Do not push or open a PR.
 
 Use STANDARD when the change adds behavior, crosses components, or needs an
 explicit specification and traceability.
 
 ### Sensitive change (`CRITICAL`)
 
-> Change the payment permission rules using AEH and classify it as CRITICAL.
-> Preserve raw evidence, use independent human Gates, and stop before each Gate
-> that requires my decision. Never create or reuse a credential unless I
-> authorize that exact Change and Gate.
+> Change the payment permission rules using AEH. Preserve raw evidence and stop
+> only when a human Gate actually requires my decision. Never create or reuse a
+> credential unless I authorize that exact Change and Gate.
 
 CRITICAL is appropriate for security, money, identity, permissions, migration,
 release, infrastructure, compliance, and high-impact autonomous work. It adds
@@ -73,9 +73,11 @@ human decision points; it does not allow an agent to manufacture approval.
 EXPLORE lets uncertain work end in discard or promotion. It is not a shortcut
 around production Gates.
 
-## Authorize one stage at a time
+## Give one useful authority boundary
 
-An effective Codex instruction states both what is allowed and where to stop.
+Do not approve internal AEH phases one by one. State what the Agent may do for
+the task; Codex records that as an external authority envelope and keeps going
+while the next action is covered. Remote and irreversible actions stay explicit.
 
 ### Local implementation only
 
@@ -101,8 +103,10 @@ An effective Codex instruction states both what is allowed and where to stop.
 > and verify the exact resulting main commit. No bypass, force push, SCM
 > administration change, tag, release, deploy, or publication is authorized.
 
-These examples are intentionally separate. “Implement”, “continue”, or “the
-tests pass” should not be interpreted as all later permissions.
+You can combine commit, push, PR, required checks, and normal merge in one task
+authorization when that is genuinely your intent. The Agent must still stop if
+scope expands or a required check fails. “Implement” alone does not imply those
+remote actions.
 
 ## Credential-backed Gates
 
@@ -150,16 +154,13 @@ not proof that branch protection is active.
 
 For normal work, the conversation can be as simple as:
 
-1. “Inspect this task and propose the AEH level. Do not modify files yet.”
-2. “Implement locally and verify. Stop before commit.”
-3. Review the diff and evidence.
-4. “Create the local commit only.”
-5. “Push this branch, open the PR, and run required checks. Do not merge.”
-6. Review provider-bound checks and any required human Gate.
-7. “Merge normally and verify the exact main commit.”
+1. State the goal and the complete authority boundary for this task.
+2. Let Codex drive classification, Change commands, tests, and evidence.
+3. Respond only if Codex reports a real human Gate, missing authority, failure,
+   or material scope change; otherwise review the completed result.
 
-Small bugs may complete locally at step 2 with LIGHTWEIGHT evidence. Critical
-changes add explicit Gate approvals between these stages.
+Small bugs normally finish without intermediate questions. Critical changes
+still stop at the human decisions that cannot safely be delegated.
 
 ## Boundaries to remember
 

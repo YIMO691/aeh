@@ -1,0 +1,130 @@
+generated_at: '2026-09-04T08:35:29.935875+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: Existing runtime, contract, integration, documentation, and clean-room
+      tests continue to pass after the new tests are added.
+    type: invariant
+  behavior: Existing granular AEH commands and persisted Change artifacts remain backward
+    compatible.
+  id: REQ-001
+  kind: CONSTRAINT
+  source:
+    refs:
+    - OWNER_AUTHORIZATION.yaml
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-002-01
+    statement: No HMAC credential, commit, push, pull request, merge, SCM administration
+      mutation, tag, Release, or PyPI publication occurs under this authorization.
+    type: invariant
+  behavior: This authorization ends before any cryptographic human approval, local
+    commit, or remote mutation.
+  id: REQ-002
+  kind: CONSTRAINT
+  source:
+    refs:
+    - OWNER_AUTHORIZATION.yaml
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-003-01
+    statement: The continue command accepts an external authority file, reports CONTINUE
+      for an authorized ordinary action, and reports WAITING_FOR_AUTHORITY with the
+      missing capability for an unauthorized action or human Gate.
+    type: automated
+  - id: AC-003-02
+    statement: An authority envelope never satisfies SPEC_REVIEW, RED_GATE, VERIFY_MANUAL,
+      or MERGE_GATE and never replaces a credential-backed approval.
+    type: invariant
+  behavior: A task-scoped external authority envelope lets AEH distinguish work already
+    authorized from a genuine user decision boundary.
+  id: REQ-003
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-004-01
+    statement: A bounded documentation or ordinary bug Change containing an ambient
+      sensitive word can remain at the Agent-supported level when its facts declare
+      no sensitive impact, while an actual sensitive impact escalates to CRITICAL.
+    type: automated
+  - id: AC-004-02
+    statement: Evidence-backed escalation is always allowed and an attempted downgrade
+      without explicit facts is rejected or retains the safer level.
+    type: invariant
+  behavior: AEH classification uses explicit change facts as the primary risk signal
+    and treats title keywords as warnings rather than sufficient proof of critical
+    impact.
+  id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: The change CLI exposes a continue command that returns exactly one
+      of CONTINUE, WAITING_FOR_AUTHORITY, BLOCKED, or COMPLETE together with the current
+      phase and a machine-readable next action.
+    type: automated
+  - id: AC-005-02
+    statement: The continue command reuses the installed workflow, state, Gate, and
+      approval truth and does not create a second state machine or silently mutate
+      approval evidence.
+    type: invariant
+  behavior: An Agent can ask AEH for one concise next-action decision instead of exposing
+    the full internal workflow to the user.
+  id: REQ-005
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-006-01
+    statement: The managed Codex template and Codex usage guide tell the Agent to
+      choose and drive the workflow, use change continue internally, and avoid asking
+      the user to select a level or approve an action already inside the active authority
+      envelope.
+    type: automated
+  - id: AC-006-02
+    statement: The guidance still forbids permission expansion, Gate credential invention,
+      bypass, and unverified completion claims.
+    type: invariant
+  behavior: Codex guidance presents goals, results, and real authority boundaries
+    while keeping levels and granular commands available as advanced detail.
+  id: REQ-006
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-007-01
+    statement: regression.yml limits push-triggered full regression to main while
+      retaining pull_request and workflow_dispatch execution.
+    type: automated
+  - id: AC-007-02
+    statement: The required assurance workflow and immutable verifier trust path are
+      unchanged.
+    type: invariant
+  behavior: GitHub regression runs once for pull-request validation and again only
+    on the resulting main branch state, not for every feature-branch push as a duplicate
+    full suite.
+  id: REQ-007
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+scope:
+  in:
+  - add_one_agent_facing_next_action_interface_over_existing_change_commands
+  - classify_from_declared_change_facts_and_support_evidence_backed_escalation
+  - let_an_external_task_authority_envelope_suppress_redundant_prompts_without_granting_authority
+  - simplify_codex_guidance_with_progressive_disclosure
+  - remove_duplicate_full_regression_runs_for_feature_branch_pushes
+  - preserve_existing_change_commands_gates_approvals_evidence_and_replay_contracts
+  out:
+  - replace_the_existing_change_state_machine_or_evidence_formats
+  - let_an_agent_self_authorize_or_forge_human_approval
+  - weaken_hmac_credential_isolation_expiry_or_verification
+  - add_a_web_ui_multi_agent_scheduler_cross_host_coordination_or_release_automation
+  - modify_branch_protection_rulesets_tags_releases_or_pypi

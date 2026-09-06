@@ -179,10 +179,17 @@ def main(argv=None):
     cn = chsub.add_parser("new", help="create a change workspace")
     cn.add_argument("title")
     cn.add_argument("--level", default=None, help="suggested classification level")
+    cn.add_argument("--facts", default=None,
+                    help="optional evidence-backed scoped classification facts yaml")
     cn.add_argument("--workdir", default=".", help="AEH target repository")
     cs = chsub.add_parser("status", help="read-only change status")
     cs.add_argument("change_id")
     cs.add_argument("--workdir", default=".", help="AEH target repository")
+    cco = chsub.add_parser("continue", help="return the next Agent action or true authority boundary")
+    cco.add_argument("change_id")
+    cco.add_argument("--authority", default=None,
+                     help="external task authority envelope yaml")
+    cco.add_argument("--workdir", default=".", help="AEH target repository")
     ctr = chsub.add_parser("transition", help="advance change state")
     ctr.add_argument("change_id")
     ctr.add_argument("--to", required=True)
@@ -444,13 +451,21 @@ def main(argv=None):
     if args.cmd == "change":
         from .runtime import change as chmod
         if args.change_cmd == "new":
-            report = chmod.change_new(args.workdir, args.title, suggested_level=args.level)
+            report = chmod.change_new(
+                args.workdir, args.title, suggested_level=args.level,
+                facts_path=args.facts)
             _emit(report)
             return 0 if report["status"] == "CHANGE_CREATED" else 1
         if args.change_cmd == "status":
             report = chmod.change_status(args.workdir, args.change_id)
             _emit(report)
             return 0
+        if args.change_cmd == "continue":
+            from .runtime import agent_flow
+            report = agent_flow.continue_change(
+                args.workdir, args.change_id, authority_path=args.authority)
+            _emit(report)
+            return 0 if report["status"] in ("CONTINUE", "COMPLETE") else 1
         if args.change_cmd == "transition":
             report = _invoke_change(
                 chmod.change_transition, args.workdir, args.change_id, args.to,

@@ -1,0 +1,197 @@
+requirements:
+- acceptance:
+  - AC-001-01
+  code: []
+  id: REQ-001
+  tests: []
+  verification:
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-002-01
+  code: []
+  id: REQ-002
+  tests: []
+  verification:
+  - VER-002
+  - VER-003
+- acceptance:
+  - AC-003-01
+  - AC-003-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: adapters/codex/AGENTS.template.md
+  - code_id: CODE-005
+    path: docs/codex-usage.md
+  - code_id: CODE-006
+    path: schemas/authority-envelope.schema.json
+  - code_id: CODE-007
+    path: schemas/change.schema.json
+  - code_id: CODE-008
+    path: src/aeh/cli.py
+  - code_id: CODE-009
+    path: src/aeh/runtime/agent_flow.py
+  - code_id: CODE-010
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-011
+    path: src/aeh/runtime/classify.py
+  - code_id: CODE-012
+    path: src/aeh/runtime/grounding.py
+  id: REQ-003
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-004-01
+  - AC-004-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: adapters/codex/AGENTS.template.md
+  - code_id: CODE-005
+    path: docs/codex-usage.md
+  - code_id: CODE-006
+    path: schemas/authority-envelope.schema.json
+  - code_id: CODE-007
+    path: schemas/change.schema.json
+  - code_id: CODE-008
+    path: src/aeh/cli.py
+  - code_id: CODE-009
+    path: src/aeh/runtime/agent_flow.py
+  - code_id: CODE-010
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-011
+    path: src/aeh/runtime/classify.py
+  - code_id: CODE-012
+    path: src/aeh/runtime/grounding.py
+  id: REQ-004
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-005-01
+  - AC-005-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: adapters/codex/AGENTS.template.md
+  - code_id: CODE-005
+    path: docs/codex-usage.md
+  - code_id: CODE-006
+    path: schemas/authority-envelope.schema.json
+  - code_id: CODE-007
+    path: schemas/change.schema.json
+  - code_id: CODE-008
+    path: src/aeh/cli.py
+  - code_id: CODE-009
+    path: src/aeh/runtime/agent_flow.py
+  - code_id: CODE-010
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-011
+    path: src/aeh/runtime/classify.py
+  - code_id: CODE-012
+    path: src/aeh/runtime/grounding.py
+  id: REQ-005
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-006-01
+  - AC-006-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: adapters/codex/AGENTS.template.md
+  - code_id: CODE-005
+    path: docs/codex-usage.md
+  - code_id: CODE-006
+    path: schemas/authority-envelope.schema.json
+  - code_id: CODE-007
+    path: schemas/change.schema.json
+  - code_id: CODE-008
+    path: src/aeh/cli.py
+  - code_id: CODE-009
+    path: src/aeh/runtime/agent_flow.py
+  - code_id: CODE-010
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-011
+    path: src/aeh/runtime/classify.py
+  - code_id: CODE-012
+    path: src/aeh/runtime/grounding.py
+  id: REQ-006
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004
+- acceptance:
+  - AC-007-01
+  - AC-007-02
+  code:
+  - code_id: CODE-001
+    path: .github/workflows/regression.yml
+  - code_id: CODE-002
+    path: README.md
+  - code_id: CODE-003
+    path: README.zh-CN.md
+  - code_id: CODE-004
+    path: adapters/codex/AGENTS.template.md
+  - code_id: CODE-005
+    path: docs/codex-usage.md
+  - code_id: CODE-006
+    path: schemas/authority-envelope.schema.json
+  - code_id: CODE-007
+    path: schemas/change.schema.json
+  - code_id: CODE-008
+    path: src/aeh/cli.py
+  - code_id: CODE-009
+    path: src/aeh/runtime/agent_flow.py
+  - code_id: CODE-010
+    path: src/aeh/runtime/change.py
+  - code_id: CODE-011
+    path: src/aeh/runtime/classify.py
+  - code_id: CODE-012
+    path: src/aeh/runtime/grounding.py
+  id: REQ-007
+  tests:
+  - TEST-001
+  verification:
+  - VER-001
+  - VER-002
+  - VER-003
+  - VER-004

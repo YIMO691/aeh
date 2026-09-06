@@ -54,7 +54,8 @@ def _workflow_for(target, level):
     return ewf, lv
 
 
-def change_new(target, title, suggested_level=None, ae_root=None, now=None):
+def change_new(target, title, suggested_level=None, ae_root=None, now=None,
+               facts=None, facts_path=None):
     try:
         observed = now or datetime.now(timezone.utc)
         d = doc.run_doctor(target, ae_root)
@@ -63,8 +64,13 @@ def change_new(target, title, suggested_level=None, ae_root=None, now=None):
             return {"status": "BLOCKED_PREFLIGHT", "target": target,
                     "blocking_checks": [c["check_id"] for c in pre["blocking_checks"]]}
         warnings = [c["message"] for c in pre["warnings"]]
+        if facts is not None and facts_path is not None:
+            raise ChangeError("provide classification facts directly or by path, not both")
+        if facts_path is not None:
+            facts = cls.load_facts(facts_path)
         hits = cls.detect_hits(title)
-        classification = cls.classify(title, suggested_level=suggested_level, hits=hits)
+        classification = cls.classify(
+            title, suggested_level=suggested_level, hits=hits, facts=facts)
         level = classification["level"]
         reservation_ref = secrets.token_hex(16)
         reservation = coord.reserve_change_id(

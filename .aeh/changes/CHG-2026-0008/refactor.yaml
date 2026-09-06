@@ -1,0 +1,70 @@
+base_commit: a0b58cb7bb7722d9ed3c9c00f98e768b4f77bdbb
+change_id: CHG-2026-0008
+changed_files:
+- after_hash: 867ea670628308425ebc74f1aaac83f1e273bb37812641fa92d35b55867aa482
+  before_hash: 0fbe5949eee598f28d45652c307330cc69465fbf6cd3e79a7e4b89a54d3a2d8e
+  code_id: CODE-001
+  path: .github/workflows/regression.yml
+- after_hash: 731593c728607deef8c842dc88efb0aa04a3e8e51c92635ea9ea117c4bc01e18
+  before_hash: d6ee7ed8cc02af2e61c6c32793de09855dbcb3b4bbcf15618e40decf8311d8ec
+  code_id: CODE-002
+  path: README.md
+- after_hash: 606b2b4245035352ea8daffac29f12a96f4e3c8ba5f5b68b1d91896ea42509ab
+  before_hash: afbf3c4e79dadac7cb06d52980b81b3b994822966a3819406f500b0bcae7819e
+  code_id: CODE-003
+  path: README.zh-CN.md
+- after_hash: fe8f740aaa0781e1d6e545240dd98da11e6c7411ccbfba8ee351eacafc14ef96
+  before_hash: 5adafd99a39d331c807b79effbe4f36142e46950c863598f8ef692496241805d
+  code_id: CODE-004
+  path: adapters/codex/AGENTS.template.md
+- after_hash: f3ad35edfeacb19ca01e0142933b933c53c98deb1f70fe1d973813f7ffce1d33
+  before_hash: 00f5edbd14fe977b937f77d77619a09507c9eaa884fc36d9e4d49b1a2ba14dc3
+  code_id: CODE-005
+  path: docs/codex-usage.md
+- after_hash: 3f9a419a1859f54eede8d54a8d15f17c00c661b151ee51dfb441b63e7ce07b9e
+  before_hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  code_id: CODE-006
+  path: schemas/authority-envelope.schema.json
+- after_hash: b83eb00c56e5faa95e51200bb77b10e82f8bb94e11cddaa261a802430bd1c049
+  before_hash: f0318a3baeee6a10157a1bb1974cb278f20c00a714307c3c10524dcaa122eb37
+  code_id: CODE-007
+  path: schemas/change.schema.json
+- after_hash: d28402cf9cfa0115536e1772063bb11bad735d030ba09b0f10b22fece2a6437a
+  before_hash: bf328605bb76e5c1bf00a721db7fddd72c795a41a2b1d0b07bbcaa4f0516e831
+  code_id: CODE-008
+  path: src/aeh/cli.py
+- after_hash: f36bbd6cf49c74adaebc61da5194a82351136ebc1ea60381e357f2d7f6f39436
+  before_hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  code_id: CODE-009
+  path: src/aeh/runtime/agent_flow.py
+- after_hash: 4a048971decd95e3e4e7a6af45547ec587b603cbc711cafffe5950231d7339c7
+  before_hash: 3ccfaf8d954d6dbbff7c4dd905d0db606737ce80bc6d130b05c0193c5a699b94
+  code_id: CODE-010
+  path: src/aeh/runtime/change.py
+- after_hash: 41eb4dd756db3731e9969fffce8f0e5d99367c11c97bffd9239dc98808b1640a
+  before_hash: 5c2c603c000e709dcc395dfe57e7a2b5e2122747a668f8b79abf5400e5b08f2b
+  code_id: CODE-011
+  path: src/aeh/runtime/classify.py
+- after_hash: ab8615480e8a1cce48654d3ae5a7e81ea1bd92847189589b3542530074eba995
+  before_hash: e3bba4396d47230ea9a994aea00b22b3c47c0031db78ee1f0b681fc0dd8d2730
+  code_id: CODE-012
+  path: src/aeh/runtime/grounding.py
+contract: green.evidence
+production_after_hash: 26940c180090e05044d89e0eed5d1b0f685b1c669b9c268884dfab94e573827c
+production_before_hash: bb64615a03de333de131f8821c7704ac5aa7d804f8370af24d7e829bfd2d1110
+test_lock_hash: d96c80f24a4cb255b9e318dc2adddf5ab16a41387380dce635f20f461d8a9ae8
+tests:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_agent_flow
+  command: python -B -m unittest tests.runtime.test_agent_flow
+  exit_code: 0
+  output_hash: 3a6be7b5397d7b9e26717e8bfcc54c875a7b22ad86b1a80a9d3dcb4d03c5f965
+  output_ref: .aeh\changes\CHG-2026-0008\evidence\refactor-TEST-001.log
+  test_id: TEST-001
+  verdict: PASS
+verdict: REFACTOR_PASS
+version: 1

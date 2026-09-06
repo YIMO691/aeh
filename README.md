@@ -24,7 +24,7 @@ Without AEH, the same agent can implement a change, run its own tests, and tell
 you that the work is safe. With AEH, acceptance is a separate process:
 
 ```text
-your intent -> risk-sized workflow -> implementation -> independent checks -> your decision
+your intent + authority -> Agent-chosen workflow -> implementation -> AEH checks -> result
 ```
 
 AEH records what was requested, locks the relevant test evidence, rejects
@@ -37,26 +37,26 @@ treated as proof by itself.
 After AEH is installed in a repository, you can work in natural language. For
 a normal change, tell Codex:
 
-> Use AEH for this change. Inspect the repository instructions, choose the
-> lightest safe workflow, create the Change, implement and verify locally.
-> Stop before commit, push, PR, merge, release, or any credential-backed Gate
-> unless I authorize that step separately.
+> Use AEH for this change. Decide the lightest safe workflow from the actual
+> scope, create the Change, implement and verify locally, and do not ask me to
+> choose internal stages. Stop before commit, push, PR, merge, release, or any
+> credential-backed Gate.
 
 For a small bug:
 
 > Fix the incorrect empty-state message. Treat this as a small bug, add a
-> focused regression test, and use the lightest AEH workflow that the evidence
-> permits. Work locally only.
+> focused regression test, and work locally only. Let AEH and the Agent choose
+> the workflow from the evidence.
 
 For a sensitive change:
 
-> Change the payment permission check using AEH. Treat it as CRITICAL, preserve
-> raw evidence, and stop at every human Gate for separate approval.
+> Change the payment permission check using AEH. Preserve raw evidence and stop
+> only when a human Gate actually needs my decision.
 
 See [Using AEH with Codex](docs/codex-usage.md) for ready-to-copy prompts,
 staged authorization examples, and what Codex should report at each stop.
 
-## Choose the lightest safe workflow
+## The Agent chooses the lightest safe workflow
 
 AEH is intentionally not equally heavy for every change.
 
@@ -68,8 +68,8 @@ AEH is intentionally not equally heavy for every change.
 | `CRITICAL` | security, money, identity, permissions, migration, release, or high-impact automation | STANDARD plus independent human Gates and stronger evidence |
 
 `EXPLORE` is available for experiments that may be discarded or later promoted
-into a governed change. Classification can escalate when repository evidence
-shows wider impact; an agent should not silently downgrade it.
+into a governed change. Users do not need to select these levels: the Agent
+uses scoped facts and AEH rejects unsupported downgrade attempts.
 
 ## Install
 
@@ -112,16 +112,19 @@ Change with the CLI:
 cd /path/to/project
 aeh change new "fix duplicate claim side effect" --level LIGHTWEIGHT
 aeh change status CHG-2026-0001
+aeh change continue CHG-2026-0001 --authority /outside/repo/task-authority.yaml
 ```
 
 The exact next commands depend on the effective workflow. The
 [engineering guide](docs/engineering-guide.md) covers the full CLI lifecycle,
 repair, upgrade, approvals, CI replay, and coordination.
 
-## Authority stays staged
+## Authority stays bounded
 
-AEH does not treat “implement this” as permission to publish it. Keep these
-decisions separate:
+AEH does not treat “implement this” as permission to publish it. Give the Agent
+a task boundary once; it should continue inside that boundary and ask again
+only for a real expansion, failure, or human Gate. Local work and publication
+remain distinct:
 
 1. inspect and plan;
 2. modify and verify locally;

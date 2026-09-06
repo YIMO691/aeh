@@ -1,0 +1,15 @@
+change_id: CHG-2026-0008
+contract: test-lock
+files:
+- hash: a7e271753e4468c7fe1fec3ec2733ba57d1b30b71621d98583fd65a56c93ffff
+  path: tests/runtime/test_agent_flow.py
+locked_at: '2026-09-06T13:55:35.430317+00:00'
+protected:
+  .aeh/effective-workflow.yaml: 4f6ee137d14038b2da38baaa26d322f7892e6f5508bbb795f6ec6ceb0d430dbb
+  .aeh/profile.yaml: 95b68de1057461247db51b3ee0d81a54f1a082efa31f983166039d6d778c6ea2
+  evidence.yaml: f2ddd4d080f70fa6bae1a459116a11944194120d2c4d2f967c6e11c8be200441
+  spec.yaml: e4a7a1265547327f723f1433615051bae1c1ff1d579bd6a89caec522bb956c8f
+repository:
+  base_commit: a0b58cb7bb7722d9ed3c9c00f98e768b4f77bdbb
+  dirty: null
+version: 1
