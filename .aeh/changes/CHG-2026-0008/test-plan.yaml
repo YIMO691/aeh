@@ -1,0 +1,128 @@
+generated_at: '2026-09-05T10:36:25.699641+00:00'
+non_automatable:
+- ac_id: AC-001-01
+  reason: Full regression and clean-room compatibility are verified after implementation.
+- ac_id: AC-002-01
+  reason: Local task and Git audit confirms the bounded authorization was respected.
+- ac_id: AC-003-02
+  reason: Source review confirms the authority envelope cannot write approval records
+    or satisfy human Gates.
+- ac_id: AC-004-02
+  reason: Focused tests plus source review confirm reassessment cannot lower an existing
+    level.
+- ac_id: AC-005-02
+  reason: Source review confirms continue reads the installed workflow and existing
+    Change artifacts without a parallel state machine.
+- ac_id: AC-006-02
+  reason: Bounded documentation review confirms all authority and verification warnings
+    remain explicit.
+- ac_id: AC-007-02
+  reason: Exact diff confirms aeh-assurance.yml and its immutable verifier path are
+    unchanged.
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[a-m]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\regression-runtime
+  id: REG-AGENT-FLOW-A-M
+  timeout_seconds: 900
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - discover
+  - -s
+  - tests
+  - -p
+  - test_[n-z]*.py
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\regression-runtime
+  id: REG-AGENT-FLOW-N-Z
+  timeout_seconds: 900
+test_files:
+- dest: tests/runtime/test_agent_flow.py
+  src: test_agent_flow.py
+tests:
+- command: python -B -m unittest tests.runtime.test_agent_flow
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.runtime.test_agent_flow
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\red-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\red-runtime
+    timeout_seconds: 180
+  expected_before_fix:
+    signature: AGENT_FLOW_CONTRACT
+    type: behavior_failure
+  fixture_signatures: []
+  id: TEST-001
+  intent: Fail until scoped classification, the Agent continue decision contract,
+    progressive Codex guidance, and CI deduplication exist together.
+  kind: contract
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - src/aeh/runtime/agent_flow.py
+  - src/aeh/runtime/classify.py
+  - src/aeh/runtime/change.py
+  - src/aeh/runtime/grounding.py
+  - src/aeh/cli.py
+  - schemas/change.schema.json
+  - schemas/authority-envelope.schema.json
+  - adapters/codex/AGENTS.template.md
+  - docs/codex-usage.md
+  - README.md
+  - README.zh-CN.md
+  - .github/workflows/regression.yml
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  verifies:
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+  - AC-006-01
+  - AC-007-01
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.runtime.test_agent_flow
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\verification-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\verification-runtime
+  id: VER-AGENT-FLOW-001
+  timeout_seconds: 180
+  type: contract
+  verifies:
+  - AC-003-01
+  - AC-004-01
+  - AC-005-01
+  - AC-006-01
+  - AC-007-01

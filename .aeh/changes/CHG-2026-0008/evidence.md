@@ -1,0 +1,64 @@
+# Grounding Evidence
+
+machine truth in evidence.yaml
+
+- EV-001 [SOURCE] keyword match: aeh in .git:1
+- EV-002 [SOURCE] keyword match: agent in .git:1
+- EV-003 [SOURCE] keyword match: driven in .git:1
+- EV-004 [SOURCE] keyword match: aeh in .gitattributes:2
+- EV-005 [SOURCE] keyword match: aeh in .gitignore:9
+- EV-006 [SOURCE] keyword match: aeh in AGENTS.md:1
+- EV-007 [SOURCE] keyword match: trust in AGENTS.md:24
+- EV-008 [SOURCE] keyword match: make in CHANGELOG.md:147
+- EV-009 [SOURCE] keyword match: aeh in CHANGELOG.md:19
+- EV-010 [SOURCE] keyword match: agent in CHANGELOG.md:93
+- EV-011 [SOURCE] keyword match: while in CHANGELOG.md:8
+- EV-012 [SOURCE] keyword match: preserving in CHANGELOG.md:70
+- EV-013 [SOURCE] keyword match: trust in CHANGELOG.md:13
+- EV-014 [SOURCE] keyword match: boundaries in CHANGELOG.md:83
+- EV-015 [SOURCE] keyword match: aeh in CLAUDE.md:1
+- EV-016 [SOURCE] keyword match: trust in CLAUDE.md:24
+- EV-017 [SOURCE] keyword match: aeh in CONTRIBUTING.md:1
+- EV-018 [SOURCE] keyword match: agent in CONTRIBUTING.md:92
+- EV-019 [SOURCE] keyword match: driven in CONTRIBUTING.md:39
+- EV-020 [SOURCE] keyword match: make in README.md:14
+- EV-021 [SOURCE] keyword match: aeh in README.md:1
+- EV-022 [SOURCE] keyword match: agent in README.md:14
+- EV-023 [SOURCE] keyword match: while in README.md:163
+- EV-024 [SOURCE] keyword match: trust in README.md:79
+- EV-025 [SOURCE] keyword match: boundaries in README.md:143
+- EV-026 [SOURCE] keyword match: aeh in README.zh-CN.md:1
+- EV-027 [SOURCE] keyword match: agent in README.zh-CN.md:17
+- EV-028 [SOURCE] keyword match: aeh in pyproject.toml:8
+- EV-029 [SOURCE] keyword match: agent in pyproject.toml:8
+- EV-030 [SOURCE] keyword match: aeh in setup.py:1
+- EV-031 [SOURCE] keyword match: aeh in adapters\claude\CLAUDE.template.md:1
+- EV-032 [SOURCE] keyword match: trust in adapters\claude\CLAUDE.template.md:15
+- EV-033 [SOURCE] keyword match: aeh in adapters\claude\adapter.yaml:2
+- EV-034 [SOURCE] keyword match: agent in adapters\claude\adapter.yaml:5
+- EV-035 [SOURCE] keyword match: aeh in adapters\codex\AGENTS.template.md:1
+- EV-036 [SOURCE] keyword match: trust in adapters\codex\AGENTS.template.md:15
+- EV-037 [SOURCE] keyword match: aeh in adapters\codex\adapter.yaml:8
+- EV-038 [SOURCE] keyword match: agent in adapters\codex\adapter.yaml:5
+- EV-039 [SOURCE] keyword match: agent in bootstrap\conflict-rules.yaml:12
+- EV-040 [SOURCE] keyword match: aeh in bootstrap\discovery\ai-rules.yaml:5
+- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-043 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-045 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-046 [CALL_PATH] keyword co-occurrence across 236 files: .git, .gitattributes, .gitignore, AGENTS.md
+- EV-047 [CONFIG] config file match: pyproject.toml:8
+- EV-048 [CONFIG] config file match: pyproject.toml:8
+- EV-049 [CONFIG] config file match: adapters\claude\adapter.yaml:2
+- EV-050 [CONFIG] config file match: adapters\claude\adapter.yaml:5
+- EV-051 [CONFIG] config file match: adapters\codex\adapter.yaml:8
+- EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
+- EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
+- EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration
+- EV-055 [SOURCE] risk domain marker found in repository: money_economy
+- EV-056 [SOURCE] risk domain marker found in repository: persistence
+- EV-057 [SOURCE] risk domain marker found in repository: protocol_compatibility
+- EV-058 [SOURCE] risk domain marker found in repository: save_migration
+- EV-059 [SOURCE] risk domain marker found in repository: security_boundary
+- EV-060 [UNKNOWN] architecture constraints not symbolically verified in Phase 9 scan

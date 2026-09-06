@@ -1,0 +1,90 @@
+
+FFFEFF
+======================================================================
+ERROR: test_actual_sensitive_fact_escalates_and_reassessment_never_downgrades (tests.runtime.test_agent_flow.ScopedClassificationTests.test_actual_sensitive_fact_escalates_and_reassessment_never_downgrades)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 52, in test_actual_sensitive_fact_escalates_and_reassessment_never_downgrades
+    result = cls.classify(
+             ^^^^^^^^^^^^^
+TypeError: classify() got an unexpected keyword argument 'facts'
+
+======================================================================
+FAIL: test_cli_exposes_continue (tests.runtime.test_agent_flow.AgentContinueTests.test_cli_exposes_continue)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 20, in require_agent_flow
+    from aeh.runtime import agent_flow
+ImportError: cannot import name 'agent_flow' from 'aeh.runtime' (D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\src\aeh\runtime\__init__.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 147, in test_cli_exposes_continue
+    require_agent_flow(self)
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 22, in require_agent_flow
+    testcase.fail("AGENT_FLOW_CONTRACT: missing Agent decision layer: " + str(exc))
+AssertionError: AGENT_FLOW_CONTRACT: missing Agent decision layer: cannot import name 'agent_flow' from 'aeh.runtime' (D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\src\aeh\runtime\__init__.py)
+
+======================================================================
+FAIL: test_continue_distinguishes_authority_human_gate_block_and_completion (tests.runtime.test_agent_flow.AgentContinueTests.test_continue_distinguishes_authority_human_gate_block_and_completion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 20, in require_agent_flow
+    from aeh.runtime import agent_flow
+ImportError: cannot import name 'agent_flow' from 'aeh.runtime' (D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\src\aeh\runtime\__init__.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 106, in test_continue_distinguishes_authority_human_gate_block_and_completion
+    agent_flow = require_agent_flow(self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 22, in require_agent_flow
+    testcase.fail("AGENT_FLOW_CONTRACT: missing Agent decision layer: " + str(exc))
+AssertionError: AGENT_FLOW_CONTRACT: missing Agent decision layer: cannot import name 'agent_flow' from 'aeh.runtime' (D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\src\aeh\runtime\__init__.py)
+
+======================================================================
+FAIL: test_codex_guidance_and_ci_trigger_contract (tests.runtime.test_agent_flow.ProgressiveDisclosureContractTests.test_codex_guidance_and_ci_trigger_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 179, in test_codex_guidance_and_ci_trigger_contract
+    self.assertIn(marker, template, "AGENT_FLOW_CONTRACT: Codex template missing " + marker)
+AssertionError: 'change continue' not found in '# AEH Managed Section (Codex)\n\nThis project uses Adaptive Engineering Harness (AEH).\n\nBefore implementation:\n1. Read .aeh/profile.yaml and .aeh/effective-workflow.yaml.\n2. Classify the change; follow the workflow for that classification.\n3. Do not bypass required gates. Change artifacts live in .aeh/changes/CHG-*.\n\nEffective constraints:\n{{PERMISSION_SUMMARY}}\n\nWorkflow default level: {{DEFAULT_LEVEL}}\n\nTrusted mutation boundary - do NOT modify:\n{{TCB_NOTICE}}' : AGENT_FLOW_CONTRACT: Codex template missing change continue
+
+======================================================================
+FAIL: test_grounding_does_not_escalate_from_unrelated_repository_markers (tests.runtime.test_agent_flow.ScopedClassificationTests.test_grounding_does_not_escalate_from_unrelated_repository_markers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 78, in test_grounding_does_not_escalate_from_unrelated_repository_markers
+    created = ch.change_new(
+              ^^^^^^^^^^^^^^
+TypeError: change_new() got an unexpected keyword argument 'facts'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 85, in test_grounding_does_not_escalate_from_unrelated_repository_markers
+    self.fail("AGENT_FLOW_CONTRACT: change facts unsupported: " + str(exc))
+AssertionError: AGENT_FLOW_CONTRACT: change facts unsupported: change_new() got an unexpected keyword argument 'facts'
+
+======================================================================
+FAIL: test_scoped_facts_make_ambient_keywords_advisory (tests.runtime.test_agent_flow.ScopedClassificationTests.test_scoped_facts_make_ambient_keywords_advisory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 38, in test_scoped_facts_make_ambient_keywords_advisory
+    result = cls.classify(
+             ^^^^^^^^^^^^^
+TypeError: classify() got an unexpected keyword argument 'facts'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-agent-driven-flow\tests\runtime\test_agent_flow.py", line 45, in test_scoped_facts_make_ambient_keywords_advisory
+    self.fail("AGENT_FLOW_CONTRACT: classification facts unsupported: " + str(exc))
+AssertionError: AGENT_FLOW_CONTRACT: classification facts unsupported: classify() got an unexpected keyword argument 'facts'
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.884s
+
+FAILED (failures=5, errors=1)
