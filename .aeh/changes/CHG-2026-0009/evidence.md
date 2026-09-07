@@ -1,0 +1,64 @@
+# Grounding Evidence
+
+machine truth in evidence.yaml
+
+- EV-001 [SOURCE] keyword match: self in .git:1
+- EV-002 [SOURCE] keyword match: host in .git:1
+- EV-003 [SOURCE] keyword match: runtime in .git:1
+- EV-004 [SOURCE] keyword match: agent in .git:1
+- EV-005 [SOURCE] keyword match: runtime in .gitattributes:2
+- EV-006 [SOURCE] keyword match: runtime in .gitignore:9
+- EV-007 [SOURCE] keyword match: the in AGENTS.md:8
+- EV-008 [SOURCE] keyword match: runtime in AGENTS.md:25
+- EV-009 [SOURCE] keyword match: and in AGENTS.md:7
+- EV-010 [SOURCE] keyword match: the in CHANGELOG.md:5
+- EV-011 [SOURCE] keyword match: self in CHANGELOG.md:26
+- EV-012 [SOURCE] keyword match: host in CHANGELOG.md:26
+- EV-013 [SOURCE] keyword match: runtime in CHANGELOG.md:26
+- EV-014 [SOURCE] keyword match: snapshot in CHANGELOG.md:6
+- EV-015 [SOURCE] keyword match: and in CHANGELOG.md:8
+- EV-016 [SOURCE] keyword match: align in CHANGELOG.md:65
+- EV-017 [SOURCE] keyword match: current in CHANGELOG.md:59
+- EV-018 [SOURCE] keyword match: the in CLAUDE.md:8
+- EV-019 [SOURCE] keyword match: runtime in CLAUDE.md:25
+- EV-020 [SOURCE] keyword match: and in CLAUDE.md:7
+- EV-021 [SOURCE] keyword match: the in CONTRIBUTING.md:4
+- EV-022 [SOURCE] keyword match: runtime in CONTRIBUTING.md:40
+- EV-023 [SOURCE] keyword match: and in CONTRIBUTING.md:25
+- EV-024 [SOURCE] keyword match: current in CONTRIBUTING.md:22
+- EV-025 [SOURCE] keyword match: agent in CONTRIBUTING.md:92
+- EV-026 [SOURCE] keyword match: driven in CONTRIBUTING.md:39
+- EV-027 [SOURCE] keyword match: documentation in CONTRIBUTING.md:44
+- EV-028 [SOURCE] keyword match: the in LICENSE:6
+- EV-029 [SOURCE] keyword match: and in LICENSE:6
+- EV-030 [SOURCE] keyword match: documentation in LICENSE:6
+- EV-031 [SOURCE] keyword match: the in README.md:14
+- EV-032 [SOURCE] keyword match: self in README.md:33
+- EV-033 [SOURCE] keyword match: host in README.md:147
+- EV-034 [SOURCE] keyword match: runtime in README.md:104
+- EV-035 [SOURCE] keyword match: snapshot in README.md:104
+- EV-036 [SOURCE] keyword match: and in README.md:15
+- EV-037 [SOURCE] keyword match: current in README.md:9
+- EV-038 [SOURCE] keyword match: agent in README.md:14
+- EV-039 [SOURCE] keyword match: runtime in README.zh-CN.md:94
+- EV-040 [SOURCE] keyword match: and in README.zh-CN.md:59
+- EV-041 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-042 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-043 [TEST] existing test file: tests\adapters\test_adapters.py
+- EV-044 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-045 [TEST] existing test file: tests\bootstrap\test_bootstrap.py
+- EV-046 [CALL_PATH] keyword co-occurrence across 241 files: .git, .gitattributes, .gitignore, AGENTS.md
+- EV-047 [CONFIG] config file match: pyproject.toml:8
+- EV-048 [CONFIG] config file match: adapters\claude\adapter.yaml:22
+- EV-049 [CONFIG] config file match: adapters\claude\adapter.yaml:5
+- EV-050 [CONFIG] config file match: adapters\codex\adapter.yaml:22
+- EV-051 [CONFIG] config file match: adapters\codex\adapter.yaml:12
+- EV-052 [SOURCE] risk domain marker found in repository: authentication_authorization
+- EV-053 [SOURCE] risk domain marker found in repository: destructive_data_operation
+- EV-054 [SOURCE] risk domain marker found in repository: irreversible_migration
+- EV-055 [SOURCE] risk domain marker found in repository: money_economy
+- EV-056 [SOURCE] risk domain marker found in repository: persistence
+- EV-057 [SOURCE] risk domain marker found in repository: protocol_compatibility
+- EV-058 [SOURCE] risk domain marker found in repository: save_migration
+- EV-059 [SOURCE] risk domain marker found in repository: security_boundary
+- EV-060 [UNKNOWN] architecture constraints not symbolically verified in Phase 9 scan

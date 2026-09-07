@@ -1,0 +1,128 @@
+assumptions:
+- The canonical source runtime at d167b3ad899159cec809ef1819671b03b3838ffc is the
+  intended self-host snapshot.
+- The existing 0.3.0.dev0 development version is unchanged because this operation
+  synchronizes repository installation state rather than publishing a new package
+  version.
+generated_at: '2026-09-07T07:26:56.749826+00:00'
+requirements:
+- acceptance:
+  - id: AC-001-01
+    statement: SPEC_REVIEW, RED_GATE, and MERGE_GATE are not inferred from the external
+      capability envelope.
+    type: invariant
+  behavior: Critical human Gates remain distinct and require explicit task-specific
+    authorization.
+  id: REQ-001
+  kind: CONSTRAINT
+  source:
+    refs:
+    - AUTHORITY.yaml
+    type: POLICY_CONSTRAINT
+- acceptance:
+  - id: AC-002-01
+    statement: README files, current status, changelog, architecture, documentation
+      contract, and regression checks record PR
+    type: automated
+  - id: AC-002-02
+    statement: The source remains 0.3.0.dev0, latest public release remains v0.2.0,
+      and PyPI remains unpublished.
+    type: invariant
+  behavior: Public documentation describes the merged Agent-driven flow and its exact
+    PR
+  id: REQ-002
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-007-01
+    statement: The existing same-version collision regression accepts a different
+      runtime digest for 0.3.0.dev0 with a new source revision and completes the trusted
+      upgrade transaction.
+    type: automated
+  - id: AC-007-02
+    statement: Same-version refresh remains forbidden for final releases, identical
+      source revisions, source-integrity failures, and downgrades.
+    type: invariant
+  behavior: The Upgrade path can refresh a changed runtime snapshot within the same
+    unreleased development version when the destination source revision is different.
+  id: REQ-007
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-003-01
+    statement: The synchronized installed change.schema.json is byte-identical to
+      the canonical source change.schema.json and therefore accepts facts, keyword_hints,
+      and downgrade_blocked.
+    type: automated
+  - id: AC-003-02
+    statement: Synchronization must not weaken any existing Change schema requirement
+      or CI approval rule.
+    type: invariant
+  behavior: The installed Change schema accepts the scoped classification facts produced
+    by the merged Agent-driven flow.
+  id: REQ-003
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-004-01
+    statement: No SCM administration, bypass, force push, tag, Release, PyPI publication,
+      or mutable assurance artifact is introduced.
+    type: invariant
+  behavior: The remediation stays inside the already approved normal commit, push,
+    pull request, required-check, merge, and post-merge verification workflow.
+  id: REQ-004
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-005-01
+    statement: The self-host runtime regression fails on the exact d167 base and passes
+      only after trusted snapshot synchronization.
+    type: automated
+  - id: AC-005-02
+    statement: The regression checks repository packaging state without executing
+      project-controlled code in CI replay.
+    type: invariant
+  behavior: The repository prevents a future source/runtime snapshot drift from silently
+    breaking the next self-hosted Change in required assurance.
+  id: REQ-005
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+- acceptance:
+  - id: AC-006-01
+    statement: A repository regression compares the canonical source runtime digest,
+      installed runtime digest, and manifest runtime digest and requires all three
+      to be equal.
+    type: automated
+  - id: AC-006-02
+    statement: The runtime snapshot and manifest are changed only through an AEH trusted
+      bootstrap or upgrade path, never by direct file editing.
+    type: invariant
+  behavior: The repository self-host runtime snapshot matches the runtime contracts
+    shipped by the current source tree.
+  id: REQ-006
+  kind: DESIRED
+  source:
+    refs: []
+    type: USER_REQUIREMENT
+scope:
+  in:
+  - synchronize_repository_self_host_runtime_snapshot
+  - update_manifest_runtime_digest_and_source_revision
+  - support_bounded_same_development_version_upgrade_refresh
+  - add_self_host_runtime_drift_regression
+  - align_agent_driven_public_documentation
+  out:
+  - source_schema_semantics_or_final_release_collision_weakening
+  - github_workflow_branch_protection_or_rulesets
+  - package_version_tag_release_or_pypi
+  - approval_or_ci_bypass

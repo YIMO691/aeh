@@ -1,0 +1,17 @@
+
+F
+======================================================================
+FAIL: test_same_development_version_refresh_requires_new_source_revision (tests.upgrade.test_upgrade.TestUpgradeSafety.test_same_development_version_refresh_requires_new_source_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\AgentWorkspace\Ares\50_OPERATIONS\aeh-self-host-runtime-sync\tests\upgrade\test_upgrade.py", line 263, in test_same_development_version_refresh_requires_new_source_revision
+    self.assertEqual(refreshed["status"], "UPGRADE_APPLIED", refreshed)
+AssertionError: 'BLOCKED_UPGRADE_VERSION_COLLISION' != 'UPGRADE_APPLIED'
+- BLOCKED_UPGRADE_VERSION_COLLISION
++ UPGRADE_APPLIED
+ : {'status': 'BLOCKED_UPGRADE_VERSION_COLLISION', 'target': 'D:\\AgentWorkspace\\Ares\\_scratch\\codex-runtime\\TASK-20260904-aeh-agent-driven-flow\\self-host-runtime-sync\\upgrade-test-runtime\\aeh-m3-upgrade-r3se44ys', 'error': 'BLOCKED_UPGRADE_VERSION_COLLISION: 0.3.0.dev0'}
+
+----------------------------------------------------------------------
+Ran 1 test in 3.408s
+
+FAILED (failures=1)

@@ -1,0 +1,197 @@
+generated_at: '2026-09-07T07:27:03.626727+00:00'
+non_automatable:
+- ac_id: AC-001-01
+  reason: Gate audit confirms SPEC_REVIEW, RED_GATE, and MERGE_GATE are separate human
+    decisions.
+- ac_id: AC-002-02
+  reason: Package metadata and publication audit confirm source 0.3.0.dev0, GitHub
+    release v0.2.0, and PyPI unpublished.
+- ac_id: AC-003-02
+  reason: Bounded schema diff confirms synchronization copies canonical bytes without
+    weakening semantics or approval policy.
+- ac_id: AC-004-01
+  reason: Git and provider audit confirms no SCM administration, bypass, force push,
+    tag, Release, or PyPI action.
+- ac_id: AC-005-02
+  reason: Code review confirms the regression compares static repository package inputs
+    and does not alter CI replay execution behavior.
+- ac_id: AC-006-02
+  reason: Upgrade transaction journal and exact diff prove runtime and manifest changes
+    came from the trusted Upgrade path.
+- ac_id: AC-007-02
+  reason: Bounded code and test review confirms final releases, identical revisions,
+    source-integrity failures, and downgrades remain blocked.
+regression:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\regression-runtime
+  id: REG-DOC-001
+  timeout_seconds: 180
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.upgrade.test_upgrade
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\upgrade-regression-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\upgrade-regression-runtime
+  id: REG-UPGRADE-001
+  timeout_seconds: 300
+test_files:
+- dest: tests/documentation/test_documentation.py
+  src: test_documentation.py
+- dest: tests/upgrade/test_upgrade.py
+  src: test_upgrade.py
+tests:
+- command: python -B -m unittest tests.documentation.test_documentation
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.documentation.test_documentation
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\test-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\test-runtime
+    timeout_seconds: 180
+  expected_before_fix:
+    signature: SELF_HOST_RUNTIME_DRIFT
+    type: behavior_failure
+  fixture_signatures: []
+  id: TEST-001
+  intent: Fail until the repository self-host runtime is synchronized and current
+    Agent-driven documentation is aligned.
+  kind: contract
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - .aeh/manifest.yaml
+  - .aeh/runtime/core/ci-policy.yaml
+  - .aeh/runtime/core/execution-policy.yaml
+  - .aeh/runtime/core/gates.yaml
+  - .aeh/runtime/schemas/aew-governance-adapter.schema.json
+  - .aeh/runtime/schemas/approvals.schema.json
+  - .aeh/runtime/schemas/authority-envelope.schema.json
+  - .aeh/runtime/schemas/change-lease.schema.json
+  - .aeh/runtime/schemas/change-reservation.schema.json
+  - .aeh/runtime/schemas/change.schema.json
+  - .aeh/runtime/schemas/ci-enforcement-policy.schema.json
+  - .aeh/runtime/schemas/ci-enforcement-report.schema.json
+  - .aeh/runtime/schemas/ci-policy.schema.json
+  - .aeh/runtime/schemas/ci-provider-event.schema.json
+  - .aeh/runtime/schemas/ci-provider-snapshot.schema.json
+  - .aeh/runtime/schemas/ci-report.schema.json
+  - .aeh/runtime/schemas/ci-workflow-template.schema.json
+  - .aeh/runtime/schemas/coordination-receipt.schema.json
+  - .aeh/runtime/schemas/coordination-store.schema.json
+  - .aeh/runtime/schemas/execution-policy.schema.json
+  - .aeh/runtime/schemas/manifest.schema.json
+  - .aeh/runtime/schemas/repair-plan.schema.json
+  - .aeh/runtime/schemas/repair-rule.schema.json
+  - .aeh/runtime/schemas/scm-inspection.schema.json
+  - .aeh/runtime/schemas/test-plan.schema.json
+  - .aeh/runtime/schemas/transaction-journal.schema.json
+  - .aeh/runtime/schemas/upgrade-plan.schema.json
+  - .aeh/runtime/schemas/upgrade-policy.schema.json
+  - .aeh/runtime/schemas/workspace-binding.schema.json
+  - CHANGELOG.md
+  - README.md
+  - README.zh-CN.md
+  - docs/architecture-current.md
+  - docs/documentation-contract.yaml
+  - docs/status.md
+  - tests/documentation/test_documentation.py
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  - ModuleNotFoundError
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-005-01
+  - AC-006-01
+- command: python -B -m unittest tests.upgrade.test_upgrade.TestUpgradeSafety.test_same_development_version_refresh_requires_new_source_revision
+  execution:
+    argv:
+    - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+    - -B
+    - -m
+    - unittest
+    - tests.upgrade.test_upgrade.TestUpgradeSafety.test_same_development_version_refresh_requires_new_source_revision
+    cwd: .
+    env:
+      PYTHONPATH: src
+      TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\upgrade-test-runtime
+      TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\upgrade-test-runtime
+    timeout_seconds: 180
+  expected_before_fix:
+    signature: BLOCKED_UPGRADE_VERSION_COLLISION
+    type: behavior_failure
+  fixture_signatures: []
+  id: TEST-002
+  intent: Fail until Upgrade permits a changed runtime digest for the same development
+    version only when the source revision advances.
+  kind: contract
+  required: true
+  spec_mismatch_signatures:
+  - SPEC_MISMATCH
+  targets:
+  - src/aeh/upgrade.py
+  - tests/upgrade/test_upgrade.py
+  test_defect_signatures:
+  - SyntaxError
+  - NameError
+  - ModuleNotFoundError
+  verifies:
+  - AC-007-01
+verification:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\verify-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\verify-runtime
+  id: VER-SELF-HOST-001
+  timeout_seconds: 180
+  type: integration
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-005-01
+  - AC-006-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.upgrade.test_upgrade.TestUpgradeSafety.test_same_development_version_refresh_requires_new_source_revision
+  cwd: .
+  env:
+    PYTHONPATH: src
+    TEMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\upgrade-verify-runtime
+    TMP: D:\AgentWorkspace\Ares\_scratch\codex-runtime\TASK-20260904-aeh-agent-driven-flow\self-host-runtime-sync\upgrade-verify-runtime
+  id: VER-UPGRADE-001
+  timeout_seconds: 180
+  type: contract
+  verifies:
+  - AC-007-01

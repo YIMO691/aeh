@@ -52,6 +52,20 @@ def _version(value):
     return int(major), int(minor), int(patch), release_rank, dev_number
 
 
+def _same_development_refresh_allowed(source_version, destination_version,
+                                      source_revision, destination_revision):
+    """Allow an unreleased dev snapshot to advance without weakening releases."""
+    source_match = _VERSION_RE.match(str(source_version))
+    destination_match = _VERSION_RE.match(str(destination_version))
+    return bool(
+        source_match and destination_match and
+        source_match.group(4) is not None and
+        destination_match.group(4) is not None and
+        str(source_version) == str(destination_version) and
+        str(source_revision) != str(destination_revision)
+    )
+
+
 def _endpoint(version, revision, digest):
     return {
         "harness_version": str(version),
@@ -163,7 +177,11 @@ def _build_plan(target, apply, destination_revision, ae_root):
     if source_semver > destination_semver:
         raise UpgradeError("BLOCKED_UPGRADE_DOWNGRADE: %s -> %s" %
                            (source_version, bp.HARNESS_VERSION))
-    if source_semver == destination_semver and expected_runtime != destination_runtime:
+    if (source_semver == destination_semver and
+            expected_runtime != destination_runtime and
+            not _same_development_refresh_allowed(
+                source_version, bp.HARNESS_VERSION,
+                installed_revision, destination_revision)):
         raise UpgradeError("BLOCKED_UPGRADE_VERSION_COLLISION: %s" % source_version)
 
     source = _endpoint(source_version, installed_revision, expected_runtime)

@@ -2,12 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AEH to Agent Engineering Workspace Governance Adapter",
   "type": "object",
-  "required": ["status", "contract", "version", "read_only", "network_used", "external_refs", "governance", "source", "artifacts", "metadata"],
+  "required": ["status", "contract", "version", "read_only", "network_used", "external_refs", "governance", "source", "artifacts", "metadata", "coordination"],
   "additionalProperties": false,
   "properties": {
     "status": {"const": "EXPORT_COMPLETE"},
     "contract": {"const": "aeh.aew-governance-adapter"},
-    "version": {"const": 1},
+    "version": {"const": 2},
     "read_only": {"const": true},
     "network_used": {"const": false},
     "external_refs": {
@@ -66,6 +66,21 @@
           "path": {"type": "string", "minLength": 1},
           "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
         }
+      }
+    },
+    "coordination": {
+      "type": "object",
+      "required": ["protocol_version", "state", "repository_id_sha256", "workspace_id_sha256", "lease_revision", "last_truth_hash", "last_receipt_digest"],
+      "additionalProperties": false,
+      "properties": {
+        "protocol_version": {"const": 1},
+        "state": {"enum": ["NOT_ACTIVATED", "ACTIVE", "RELEASED", "RECOVERED", "BLOCKED"]},
+        "repository_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "workspace_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "lease_revision": {"type": ["integer", "null"], "minimum": 1},
+        "last_truth_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "last_receipt_digest": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "external_workspace_ref_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
       }
     },
     "metadata": {
