@@ -1,0 +1,52 @@
+change_id: CHG-2026-0009
+classification:
+  escalated: false
+  evidence:
+  - hits=protocol_compatibility
+  level: CRITICAL
+  reasons:
+  - 'hard_escalation: protocol_compatibility'
+  suggested_level: CRITICAL
+created_at: '2026-09-06T17:20:11.329527+00:00'
+gates:
+  classification: PASS
+  green: PASS
+  grounding: PASS
+  lock_test: PASS
+  red: PASS
+  spec: PASS
+  test_design: PASS
+  verify: PASS
+preflight_warnings:
+- 'guidance-only deny fields for codex: permissions.git_push'
+- 'guidance-only deny fields for claude: permissions.web_access'
+- single-host local-filesystem coordination is not activated
+- workflow not provided to preflight
+state:
+  current: REVIEW
+  previous: REGRESSION
+title: Synchronize the self-host runtime protocol snapshot and align current Agent-driven
+  documentation
+workflow:
+  level: CRITICAL
+  phases:
+  - INTAKE
+  - CLASSIFY
+  - GROUND
+  - SPEC
+  - HUMAN_SPEC_APPROVAL
+  - DESIGN
+  - TEST_DESIGN
+  - RED
+  - VALIDATE_RED
+  - LOCK_TEST
+  - HUMAN_CI_RED_GATE
+  - GREEN
+  - REFACTOR
+  - INTEGRATION
+  - RUNTIME_PLATFORM_VERIFY
+  - REGRESSION
+  - REVIEW
+  - DRIFT_CHECK
+  - HUMAN_MERGE_APPROVAL
+  - ARCHIVE

@@ -245,16 +245,27 @@ class TestUpgradeSafety(UpgradeBase):
         result = upgrade.run_upgrade(target, apply=True)
         self.assertEqual(result["status"], "BLOCKED_UPGRADE_DOWNGRADE", result)
 
-    def test_same_version_different_runtime_blocks_collision(self):
+    def test_same_development_version_refresh_requires_new_source_revision(self):
         target = self.make_v01()
         manifest_path = Path(target, ".aeh", "manifest.yaml")
         manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
         manifest["harness"]["version"] = "0.3.0.dev0"
+        manifest["harness"]["source_revision"] = "same-revision"
         manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=True), encoding="utf-8")
         before = tree_hashes(target)
-        result = upgrade.run_upgrade(target, apply=True)
-        self.assertEqual(result["status"], "BLOCKED_UPGRADE_VERSION_COLLISION", result)
+        blocked = upgrade.run_upgrade(
+            target, apply=True, source_revision="same-revision")
+        self.assertEqual(blocked["status"], "BLOCKED_UPGRADE_VERSION_COLLISION", blocked)
         self.assertEqual(tree_hashes(target), before)
+
+        refreshed = upgrade.run_upgrade(
+            target, apply=True, source_revision="next-development-revision")
+        self.assertEqual(refreshed["status"], "UPGRADE_APPLIED", refreshed)
+        upgraded = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            upgraded["harness"]["source_revision"],
+            "next-development-revision",
+        )
 
     def test_unsupported_version_and_foreign_harness_block(self):
         for field, value, expected in (

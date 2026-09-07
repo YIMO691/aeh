@@ -2,13 +2,22 @@ compiler:
   version: 0.1.0
 harness:
   name: adaptive-engineering-harness
-  source_revision: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+  source_revision: d167b3ad899159cec809ef1819671b03b3838ffc
   version: 0.3.0.dev0
 installed_at: '2026-08-28T02:14:31.031358+00:00'
 schema:
   version: '1'
 source_hashes:
-  adapters: f6f0ab3508bf0fc5251701503e4f7aa46a28eb96ac1c76c7fba1eea87af32db9
-  bootstrap_contract: 9132ea6276f420a171fb8c13fbe8208ba029698d13ad981a5e1463bf2051d42a
-  compiler: eb4202ad81fe43aec538ae030af2bf3e26428db05d7d9cea5d49ca7903d0a81f
-  runtime: 25923db4b02a5d69669783d711d1a871168ad8db63a906a0360b8a92861f4303
+  adapters: 3cb20daafb4f23599f5223661da49933626400446d2a08256b92dcd100188793
+  bootstrap_contract: 8cfaac6026281a7da158733047e52238a66d15c200def2824f4238fb0a255f41
+  compiler: d815658c16a1a230e3e9c1b6bf8df21c2291067d43eec816464828a5418ca6a9
+  runtime: d1bc3151ba5ae708c10e33938e3d54af4180ef687a2f908f4dfba81992b845aa
+upgrade_history:
+- from:
+    harness_version: 0.3.0.dev0
+    runtime_digest: 25923db4b02a5d69669783d711d1a871168ad8db63a906a0360b8a92861f4303
+    source_revision: 8e993ce5a42355dd872fd4eacfcc5474d7429037
+  to:
+    harness_version: 0.3.0.dev0
+    runtime_digest: d1bc3151ba5ae708c10e33938e3d54af4180ef687a2f908f4dfba81992b845aa
+    source_revision: d167b3ad899159cec809ef1819671b03b3838ffc

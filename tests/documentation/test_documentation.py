@@ -1,14 +1,67 @@
+import json
 import subprocess
 import sys
 import unittest
 from pathlib import Path
 
+import jsonschema
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "src"))
+
+from aeh.bootstrap import pipeline as bootstrap  # noqa: E402
 
 
 class DocumentationContractTests(unittest.TestCase):
     def test_current_claims_and_links_are_consistent(self) -> None:
+        source_digest = bootstrap.compute_digests(str(ROOT))["runtime"]
+        installed_digest = bootstrap.runtime_digest_at(str(ROOT))
+        manifest = yaml.safe_load(
+            (ROOT / ".aeh" / "manifest.yaml").read_text(encoding="utf-8")
+        )
+        manifest_digest = manifest["source_hashes"]["runtime"]
+        source_schema = ROOT / "schemas" / "change.schema.json"
+        installed_schema = ROOT / ".aeh" / "runtime" / "schemas" / "change.schema.json"
+
+        self.assertEqual(
+            source_digest,
+            installed_digest,
+            "SELF_HOST_RUNTIME_DRIFT: canonical source and installed runtime differ",
+        )
+        self.assertEqual(
+            source_digest,
+            manifest_digest,
+            "SELF_HOST_RUNTIME_DRIFT: canonical source and manifest runtime digest differ",
+        )
+        self.assertEqual(
+            source_schema.read_bytes(),
+            installed_schema.read_bytes(),
+            "SELF_HOST_RUNTIME_DRIFT: installed Change schema differs from source",
+        )
+        schema = json.loads(installed_schema.read_text(encoding="utf-8"))
+        jsonschema.validate(
+            {
+                "change_id": "CHG-2026-9999",
+                "classification": {
+                    "level": "STANDARD",
+                    "reasons": ["suggested_level: STANDARD"],
+                    "keyword_hints": [],
+                    "facts": {
+                        "paths": ["README.md"],
+                        "sensitive_domains": [],
+                        "reversible": True,
+                        "evidence": ["scoped repository fact"],
+                    },
+                    "downgrade_blocked": False,
+                },
+                "state": {"current": "INTAKE"},
+                "gates": {"classification": "PASS"},
+            },
+            schema,
+        )
+
         result = subprocess.run(
             [sys.executable, str(ROOT / "scripts" / "check_docs.py")],
             cwd=ROOT,
@@ -42,7 +95,7 @@ class DocumentationContractTests(unittest.TestCase):
         for relative in required_files:
             self.assertTrue(
                 (ROOT / relative).is_file(),
-                f"CODEx_USER_GUIDE_CONTRACT: missing {relative}",
+                f"AGENT_FLOW_DOC_ALIGNMENT: missing {relative}",
             )
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -54,20 +107,52 @@ class DocumentationContractTests(unittest.TestCase):
             "STANDARD",
             "CRITICAL",
             "Codex",
+            "Agent-driven flow",
+            "418 tests",
+            "414 passed",
         ):
-            self.assertIn(marker, readme, f"CODEx_USER_GUIDE_CONTRACT: README missing {marker}")
+            self.assertIn(marker, readme, f"AGENT_FLOW_DOC_ALIGNMENT: README missing {marker}")
+
+        chinese = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+        for marker in ("Agent-driven flow", "418 个", "414 个通过"):
+            self.assertIn(marker, chinese, f"AGENT_FLOW_DOC_ALIGNMENT: Chinese README missing {marker}")
 
         status = (ROOT / "docs" / "status.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        for body, name in ((status, "status"), (changelog, "changelog")):
+            for marker in (
+                "PR #24",
+                "d167b3ad899159cec809ef1819671b03b3838ffc",
+                "34044290320",
+                "418",
+                "414",
+            ):
+                self.assertIn(marker, body, f"AGENT_FLOW_DOC_ALIGNMENT: {name} missing {marker}")
+
+        architecture = (ROOT / "docs" / "architecture-current.md").read_text(encoding="utf-8")
         for marker in (
-            "PR #22",
-            "debf35196ce5b9f649e6ff270327854224fccaee",
-            "33745066439",
+            "Agent decision layer",
+            "scoped facts",
+            "CONTINUE",
+            "WAITING_FOR_AUTHORITY",
+            "BLOCKED",
+            "COMPLETE",
         ):
-            self.assertIn(marker, status, f"CODEx_USER_GUIDE_CONTRACT: status missing {marker}")
+            self.assertIn(marker, architecture, f"AGENT_FLOW_DOC_ALIGNMENT: architecture missing {marker}")
+
+        contract = (ROOT / "docs" / "documentation-contract.yaml").read_text(encoding="utf-8")
+        for marker in (
+            "latest_feature_pr: 'PR #24'",
+            "latest_feature_merge: d167b3ad899159cec809ef1819671b03b3838ffc",
+            "latest_feature_postmerge_run: '34044290320'",
+            "local_tests_discovered: 418",
+            "local_tests_passed: 414",
+        ):
+            self.assertIn(marker, contract, f"AGENT_FLOW_DOC_ALIGNMENT: contract missing {marker}")
 
         roadmap = (ROOT / "docs" / "roadmap-v0.2.md").read_text(encoding="utf-8")
-        self.assertIn("COMPLETED", roadmap, "CODEx_USER_GUIDE_CONTRACT: roadmap not completed")
-        self.assertIn("VERSION-BOUND", roadmap, "CODEx_USER_GUIDE_CONTRACT: roadmap not version-bound")
+        self.assertIn("COMPLETED", roadmap, "AGENT_FLOW_DOC_ALIGNMENT: roadmap not completed")
+        self.assertIn("VERSION-BOUND", roadmap, "AGENT_FLOW_DOC_ALIGNMENT: roadmap not version-bound")
 
 
 if __name__ == "__main__":

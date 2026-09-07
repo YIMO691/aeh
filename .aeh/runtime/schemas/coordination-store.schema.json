@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEH Coordination Store Contract",
+  "type": "object",
+  "required": [
+    "contract", "version", "repository_id_sha256", "revision",
+    "last_observed_at", "reservations", "change_leases",
+    "workspace_bindings", "last_receipt_digest"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {"const": "coordination.store"},
+    "version": {"const": 1},
+    "repository_id_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "revision": {"type": "integer", "minimum": 0},
+    "last_observed_at": {"type": "string", "format": "date-time"},
+    "reservations": {"type": "array", "maxItems": 10000, "items": {"type": "object"}},
+    "change_leases": {"type": "array", "maxItems": 10000, "items": {"type": "object"}},
+    "workspace_bindings": {"type": "array", "maxItems": 10000, "items": {"type": "object"}},
+    "last_receipt_digest": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      ]
+    }
+  }
+}

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Add the Agent-driven flow: scoped classification facts make title keywords
+  advisory, the Agent selects the lightest supported workflow without asking
+  users to choose internal stages, and `aeh change continue` reports only
+  `CONTINUE`, `WAITING_FOR_AUTHORITY`, `BLOCKED`, or `COMPLETE` while preserving
+  human Gate and external authority boundaries.
+- Merge the Agent-driven flow through PR #24 as
+  `d167b3ad899159cec809ef1819671b03b3838ffc`; exact-main run `34044290320`
+  passed all six Ubuntu/Windows jobs. The source baseline remains 418 tests:
+  414 passed and 4 expected platform skips.
 - Complete the M6.3 bounded local coordination milestone with stable shared
   Change snapshots, token-free status/CI/AEW readers, AEW governance adapter
   v2 coordination provenance, real spawned-process reader/writer/crash tests,

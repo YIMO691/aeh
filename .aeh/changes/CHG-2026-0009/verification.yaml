@@ -1,0 +1,125 @@
+overall: READY_WITH_WARNINGS
+red:
+  actual_failure:
+    category: behavior
+    signature: SELF_HOST_RUNTIME_DRIFT
+  command: python -B -m unittest tests.documentation.test_documentation
+  exit_code: 1
+  expected_failure:
+    category: behavior
+    signature: SELF_HOST_RUNTIME_DRIFT
+  output_hash: d21c8e5b097cc7534bb2985aeea91fbe06cd67a1e77a69d506986fe3dece9d5d
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\red-TEST-001.log
+  repository_state:
+    base_commit: d167b3ad899159cec809ef1819671b03b3838ffc
+    changed_files_hash: b0b711dad2353b845d6aa9a5e2ea60d7e404a271f54e8aaa3e9deccfbbbfc394
+    test_files_hash: b0b711dad2353b845d6aa9a5e2ea60d7e404a271f54e8aaa3e9deccfbbbfc394
+  test_id: TEST-001
+  verdict: VALID_RED
+results:
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-001
+  method: automated_test
+  output_hash: 6d8aca2507c16d92b43cdf9c172debda241ca2fefb0c53a352378f4487d25eec
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-1.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-005-01
+  - AC-006-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.upgrade.test_upgrade.TestUpgradeSafety.test_same_development_version_refresh_requires_new_source_revision
+  exit_code: 0
+  id: VER-002
+  method: automated_test
+  output_hash: d9f23c514990de306877f8a270c394b2b973d0800a85c26c06a2d6cfaa0f76c5
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-2.log
+  status: pass
+  type: target_test
+  verdict: pass
+  verifies:
+  - AC-007-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-003
+  method: automated_test
+  output_hash: 54fbb27acbb4be2375165e7eb29a69882e3722b2049f747c6f1bfdf2479134bf
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-reg-3.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.upgrade.test_upgrade
+  exit_code: 0
+  id: VER-004
+  method: automated_test
+  output_hash: dc6412e1d8890f1d8561ca39816b5a598d5185347c9ad7718f6c4aeb08501679
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-reg-4.log
+  status: pass
+  type: regression
+  verdict: pass
+  verifies: []
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.documentation.test_documentation
+  exit_code: 0
+  id: VER-005
+  method: automated_test
+  output_hash: 1cd849e6187ba0400c6ff66a809e505f87d04c09e7d8e546f711455ba3647868
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-v-5.log
+  status: pass
+  type: integration
+  verdict: pass
+  verifies:
+  - AC-002-01
+  - AC-003-01
+  - AC-005-01
+  - AC-006-01
+- argv:
+  - C:\Users\Yimo\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+  - -B
+  - -m
+  - unittest
+  - tests.upgrade.test_upgrade.TestUpgradeSafety.test_same_development_version_refresh_requires_new_source_revision
+  exit_code: 0
+  id: VER-006
+  method: automated_test
+  output_hash: 5ace0a6a00bbb29538a3850d60cde38a8dee2716f08bb7e9ccc58bc97bb4cf1f
+  output_ref: .aeh\changes\CHG-2026-0009\evidence\verify-v-6.log
+  status: pass
+  type: contract
+  verdict: pass
+  verifies:
+  - AC-007-01
+verified_at: '2026-09-07T07:40:55.460167+00:00'
+warnings:
+- MERGE_GATE is delegated to the authenticated SCM merge action; no HMAC identity
+  claim is made
+- MERGE_GATE approval has no expiry
+- CRITICAL MERGE_GATE approved by user
